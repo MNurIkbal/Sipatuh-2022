@@ -260,6 +260,7 @@ $routes->post('login', 'LoginController::index');
     $routes->get("paket_selesai_user","UserManagementControllerBaru::paket_selesai_user");
     $routes->get("detail_paket_user/(:any)","UserManagementControllerBaru::detail_paket_user/$1");
     $routes->get("detail_jamaah_aktif/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_aktif/$1/$2");
+    $routes->get("detail_jamaah_diri/(:any)/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_diri/$1/$2/$3");
     $routes->post("/profile_insert","UserManagementControllerBaru::profile_insert");
 
     // cabang

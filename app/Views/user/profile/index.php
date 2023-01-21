@@ -374,7 +374,7 @@
                     </div>
                     
                     <div class="mb-3">
-                      <label for="">Jenis Pekerjaan</label>]
+                      <label for="">Jenis Pekerjaan</label>
                       <br>
                       <select name="jenis_pekerjaan" class="form-control select2" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>

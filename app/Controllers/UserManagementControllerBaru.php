@@ -435,6 +435,28 @@ class UserManagementControllerBaru extends BaseController
         return view('user/paket/jamaah',$data);
     }
 
+    public function detail_jamaah_diri($id_jamaah,$id_paket,$id_kloter)
+    {
+     
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id',$id_paket)->first();
+        $kloters = $kloter->where("id",$id_kloter)->first();
+        $jamaah = new JamaahModel();
+        $jamaahs = $jamaah->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->where("status_approve",null)->where("user_id",session()->get('id'))->where("id",$id_jamaah)->first();
+
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'id_jamaah' =>  $id_jamaah,
+            'kloter'    =>  $kloters,
+            'main'    =>  $jamaahs
+        ];
+
+        return view('user/paket/detail_diri',$data);
+    }
+
     public function profile_insert()
     {
         
