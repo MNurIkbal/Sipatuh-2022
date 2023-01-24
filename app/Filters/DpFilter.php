@@ -25,7 +25,12 @@ class DpFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        // echo "ok";
+        
+        $login = session()->get('login');
+        if (!isset($login))
+	    {
+	        return redirect()->to("/masuk")->with('error', "Invalid Credential");
+	    }
     }
 
     /**

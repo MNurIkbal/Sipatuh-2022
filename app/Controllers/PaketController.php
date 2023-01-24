@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\AsuransiModel;
 use App\Models\BandaraModel;
+use App\Models\BankModel;
 use App\Models\CabangModel;
 use App\Models\DataHotelModel;
 use App\Models\DataProviderModel;
@@ -36,6 +37,7 @@ class PaketController extends BaseController
         $asuransi = new AsuransiModel();
         $kloter = new KloterModel();
         $petugas = new PetugasManModel();
+        $rekening_penampung = new BankModel();
         
         if(session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
@@ -52,6 +54,7 @@ class PaketController extends BaseController
         
         $data = [
             'title' =>  "Paket",
+            'rekening_penampung'    => $rekening_penampung->where("travel_id",session()->get("travel_id"))->where("status","aktif")->findAll(),
             'kloter'    =>  $kloter->findAll(),
             'result'    =>  $datapaket,
             'provider'  =>  $data_provider->orderBy('nama_provider','ASC')->findAll(),
@@ -130,6 +133,7 @@ class PaketController extends BaseController
                 'tour_leader'   =>  $this->request->getVar('leader'),
                 'cabang_id' =>  $cabang,
                 'cabang'    =>  $cabang_baru,
+                'rekening_penampung_id' =>  $this->request->getVar('rekening_penampung')
             ]);
     
             return redirect()->to("/paket")->with("success","Data Berhasil Ditambahkan");

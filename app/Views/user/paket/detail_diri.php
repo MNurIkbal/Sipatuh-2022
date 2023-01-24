@@ -116,7 +116,6 @@
                         </div>
                         <div class="col-md-6 mt-5">
                             <li class="list-group-item active">Informasi Visa</li>
-                                 <!-- <li class="list-group-item">Status Bayar : <span class="badge badge-pill badge-primary"><?=  $main['status_bayar'];  ?></span></li> -->
                             <li class="list-group-item">Nomor Visa : <?=  $main['nomor_visa'];  ?></li>
                             <li class="list-group-item">Tanggal Awal Visa : <?=  $main['tgl_awal_visa'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Visa : <?=  $main['tgl_akhir_visa'];  ?></li>
@@ -139,25 +138,25 @@
                             </li>
                             <div class="row">
                                 <div class="col-md-6 mt-3">
-                                    <li class="list-group-item">Nama Paket :</li>
-                                    <li class="list-group-item">Periode : </li>
-                                    <li class="list-group-item">Tahun : </li>
-                                    <li class="list-group-item">Keterangan Berangkat : </li>
-                                    <li class="list-group-item">Keterangan Pulang : </li>
-                                    <li class="list-group-item">Tour Leader : </li>
-                                    <li class="list-group-item">Kloter : </li>
-                                    <li class="list-group-item">No Tiket Berangkat : </li>
-                                    <li class="list-group-item">No Tiket Pulang : </li>
-                                    <li class="list-group-item">No Tiket : </li>
-                                    <li class="list-group-item">No Kursi : </li>
+                                    <li class="list-group-item">Nama Paket : <?= $paket['nama']; ?></li>
+                                    <li class="list-group-item">Periode : <?= date("d, F Y",strtotime($paket['tgl_berangkat'])) . " - " . date("d, F Y",strtotime($paket['tgl_pulang'])); ?></li>
+                                    <li class="list-group-item">Tahun : <?= $paket['tahun']; ?></li>
+                                    <li class="list-group-item">Keterangan Berangkat : <?= $paket['ket_berangkat']; ?></li>
+                                    <li class="list-group-item">Keterangan Pulang : <?= $paket['ket_pulang']; ?></li>
+                                    <li class="list-group-item">Tour Leader : <?= $paket['tour_leader']; ?></li>
+                                    <li class="list-group-item">Kloter : <?= $kloter['nama']; ?></li>
+                                    <li class="list-group-item">No Tiket Berangkat : <?= $main['tiket_cgk_med']; ?></li>
+                                    <li class="list-group-item">No Tiket Pulang : <?= $main['tiket_med_gk']; ?></li>
+                                    <li class="list-group-item">No Kursi : <?= $main['no_kursi']; ?></li>
+                                    <li class="list-group-item">Rekening Penampung : </li>
                                 </div>
                                 <div class="col-md-6 mt-3">
-                                    <li class="list-group-item">Nama Perusahaan :</li>
-                                    <li class="list-group-item">Nama Travel : </li>
-                                    <li class="list-group-item">No Telephone: </li>
-                                    <li class="list-group-item">No Hp: </li>
-                                    <li class="list-group-item">Email : </li>
-                                    <li class="list-group-item">Website : </li>
+                                    <li class="list-group-item">Nama Perusahaan : <?= $perusahaan['nama_perusahaan']; ?></li>
+                                    <li class="list-group-item">Nama Travel : <?= $perusahaan['nama_travel_umrah']; ?></li>
+                                    <li class="list-group-item">No Telephone: <?= $perusahaan['no_telp'] ?></li>
+                                    <li class="list-group-item">No Hp: <?= $perusahaan['no_hp']; ?></li>
+                                    <li class="list-group-item">Email : <?= $perusahaan['email']; ?></li>
+                                    <li class="list-group-item">Website : <?= $perusahaan['website']; ?></li>
                                 </div>
                             </div>
                         </div>

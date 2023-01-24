@@ -14,7 +14,7 @@ class PaketModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["id","nama","biaya","status","tahun","tgl_berangkat","tgl_pulang","provider","asuransi","ket_berangkat","ket_pulang","kode_paket","user_id","pemberangkatan","tiket_cgk_med","tiket_cgk_med","travel_id",'poster','kelengkapan','tiket','tour_leader','cabang_id','status_paket_cabang','cabang','status_approve'];
+    protected $allowedFields    = ["id","nama","biaya","status","tahun","tgl_berangkat","tgl_pulang","provider","asuransi","ket_berangkat","ket_pulang","kode_paket","user_id","pemberangkatan","tiket_cgk_med","tiket_cgk_med","travel_id",'poster','kelengkapan','tiket','tour_leader','cabang_id','status_paket_cabang','cabang','status_approve','rekening_penampung_id'];
 
     // Dates
     protected $useTimestamps = false;

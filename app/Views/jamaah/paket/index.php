@@ -151,6 +151,16 @@
                             <label for="">Poster</label>
                             <input type="file" class="form-control" required  name="file">
                         </div>
+                        <div class="mb-3">
+                            <label for="">Rekening Penampung</label>
+                            <br>
+                            <select style="width: 100% !important;" name="rekening_penampung" id="rekening" class="form-control rekening" required>
+                                <option value="">Pilih</option>
+                                <?php foreach($rekening_penampung as $ttr) : ?>
+                                    <option value="<?= $ttr['id']; ?>"><?= $ttr['bank'] .  ' / '. $ttr['no_rekening'] . ' / '. $ttr['nama']; ?></option>
+                                    <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -180,7 +190,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Asuransi</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Asuransi" name="asuransi"> -->
+                            
                             <select name="asuransi" required class="form-control select22" style="width: 100% !important;" id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($asuransi as $main_asurasi) : ?>
@@ -190,7 +200,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Tour Leader</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Tour Leader" name="leader"> -->
+                            
                             <select name="leader" class="form-control select23" style="width: 100% !important;" required id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($petugas as $petugass ) : ?>
@@ -282,6 +292,7 @@
                             <input type="hidden" name="file_lama" value="<?=  $main['poster'];  ?>">
                             <input type="file" class="form-control" name="file">
                         </div>
+                       
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -351,7 +362,7 @@
 <script>
     const pulang = document.getElementById("pulang")
     pulang.addEventListener("keydown",function(e) {
-        alert("ok")
+        // alert("ok")
     })
     var uang = document.getElementById("uang");
     uang.addEventListener("keyup", function (e) {
@@ -396,6 +407,9 @@
         dropdownParent: $('#exampleModal')
     })
     $(".select23").select2({
+        dropdownParent: $('#exampleModal')
+    })
+    $(".rekening").select2({
         dropdownParent: $('#exampleModal')
     })
     $(document).ready(function () {

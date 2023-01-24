@@ -442,6 +442,8 @@ class UserManagementControllerBaru extends BaseController
         $kloter = new KloterModel();
         $pakets = $paket->where('id',$id_paket)->first();
         $kloters = $kloter->where("id",$id_kloter)->first();
+        $profile = new ProfileModel();
+        $data_profile = $profile->where("id",$pakets['travel_id'])->first();
         $jamaah = new JamaahModel();
         $jamaahs = $jamaah->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->where("status_approve",null)->where("user_id",session()->get('id'))->where("id",$id_jamaah)->first();
 
@@ -451,10 +453,250 @@ class UserManagementControllerBaru extends BaseController
             'paket' =>  $pakets,
             'id_jamaah' =>  $id_jamaah,
             'kloter'    =>  $kloters,
-            'main'    =>  $jamaahs
+            'main'    =>  $jamaahs,
+            'perusahaan'    =>  $data_profile
         ];
 
         return view('user/paket/detail_diri',$data);
+    }
+
+    public function checkout($id_jamaah,$id_paket,$id_kloter)
+    {
+     
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id',$id_paket)->first();
+        $kloters = $kloter->where("id",$id_kloter)->first();
+        $profile = new ProfileModel();
+        $data_profile = $profile->where("id",$pakets['travel_id'])->first();
+        $jamaah = new JamaahModel();
+        $jamaahs = $jamaah->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->where("status_approve",null)->where("user_id",session()->get('id'))->where("id",$id_jamaah)->first();
+        $bank = new BankModel();
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'id_jamaah' =>  $id_jamaah,
+            'kloter'    =>  $kloters,
+            'main'    =>  $jamaahs,
+            'bank'  =>  $bank->where("id",$pakets['rekening_penampung_id'])->first(),
+            'perusahaan'    =>  $data_profile
+        ];
+
+return view('user/paket/pembayaran',$data);
+    }
+
+    public function insert_checkout()
+    {
+        
+        $metode = $this->request->getVar("metode");
+        $catatan = htmlspecialchars($this->request->getVar("catatan"),true);
+        $bayar = str_replace(".", "", $this->request->getVar("bayar"));
+        $id_paket = $this->request->getVar("id_paket");
+        $id_jamaah = $this->request->getVar("id_jamaah");
+        $id_kloter = $this->request->getVar("id_kloter");
+
+        $paket = new PaketModel();
+        $result = $paket->where('id',$id_paket)->first();
+        $kloter = new KloterModel();
+        $jamaah = new JamaahModel();
+        $bukti = new BuktiModel();
+
+        $result_jamaah = $jamaah->where("id",$id_jamaah)->first();
+        $result_kloter = $kloter->where("id",$id_kloter)->first();
+        
+        if($metode == "DP") {
+            $now = date("Y-m-d H:i:s");
+            $seminggu = date("+7 day",strtotime($now));
+
+            if(empty($result['status_bayar'])) {
+                $jamaah->update($id_jamaah,[
+                    'tgl_bayar' =>  date("Y-m-d"),
+                        'rekening_penampung' =>  $this->request->getVar("rek"),
+                        'status_bayar' =>  $metode,
+                        // 'keterangan_bayar' =>  $catatan,
+                        // 'nominal_pembayaran'     => $bayar,
+                        // 'bukti_pembayaran'  =>  $foto,
+                        // 'sisa_pembayaran'   =>  $sisa,
+                        'expired_bayar_dp'  =>  $seminggu
+                ]);
+                $status = true;
+            } elseif(empty($result['bukti_pembayaran'])) {
+                if(!$this->validate([
+                    'file' => [
+                        "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                    ],
+                ])) {
+                    session()->setFlashdata('error', "File Input Invalid");
+                        return redirect()->back()->withInput();
+                }
+        
+                $dataBerkas = $this->request->getFile('file');
+                    if ($dataBerkas->getError() === 4) {
+                        session()->setFlashdata('error', "File Harus di isi");
+                        return redirect()->back()->withInput();
+                    } else {
+                        $fileName = $dataBerkas->getRandomName();
+                        $foto = $fileName;
+                        $dataBerkas->move('assets/upload/', $fileName);
+                    }
+                    $int_bayar = (int)$result['biaya'];
+        if($bayar > $int_bayar) {
+            return redirect()->back()->with('error','Pembayaran Melebihi Biaya Paket');
+        }
+
+        $sisa = $int_bayar - $bayar;
+                $jamaah->update($id_jamaah,[
+                        'keterangan_bayar' =>  $catatan,
+                        'nominal_pembayaran'     => $bayar,
+                        'bukti_pembayaran'  =>  $foto,
+                        'sisa_pembayaran'   =>  $sisa,
+                ]);
+                $status = true;
+            } elseif(!empty($result['bukti_pembayaran'])) {
+                if(!$this->validate([
+                    'file' => [
+                        "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                    ],
+                ])) {
+                    session()->setFlashdata('error', "File Input Invalid");
+                        return redirect()->back()->withInput();
+                }
+        
+                $dataBerkas = $this->request->getFile('file');
+                    if ($dataBerkas->getError() === 4) {
+                        session()->setFlashdata('error', "File Harus di isi");
+                        return redirect()->back()->withInput();
+                    } else {
+                        $fileName = $dataBerkas->getRandomName();
+                        $foto = $fileName;
+                        $dataBerkas->move('assets/upload/', $fileName);
+                    }
+                    $int_bayar = (int)$result['biaya'];
+        if($bayar > $int_bayar) {
+            return redirect()->back()->with('error','Pembayaran Melebihi Biaya Paket');
+        }
+
+        $sisa = $int_bayar - $bayar;
+                $bukti->insert([
+                    'nominal' =>    $bayar,
+                    'sisa'  =>  $sisa,
+                    'bukti' =>  $foto,
+                    'created'   =>  date("Y-m-d"),
+                    'jamaah_id' =>  $id_jamaah,
+                    'rekening_penampung'    =>  $this->request->getVar('rek'),
+                    'keterangan'    =>  $catatan,
+                    'paket_id'  =>  $id_paket,
+                    'kloter_id' =>  $id_kloter
+                ]);
+                $status = true;
+            }
+            if($status == true) {
+                return redirect()->to("detail_jamaah_aktif/$id_paket/$id_kloter")->with('success','Berhasil Membayar');
+            } else {
+                return redirect()->back()->with('error','Gagal Membayar');
+
+            }
+        } elseif($metode == "cicil") {
+            if(!$this->validate([
+                'file' => [
+                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                ],
+            ])) {
+                session()->setFlashdata('error', "File Input Invalid");
+                    return redirect()->back()->withInput();
+            }
+    
+            $dataBerkas = $this->request->getFile('file');
+                if ($dataBerkas->getError() === 4) {
+                    session()->setFlashdata('error', "File Harus di isi");
+                    return redirect()->back()->withInput();
+                } else {
+                    $fileName = $dataBerkas->getRandomName();
+                    $foto = $fileName;
+                    $dataBerkas->move('assets/upload/', $fileName);
+                }
+                $int_bayar = (int)$result['biaya'];
+        if($bayar > $int_bayar) {
+            return redirect()->back()->with('error','Pembayaran Melebihi Biaya Paket');
+        }
+
+        $sisa = $int_bayar - $bayar;
+            if(!empty($result_jamaah['status_bayar'])) {
+                $jamaah->update($id_jamaah,[
+                    'tgl_bayar' =>  date("Y-m-d"),
+                        'rekening_penampung' =>  $this->request->getVar("rek"),
+                        'status_bayar' =>  $metode,
+                        'keterangan_bayar' =>  $catatan,
+                        'nominal_pembayaran'     => $bayar,
+                        'bukti_pembayaran'  =>  $foto,
+                        'sisa_pembayaran'   =>  $sisa,
+                ]);
+            } else {
+                $bukti->insert([
+                    'nominal' =>    $bayar,
+                    'sisa'  =>  $sisa,
+                    'bukti' =>  $foto,
+                    'created'   =>  date("Y-m-d"),
+                    'jamaah_id' =>  $id_jamaah,
+                    'rekening_penampung'    =>  $this->request->getVar('rek'),
+                    'keterangan'    =>  $catatan,
+                    'paket_id'  =>  $id_paket,
+                    'kloter_id' =>  $id_kloter
+                ]);
+            }
+            
+        } elseif($metode == "lunas") {
+            if(!$this->validate([
+                'file' => [
+                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                ],
+            ])) {
+                session()->setFlashdata('error', "File Input Invalid");
+                    return redirect()->back()->withInput();
+            }
+    
+            $dataBerkas = $this->request->getFile('file');
+                if ($dataBerkas->getError() === 4) {
+                    session()->setFlashdata('error', "File Harus di isi");
+                    return redirect()->back()->withInput();
+                } else {
+                    $fileName = $dataBerkas->getRandomName();
+                    $foto = $fileName;
+                    $dataBerkas->move('assets/upload/', $fileName);
+                }
+                $int_bayar = (int)$result['biaya'];
+        if($bayar > $int_bayar) {
+            return redirect()->back()->with('error','Pembayaran Melebihi Biaya Paket');
+        }
+
+        $sisa = $int_bayar - $bayar;
+            if(!empty($result_jamaah['status_bayar'])) {
+                $jamaah->update($id_jamaah,[
+                    'tgl_bayar' =>  date("Y-m-d"),
+                        'rekening_penampung' =>  $this->request->getVar("rek"),
+                        'status_bayar' =>  $metode,
+                        'keterangan_bayar' =>  $catatan,
+                        'nominal_pembayaran'     => $bayar,
+                        'bukti_pembayaran'  =>  $foto,
+                        'sisa_pembayaran'   =>  $sisa,
+                ]);
+            } else {
+                $bukti->insert([
+                    'nominal' =>    $bayar,
+                    'sisa'  =>  $sisa,
+                    'bukti' =>  $foto,
+                    'created'   =>  date("Y-m-d"),
+                    'jamaah_id' =>  $id_jamaah,
+                    'rekening_penampung'    =>  $this->request->getVar('rek'),
+                    'keterangan'    =>  $catatan,
+                    'paket_id'  =>  $id_paket,
+                    'kloter_id' =>  $id_kloter
+                ]);
+            }
+        } else {
+            return redirect()->back()->with('error',"Gagal Membayar");
+        }
     }
 
     public function profile_insert()
