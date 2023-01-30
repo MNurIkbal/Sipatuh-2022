@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BannerModel;
+use App\Models\DaftarJamaahModel;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
 use App\Models\LevelPetugasModel;
@@ -108,6 +110,49 @@ class RequestJamaahController extends BaseController
             'batas_jamaah'  =>  $data_kloter['batas_jamaah'] - 1
         ]);
 
+        $res = $jamaah->where("id",$id_jamaah)->first();
+        $pakets = new PaketModel();
+        $rt = $pakets->where("id",$res['paket_id'])->first();
+
+        $daftar = new DaftarJamaahModel();
+        $now = date("Y-m-d");
+        $che = $daftar->where('travel_id',$rt['travel_id'])->where('date(bulan)',$now)->orderby('id','desc')->first();
+        if($che) {
+            // $daftar
+            $yy = $daftar->where("travel_id")->orderBy('id','desc')->first();
+            $daftar->update($yy['id'],[
+                'jamaah'    =>  $yy['jamaah'] + 1
+            ]);
+        } else {
+            $daftar->insert([
+                'bulan' =>  date("Y-m-d"),
+                'jamaah'    =>  1,
+                'travel_id' =>  $rt['travel_id']
+            ]);
+        }
+
         return redirect()->back()->with('success','Data Berhasil Diupdate');
+    }
+
+    public function dash_admin()
+    {
+        $jamaah = new JamaahModel();
+        $baner = new BannerModel();
+        $db      = \Config\Database::connect();
+        $daftar = new DaftarJamaahModel();
+        $data = [
+            'total_jamaah'    =>  $db->query("SELECT * FROM jamaah")->getNumRows(),
+            'aktif_jamaah'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NULL")->getNumRows(),
+            'sudah_berangkat'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NOT NULL")->getNumRows(),
+            'paket'    =>  $db->query("SELECT * FROM paket WHERE status = 'aktif'")->getNumRows(),
+            'profile'    =>  $db->query("SELECT * FROM profile")->getNumRows(),
+            'banners'    =>  $db->query("SELECT * FROM banner")->getNumRows(),
+            'cabang_travel'    =>  $db->query("SELECT * FROM data_cabang_travel WHERE status = 'aktif'")->getNumRows(),
+            'kasus'    =>  $db->query("SELECT * FROM kasus ")->getNumRows(),
+            'db'    =>  $db,
+            'banner'    =>  $baner->findAll(),
+            'daftar'    =>  $daftar->groupBy('bulan')->findAll(),
+        ];
+        return view('admin/dashboard',$data);
     }
 }

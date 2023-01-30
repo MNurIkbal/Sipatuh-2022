@@ -54,7 +54,8 @@ $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');
 
 
-    $routes->get('/dashboard', 'DashboardController::index',['filter' => 'DpFilter']);
+    $routes->get('/dashboard', 'DashboardController::dash',['filter' => 'DpFilter']);
+    $routes->get('/profile_perusaahaan', 'DashboardController::index',['filter' => 'DpFilter']);
     $routes->get('/paket', 'PaketController::index',['filter' => 'DpFilter']);
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
     $routes->post('/tambah_paket', 'PaketController::tambah_paket',['filter' => 'DpFilter']);
@@ -289,6 +290,7 @@ $routes->post('login', 'LoginController::index');
 
     $routes->get("request_jamaah","RequestJamaahController::index",['filter' => 'DpFilter']);
     $routes->post("pilih_kloter","RequestJamaahController::pilih_kloter",['filter' => 'DpFilter']);
+    $routes->get('/dash_admin', 'RequestJamaahController::dash_admin',['filter' => 'DpFilter']);
 /*
  * --------------------------------------------------------------------
  * Additional Routing

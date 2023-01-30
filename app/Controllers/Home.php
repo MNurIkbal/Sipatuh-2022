@@ -30,8 +30,9 @@ class Home extends BaseController
 
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
+        $now = date("Y-m-d");
         $data = [
-            'paket_dua' =>  $paket->orderby('id','desc')->paginate(10,'paket'),
+            'paket_dua' =>  $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket'),
             'pager' =>  $paket->pager,
             'count' =>  $count,
             'baru'    =>  $st,

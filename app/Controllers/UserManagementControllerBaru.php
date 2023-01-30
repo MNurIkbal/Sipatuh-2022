@@ -8,6 +8,7 @@ use App\Models\BankModel;
 use App\Models\BannerModel;
 use App\Models\BioDataModel;
 use App\Models\BuktiModel;
+use App\Models\DaftarJamaahModel;
 use App\Models\DataBank;
 use App\Models\DataProviderModel;
 use App\Models\JamaahModel;
@@ -41,6 +42,7 @@ class UserManagementControllerBaru extends BaseController
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
             $check_travel = $travel->where("id", $check_paket['travel_id'])->first();
             $profile = new ProfileModel();
+            
             $kloter = new KloterModel();
 
             $data = [
@@ -55,29 +57,49 @@ class UserManagementControllerBaru extends BaseController
                 'pakets'    => $pakets->where("id", $tes['paket_id'])->first(),
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
+                
             ];
             // dd($data['pakets']);
 
             return view("user/dashboard", $data);
         } else {
+            $r = session()->get('id');
             $check_paket = $pakets->first();
             $check_travel = $travel->first();
             $profile = new ProfileModel();
             $kloter = new KloterModel();
+$pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
+$hitang =  $db->query("SELECT SUM(sisa_pembayaran) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
 
+$sle = $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id INNER JOIN kloter ON paket.id = kloter.paket_id WHERE jamaah.user_id = '$r' AND kloter.keberangkatan = 'sudah' AND kloter.status_realisasi = 'sudah' AND kloter.done = 'sudah'")->getNumRows();
+foreach($pem as $t) {
+    $rf = $t;
+}
+
+$daf = new DaftarJamaahModel();
+
+foreach($hitang as $q) {
+    $v = $q;
+}
             $data = [
                 'paket_dua' =>  $paket_dua,
                 'count' =>  $count,
                 'kloter'    =>  null,
                 'baru'    =>  $st,
                 'profile'   =>  null,
+                'daftar'    =>  $daf->findAll(),
                 'jamaah'    =>  null,
+                'hutang'    =>  $v,
                 'title' =>  'Travel-Q',
                 'db'    =>  $db,
+                'selesai'   =>  $sle,
+                'paket_terdaftar'   =>  $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getNumRows(),
                 'pakets'    => null,
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
+                'pembayaran'    => $rf,
             ];
+            
             // dd($data['pakets']);
 
             return view("user/dashboard", $data);

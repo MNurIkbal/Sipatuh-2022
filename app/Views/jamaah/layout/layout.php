@@ -91,6 +91,7 @@
             
           <ul class="sidebar-menu">
           <li><a class="nav-link" href="<?=  base_url("dashboard");  ?>"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
+          
           <li class="dropdown ">
               <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Paket</span></a>
               <ul class="dropdown-menu">
@@ -114,13 +115,15 @@
                 <li><a class="nav-link" href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
               </ul>
             </li>
-            <!-- <li><a class="nav-link" href="<?=  base_url("/pendaftaran");  ?>"><i class="fas fa-edit"></i><span>Pendaftaran</span></a></li> -->
+            <li class="dropdown ">
+              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Profile Travel</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?=  base_url("/profile_perusaahaan");  ?>">Profile</a></li>
+                <li><a class="nav-link" href="<?=  base_url("/profil");  ?>">Update Profile</a></li>
+              </ul>
+            </li>
             <li><a class="nav-link" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
-            <!-- <li><a class="nav-link" href="<?=  base_url("/rekening_penampung");  ?>"><i class="fas fa-credit-card"></i><span>Rekening Penampung</span></a></li> -->
-            <!-- <li><a class="nav-link" href="<?=  base_url("/petugas");  ?>"><i class="fas fa-users"></i><span>Petugas</span></a></li> -->
-            <!-- <li><a class="nav-link" href="<?=  base_url("/request_paket");  ?>"><i class="fas fa-newspaper"></i><span>Request Paket</span></a></li> -->
-            <li><a class="nav-link" href="<?=  base_url("/profil");  ?>"><i class="fas fa-address-card"></i><span>Profile</span></a></li>
             <!-- <li><a class="nav-link" href="<?=  base_url("/cabang");  ?>"><i class="fas fa-building"></i><span>Cabang</span></a></li> -->
             <!-- <li><a class="nav-link" href="<?=  base_url("/request_jamaah");  ?>"><i class="fas fa-user-edit"></i><span>Request Jamaah</span></a></li> -->
             <li><a class="nav-link" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
@@ -128,7 +131,8 @@
           </ul>
           <?php elseif(session()->get("level_id") == "admin"): ?>
             <ul class="sidebar-menu">
-            <li><a class="nav-link" href="<?=  base_url("/users");  ?>"><i class="fas fa-home"></i><span>Travel</span></a></li>
+            <li><a class="nav-link" href="<?=  base_url("/dash_admin");  ?>"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+            <li><a class="nav-link" href="<?=  base_url("/users");  ?>"><i class="fas fa-clipboard"></i><span>Travel</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/level_users");  ?>"><i class="fas fa-star"></i><span>Level Petugas</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/data_provider");  ?>"><i class="fas fa-book-open"></i><span>Provider</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/data_asuransi");  ?>"><i class="fas fa-notes-medical"></i><span>Asuransi</span></a></li>

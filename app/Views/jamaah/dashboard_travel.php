@@ -4,65 +4,57 @@
 <div class="main-content">
   <section class="section">
     <div class="card">
-    <?php if (session()->get("success")) : ?>
-        <div class="m-3 alert alert-success">
-          <span><?= session()->get("success");  ?></span>
-        </div>
-      <?php elseif (session()->get("error")) : ?>
-        <div class="m-3 alert alert-danger">
-          <span><?= session()->get("error");  ?></span>
-        </div>
-      <?php endif; ?>
       <div class="card-header">
-        <h4 style="text-transform: uppercase">Dashboard</h4>
+        <h4 style="text-transform: uppercase">SELAMAT DATANG <?= $profile['nama_perusahaan'];  ?></h4>
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header bg-primary text-white">
-                <h4 class="card-title">Paket Terdaftar</h4>
+              <div class="card-header text-white bg-success">
+                <h5>Total Jamaah</h5>
               </div>
               <div class="card-body">
-                <h3><?= $paket_terdaftar; ?> Paket</h3>
+                <h5><?= $jamaah; ?> Jamaah</h5>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header bg-success text-white">
-                <h4 class="card-title">Total Pembayaran</h4>
+              <div class="card-header text-white bg-success">
+                <h5>Total Paket</h5>
               </div>
               <div class="card-body">
-                <h3>Rp <?= number_format($pembayaran,0); ?></h3>
+                <h5><?= $paket; ?> Paket</h5>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header bg-danger  text-white">
-                <h4 class="card-title">Paket Selesai</h4>
+              <div class="card-header text-white bg-success">
+                <h5>Total Cabang</h5>
               </div>
               <div class="card-body">
-                <h3><?= $selesai; ?> Paket</h3>
+                <h5><?= $cabang; ?> Cabang</h5>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header bg-warning   text-white">
-                <h4 class="card-title">Total Hutang</h4>
+              <div class="card-header text-white bg-success">
+                <h5>Jamaah Aktif</h5>
               </div>
               <div class="card-body">
-                <h3>Rp. <?= number_format($hutang,0); ?></h3>
+                <h5><?= $jamaah_aktif; ?> Jamaah</h5>
               </div>
             </div>
           </div>
         </div>
-        <div id="chart"></div>
+        <div id="chart">
+
+        </div>
       </div>
     </div>
-
   </section>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
@@ -82,7 +74,7 @@
         }],
          
         chart: {
-          height: 350,
+          height: 450,
           type: 'bar',
         },
         plotOptions: {

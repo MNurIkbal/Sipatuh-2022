@@ -77,9 +77,9 @@
                                             <td><?= $row['no_registrasi']; ?></td>
                                             <td><?= $row['no_pasti_umrah']; ?></td>
                                             <td>
-                                                <?php if(!empty($row['status_bayar'])) : ?>
-                                                    <?php endif ?>
+                                                <?php if($row['status_bayar'] == null) : ?>
                                                     <a href="<?= base_url("pindah_paket_jamaah/" . $row['id'] . '/' . $id_paket . '/' . $id_kloter); ?>" class="btn btn-warning" title="Pindah Paket"><i class="fas fa-edit"></i></a>
+                                                    <?php endif ?>
                                                 <a href="<?= base_url("detail_jamaah_diri/$row[id]/$id_paket/$id_kloter"); ?>"   class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>
                                                 <a href="<?= base_url("checkout/$row[id]/$id_paket/$id_kloter"); ?>" class="btn btn-danger" title="Detail"><i class="fas fa-money-bill"></i></a>
                                             </td>

@@ -9,6 +9,7 @@ use App\Models\AsuransiModel;
 use App\Models\BankModel;
 use App\Models\BioDataModel;
 use App\Models\BuktiModel;
+use App\Models\DaftarJamaahModel;
 use App\Models\DataProviderModel;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
@@ -134,6 +135,16 @@ class PendaftaranController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+
+        $sekarang = date("Y-m-d");
+        $expired = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->findAll();
+        $expireds = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->first();
+if($expireds) {
+    foreach($expired as $main) {
+        $satu = date("Y-m-d",strtotime($main['expired_bayar_dp']));
+        $delete = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->where('date(expired_bayar_dp)',$sekarang)->where('id',$main['id'])->delete();
+    }
+}
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -152,7 +163,6 @@ class PendaftaranController extends BaseController
             AND jenis_vaksin IS NOT NULL
             AND kloter_id = '$id_kloter'
             AND selesai_pembayaran = 'sudah'
-            
             
             ")->getResult();
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' AND kloter_id = '$id_kloter'")->getResult();
@@ -565,6 +575,29 @@ class PendaftaranController extends BaseController
         $kloter->update($this->request->getVar('id_kloter'), [
             'batas_jamaah'  =>  $data_kloter['batas_jamaah'] - 1
         ]);
+
+        $e = $jamaah->orderby("id",'desc')->first();
+
+        $res = $jamaah->where("id",$e['id'])->first();
+        $pakets = new PaketModel();
+        $rt = $pakets->where("id",$res['paket_id'])->first();
+
+        $daftar = new DaftarJamaahModel();
+        $now = date("Y-m-d");
+        $che = $daftar->where('travel_id',$rt['travel_id'])->where('date(bulan)',$now)->orderby('id','desc')->first();
+        if($che) {
+            // $daftar
+            $yy = $daftar->where("travel_id")->orderBy('id','desc')->first();
+            $daftar->update($yy['id'],[
+                'jamaah'    =>  $yy['jamaah'] + 1
+            ]);
+        } else {
+            $daftar->insert([
+                'bulan' =>  date("Y-m-d"),
+                'jamaah'    =>  1,
+                'travel_id' =>  $rt['travel_id']
+            ]);
+        }
 
         return redirect()->to("tambah_pendaftaran/"  . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Di tambahkan");
     }
