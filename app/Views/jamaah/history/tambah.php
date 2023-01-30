@@ -120,8 +120,9 @@
                                         </td>
                                         <td>
 
-                                            <a href="#" class="btn btn-primary" title="Detail" data-toggle="modal"
-                                                data-target="#view<?= $row['id']  ?>"><i class="fa fa-eye"></i></a>
+                                            <a href="<?= base_url("detail_jamaah_selesai/$row[id]/$id/$id_kloter/$judul"); ?>" class="btn btn-primary" title="Detail" ><i class="fa fa-eye"></i></a>
+                                            <a href="<?= base_url("pembayaran_selesai/$row[id]/$id/$id_kloter/$judul"); ?>" class="btn btn-success" title="Pembayaran" 
+                                                ><i class="fas fa-credit-card"></i></a>
 
                                         </td>
                                     </tr>

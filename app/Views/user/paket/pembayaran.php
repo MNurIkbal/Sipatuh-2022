@@ -465,6 +465,12 @@ hr {
                                 <label for="">Metode Pembayaran</label>
                                 <input type="text" class="form-control" required name="metode" readonly placeholder="Metode" value="<?= $main['status_bayar']; ?>">
                               </div>
+                              <?php if(!empty($main['status_bayar']) && $main['status_bayar'] == "DP") : ?>
+                                <div class="form-group">
+                                  <label for="">Metode Pembayaran</label>
+                                  <input type="text" class="form-control" required name="" readonly placeholder="Metode" value="<?= $main['expired_bayar_dp']; ?>">
+                                </div>
+                                <?php endif; ?>
                               <?php endif; ?>
                         </div>
                         <div class="col-md-6">

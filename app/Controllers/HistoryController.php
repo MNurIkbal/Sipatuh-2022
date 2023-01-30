@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\AsuransiModel;
 use App\Models\BandaraModel;
 use App\Models\BankModel;
+use App\Models\BuktiModel;
+use App\Models\DataBank;
 use App\Models\DataHotelModel;
 use App\Models\DataProviderModel;
 use App\Models\HotelModel;
@@ -20,6 +22,7 @@ use App\Models\MuassahModel;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\PetugasModel;
+use App\Models\ProfileModel;
 
 class HistoryController extends BaseController
 {
@@ -124,6 +127,70 @@ class HistoryController extends BaseController
         return view("jamaah/history/tambah",$data);
     }
 
+    public function detail_jamaah_selesai($id_jamaah,$id_paket,$id_kloter,$judul)
+    {
+
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id', $id_paket)->first();
+        $kloters = $kloter->where("id", $id_kloter)->first();
+        $profile = new ProfileModel();
+        $data_profile = $profile->where("id", $pakets['travel_id'])->first();
+        $jamaah = new JamaahModel();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")
+        ->where("id", $id_jamaah)->first();
+
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'id_jamaah' =>  $id_jamaah,
+            'kloter'    =>  $kloters,
+            'main'    =>  $jamaahs,
+            'judul' =>  $judul,
+            'perusahaan'    =>  $data_profile
+        ];
+
+        return view("jamaah/realisasi/detail_diri",$data);
+    }
+
+    public function pembayaran_selesai($id,$id_paket,$id_kloter,$judul)
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        
+        $paket = new PaketModel();
+        $petugas_man  = new PetugasManModel();
+        $rekening = new BankModel();
+        $data_bank = new DataBank();
+        $jamaah = new JamaahModel();
+        $kloter = new KloterModel();
+        $bank = new BankModel();
+        $bukti = new BuktiModel();
+        $result_paket = $paket->where("id",$id_paket)->first();
+        $data = [
+            'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
+            'title' =>  "Pembayaran",
+            'id_jamaah'    =>  $id,
+            'judul' =>  $judul,
+            'kloter'  =>  $kloter->where('id',$id_kloter)->first(),
+            'id_kloter' =>  $id_kloter,
+            'main'    =>  $jamaah->where("id",$id)->first(),
+            'id_paket'  =>  $id_paket,
+            'paket' =>  $paket->where("id",$id_paket)->first(),
+            // 'bank'  =>  $rekening->findAll(),
+            'bank'  =>  $bank->where("id",$result_paket['rekening_penampung_id'])->first(),
+            'petugas'   =>  $petugas_man->findAll(),
+            'bukti' =>  $bukti->where("jamaah_id",$id)->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->findAll(),
+            
+            'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll()
+        ];
+        
+        return view("jamaah/realisasi/pembayaran",$data);
+    }
+
     public function detail_history_kloter($id,$judul)
     {
         if(!session()->get("login") || session()->get("login") == null) {
@@ -202,19 +269,19 @@ class HistoryController extends BaseController
             'bandara'   =>  $bandara->findAll(),
             'petugas'   =>  $petugas->where([
                 'paket_id'    =>  $id_paket,
-                'kategori'  =>  'perencanaan'
+                // 'kategori'  =>  'perencanaan'
             ])->findAll(),
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'perencanaan'
+                // 'kategori'  =>  'perencanaan'
             ])->findAll(),
             'hotel' =>$hotel->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'perencanaan'
+                // 'kategori'  =>  'perencanaan'
             ])->findAll(),
             'kepulangan'    =>  $kepulangan->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'perencanaan'
+                // 'kategori'  =>  'perencanaan'
             ])->findAll(),
             'muasah'    =>  $muasah->where("status",1)->findAll(),
             'result'    =>  $paket->where('id',$id_paket)->first(),
@@ -301,24 +368,24 @@ class HistoryController extends BaseController
             'id_paket'  =>  $id_paket,
             'petugas'   =>  $petugas->where([
                 'paket_id'    =>  $id_paket,
-                'kategori'  =>  'realisasi',
-                'kloter_id' =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id,
             ])->findAll(),
             'petugas_umrah' =>  $petugas_umrah->where("travel_id",session()->get("travel_id"))->where("aktif","aktif")->findAll(),
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'realisasi',
-                'kloter_id' =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id,
             ])->findAll(),
             'hotel' =>$hotel->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'realisasi',
-                'kloter_id' =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id,
             ])->findAll(),
             'kepulangan'    =>  $kepulangan->where([
                 'paket_id'  =>  $id_paket,
-                'kategori'  =>  'realisasi',
-                'kloter_id' =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id,
             ])->findAll(),
             'muasah'    =>  $muasah->where("status",1)->findAll(),
             'kasus' =>  $kasus->where("paket_id",$id_paket)->where("kloter_id",$id)->findAll(),

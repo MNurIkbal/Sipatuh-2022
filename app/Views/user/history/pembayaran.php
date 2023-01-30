@@ -340,7 +340,7 @@ hr {
         <div class="card">
           <div class="card-header">
             <div>
-              <a href="<?= base_url("tambah_pendaftaran/" . $id_kloter . '/' . $id_paket); ?>" class="btn btn-warning">Kembali</a>
+              <a href="<?= base_url("detail_jamaah_aktif_selesai/" . $id_paket . '/' . $id_kloter); ?>" class="btn btn-warning">Kembali</a>
               <br>
               <br>
               <h6>
@@ -465,12 +465,6 @@ hr {
                                 <label for="">Metode Pembayaran</label>
                                 <input type="text" class="form-control" required name="metode" readonly placeholder="Metode" value="<?= $main['status_bayar']; ?>">
                               </div>
-                              <?php if(!empty($main['status_bayar']) && $main['status_bayar'] == "DP") : ?>
-                                <div class="form-group">
-                                  <label for="">Expired Bayar DP</label>
-                                  <input type="text" class="form-control" required name="" readonly placeholder="Metode" value="<?= $main['expired_bayar_dp']; ?>">
-                                </div>
-                                <?php endif; ?>
                               <?php endif; ?>
                         </div>
                         <div class="col-md-6">

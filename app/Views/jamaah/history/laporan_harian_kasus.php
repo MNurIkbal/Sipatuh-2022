@@ -1,6 +1,7 @@
 <?= $this->extend("jamaah/layout/layout"); ?>
 
 <?= $this->section("content"); ?>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
 <div class="main-content">
     <section class="section">
 
@@ -22,7 +23,7 @@
                         <?php endif; ?>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped" id="table-1">
+                            <table class="table table-striped" id="table-16">
                                 <thead>
                                     <tr>
                                         <th>Nama File</th>
@@ -51,4 +52,11 @@
         </div>
     </section>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $('#table-16').DataTable();
+</script>
 <?= $this->endSection(); ?>

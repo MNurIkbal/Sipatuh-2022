@@ -308,6 +308,7 @@ class TiketController extends BaseController
             'tiket_cgk_med' =>  $this->request->getVar("tiket_berangkat"),
             'tiket_med_gk'  =>  $this->request->getVar("tiket_pulang"),
             'tgl_keluar_paspor'   =>  $this->request->getVar("tgl_keluar_paspor"),
+            'tgl_habis_paspor'   =>  $this->request->getVar("tgl_habis_paspor"),
             'kota_paspor'   =>  $this->request->getVar("nama_paspor"),
             'no_tiket'   =>  "M" . date("Y") . rand(11,99) . date("d"),
             'no_kursi'  =>  $kursi
@@ -320,7 +321,8 @@ class TiketController extends BaseController
         AND tiket_cgk_med IS NOT NULL
         AND tiket_med_gk IS NOT NULL
         AND kota_paspor IS NOT NULL
-        AND tgl_keluar_paspor IS NOT NULL")->getNumRows();
+        AND tgl_keluar_paspor IS NOT NULL
+        AND tgl_habis_paspor IS NOT NULL")->getNumRows();
 
         $check_dua =  $db->query("SELECT * FROM jamaah
         WHERE paket_id = '$id_paket'

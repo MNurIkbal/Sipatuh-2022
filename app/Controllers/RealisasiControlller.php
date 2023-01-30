@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BandaraModel;
 use App\Models\DataHotelModel;
 use App\Models\HotelModel;
+use App\Models\JamaahModel;
 use App\Models\KasusModel;
 use App\Models\Keberangkatan;
 use App\Models\KepulanganModel;
@@ -184,9 +185,9 @@ class RealisasiControlller extends BaseController
         $petugas_umrah = new PetugasManModel();
         $data = $petugas_umrah->where("id",$petugas)->first();
         $petugas = new PetugasModel();
-        $check = $petugas->where("nama",$data['nama'])->where("kategori",'realisasi')->where("paket_id",$id_paket)->where("kloter_id",$this->request->getVar("id_kloter"))->first();
+        $check = $petugas->where("nama",$data['nama'])->where("paket_id",$id_paket)->where("kloter_id",$this->request->getVar("id_kloter"))->first();
         if($check) {
-            return redirect()->to("detail_realisasi/" .$this->request->getVar("id_kloter") . '/' . $id)->with("success","Petugas Sudah Pernah Ditambahkan");
+            return redirect()->back()->with("success","Petugas Sudah Pernah Ditambahkan");
             exit;
         }
         $id = $this->request->getVar("id");
@@ -635,18 +636,34 @@ class RealisasiControlller extends BaseController
         $db      = \Config\Database::connect();
         $paket = new PaketModel();
         $kloter = new KloterModel();
-        $kloter->update($id_kloter,[
-            'done'  =>  'sudah'
-        ]);
-
-        $satu = $db->query("SELECT * FROM kloter WHERE paket_id = '$id'  AND done = 'sudah' AND status = 'Aktif'")->getNumRows();
-        $dua =  $db->query("SELECT * FROM kloter WHERE paket_id = '$id'   AND status = 'Aktif'")->getNumRows();
-        if($satu == $dua) {
-            $paket->update($id,[
-                'status'    =>  'selesai'
+        try {
+            //code...
+            $kloter->update($id_kloter,[
+                'done'  =>  'sudah'
             ]);
-        }
+    
+            $satu = $db->query("SELECT * FROM kloter WHERE paket_id = '$id'  AND done = 'sudah' AND status = 'Aktif'")->getNumRows();
+            $dua =  $db->query("SELECT * FROM kloter WHERE paket_id = '$id'   AND status = 'Aktif'")->getNumRows();
+            if($satu == $dua) {
+                $paket->update($id,[
+                    'status'    =>  'selesai'
+                ]);
+            }
 
-        return redirect()->to("realisasi")->with("success","Data Berhasil Diupdate");
+            $jamah = new JamaahModel();
+            $jamaah = $jamah->where("paket_id",$id)->where("kloter_id",$id_kloter)->where("status_approve",null)->findAll();
+            if($jamaah) {
+                foreach($jamaah as $row) {
+                    $jamah->update($row['id'],[
+                        'status_approve'    =>  'sudah'
+                    ]);
+                }
+            }
+    
+            return redirect()->to("realisasi")->with("success","Data Berhasil Direalisasikan");
+        } catch (\Throwable $th) {
+            return redirect()->back()->with("error","Data Gagal Direalisasikan");
+            //throw $th;
+        }
     }
 }

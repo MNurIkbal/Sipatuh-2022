@@ -63,16 +63,16 @@
                                         <a class="nav-link" id="contact-tab4" data-toggle="tab" href="#contact4"
                                             role="tab" aria-controls="contact" aria-selected="false">Kepulangan</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class="nav-link" id="contact-tab5" data-toggle="tab" href="#contact5"
                                             role="tab" aria-controls="kloter" aria-selected="false">Kloter</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                                 <div class="tab-content" id="petugas">
                                     <div class="tab-pane fade show active" id="home3" role="tabpanel"
                                         aria-labelledby="home-tab3">
                                         <div class="table-responsive">
-                                            <table class="table table-border table-hover table-striped" id="main-satu">
+                                            <table class="table table-border table-hover table-striped" id="table-6">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
@@ -89,7 +89,6 @@
                                                         <td><?=  $rows['type'];  ?></td>
                                                         <td><?=  $nomor++;  ?></td>
                                                     </tr>
-
                                                     <?php endforeach; ?>
                                                 </tbody>
                                             </table>
@@ -242,11 +241,11 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function () {
-        $('#main-satu').DataTable();
         $('#table-2').DataTable();
         $('#table-3').DataTable();
         $('#table-4').DataTable();
         $('#table-5').DataTable();
+        $('#table-6').DataTable();
     });
 </script>
 <?= $this->endSection(); ?>

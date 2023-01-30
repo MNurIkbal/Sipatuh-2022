@@ -56,6 +56,10 @@
                                                     <input type="date" class="form-control" required placeholder="" name="tgl_keluar_paspor" value="<?= $main['tgl_keluar_paspor'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
+                                                    <label for="">Tanggal Habis Paspor</label>
+                                                    <input type="date" class="form-control" required placeholder="" name="tgl_habis_paspor" value="<?= $main['tgl_habis_paspor'];  ?>">
+                                                </div>
+                                                <div class="mb-3">
                                                     <label for="">Kota Paspor</label>
                                                     <input type="text" class="form-control" required placeholder="Kota Paspor" name="kota_paspor" value="<?= $main['kota_paspor'];  ?>">
                                                 </div>

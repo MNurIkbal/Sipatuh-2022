@@ -219,6 +219,7 @@ class Home extends BaseController
         'travel'    =>  $travel->where("id",$paket['travel_id'])->first(),
         'count' =>  $db->query("SELECT * FROM profile")->getResult(),
     ];
+    
     return view("paket",$data);
     }
 

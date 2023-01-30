@@ -76,7 +76,7 @@
                                     <div class="tab-pane fade show active" id="home3" role="tabpanel"
                                         aria-labelledby="home-tab3">
                                         <div class="table-responsive">
-                                            <table class="table table-border table-hover table-striped" id="table-1">
+                                            <table class="table table-border table-hover table-striped" id="table-51">
                                                 <thead>
                                                     <tr>
                                                         <th>Nama Petugas</th>
@@ -241,6 +241,7 @@
         $('#table-3').DataTable();
         $('#table-4').DataTable();
         $('#table-5').DataTable();
+        $('#table-51').DataTable();
     });
 </script>
 <?= $this->endSection(); ?>

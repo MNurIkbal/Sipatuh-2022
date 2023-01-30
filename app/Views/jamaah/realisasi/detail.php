@@ -957,7 +957,8 @@
             <div class="modal-body">
             <div class="mb-3">
                     <label for="">Nama Petugas</label>
-                    <select name="petugas" class="form-control select50" required   id="">
+                    <br>
+                    <select name="petugas" class="form-control select50" required   id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <?php foreach($petugas_umrah as $petugasumrah) : ?>
                         <option value="<?=  $petugasumrah['id'];  ?>"><?=  $petugasumrah['nama'];  ?> - <?=  $petugasumrah['tipe_petugas'];  ?></option>
@@ -1010,8 +1011,9 @@
                 </button>
             </div>
             <div class="modal-body">
-             
-                <select name="petugas" class="form-control" required   id="">
+            <label for="">Nama Petugas</label>
+                    <br>
+                <select name="petugas" class="form-control selectt<?= $main_satu['id'] ?>" style="width: 100% !important;" required   id="">
                         <option value="">Pilih</option>
                         <?php foreach($petugas_umrah as $petugasumrah) : ?>
                         <option <?=  ($petugasumrah['nama'] == $main_satu['nama']) ? "selected" : "";  ?> value="<?=  $petugasumrah['nama'];  ?>"><?=  $petugasumrah['nama'];  ?> - <?=  $petugasumrah['tipe_petugas'];  ?></option>
@@ -1025,19 +1027,25 @@
         </form>
     </div>
 </div>
+<script>
+     $(".selectt<?= $main_satu['id'] ?>").select2({
+        dropdownParent: $('#edits<?= $main_satu['id'] ?>')
+    });
+</script>
 <?php endforeach; ?>
 <?php endif; ?>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    $(".select50").select2({
+        dropdownParent: $('#exampleModal')
+    });
     $(document).ready(function () {
         $('#table-2').DataTable();
         $('#table-3').DataTable();
         $('#table-4').DataTable();
         $('#table-5').DataTable();
-        $(".select50").select2();
     });
 </script>
 <?= $this->endSection(); ?>

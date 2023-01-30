@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Paket Umrah</h4>
+                        <h4>History Paket Umrah</h4>
                         
                     </div>
                     <?php if(session()->get("success")) : ?>

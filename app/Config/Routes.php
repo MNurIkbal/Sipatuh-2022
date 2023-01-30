@@ -83,6 +83,7 @@ $routes->post('login', 'LoginController::index');
     $routes->get('/detail_history_kloter/(:any)/(:any)', 'HistoryController::detail_history_kloter/$1/$2',['filter' => 'DpFilter']);
     $routes->get('/detail_perencanaan_kloter/(:any)/(:any)/(:any)', 'HistoryController::detail_perencanaan_kloter/$1/$2/$3',['filter' => 'DpFilter']);
     $routes->get('/detail_selesai_jamaah/(:any)/(:any)/(:any)', 'HistoryController::detail_selesai_jamaah/$1/$2/$3',['filter' => 'DpFilter']);
+    $routes->get('/pembayaran_selesai/(:any)/(:any)/(:any)/(:any)', 'HistoryController::pembayaran_selesai/$1/$2/$3/$4',['filter' => 'DpFilter']);
     $routes->get('/laporan_harian_realisasi/(:any)/(:any)/(:any)/(:any)', 'HistoryController::laporan_harian_realisasi/$1/$2/$3/$4',['filter' => 'DpFilter']);
     $routes->get('/detail_perencanaan_realisasi/(:any)/(:any)/(:any)', 'HistoryController::detail_perencanaan_realisasi/$1/$2/$3',['filter' => 'DpFilter']);
     $routes->get('/paket_selesai', 'HistoryController::index',['filter' => 'DpFilter']);
@@ -206,6 +207,7 @@ $routes->post('login', 'LoginController::index');
     $routes->get("/detail_perencanaan_history/(:any)","HistoryController::detail_perencanaan_history/$1",['filter' => 'DpFilter']);
     $routes->get("/detail_jamaah_history/(:any)","HistoryController::detail_jamaah_history/$1",['filter' => 'DpFilter']);
     $routes->get("/laporan_harian_history/(:any)/(:any)","HistoryController::laporan_harian_history/$1/$2",['filter' => 'DpFilter']);
+    $routes->get("/detail_jamaah_selesai/(:any)/(:any)/(:any)/(:any)","HistoryController::detail_jamaah_selesai/$1/$2/$3/$4",['filter' => 'DpFilter']);
 
     // users
     $routes->get("/users","UsersController::index",['filter' => 'DpFilter']);
@@ -259,10 +261,14 @@ $routes->post('login', 'LoginController::index');
     $routes->get("paket_user","UserManagementControllerBaru::paket_user",['filter' => 'DpFilter']);
     $routes->get("paket_selesai_user","UserManagementControllerBaru::paket_selesai_user",['filter' => 'DpFilter']);
     $routes->get("detail_paket_user/(:any)","UserManagementControllerBaru::detail_paket_user/$1",['filter' => 'DpFilter']);
+    $routes->get("detail_paket_user_selesai/(:any)","UserManagementControllerBaru::detail_paket_user_selesai/$1",['filter' => 'DpFilter']);
     $routes->get("detail_jamaah_aktif/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_aktif/$1/$2",['filter' => 'DpFilter']);
+    $routes->get("detail_jamaah_aktif_selesai/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_aktif_selesai/$1/$2",['filter' => 'DpFilter']);
     $routes->get("checkout/(:any)/(:any)/(:any)","UserManagementControllerBaru::checkout/$1/$2/$3",['filter' => 'DpFilter']);
+    $routes->get("checkout_selesai/(:any)/(:any)/(:any)","UserManagementControllerBaru::checkout_selesai/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->get("export_invoice/(:any)/(:any)/(:any)","UserManagementControllerBaru::export_invoice/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->get("detail_jamaah_diri/(:any)/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_diri/$1/$2/$3",['filter' => 'DpFilter']);
+    $routes->get("detail_jamaah_diri_selesai/(:any)/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_diri_selesai/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->post("/profile_insert","UserManagementControllerBaru::profile_insert",['filter' => 'DpFilter']);
     $routes->post("/insert_checkout","UserManagementControllerBaru::insert_checkout",['filter' => 'DpFilter']);
 

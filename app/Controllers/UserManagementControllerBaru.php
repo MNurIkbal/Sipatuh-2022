@@ -393,7 +393,23 @@ class UserManagementControllerBaru extends BaseController
             'title' =>  'paket',
             'paket' =>  $result
         ];
-        return view("user/paket/index", $data);
+        return view("user/paket/index_selesai", $data);
+    }
+
+    public function detail_paket_user_selesai($id)
+    {
+        $paket = new PaketModel();
+        $pakets = $paket->where("id", $id)->first();
+
+        $kloter = new KloterModel();
+        $kloters = $kloter->where("paket_id", $id)->where("status","aktif")->where("keberangkatan","sudah")->where("status_realisasi",'sudah')->findAll();
+        $data = [
+            'title' =>  'paket',
+            'result'    =>  $kloters,
+            'id'    =>  $id,
+            'paket' =>  $pakets
+        ];
+        return view('user/paket/kloter_selesai', $data);
     }
 
     public function detail_paket_user($id)
@@ -402,7 +418,7 @@ class UserManagementControllerBaru extends BaseController
         $pakets = $paket->where("id", $id)->first();
 
         $kloter = new KloterModel();
-        $kloters = $kloter->where("paket_id", $id)->findAll();
+        $kloters = $kloter->where("paket_id", $id)->where("status","aktif")->where("keberangkatan",null)->findAll();
         $data = [
             'title' =>  'paket',
             'result'    =>  $kloters,
@@ -420,7 +436,7 @@ class UserManagementControllerBaru extends BaseController
         $pakets = $paket->where('id', $id_paket)->first();
         $kloters = $kloter->where("id", $id_kloter)->first();
         $jamaah = new JamaahModel();
-        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->findAll();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve",null)->where("user_id", session()->get('id'))->findAll();
 
         $data = [
             'id_paket'  =>  $id_paket,
@@ -430,7 +446,28 @@ class UserManagementControllerBaru extends BaseController
             'jamaah'    =>  $jamaahs
         ];
 
-        return view('user/paket/jamaah', $data);
+        return view('user/history/jamaah', $data);
+    }
+
+    public function detail_jamaah_aktif_selesai($id_paket, $id_kloter)
+    {
+
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id', $id_paket)->first();
+        $kloters = $kloter->where("id", $id_kloter)->first();
+        $jamaah = new JamaahModel();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")->where("user_id", session()->get('id'))->where('status_bayar','lunas')->where("selesai_pembayaran",'sudah')->findAll();
+
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'kloter'    =>  $kloters,
+            'jamaah'    =>  $jamaahs
+        ];
+
+        return view('user/history/jamaah_selesai', $data);
     }
 
     public function detail_jamaah_diri($id_jamaah, $id_paket, $id_kloter)
@@ -457,10 +494,33 @@ class UserManagementControllerBaru extends BaseController
 
         return view('user/paket/detail_diri', $data);
     }
+    public function detail_jamaah_diri_selesai($id_jamaah, $id_paket, $id_kloter)
+    {
+
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id', $id_paket)->first();
+        $kloters = $kloter->where("id", $id_kloter)->first();
+        $profile = new ProfileModel();
+        $data_profile = $profile->where("id", $pakets['travel_id'])->first();
+        $jamaah = new JamaahModel();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah    ")->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
+
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'id_jamaah' =>  $id_jamaah,
+            'kloter'    =>  $kloters,
+            'main'    =>  $jamaahs,
+            'perusahaan'    =>  $data_profile
+        ];
+
+        return view('user/history/detail_diri', $data);
+    }
 
     public function checkout($id_jamaah, $id_paket, $id_kloter)
     {
-
         $paket = new PaketModel();
         $kloter = new KloterModel();
         $pakets = $paket->where('id', $id_paket)->first();
@@ -486,6 +546,35 @@ class UserManagementControllerBaru extends BaseController
         ];
 
         return view('user/paket/pembayaran', $data);
+    }
+
+    public function checkout_selesai($id_jamaah, $id_paket, $id_kloter)
+    {
+        $paket = new PaketModel();
+        $kloter = new KloterModel();
+        $pakets = $paket->where('id', $id_paket)->first();
+        $kloters = $kloter->where("id", $id_kloter)->first();
+        $profile = new ProfileModel();
+        $data_profile = $profile->where("id", $pakets['travel_id'])->first();
+        $jamaah = new JamaahModel();
+        $bank = new BankModel();
+        $bukti = new BuktiModel();
+
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
+        $data = [
+            'id_paket'  =>  $id_paket,
+            'id_kloter' =>  $id_kloter,
+            'paket' =>  $pakets,
+            'id_jamaah' =>  $id_jamaah,
+            'kloter'    =>  $kloters,
+
+            'main'    =>  $jamaahs,
+            'bank'  =>  $bank->where("id", $pakets['rekening_penampung_id'])->first(),
+            'perusahaan'    =>  $data_profile,
+            'bukti' =>  $bukti->where("jamaah_id", $id_jamaah)->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->findAll(),
+        ];
+
+        return view('user/history/pembayaran', $data);
     }
 
     public function export_invoice($id_jamaah, $id_paket, $id_kloter)
@@ -521,7 +610,7 @@ class UserManagementControllerBaru extends BaseController
     public function insert_checkout()
     {
         try {
-            //code...
+        //     //code...
 
             $metode = $this->request->getVar("metode");
             $catatan = htmlspecialchars($this->request->getVar("catatan"), true);
@@ -543,8 +632,8 @@ class UserManagementControllerBaru extends BaseController
                 $now = date("Y-m-d");
                 $seminggu = date("Y-m-d", strtotime("+7 days", strtotime(date("Y-m-d"))));
 
-
                 if (empty($result_jamaah['status_bayar'])) {
+                    
                     $jamaah->update($id_jamaah, [
                         'tgl_bayar' =>  date("Y-m-d"),
                         'rekening_penampung' =>  $this->request->getVar("rek"),
