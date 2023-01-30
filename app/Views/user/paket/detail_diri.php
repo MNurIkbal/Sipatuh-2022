@@ -132,6 +132,17 @@
                             <li class="list-group-item">Tanggal Awal Polis : <?=  $main['tgl_awal'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Polis : <?=  $main['tgl_akhir'];  ?></li>
                         </div>
+                        <div class="col-md-6 mt-5">
+                            <li class="list-group-item active">Informasi Vaksin</li>
+                        <li class="list-group-item">Status Vaksin : <?=  $main['status_vaksin'];  ?></li>
+                            <li class="list-group-item">Tanggal Vaksin :
+                                <?php if($main['tgl_vaksin']) : ?>
+                                    <?=  $main['tgl_vaksin'];  ?>
+                                    <?php else: ?>
+                                        <?php endif; ?>
+                            </li>
+                            <li class="list-group-item">Jenis Vaksin : <?=  $main['jenis_vaksin'];  ?></li>
+                        </div>
                         <div class="col-md-12 mt-5">
                             <li class="list-group-item active "> 
                                 Informasi Travel

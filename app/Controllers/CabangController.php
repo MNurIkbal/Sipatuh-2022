@@ -139,6 +139,11 @@ class CabangController extends BaseController
             exit;
         }
 
+        $user = new Users();
+        $result = $user->where("cabang_id",$this->request->getVar('id'))->where("level_id",'cabang')->first();
+        if($result) {
+            return redirect()->back()->with('error','Data Sudah Berelasi Tidak Boleh Dihapus');
+        }
         $cabang= new CabangModel();
         $cabang->delete($this->request->getVar("id"));
         return redirect()->to("cabang")->with("success","Data Berhasil Dihapus");
@@ -165,6 +170,10 @@ class CabangController extends BaseController
         $dataBerkas->move('assets/upload/', $fileName);
         $user = new Users();
 
+        $result = $user->where("username",$this->request->getVar('username'))->first();
+        if($result) {
+            return redirect()->back()->with('error','User Sudah Ada');
+        }
         $user->insert([
             'nama'  =>  $this->request->getVar("nama"),
             'username'  =>  $this->request->getVar("username"),

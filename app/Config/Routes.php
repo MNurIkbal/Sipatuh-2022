@@ -261,6 +261,7 @@ $routes->post('login', 'LoginController::index');
     $routes->get("detail_paket_user/(:any)","UserManagementControllerBaru::detail_paket_user/$1",['filter' => 'DpFilter']);
     $routes->get("detail_jamaah_aktif/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_aktif/$1/$2",['filter' => 'DpFilter']);
     $routes->get("checkout/(:any)/(:any)/(:any)","UserManagementControllerBaru::checkout/$1/$2/$3",['filter' => 'DpFilter']);
+    $routes->get("export_invoice/(:any)/(:any)/(:any)","UserManagementControllerBaru::export_invoice/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->get("detail_jamaah_diri/(:any)/(:any)/(:any)","UserManagementControllerBaru::detail_jamaah_diri/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->post("/profile_insert","UserManagementControllerBaru::profile_insert",['filter' => 'DpFilter']);
     $routes->post("/insert_checkout","UserManagementControllerBaru::insert_checkout",['filter' => 'DpFilter']);

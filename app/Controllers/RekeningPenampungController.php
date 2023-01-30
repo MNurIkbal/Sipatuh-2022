@@ -44,18 +44,24 @@ class RekeningPenampungController extends BaseController
         $rekening = new BankModel();
         $data_bank = new DataBank();
         $jamaah = new JamaahModel();
+        $kloter = new KloterModel();
+        $bank = new BankModel();
         $bukti = new BuktiModel();
+        $result_paket = $paket->where("id",$id_paket)->first();
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Pembayaran",
-            'id'    =>  $id,
+            'id_jamaah'    =>  $id,
+            'kloter'  =>  $kloter->where('id',$id_kloter)->first(),
             'id_kloter' =>  $id_kloter,
             'main'    =>  $jamaah->where("id",$id)->first(),
             'id_paket'  =>  $id_paket,
             'paket' =>  $paket->where("id",$id_paket)->first(),
-            'bank'  =>  $rekening->findAll(),
+            // 'bank'  =>  $rekening->findAll(),
+            'bank'  =>  $bank->where("id",$result_paket['rekening_penampung_id'])->first(),
             'petugas'   =>  $petugas_man->findAll(),
-            'bukti' =>  $bukti,
+            'bukti' =>  $bukti->where("jamaah_id",$id)->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->findAll(),
+            
             'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll()
         ];
         

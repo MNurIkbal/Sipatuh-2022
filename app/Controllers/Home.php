@@ -268,7 +268,9 @@ class Home extends BaseController
             $kode_paket_satu = $paket_first->where("id",$this->request->getVar("id_paket"))->first();
             $kode_paket = $kode_paket_satu['kode_paket'];
             $checks = new BioDataModel();
-            $biodata = $checks->where("user_id",session()->get('id'))->first();
+            $biodata = $checks->where("user_id",session()->get('id'))->first(); 
+            
+
             $jamaah->insert([
                 'title' =>  $this->request->getVar("title"),
                 'nama' =>  $this->request->getVar("nama"),
@@ -297,7 +299,18 @@ class Home extends BaseController
                 'no_paspor' =>  $this->request->getVar("no_paspor"),
                 'no_identitas' =>  $this->request->getVar("no_identitas"),
                 'no_pasti_umrah'    =>  "URM"  . date("Y") . date("m") . rand(1111,9999),
+                'nomor_polis'   =>  $biodata['nomor_polis'],
+                'tgl_input' =>  $biodata['tgl_input'],
+                'tgl_awal' =>  $biodata['tgl_awal'],
+                'tgl_akhir' =>  $biodata['tgl_akhir'],
+                'nomor_visa' =>  $biodata['nomor_visa'],
+                'tgl_awal_visa' =>  $biodata['tgl_awal_visa'],
+                'tgl_akhir_visa' =>  $biodata['tgl_akhir_visa'],
+                'muassasah' =>  $biodata['muassasah'],
                 'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111,9999),
+                'status_vaksin' =>  'sudah',
+                'tgl_vaksin'    =>  $biodata['tgl_vaksin'],
+                'jenis_vaksin'    =>  $biodata['jenis_vaksin'],
                 'user_id'   =>  session()->get('id')
                 // 'kloter_id' =>  $this->request->getVar("id_kloter"),
             ]);

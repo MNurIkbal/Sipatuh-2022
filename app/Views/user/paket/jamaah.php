@@ -45,10 +45,10 @@
                                         <th>Nama</th>
                                         <th>NIK</th>
                                         <th>TTL</th>
-                                        <th>No Hp</th>
+                                        <th>Status Bayar</th>
+                                        <th>Status Approve Bayar</th>
                                         <th>No Registrasi</th>
                                         <th>NPU</th>
-                                        <th>Dibuat</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -60,10 +60,22 @@
                                             <td><?= $row['nama']; ?></td>
                                             <td><?= $row['no_identitas']; ?></td>
                                             <td><?= $row['tempat_lahir']; ?>, <?= date("d, F Y",strtotime($row['tgl_lahir'])); ?></td>
-                                            <td><?= $row['no_hp']; ?></td>
+                                            <td>
+                                                <?php if(!empty($row['status_bayar'])) : ?>
+                                                    <span class="badge badge-pill badge-success bg-success"><?= $row['status_bayar']; ?></span>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-pill badge-success bg-warning">Belum Dikonfirmasi</span>
+                                                        <?php endif; ?>
+                                            </td>
+                                            <td>
+                                                <?php if($row['status_approve_bayar'] == "tolak") : ?>
+                                                    <span class="badge badge-pill badge-success bg-danger"><?= $row['status_approve_bayar']; ?></span>
+                                                    <?php else: ?>
+                                                        <span class="badge badge-pill badge-success bg-success"><?= $row['status_approve_bayar']; ?></span>
+                                                        <?php endif; ?>
+                                            </td>
                                             <td><?= $row['no_registrasi']; ?></td>
                                             <td><?= $row['no_pasti_umrah']; ?></td>
-                                            <td><?= date('d, F Y',strtotime($row['created_at'])); ?></td>
                                             <td>
                                                 <a href="<?= base_url("pindah_paket_jamaah/" . $row['id'] . '/' . $id_paket . '/' . $id_kloter); ?>" class="btn btn-warning" title="Pindah Paket"><i class="fas fa-edit"></i></a>
                                                 <a href="<?= base_url("detail_jamaah_diri/$row[id]/$id_paket/$id_kloter"); ?>"   class="btn btn-primary" title="Detail"><i class="fas fa-eye"></i></a>

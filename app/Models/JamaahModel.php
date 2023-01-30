@@ -72,7 +72,8 @@ class JamaahModel extends Model
         'status_approve_bayar',
         'user_id',
         'expired_bayar_dp',
-        'no_kursi'
+        'no_kursi',
+        'tgl_lunas'
     ];
 
     // Dates
@@ -180,6 +181,7 @@ class JamaahModel extends Model
         $builder->where("jamaah.selesai_pembayaran",NULL);
         $builder->orWhere("jamaah.status_bayar","cicil");
         $builder->orWhere("jamaah.status_bayar","lunas");
+        $builder->orderby("jamaah.id","desc");
         return $builder->findAll();
 
     }

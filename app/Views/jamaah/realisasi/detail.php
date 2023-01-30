@@ -957,7 +957,7 @@
             <div class="modal-body">
             <div class="mb-3">
                     <label for="">Nama Petugas</label>
-                    <select name="petugas" class="form-control" required   id="">
+                    <select name="petugas" class="form-control select50" required   id="">
                         <option value="">Pilih</option>
                         <?php foreach($petugas_umrah as $petugasumrah) : ?>
                         <option value="<?=  $petugasumrah['id'];  ?>"><?=  $petugasumrah['nama'];  ?> - <?=  $petugasumrah['tipe_petugas'];  ?></option>
@@ -1028,12 +1028,16 @@
 <?php endforeach; ?>
 <?php endif; ?>
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(document).ready(function () {
         $('#table-2').DataTable();
         $('#table-3').DataTable();
         $('#table-4').DataTable();
         $('#table-5').DataTable();
+        $(".select50").select2();
     });
 </script>
 <?= $this->endSection(); ?>

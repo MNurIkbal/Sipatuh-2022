@@ -1161,9 +1161,13 @@ class PendaftaranController extends BaseController
         $jamaah = new JamaahModel();
         $paket = new PaketModel();
         $profile = new ProfileModel();
+        $bank = new BankModel();
+        $red = $paket->where("id",$id)->first();
+        $mandiri = $bank->where("id",$red['rekening_penampung_id'])->first();
         $data = [
             'jamaah'    =>  $jamaah->where("paket_id", $id)->where("kloter_id", $id_kloter)->findAll(),
             'title' =>  "Print PDF",
+            'mandiri'   =>  $mandiri,
             'paket' =>  $paket->where("id", $id)->first(),
             'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
         ];

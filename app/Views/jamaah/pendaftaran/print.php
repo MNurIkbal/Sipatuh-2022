@@ -123,9 +123,9 @@
                             <small>No NPU : <?=  $row['no_pasti_umrah'];  ?></small>
                             </td>
                         <td>
-                            <small>Total :</small>
+                            <small>Total : Rp. <?= number_format($paket['biaya'],0); ?></small>
                             <br>
-                            <small>Bank : </small>
+                            <small>Bank : <?= $mandiri['bank']; ?></small>
                             <br>
                             <small>Asuransi : <?=  $row['asuransi'];  ?></small>
                             </td>

@@ -155,6 +155,16 @@
                             <label for="">Poster</label>
                             <input type="file" class="form-control" required  name="file">
                         </div>
+                        <div class="mb-3">
+                            <label for="">Rekening Penampung</label>
+                            <br>
+                            <select style="width: 100% !important;" name="rekening_penampung" id="rekening" class="form-control rekening" required>
+                                <option value="">Pilih</option>
+                                <?php foreach($rekening_penampung as $ttr) : ?>
+                                    <option value="<?= $ttr['id']; ?>"><?= $ttr['bank'] .  ' / '. $ttr['no_rekening'] . ' / '. $ttr['nama']; ?></option>
+                                    <?php endforeach; ?>
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -184,6 +194,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Asuransi</label>
+                            
                             <select name="asuransi" required class="form-control select22" style="width: 100% !important;" id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($asuransi as $main_asurasi) : ?>
@@ -193,7 +204,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="">Tour Leader</label>
-                            <br>
+                            
                             <select name="leader" class="form-control select23" style="width: 100% !important;" required id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($petugas as $petugass ) : ?>
@@ -211,8 +222,6 @@
         </form>
     </div>
 </div>
-
-
 <?php foreach($result as $main) : ?>
 <div class="modal fade" tabindex="-1" role="dialog" id="hapus<?= $main['id'] ?>">
     <div class="modal-dialog modal-lg" role="document">
@@ -234,7 +243,7 @@
         </form>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="edits<?= $main['id'] ?>">
+<div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $main['id'] ?>">
     <div class="modal-dialog modal-lg" role="document">
         <form method="POST" enctype="multipart/form-data" action="<?=  base_url("edit_paket/" . $main['id']);  ?>"
             class="modal-content">
@@ -270,7 +279,8 @@
                         <div class="mb-3">
                             <label for="">Provider</label>
                             <br>
-                            <select name="provider" class="form-control select1<?= $main['id'] ?>" style="width: 100% !important;" required id="">
+                            <!-- <input type="text" class="form-control" required placeholder="Provider" name="provider" value="<?= $main['provider'] ?>"> -->
+                            <select name="provider" class="form-control select1" style="width: 100% !important;" required id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($provider as $mains) : ?>
                                 <option <?=  ($mains['nama_provider'] == $main['provider']) ? "selected" : "";  ?>
@@ -286,6 +296,7 @@
                             <input type="hidden" name="file_lama" value="<?=  $main['poster'];  ?>">
                             <input type="file" class="form-control" name="file">
                         </div>
+                       
                     </div>
                     <div class="col-md-6">
                         <div class="mb-3">
@@ -319,7 +330,8 @@
                         <div class="mb-3">
                             <label for="">Asuransi</label>
                             <br>
-                            <select name="asuransi" required class="form-control main<?= $main['id'] ?>" style="width: 100% !important;" id="">
+                            <!-- <input type="text" class="form-control" required placeholder="Asuransi" name="asuransi" value="<?=  $main['asuransi'];  ?>"> -->
+                            <select name="asuransi" required class="form-control asuransia" style="width: 100% !important;" id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($asuransi as $main_asurasi) : ?>
                                 <?=  $main_asurasi['nama'];  ?>
@@ -331,8 +343,18 @@
                     </div>
                 </div>
             </div>
-   
-
+            <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".select1").select2({
+        dropdownParent: $('#edit<?= $main['id'] ?>')
+    });
+    $(".asuransia").select2({
+        dropdownParent: $('#edit<?= $main['id'] ?>')
+    });
+    
+</script>
             <div class="modal-footer bg-whitesmoke br">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -340,12 +362,16 @@
         </form>
     </div>
 </div>
-
 <?php endforeach; ?>
 <script>
+    const pulang = document.getElementById("pulang")
+    pulang.addEventListener("keydown",function(e) {
+        // alert("ok")
+    })
     var uang = document.getElementById("uang");
     uang.addEventListener("keyup", function (e) {
-
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
         uang.value = formatRupiah(this.value, "Rp. ");
     });
 
@@ -373,6 +399,11 @@
         rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
         return prefix == undefined ? rupiah : rupiah ? "" + rupiah : "";
     }
+</script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+    integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
+    
+<script>
     $(".select21").select2({
         dropdownParent: $('#exampleModal')
     })
@@ -382,24 +413,15 @@
     $(".select23").select2({
         dropdownParent: $('#exampleModal')
     })
-</script>
-
-<script>
-        <?php foreach($result as $r) : ?>
-        $(".main<?= $r['id'] ?>").select2({
-        dropdownParent: $('#edits<?= $r['id'] ?>')
+    $(".rekening").select2({
+        dropdownParent: $('#exampleModal')
     })
-    $(".select1<?= $r['id'] ?>").select2({
-        dropdownParent: $('#edits<?= $r['id'] ?>')
-    })
-    <?php endforeach; ?>
-    </script>
-
-<script>
     $(document).ready(function () {
-        $('#table-2').DataTable();
+        
         $('#table-1').DataTable();
-        $('#table-3').DataTable();
+        
     });
+
+    
 </script>
 <?= $this->endSection(); ?>

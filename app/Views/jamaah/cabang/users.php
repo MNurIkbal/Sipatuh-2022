@@ -32,7 +32,7 @@
                                         <th>Nama Cabang</th>
                                         <th>No Hp</th>
                                         <th>Email</th>
-                                        <th>Status</th>
+                                        
                                         <th>Dibuat</th>
                                         <th>Action</th>
                                     </tr>
@@ -48,9 +48,8 @@
                                             </div>
                                         </td>
                                         <td><?=  $kloters['nama'];  ?></td>
-                                        <td><?=  $kloters['username'];  ?></td>
-                                        <td><?=  $kloters['email'];  ?></td>
                                         <td><?=  $kloters['no_hp'];  ?></td>
+                                        <td><?=  $kloters['username'];  ?></td>
                                         <td><?=  date("d-m-Y",strtotime($kloters['created_at']));  ?></td>
                                         <td>
                                             <a href="#" class="btn btn-success" title="Edit" data-toggle="modal"

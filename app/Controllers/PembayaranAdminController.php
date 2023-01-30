@@ -28,7 +28,7 @@ class PembayaranAdminController extends BaseController
         $travel = session()->get("travel_id");
         // dd($travel);/
         $paket = new PaketModel();
-        $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->findAll();
+        $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->orderby('id','desc')->findAll();
         $data = [
             'bukti' =>  $bukti,
             'title' =>  "Pembayaran",

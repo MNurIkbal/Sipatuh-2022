@@ -95,6 +95,11 @@ class RequestJamaahController extends BaseController
         if($data_kloter['batas_jamaah'] <= 0) {
             return redirect()->back()->with('error','Kuota Jamaah Sudah Habis');
         }
+
+        $check = $jamaah->where("kloter_id",$this->request->getVar('kloter'))->first();
+        if($check) {
+            return redirect()->back()->with('error','Jamaah Ini Sudah Pernah Terdaftar');
+        }
         $jamaah->update($id_jamaah,[
             'kloter_id' =>  $this->request->getVar("kloter")
         ]);
