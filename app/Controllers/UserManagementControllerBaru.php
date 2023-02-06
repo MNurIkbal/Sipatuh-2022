@@ -74,7 +74,7 @@ $hitang =  $db->query("SELECT SUM(sisa_pembayaran) FROM paket INNER JOIN jamaah 
 $sle = $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id INNER JOIN kloter ON paket.id = kloter.paket_id WHERE jamaah.user_id = '$r' AND kloter.keberangkatan = 'sudah' AND kloter.status_realisasi = 'sudah' AND kloter.done = 'sudah'")->getNumRows();
 foreach($pem as $t) {
     $rf = $t;
-}
+}   
 
 $daf = new DaftarJamaahModel();
 
