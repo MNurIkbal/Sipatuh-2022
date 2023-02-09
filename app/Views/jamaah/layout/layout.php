@@ -124,8 +124,6 @@
             </li>
             <li><a class="nav-link" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
-            <!-- <li><a class="nav-link" href="<?=  base_url("/cabang");  ?>"><i class="fas fa-building"></i><span>Cabang</span></a></li> -->
-            <!-- <li><a class="nav-link" href="<?=  base_url("/request_jamaah");  ?>"><i class="fas fa-user-edit"></i><span>Request Jamaah</span></a></li> -->
             <li><a class="nav-link" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
           </ul>
@@ -133,10 +131,15 @@
             <ul class="sidebar-menu">
             <li><a class="nav-link" href="<?=  base_url("/dash_admin");  ?>"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/users");  ?>"><i class="fas fa-clipboard"></i><span>Travel</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/level_users");  ?>"><i class="fas fa-star"></i><span>Level Petugas</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/data_provider");  ?>"><i class="fas fa-book-open"></i><span>Provider</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/data_asuransi");  ?>"><i class="fas fa-notes-medical"></i><span>Asuransi</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/data_mussahah");  ?>"><i class="fas fa-receipt"></i><span>Muassasah </span></a></li>
+            <li class="dropdown ">
+              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Master Data</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="<?=  base_url("/level_users");  ?>">Level Petugas</a></li>
+                <li><a class="nav-link" href="<?=  base_url("/data_provider");  ?>">Provider</a></li>
+                <li><a class="nav-link" href="<?=  base_url("/data_asuransi");  ?>">Asuransi</a></li>
+                <li><a class="nav-link" href="<?=  base_url("/data_mussahah");  ?>">Muassasah</a></li>
+              </ul>
+            </li>
             <li><a class="nav-link" href="<?=  base_url("/data_hotel");  ?>"><i class="fas fa-hotel"></i><span>Hotel </span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/data_bank");  ?>"><i class="fas fa-building"></i><span>Bank </span></a></li>
             <li><a class="nav-link" href="<?=  base_url("/data_travel");  ?>"><i class="fas fa-city"></i><span>Perusahaan</span></a></li>

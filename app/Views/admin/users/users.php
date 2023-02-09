@@ -186,7 +186,10 @@ $validation = \Config\Services::validation();
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="">Foto</label>
+                    <div class="mb-4" style="width: 150px;height: 150px;">
+                            <img src="<?= base_url("assets/upload/" . $users['img']); ?>" alt="" class="img-thumbnail img-fluid w-100 h-100">
+                    </div>  
+                    <label for="">Foto</label>  
                     <input type="hidden" name="travel_id" value="<?=  $id;  ?>">
                     <input type="hidden" name="file_lama" value="<?=  $users['img'];  ?>">
                     <input type="file" class="form-control"  placeholder="file" name="file">

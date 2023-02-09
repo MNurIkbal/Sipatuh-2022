@@ -36,10 +36,8 @@ $validation = \Config\Services::validation();
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <label for="">Nama Perushaan</label>
-                                                    <!-- <input type="text" name="nama_perusahaan"
-                                        value="<?= $users['nama_perusahaan'];  ?>" required class="form-control"
-                                        placeholder="Nama Perusahaan"> -->
-                                                    <select name="nama_perusahaan" class="form-control" required id="">
+                                                    <br>
+                                                    <select style="width: 100% !important;" name="nama_perusahaan" class="form-control select1000" required id="" >
                                                         <option value="">Pilih</option>
                                                         <?php foreach ($perusahaan as $main_duat) : ?>
                                                             <option <?= ($main_duat['nama_travel'] == $users['nama_perusahaan']) ? "selected" : "";  ?> value="<?= $main_duat['nama_travel'];  ?>"><?= $main_duat['nama_travel'];  ?></option>
@@ -82,37 +80,6 @@ $validation = \Config\Services::validation();
                                                 <div class="mb-3">
                                                     <label for="">Email</label>
                                                     <input type="email" name="email" value="<?= $users['email'];  ?>" required class="form-control" placeholder="Email">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Website</label>
-                                                    <input type="text" name="website" value="<?= $users['website'];  ?>" required class="form-control" placeholder="Website">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Provinsi</label>
-                                                    <!-- <input type="text" name="provinsi" 
-                                            required class="form-control" placeholder="Provinsi"> -->
-                                                    <select name="provinsi" id="provinsi" class="form-control" required>
-                                                        <option value="">Pilih</option>
-                                                        <?php foreach ($provinsi as $main_dua) :  ?>
-                                                            <option value="<?= $main_dua['id'] . '-' . $main_dua['name']; ?>" <?= ($main_dua['name'] == $users['provinsi']) ? "selected" : ""; ?>><?= $main_dua['name']; ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Kabupaten</label>
-                                                    <select name="kabupaten" id="kabupaten" class="form-control" required>
-                                                        <!-- <option value=""></option> -->
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Kecamatan</label>
-                                                    <select name="kecamatan" id="kecamatan" class="form-control" required>
-
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Alamat</label>
-                                                    <textarea name="alamat" class="form-control" required placeholder="Alamat" id="" cols="30" rows="10"><?= $users['alamat']; ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,6 +156,8 @@ $validation = \Config\Services::validation();
         </div>
     </section>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 </script>
@@ -196,35 +165,6 @@ $validation = \Config\Services::validation();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $("#provinsi").change(function() {
-        let val = $(this).val()
-        $.ajax({
-            url: "<?= base_url("ambil_provinsi") ?>/" + val,
-            success: function(data) {
-                $("#kabupaten").html(data)
-            }
-        });
-
-        $("#kabupaten").change(function() {
-            let kab = $(this).val()
-            $.ajax({
-                url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
-                success: function(data_dua) {
-                    $("#kecamatan").html(data_dua)
-                }
-            })
-        });
-
-
-        $("#kecamatan").change(function() {
-            let kec = $(this).val()
-            $.ajax({
-                url: "<?= base_url("ambil_kecamatan") ?>/" + kec,
-                success: function(data_tiga) {
-                    $("#kelurahan").html(data_tiga)
-                }
-            })
-        })
-    });
+    $(".select1000").select2()
 </script>
 <?= $this->endSection(); ?>

@@ -48,6 +48,12 @@ class PetugasController extends BaseController
         $dataBerkas->move('assets/upload/', $fileName);
         $petugas = new PetugasManModel();
 
+        $ch = $petugas->where("nama",$this->request->getVar("nama"))->first();
+        $ch1 = $petugas->where("no_ktp",$this->request->getVar("no_ktp"))->first();
+        if($ch || $ch1) {
+            return redirect()->back()->with('error','Nama Atau No KTP Sudah Ada ');
+        }
+
         $petugas->insert([
             'nama'  =>  $this->request->getVar("nama"),
             'no_ktp'  =>  $this->request->getVar("no_ktp"),

@@ -70,41 +70,43 @@
       </div>
     </div>
   </header>
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner" >
-    <?php 
-    $first_active_element = true;
-    foreach ($banner as $satu) :
-            $waktu_mulai  = date("Y-m-d",strtotime($satu['star']));
-            $waktu_akhir  = date("Y-m-d",strtotime($satu['expired']));
-            $sekarang = date("Y-m-d");
-            if($sekarang < $waktu_mulai) :
-            ?>
-            <?php elseif($sekarang > $waktu_akhir) : ?>
-              <?php else: ?>
-              <div class="carousel-item <?= ($first_active_element) ? "active" : ""; ?>">
-                <div style="width: 100% !important;height: 600px !important">
-                  <img src="<?= base_url("assets/upload/" . $satu['foto']);  ?>"  class=" w-100 h-100" alt="...">
-                </div>
-              </div>
-              <?php $first_active_element = false;  ?>
-            <?php endif; ?>
-          <?php endforeach; ?>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+  <?php if(!empty($banner)) : ?>
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner" >
+        <?php 
+        $first_active_element = true;
+        foreach ($banner as $satu) :
+                $waktu_mulai  = date("Y-m-d",strtotime($satu['star']));
+                $waktu_akhir  = date("Y-m-d",strtotime($satu['expired']));
+                $sekarang = date("Y-m-d");
+                if($sekarang < $waktu_mulai) :
+                ?>
+                <?php elseif($sekarang > $waktu_akhir) : ?>
+                  <?php else: ?>
+                  <div class="carousel-item <?= ($first_active_element) ? "active" : ""; ?>">
+                    <div style="width: 100% !important;height: 600px !important">
+                      <img src="<?= base_url("assets/upload/" . $satu['foto']);  ?>"  class=" w-100 h-100" alt="...">
+                    </div>
+                  </div>
+                  <?php $first_active_element = false;  ?>
+                <?php endif; ?>
+              <?php endforeach; ?>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <?php endif; ?>
   <div class="container  box-shadow mt-5">
     <main>
 

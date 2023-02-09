@@ -97,8 +97,9 @@ class UsersController extends BaseController
         $users = new Users();
 
         $check = $users->where("username",$this->request->getVar("username"))->first();
-        if($check) {
-            return redirect("users")->with("success","Username sudah ada");
+        $checks = $users->where("nama",$this->request->getVar("nama"))->first();
+        if($check || $checks) {
+            return redirect()->back()->with("error","Data Sudah Ada");
             exit;
         }
         if(!$this->validate([
@@ -254,6 +255,11 @@ class UsersController extends BaseController
             exit;
         }
         $profile = new ProfileModel();
+        $check = $profile->where("nama_travel_umrah",$this->request->getVar("nama_travel"))->first();
+        $website = $profile->where("website",$this->request->getVar("website"))->first();
+        if($check || $website) {
+            return redirect()->back()->with('error',"Data Sebelumnya Sudah Ada");
+        }
         if(!$this->validate([
             'file_logo' => [
                 "rules" =>  "max_size[file_logo,3024]|mime_in[file_logo,image/jpg,image/jpeg,image/png]"
@@ -322,33 +328,6 @@ class UsersController extends BaseController
             'created_at'    =>  date("Y-m-d"),
             'logo_travel'   =>  $gambar_dua,
         ]);
-        // $profile->update($id_profile,[
-        //     'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
-        //     'nama_travel_umrah' => $this->request->getVar("nama_travel"),
-        //     'npwp' => $this->request->getVar("npwp"),
-        //     'no_sk' => $this->request->getVar("no_sk"),
-        //     'tgl_sk' => $this->request->getVar("tgl_sk"),
-        //     // 'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
-        //     'no_telp' => $this->request->getVar("no_telp"),
-        //     'no_hp' => $this->request->getVar("no_hp"),
-        //     'email' => $this->request->getVar("email"),
-        //     'website' => $this->request->getVar("website"),
-        //     'provinsi' => $this->request->getVar("provinsi"),
-        //     'kabupaten' => $this->request->getVar("kabupaten"),
-        //     'kecamatan' => $this->request->getVar("kecamatan"),
-        //     'alamat' => $this->request->getVar("alamat"),
-        //     'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
-        //     'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
-        //     'alamat_madinah' => $this->request->getVar("alamat_madinah"),
-        //     'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
-        //     'foto_kantor' => $gambar,
-        //     'logo_travel'   =>  $gambar_dua,
-        //     // 'banner'    =>  $gambar_duaBanner
-        // ]);
-        // $users = new Users();
-        // $users->update($id,[
-        //     'kelengkapan'   =>  'sudah'
-        // ]);
         return redirect()->to("users/" )->with("success","Data Berhasil update");
     }
 
@@ -394,72 +373,22 @@ class UsersController extends BaseController
             $dataBerkasDua->move('assets/upload/', $fileName_dua);
         }
 
-        // $dataBerkasDuaBanner = $this->request->getFile('file_banner');
-        // if($dataBerkasDuaBanner->getError() === 4) {
-        //     $gambar_duaBanner = $this->request->getVar("foto_lama_banner");
-        // }  else {
-        //     $fileName_duaBanner = $dataBerkasDuaBanner->getRandomName();
-        //     $gambar_duaBanner = $fileName_duaBanner;
-        //     $dataBerkasDuaBanner->move('assets/upload/', $fileName_duaBanner);
-        // }
-
-        
-        // $profile->insert([
-        //     'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
-        //     'nama_travel_umrah' => $this->request->getVar("nama_travel"),
-        //     'npwp' => $this->request->getVar("npwp"),
-        //     'no_sk' => $this->request->getVar("no_sk"),
-        //     'tgl_sk' => $this->request->getVar("tgl_sk"),
-        //     // 'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
-        //     'no_telp' => $this->request->getVar("no_telp"),
-        //     'no_hp' => $this->request->getVar("no_hp"),
-        //     'email' => $this->request->getVar("email"),
-        //     'website' => $this->request->getVar("website"),
-        //     'provinsi' => $this->request->getVar("provinsi"),
-        //     'kabupaten' => $this->request->getVar("kabupaten"),
-        //     'kecamatan' => $this->request->getVar("kecamatan"),
-        //     'alamat' => $this->request->getVar("alamat"),
-        //     'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
-        //     'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
-        //     'alamat_madinah' => $this->request->getVar("alamat_madinah"),
-        //     'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
-        //     'foto_kantor' => $gambar,
-        //     'created_at'    =>  date("Y-m-d"),
-        //     'logo_travel'   =>  $gambar_dua,
-        // ]);
-        $provinsi_explode = explode("-",$this->request->getVar("provinsi"));
-        $provinsi_hasil  = $provinsi_explode[1];
-        $kabupaten_explode = explode("-",$this->request->getVar("kabupaten"));
-        $kabupaten_hasil = $kabupaten_explode[1];
-        $kecamatan_explode = explode("-",$this->request->getVar("kecamatan"));
-        $kecamatan_hasil = $kecamatan_explode[1];
         $profile->update($id,[
             'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
             'nama_travel_umrah' => $this->request->getVar("nama_travel"),
             'npwp' => $this->request->getVar("npwp"),
             'no_sk' => $this->request->getVar("no_sk"),
             'tgl_sk' => $this->request->getVar("tgl_sk"),
-            // 'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),
-            'website' => $this->request->getVar("website"),
-            'provinsi' => $provinsi_hasil,
-            'kabupaten' => $kabupaten_hasil,
-            'kecamatan' => $kecamatan_hasil,
-            'alamat' => $this->request->getVar("alamat"),
             'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
             'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
             'alamat_madinah' => $this->request->getVar("alamat_madinah"),
             'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
             'foto_kantor' => $gambar,
             'logo_travel'   =>  $gambar_dua,
-            // 'banner'    =>  $gambar_duaBanner
         ]);
-        // $users = new Users();
-        // $users->update($id,[
-        //     'kelengkapan'   =>  'sudah'
-        // ]);
         return redirect()->to("users/" )->with("success","Data Berhasil update");
     }
 }

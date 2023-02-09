@@ -133,6 +133,9 @@
                     <input type="text" class="form-control" name="username" required placeholder="Email" value="<?=  $rows['username'];  ?>">
                 </div>
                 <div class="mb-3">
+                <div class="mb-4" style="width: 150px;height: 150px;">
+                            <img src="<?= base_url("assets/upload/" . $rows['img']); ?>" alt="" class="img-thumbnail img-fluid w-100 h-100">
+                    </div>  
                     <label for="">Foto</label>
                     <input type="hidden" name="file_lama" value="<?=  $rows['img'];  ?>">
                     <input type="file" class="form-control" name="file"  placeholder="file">

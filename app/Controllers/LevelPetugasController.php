@@ -106,6 +106,13 @@ class LevelPetugasController extends BaseController
         }
 
         $hotel = new DataHotelModel();
+
+        $nama_hotel = $this->request->getVar("nama");
+        $result = $hotel->where('nama',$nama_hotel)->first();
+        if($result) {
+            return redirect()->back()->with('error',"Nama Hotel Sudah Ada");
+            exit;
+        }
         $hotel->insert([
             'nama'  =>  $this->request->getvar("nama"),
             'lokasi'    =>  $this->request->getVar("lokasi")
@@ -159,6 +166,10 @@ class LevelPetugasController extends BaseController
         }
 
         $muasahah = new MuassahModel();
+        $result = $muasahah->where("nama_muassasah",$this->request->getVar("nama"))->first();
+        if($result) {
+            return redirect()->back()->with('error',"Data Sudah Ada");
+        }
         $muasahah->insert([
                 'nama_muassasah'    =>  $this->request->getVar('nama')
         ]);
@@ -209,6 +220,11 @@ class LevelPetugasController extends BaseController
         }
 
         $asuransi = new AsuransiModel();
+        $result = $asuransi->where("nama",$this->request->getVar('nama'))->first();
+        if($result) {
+            return redirect()->back()->with('error',"Data Sudah Ada");
+            exit;
+        }
         $asuransi->insert([
             'nama'  =>  $this->request->getVar("nama")
         ]);
@@ -267,6 +283,11 @@ class LevelPetugasController extends BaseController
             exit;
         }
         $level = new LevelPetugasModel();
+        $result = $level->where("nama",$this->request->getVar("nama"))->first();
+        if($result) {
+            return redirect()->back()->with('error','Data Sudah Ada');
+            exit;
+        }
         $level->insert([
             'nama'  =>$this->request->getVar('nama')
         ]);
@@ -281,6 +302,11 @@ class LevelPetugasController extends BaseController
         }
         $level = new LevelPetugasModel();
         $provider = new DataProviderModel();
+
+        $result = $provider->where("nama_provider",$this->request->getVar("nama"))->first();
+        if($result) {
+            return redirect()->back()->with('error',"Data Sudah Ada");
+        }
         $provider->insert([
             'nama_provider' =>  $this->request->getVar("nama"),
         ]);
@@ -320,7 +346,7 @@ class LevelPetugasController extends BaseController
             'nama_provider' =>  $this->request->getVar('nama')
         ]);
 
-        return redirect()->to("data_provider")->with("success","Data Berhasil Ditambahkan");
+        return redirect()->to("data_provider")->with("success","Data Berhasil Diupdate");
     }
 
     public function edit_level($id)

@@ -35,10 +35,9 @@ $validation = \Config\Services::validation();
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="">Nama Perushaan</label>
-                                                <!-- <input type="text" name="nama_perusahaan"
-                                                    value="" required
-                                                    class="form-control" placeholder="Nama Perusahaan"> -->
-                                                    <select name="nama_perusahaan" class="form-control" required id="">
+                                                    <br>
+                                                    <select name="nama_perusahaan" class="form-control select801" required id="" style="width: 
+                                                    100% !important;">
                                                         <option value="">Pilih</option>
                                                         <?php foreach($travel as $travels) : ?>
                                                             <option value="<?=  $travels['nama_travel'];  ?>"><?=  $travels['nama_travel'];  ?></option>
@@ -97,9 +96,8 @@ $validation = \Config\Services::validation();
                                     </div>
                                     <div class="mb-3">
                                         <label for="">Provinsi</label>
-                                        <!-- <input type="text" name="provinsi" 
-                                            required class="form-control" placeholder="Provinsi"> -->
-                                            <select name="provinsi" id="provinsi" class="form-control" required>
+                                        <br>
+                                            <select name="provinsi" id="provinsi" class="form-control select802" style="width: 100% !important;" required>
                                                 <option value="">Pilih</option>
                                                 <?php foreach($provinsi as $main_dua) :  ?>
                                                     <option value="<?= $main_dua['id'] . '-' . $main_dua['name']; ?>"><?= $main_dua['name']; ?></option>
@@ -108,13 +106,14 @@ $validation = \Config\Services::validation();
                                     </div>
                                     <div class="mb-3">
                                         <label for="">Kabupaten</label>
-                                        <select name="kabupaten" id="kabupaten" class="form-control" required>
-                                            <!-- <option value=""></option> -->
+                                        <br>
+                                        <select style="width: 100% !important;" name="kabupaten" id="kabupaten" onchange="daerah_kabupaten()" class="form-control select803" required>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="">Kecamatan</label>
-                                        <select name="kecamatan" id="kecamatan" class="form-control" required>
+                                        <br>
+                                        <select style="width: 100% !important;" name="kecamatan" id="kecamatan" class="form-control select804" required>
 
                                         </select>
                                     </div>
@@ -188,6 +187,8 @@ $validation = \Config\Services::validation();
         </div>
     </section>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
   </script>
@@ -195,6 +196,20 @@ $validation = \Config\Services::validation();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    function daerah_kabupaten() {
+        let kab = $(".select803").val()
+        
+      $.ajax({
+        url : "<?= base_url('ambil_kabupaten') ?>/" + kab,
+        success:function(data_dua) {
+          $("#kecamatan").html(data_dua)
+        }
+      })
+    }
+    $(".select801").select2()
+    $(".select802").select2()
+    $(".select803").select2()
+    $(".select804").select2()
       $("#provinsi").change(function() {
     let val = $(this).val()
     $.ajax({
@@ -204,15 +219,16 @@ $validation = \Config\Services::validation();
       }
     });
 
-    $("#kabupaten").change(function() {
-      let kab = $(this).val()
-      $.ajax({
-        url : "<?= base_url('ambil_kabupaten') ?>/" + kab,
-        success:function(data_dua) {
-          $("#kecamatan").html(data_dua)
-        }
-      })
-    });
+
+    // $("#kabupaten").change(function() {
+    //   let kab = $(this).val()
+    //   $.ajax({
+    //     url : "<?= base_url('ambil_kabupaten') ?>/" + kab,
+    //     success:function(data_dua) {
+    //       $("#kecamatan").html(data_dua)
+    //     }
+    //   })
+    // });
 
     
     $("#kecamatan").change(function() {

@@ -69,7 +69,7 @@ class DataBankController extends BaseController
         }
 
         $bank = new DataBank();
-        $bank->where('id_bank',$id)->delete();
+        $bank->where('id',$id)->delete();
         return redirect()->to("data_bank")->with("success","Data Berhasil Dihapus");    
     }
 
