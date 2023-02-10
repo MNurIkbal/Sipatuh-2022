@@ -28,16 +28,15 @@ class RequestPaketController extends BaseController
             'title' =>  "Aplikasi Sipatuh",
             'kloter'    =>  $kloter->findAll(),
             'result'    =>  $paket->where([
-                // 'user_id'   =>  session()->get("id")
                 'travel_id' =>  session()->get('travel_id'),
                 'cabang'    =>  'cabang',
-                'status'    =>  'aktif',
+                'status !=' =>  'selesai',
                 'status_paket_cabang'   => NULL,
             ])->findAll(),
             'provider'  =>  $data_provider->findAll(),
             'asuransi'  =>  $asuransi->findAll()
-            // 'provider'  =>  $provider->findAll()
         ];
+        dd($data['result']);
         return view("jamaah/paket_cabang/index",$data);
     }
 

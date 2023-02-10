@@ -368,7 +368,22 @@ class HistoryController extends BaseController
             // 'result'    =>  $paket->where([
             //     'id'    =>  $id
             // ])->first(),
-            'result'    =>  $db->query("SELECT paket.nama,paket.tgl_berangkat,paket.tgl_pulang,paket.biaya,paket.id,paket.kode_paket,kloter.keberangkatan,paket.pemberangkatan,kloter.selesai FROM paket LEFT JOIN kloter ON paket.id = kloter.paket_id WHERE travel_id = '$travel_id' AND kloter.keberangkatan = 'sudah' AND paket.status = 'aktif' AND paket.kelengkapan = 'sudah'")->getRowArray(),
+            'result'    =>  $db->query("SELECT          
+                    paket.nama,
+                    paket.tgl_berangkat,
+                    paket.tgl_pulang,
+                    paket.biaya,
+                    paket.id,
+                    paket.kode_paket,
+                    kloter.keberangkatan,
+                    paket.pemberangkatan,
+                    kloter.selesai 
+                    FROM paket LEFT JOIN kloter 
+                    ON paket.id = kloter.paket_id 
+                    WHERE travel_id = '$travel_id' AND 
+                    kloter.keberangkatan = 'sudah' AND 
+                    paket.status = 'selesai' AND 
+                    paket.kelengkapan = 'sudah'")->getRowArray(),
             'id_paket'  =>  $id_paket,
             'petugas'   =>  $petugas->where([
                 'paket_id'    =>  $id_paket,
