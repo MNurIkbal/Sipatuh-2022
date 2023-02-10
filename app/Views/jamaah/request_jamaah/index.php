@@ -78,7 +78,9 @@
         </div>
     </section>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <?php foreach ($jamaah as $main) : ?>
     
     <div class="modal fade" tabindex="-1" role="dialog" id="detail<?= $main['id'] ?>">
@@ -211,7 +213,8 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="">Kloter</label>
-                        <select name="kloter" class="form-control" required id="">
+                        <br>
+                        <select style="width: 100% !important;" name="kloter" class="form-control sele32" required id="">
                             <?php 
                             $klotes = $kloter->where('paket_id',$main['id_paket'])->where("status","aktif")->where("keberangkatan",NULL)->where("selesai",NULL)->where("status_realisasi",NULL)->where("done",NULL)->findAll();
                             ?>
@@ -229,5 +232,10 @@
             </form>
         </div>
     </div>
+    <script>
+         $('.sele32').select2({
+        dropdownParent: $("#hapus<?= $main['id'] ?>")
+    });
+    </script>
 <?php endforeach; ?>
 <?= $this->endSection(); ?>

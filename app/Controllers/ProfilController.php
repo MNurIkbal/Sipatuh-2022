@@ -73,7 +73,6 @@ class ProfilController extends BaseController
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),
-            'website' => $this->request->getVar("website"),
             'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
             'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
             'alamat_madinah' => $this->request->getVar("alamat_madinah"),

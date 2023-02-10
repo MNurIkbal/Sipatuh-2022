@@ -124,8 +124,10 @@ class PetugasController extends BaseController
         $check_result = $petugas->where("id",$id)->first();
         $result = new PetugasModel();
         $check = $result->where("nama",$check_result['nama'])->first();
-        if($check) {
+        $check1 = $petugas->where("nama",$check_result['nama'])->first();
+        if($check || $check1)  {
             return redirect()->back()->with("error","Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi");
+            exit;
         }
 
         $petugas->delete($id);

@@ -192,6 +192,12 @@ class RekeningPenampungController extends BaseController
         }
         $id = $this->request->getVar("id");
 
+        $paket = new PaketModel();
+        $re = $paket->where("rekening_penampung_id",$id)->first();
+        if($re) {
+            return redirect()->back()->with('error',"Data Tidak Boleh Dihapus Karena Sudah Berelasi");
+        }
+
         $rekening = new BankModel();
         $rekening->delete($id);
         return redirect()->to("rekening_penampung")->with("success","Data Berhasil Dihapus");

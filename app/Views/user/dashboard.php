@@ -34,7 +34,7 @@
                 <h4 class="card-title">Total Pembayaran</h4>
               </div>
               <div class="card-body">
-                <h3>Rp <?= number_format($pembayaran,0); ?></h3>
+                <h3>Rp <?= (!empty($pembayaran)) ? number_format($pembayaran,0) : 0; ?></h3>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@
                 <h4 class="card-title">Total Hutang</h4>
               </div>
               <div class="card-body">
-                <h3>Rp. <?= number_format($hutang,0); ?></h3>
+                <h3>Rp. <?= (!empty($hutang)) ? number_format($hutang,0) : 0; ?></h3>
               </div>
             </div>
           </div>

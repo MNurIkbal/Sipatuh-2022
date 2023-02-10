@@ -103,7 +103,8 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="">Bank</label>
-                    <select name="bank" class="form-control" required  id="">
+                    <br>
+                    <select style="width: 100% !important;" name="bank" class="form-control selectlama" required  id="">
                         <option value="">Pilih</option>
                         <?php foreach($bank as $banks) : ?>
                                 <option value="<?=  $banks['nama_bank'];  ?>" <?= ($banks['nama_bank'] == $main['bank']) ? "selected" : ""; ?>><?=  $banks['nama_bank'];  ?></option>
@@ -153,14 +154,9 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="">Bank</label>
-                    <select name="bank" class="form-control" required  id="">
+                    <br>
+                    <select style="width: 100% !important;" name="bank" class="form-control selectbaru" required  id="">
                         <option value="">Pilih</option>
-                        <!-- <option value="Bank Mandiri">Bank Mandiri</option>
-                        <option value="Bank BRI">Bank BRI</option>
-                        <option value="Bank DKI">Bank DKI</option>
-                        <option value="Bank BNI">Bank BNI</option>
-                        <option value="Bank BTN">Bank BTN</option>
-                        <option value="Bank BCA">Bank BCA</option> -->
                         <?php foreach($bank as $banks) : ?>
                                 <option value="<?=  $banks['nama_bank'];  ?>"><?=  $banks['nama_bank'];  ?></option>
                                 <?php endforeach; ?>
@@ -195,4 +191,20 @@
         </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<?php foreach($rekening as $ma) : ?>
+    <script>
+        $('.selectlama').select2({
+        dropdownParent: $("#edit<?= $ma['id'] ?>")
+    });
+    </script>
+    <?php endforeach; ?>
+<script>
+    $('.selectbaru').select2({
+        dropdownParent: $('#tambah')
+    });
+    
+</script>
 <?= $this->endSection(); ?>
