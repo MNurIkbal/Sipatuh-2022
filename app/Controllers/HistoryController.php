@@ -34,11 +34,12 @@ class HistoryController extends BaseController
         }
         $paket = new PaketModel();
         if(session()->get("level_id") == "jamaah") {
+
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang'    =>  NULL,
                 'kelengkapan' =>    'sudah',
-                'status'    =>  "aktif",
+                'status'    =>  "selesai",
                 'tiket' =>  'sudah'
             ])->findAll();
         } elseif(session()->get("level_id") == "cabang") {

@@ -38,17 +38,24 @@ class PaketController extends BaseController
         $kloter = new KloterModel();
         $petugas = new PetugasManModel();
         $rekening_penampung = new BankModel();
+        $done = [
+            'selesai'
+        ];
+
+        
         
         if(session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
-                'cabang'    =>  NULL
+                'cabang'    =>  NULL,
+                'status !=' =>  'selesai'
             ])->orderBy('id','desc')->findAll();
         } elseif(session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
                 'cabang'    =>  "cabang",
+                'status !=' =>  'selesai'
             ])->orderBy('id','desc')->findAll();
         }
         
