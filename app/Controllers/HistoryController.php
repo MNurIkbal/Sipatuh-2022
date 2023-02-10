@@ -141,7 +141,10 @@ class HistoryController extends BaseController
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")
         ->where("id", $id_jamaah)->first();
 
+        $rekening_penampung = new BankModel();
+        $banks = $rekening_penampung->where("id",$pakets['rekening_penampung_id'])->first();
         $data = [
+            'banks' => $banks,
             'id_paket'  =>  $id_paket,
             'id_kloter' =>  $id_kloter,
             'paket' =>  $pakets,

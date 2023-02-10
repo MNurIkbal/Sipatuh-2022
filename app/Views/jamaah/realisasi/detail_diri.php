@@ -159,7 +159,11 @@
                                     <li class="list-group-item">No Tiket Berangkat : <?= $main['tiket_cgk_med']; ?></li>
                                     <li class="list-group-item">No Tiket Pulang : <?= $main['tiket_med_gk']; ?></li>
                                     <li class="list-group-item">No Kursi : <?= $main['no_kursi']; ?></li>
-                                    <li class="list-group-item">Rekening Penampung : </li>
+                                    <li class="list-group-item">Rekening Penampung : 
+                                        <?php if(!empty($banks)) : ?>
+                                            <?= $banks['bank'] . ' / ' . $banks['nama'] . ' / ' . $banks['no_rekening']; ?>
+                                            <?php endif; ?>
+                                    </li>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <li class="list-group-item">Nama Perusahaan : <?= $perusahaan['nama_perusahaan']; ?></li>
