@@ -309,7 +309,7 @@ class TiketController extends BaseController
             'tiket_med_gk'  =>  $this->request->getVar("tiket_pulang"),
             'tgl_keluar_paspor'   =>  $this->request->getVar("tgl_keluar_paspor"),
             'tgl_habis_paspor'   =>  $this->request->getVar("tgl_habis_paspor"),
-            'kota_paspor'   =>  $this->request->getVar("nama_paspor"),
+            'kota_paspor'   =>  $this->request->getVar("kota_paspor"),
             'no_tiket'   =>  "M" . date("Y") . rand(11,99) . date("d"),
             'no_kursi'  =>  $kursi
         ]);

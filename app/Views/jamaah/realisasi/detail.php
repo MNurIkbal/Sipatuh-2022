@@ -1,6 +1,9 @@
 <?= $this->extend("jamaah/layout/layout"); ?>
 
 <?= $this->section("content"); ?>
+<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <div class="main-content">
     <section class="section">
 
@@ -15,7 +18,6 @@
                                     <h4>Detail Realisasi Paket</h6>
                                 </li>
                                 <li style="list-style: none">
-    
                                     <span>Nama Paket : <?=  $result['nama'];  ?></span>
                                 </li>
                                 <li style="list-style: none">
@@ -766,8 +768,8 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="">Maskapai</label>
-                    <!-- <input type="text" class="form-control" required placeholder="Maskapai" name="maskapai"> -->
-                    <select name="maskapai" class="form-control" required id="">
+                    <br>
+                    <select style="width: 100% !important;" name="maskapai" class="form-control maskapai1" required id="">
                             <option value="">Pilih</option>
                             <?php foreach($maskapai as $row_one) : ?>
                                 <option value="<?=  $row_one['nama_maskapai'];  ?>"><?=  $row_one['nama_maskapai'];  ?></option>
@@ -782,9 +784,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="">Bandara Berangkat</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Bandara Berangkat"
-                                name="bandara_berangkat"> -->
-                                <select name="bandara_berangkat" class="form-control" required id="">
+                            <br>
+                                <select style="width: 100% !important;" name="bandara_berangkat" class="form-control maskapai2" required id="">
                                     <option value="">Pilih</option>
                                     <?php foreach($bandara as $bandara_satu_lima) :  ?>
                                         <option value="<?=  $bandara_satu_lima['nama'];  ?>"><?=  $bandara_satu_lima['nama'];  ?></option>
@@ -803,9 +804,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="">Bandara Tiba</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Bandara Tiba"
-                                name="bandara_tiba"> -->
-                                <select name="bandara_tiba" class="form-control" required id="">
+                            <br>
+                                <select style="width: 100% !important;" name="bandara_tiba" class="form-control maskapai3" required id="">
                                     <option value="">Pilih</option>
                                     <?php foreach($bandara as $bandara_satu_tiga) :  ?>
                                         <option value="<?=  $bandara_satu_tiga['nama'];  ?>"><?=  $bandara_satu_tiga['nama'];  ?></option>
@@ -870,9 +870,8 @@
             <div class="modal-body">
                 <div class="mb-3">
                     <label for="">Maskapai</label>
-                    <!-- <input type="text" class="form-control" required placeholder="Maskapai" name="maskapai"
-                        value="<?=  $main_dua['maskapai'];  ?>"> -->
-                        <select name="maskapai" class="form-control" required id="">
+                    <br>
+                        <select style="width: 100% !important;" name="maskapai" class="form-control maskapai4<?= $main_dua['id'] ?>" required id="">
                             <option value="">Pilih</option>
                             <?php foreach($maskapai as $row_one_dua) : ?>
                                 <option <?=  ($row_one_dua['nama_maskapai'] == $main_dua['maskapai']) ? "selected" : "";  ?> value="<?=  $row_one_dua['nama_maskapai'];  ?>"><?=  $row_one_dua['nama_maskapai'];  ?></option>
@@ -888,9 +887,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="">Bandara Berangkat</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Bandara Berangkat"
-                                name="bandara_berangkat" value="<?=  $main_dua['nama_bandara'];  ?>"> -->
-                                <select name="bandara_berangkat" class="form-control" required id="">
+                            <br>
+                                <select style="width: 100% !important;" name="bandara_berangkat" class="form-control maskapai5" required id="">
                                     <option value="">Pilih</option>
                                     <?php foreach($bandara as $bandara_satu_dua) :  ?>
                                         <option <?=  ($bandara_satu_dua['nama'] == $main_dua['nama_bandara']) ? "selected" : "";  ?> value="<?=  $bandara_satu_dua['nama'];  ?>"><?=  $bandara_satu_dua['nama'];  ?></option>
@@ -911,9 +909,8 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="">Bandara Tiba</label>
-                            <!-- <input type="text" class="form-control" required placeholder="Bandara Tiba"
-                                name="bandara_tiba" value="<?=  $main_dua['bandara_tiba'];  ?>"> -->
-                                <select name="bandara_tiba" class="form-control" required id="">
+                            <br>
+                                <select style="width: 100% !important;" name="bandara_tiba" class="form-control maskapai6" required id="">
                                     <option value="">Pilih</option>
                                     <?php foreach($bandara as $bandara_satu) :  ?>
                                         <option <?=  ($bandara_satu['nama'] == $main_dua['bandara_tiba']) ? "selected" : "";  ?> value="<?=  $bandara_satu['nama'];  ?>"><?=  $bandara_satu['nama'];  ?></option>
@@ -1031,15 +1028,25 @@
      $(".selectt<?= $main_satu['id'] ?>").select2({
         dropdownParent: $('#edits<?= $main_satu['id'] ?>')
     });
+     $(".maskapai4<?= $main_satu['id'] ?>").select2({
+        dropdownParent: $('#mangkat<?= $main_satu['id'] ?>')
+    });
 </script>
 <?php endforeach; ?>
 <?php endif; ?>
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 <script>
     $(".select50").select2({
         dropdownParent: $('#exampleModal')
+    });
+    $(".maskapai1").select2({
+        dropdownParent: $('#add_keberangkatan')
+    });
+    $(".maskapai2").select2({
+        dropdownParent: $('#add_keberangkatan')
+    });
+    $(".maskapai3").select2({
+        dropdownParent: $('#add_keberangkatan')
     });
     $(document).ready(function () {
         $('#table-2').DataTable();

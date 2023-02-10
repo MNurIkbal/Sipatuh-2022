@@ -28,7 +28,7 @@
                     <?php endif; ?>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-striped" id="table-1">
+                            <table class="table table-hover table-striped" id="table-144">
                                 <thead>
                                     <tr>
                                         <th class="text-center">
@@ -63,7 +63,7 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
-        $('#table-1').DataTable();
+        $('#table-144').DataTable();
     });
 </script>
 <?= $this->endSection(); ?>

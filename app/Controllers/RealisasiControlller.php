@@ -184,10 +184,10 @@ class RealisasiControlller extends BaseController
         $id_paket =  $this->request->getVar("id_paket");
         $petugas_umrah = new PetugasManModel();
         $data = $petugas_umrah->where("id",$petugas)->first();
-        $petugas = new PetugasModel();
-        $check = $petugas->where("nama",$data['nama'])->where("paket_id",$id_paket)->where("kloter_id",$this->request->getVar("id_kloter"))->first();
+        $petugass = new PetugasModel();
+        $check = $petugass->where("nama",$data['nama'])->where("paket_id",$id_paket)->first();
         if($check) {
-            return redirect()->back()->with("success","Petugas Sudah Pernah Ditambahkan");
+            return redirect()->back()->with("error","Petugas Sudah Pernah Ditambahkan");
             exit;
         }
         $id = $this->request->getVar("id");
@@ -203,7 +203,7 @@ class RealisasiControlller extends BaseController
             'kloter_id' =>  $this->request->getVar("id_kloter"),
         ]);
 
-        return redirect()->to("detail_realisasi/" . $this->request->getVar("id_kloter")  . '/' . $id_paket)->with("success","Data Berhasil Di Tambahkan");
+        return redirect()->back()->with("success","Data Berhasil Di Tambahkan");
     }
 
     public function hapus_petugas_realisasi() 
