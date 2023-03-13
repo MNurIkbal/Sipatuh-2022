@@ -56,6 +56,7 @@ class PaketController extends BaseController
                 'cabang_id' =>  session()->get('cabang_id'),
                 'cabang'    =>  "cabang",
                 'status !=' =>  'selesai'
+                // 'status_approve'    =>  'sudah'
             ])->orderBy('id','desc')->findAll();
         }
         
@@ -67,7 +68,6 @@ class PaketController extends BaseController
             'provider'  =>  $data_provider->orderBy('nama_provider','ASC')->findAll(),
             'asuransi'  =>  $asuransi->orderby('nama',"ASC")->findAll(),
             'petugas'   =>  $petugas->where("aktif","aktif")->where("travel_id",session()->get('travel_id'))->orderby('nama',"ASC")->findAll()
-            // 'provider'  =>  $provider->findAll()
         ];
         if(session()->get("level_id") == "jamaah") {
             return view("jamaah/paket/index",$data);

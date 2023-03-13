@@ -522,6 +522,8 @@ if($expireds) {
         $jamaah = new JamaahModel();
         $paket_first = new PaketModel();
         $kode_paket_satu = $paket_first->where("id", $this->request->getVar("id_paket"))->first();
+        $rekenings = new BankModel();
+        $result_rekenings = $rekenings->where("id",$kode_paket_satu['rekening_penampung_id'])->first();
         $kode_paket = $kode_paket_satu['kode_paket'];
         $kloter_result = new KloterModel();
         $provinsi_result = explode("-", $this->request->getVar("provinsi"));
@@ -565,6 +567,7 @@ if($expireds) {
             'updated_at' =>  date("Y-m-d"),
             'no_paspor' =>  $this->request->getVar("no_paspor"),
             'no_identitas' =>  $this->request->getVar("no_identitas"),
+            'rekening_penampung'    =>  $result_rekenings['bank'] . ' / ' .  $result_rekenings['no_rekening'] .  ' / ' . $result_rekenings['nama'],
             'no_pasti_umrah'    =>  "URM"  . date("Y") . date("m") . rand(1111, 9999),
             'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111, 9999),
             'kloter_id' =>  $this->request->getVar("id_kloter"),
@@ -587,7 +590,8 @@ if($expireds) {
         $che = $daftar->where('travel_id',$rt['travel_id'])->where('date(bulan)',$now)->orderby('id','desc')->first();
         if($che) {
             // $daftar
-            $yy = $daftar->where("travel_id")->orderBy('id','desc')->first();
+            $yy = $daftar->where("travel_id",$rt['travel_id'])->orderBy('id','desc')->first();
+            
             $daftar->update($yy['id'],[
                 'jamaah'    =>  $yy['jamaah'] + 1
             ]);

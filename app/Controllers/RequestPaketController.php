@@ -30,13 +30,12 @@ class RequestPaketController extends BaseController
             'result'    =>  $paket->where([
                 'travel_id' =>  session()->get('travel_id'),
                 'cabang'    =>  'cabang',
-                'status !=' =>  'selesai',
                 'status_paket_cabang'   => NULL,
             ])->findAll(),
             'provider'  =>  $data_provider->findAll(),
             'asuransi'  =>  $asuransi->findAll()
         ];
-        dd($data['result']);
+        
         return view("jamaah/paket_cabang/index",$data);
     }
 

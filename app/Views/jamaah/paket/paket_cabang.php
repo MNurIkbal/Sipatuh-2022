@@ -89,7 +89,7 @@
                                                     <a href="#" data-toggle="modal" data-target="#hapus<?= $row['id'] ?>"
                                                         title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                     <a href="#" class="btn btn-success" data-toggle="modal" title="Edit"
-                                                        data-target="#edits<?= $row['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                        data-target="#edit<?= $row['id'] ?>"><i class="fa fa-pen"></i></a>
                                                         <?php elseif($row['status_approve'] == "tolak"): ?>
                                                             <span class="badge badge-pill badge-danger">Tolak</span>
                                                     <?php endif; ?>
