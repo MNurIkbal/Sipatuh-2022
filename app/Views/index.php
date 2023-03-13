@@ -53,7 +53,7 @@
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
           </svg>
-          <strong>Travel-Q</strong>
+          <strong>Manasikita</strong>
         </a>
         <?php 
         $session = session()->get('nama');
@@ -70,7 +70,8 @@
       </div>
     </div>
   </header>
-  <?php if(!empty($banner)) : ?>
+  
+  <?php if($simpan) : ?>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

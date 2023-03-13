@@ -44,38 +44,28 @@
 </head>
 
 <body>
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic pariatur fuga velit saepe quas doloremque quos beatae? Placeat, accusamus eligendi magni facere repudiandae ullam id blanditiis, ipsam odit, esse aut?</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">Contact</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">Follow on Twitter</a></li>
-              <li><a href="#" class="text-white">Like on Facebook</a></li>
-              <li><a href="#" class="text-white">Email me</a></li>
-              <li><a href="<?= base_url("masuk");  ?>" class="text-white">Login</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
+<header>
+    <div class="navbar  navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
           </svg>
-          <strong>Travel-Q</strong>
+          <strong>Manasikita</strong>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <?php 
+        $session = session()->get('nama');
+        if(isset($session)) :
+        ?>
+          <a href="<?= base_url("masuk"); ?>" style="font-size: 18px;font-weight: 200;" class="navbar-brand d-flex align-items-center">
+            <strong><?= session()->get('nama'); ?></strong>
+          </a>
+        <?php else: ?>
+          <a href="<?= base_url("masuk"); ?>" style="font-size: 18px;font-weight: 200;" class="navbar-brand d-flex align-items-center">
+            <strong>Masuk</strong>
+          </a>
+        <?php endif; ?>
       </div>
     </div>
   </header>
@@ -113,9 +103,9 @@
               $id_profile = $tiga['travel_id'];
               $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
               ?>
-              <div class="col-md-6 col-12">
+             <div class="col-md-6 col-12">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" >
-                  <div class  ="col-md-8 p-4 d-flex flex-column position-static">
+                  <div class  ="col-md-7 p-4 d-flex flex-column position-static">
                     <strong class="d-inline-block mb-2 "><?= $tiga['nama'];  ?></strong>
                     <small class="mb-2"><i class="fa-solid fa-calendar " style="padding-right: 5px"></i> <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
                     <small class="mb-2"><i class="fa-solid fa-location-dot" style="padding-right: 8px"></i> <?= $profile['provinsi'] ?>, <?= $profile['kabupaten'] ?></small>
@@ -128,9 +118,9 @@
                       <small><?= $tiga['tahun']; ?></small>
                     </div>
                   </div>
-                  <div class="col-md-4 d-none d-lg-block">
-                    <div style="width: 300px !important;height: 290px !important;">
-                      <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-fit: cover;" alt="">
+                  <div class="col-md-5 d-none d-lg-block">
+                    <div style="width: 100%;height: 300px;">
+                      <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-position: center; " alt="">
                     </div>
                   </div>
                 </div>

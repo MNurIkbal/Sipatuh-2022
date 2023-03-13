@@ -21,6 +21,19 @@ class Home extends BaseController
         $travel = new ProfileModel();
         $now = date("Y-m-d");
         $banner = new BannerModel();
+        $simpan = 0;
+        foreach($banner->findAll() as $row) {
+            $waktu_mulai  = date("Y-m-d",strtotime($row['star']));
+                $waktu_akhir  = date("Y-m-d",strtotime($row['expired']));
+                $sekarang = date("Y-m-d");
+                if($sekarang < $waktu_mulai) {
+                    $simpan =0;
+                } elseif($sekarang > $waktu_akhir) {
+                    $simpan = 0;
+                } else {
+                    $simpan++;
+                }
+        }
         $db      = \Config\Database::connect();
         $jamaah = new JamaahModel();
         $paket = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 3 ")->getResultArray();
@@ -37,6 +50,7 @@ class Home extends BaseController
             'count' =>  $count,
             'baru'    =>  $st,
             'jamaah'    =>  $jamaah,
+            'simpan'    =>  $simpan,
             'title' =>  'Travel-Q',
             'db'    =>  $db,
             'banner'    =>  $banner->findAll(),

@@ -41,14 +41,13 @@ class PaketModel extends Model
     protected $afterDelete    = [];
 
     public function cari($data)
-    {
+    {   
         $builder = $this->table('paket');
         $builder->select('*');
         $builder->join('profile', 'paket.travel_id = profile.id');
-        $builder->where('paket.kelengkapan','sudah');
         $builder->where('paket.pemberangkatan',NULL);
         $builder->where('paket.status',"aktif");
-        $builder->like('paket.nama',$data);
+        $builder->Like('paket.nama',$data);
         $builder->orLike('profile.nama_perusahaan',$data);
         $builder->orLike('profile.nama_travel_umrah',$data);
         $builder->orLike('profile.provinsi',$data);

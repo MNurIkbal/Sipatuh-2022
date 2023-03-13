@@ -28,11 +28,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nama Bank</th>
-                                        <th>ALamat</th>
+                                        <th>Alamat</th>
                                         <th>Nomor Rekening</th>
                                         <th>Pemilik Rekening</th>
                                         <th>Aktif</th>
-                                        <th>Action</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -112,7 +112,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="">ALamat</label>
+                    <label for="">Alamat</label>
                     <textarea name="alamat" class="form-control " required placeholder="Alamat"  id="" cols="30" rows="10"><?=  $main['alamat'];  ?></textarea>
                 </div>
                 <div class="mb-3">
@@ -163,7 +163,7 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="">ALamat</label>
+                    <label for="">Alamat</label>
                     <textarea name="alamat" class="form-control " required placeholder="Alamat"  id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="mb-3">
