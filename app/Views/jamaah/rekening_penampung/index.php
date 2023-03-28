@@ -104,7 +104,7 @@
                 <div class="mb-3">
                     <label for="">Bank</label>
                     <br>
-                    <select style="width: 100% !important;" name="bank" class="form-control selectlama" required  id="">
+                    <select style="width: 100% !important;" name="bank" class="form-control selectlama<?= $main['id'] ?>" required  id="">
                         <option value="">Pilih</option>
                         <?php foreach($bank as $banks) : ?>
                                 <option value="<?=  $banks['nama_bank'];  ?>" <?= ($banks['nama_bank'] == $main['bank']) ? "selected" : ""; ?>><?=  $banks['nama_bank'];  ?></option>
@@ -196,9 +196,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <?php foreach($rekening as $ma) : ?>
     <script>
-        $('.selectlama').select2({
+        $('.selectlama<?= $ma['id'] ?>').select2({
         dropdownParent: $("#edit<?= $ma['id'] ?>")
-    });
+    });     
     </script>
     <?php endforeach; ?>
 <script>

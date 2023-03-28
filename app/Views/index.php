@@ -8,13 +8,16 @@
   <title><?= $title;  ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
   <style>
     .paket {
       display: none !important;
     }
+
     body {
       font-family: 'Roboto Slab', serif;
     }
@@ -49,20 +52,20 @@
     <div class="navbar  navbar-dark bg-dark shadow-sm">
       <div class="container">
         <a href="#" class="navbar-brand d-flex align-items-center">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24">
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24">
             <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
             <circle cx="12" cy="13" r="4" />
-          </svg>
+          </svg> -->
           <strong>Manasikita</strong>
         </a>
-        <?php 
+        <?php
         $session = session()->get('nama');
-        if(isset($session)) :
+        if (isset($session)) :
         ?>
           <a href="<?= base_url("masuk"); ?>" style="font-size: 18px;font-weight: 200;" class="navbar-brand d-flex align-items-center">
             <strong><?= session()->get('nama'); ?></strong>
           </a>
-        <?php else: ?>
+        <?php else : ?>
           <a href="<?= base_url("masuk"); ?>" style="font-size: 18px;font-weight: 200;" class="navbar-brand d-flex align-items-center">
             <strong>Masuk</strong>
           </a>
@@ -70,33 +73,33 @@
       </div>
     </div>
   </header>
-  
-  <?php if($simpan) : ?>
+
+  <?php if ($simpan) : ?>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
-      <div class="carousel-inner" >
-        <?php 
+      <div class="carousel-inner">
+        <?php
         $first_active_element = true;
         foreach ($banner as $satu) :
-                $waktu_mulai  = date("Y-m-d",strtotime($satu['star']));
-                $waktu_akhir  = date("Y-m-d",strtotime($satu['expired']));
-                $sekarang = date("Y-m-d");
-                if($sekarang < $waktu_mulai) :
-                ?>
-                <?php elseif($sekarang > $waktu_akhir) : ?>
-                  <?php else: ?>
-                  <div class="carousel-item <?= ($first_active_element) ? "active" : ""; ?>">
-                    <div style="width: 100% !important;height: 600px !important">
-                      <img src="<?= base_url("assets/upload/" . $satu['foto']);  ?>"  class=" w-100 h-100" alt="...">
-                    </div>
-                  </div>
-                  <?php $first_active_element = false;  ?>
-                <?php endif; ?>
-              <?php endforeach; ?>
+          $waktu_mulai  = date("Y-m-d", strtotime($satu['star']));
+          $waktu_akhir  = date("Y-m-d", strtotime($satu['expired']));
+          $sekarang = date("Y-m-d");
+          if ($sekarang < $waktu_mulai) :
+        ?>
+          <?php elseif ($sekarang > $waktu_akhir) : ?>
+          <?php else : ?>
+            <div class="carousel-item <?= ($first_active_element) ? "active" : ""; ?>">
+              <div style="width: 100% !important;height: 600px !important">
+                <img src="<?= base_url("assets/upload/" . $satu['foto']);  ?>" class=" w-100 h-100" alt="...">
+              </div>
+            </div>
+            <?php $first_active_element = false;  ?>
+          <?php endif; ?>
+        <?php endforeach; ?>
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -107,7 +110,7 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div>
-    <?php endif; ?>
+  <?php endif; ?>
   <div class="container  box-shadow mt-5">
     <main>
 
@@ -116,111 +119,65 @@
           <h4>Daftar Paket</h4>
           <br>
           <div class="container mb-4">
-          <?php if (session()->get("success")) : ?>
-      <div class="m-3 alert alert-success">
-        <span>
-          <?= session()->get("success"); ?>
-        </span>
-      </div>
-    <?php elseif (session()->get("error")) : ?>
-      <div class="m-3 alert alert-danger">
-        <span><?= session()->get("error");  ?></span>
-      </div>
-    <?php endif; ?>
-          <form class="d-flex " action="<?= base_url("cari_paket") ?>" method="POST" enctype="multipart/form-data" style="justify-content: center">
-        <input class="form-control me-2" type="search" placeholder="Search" required name="cari" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+            <?php if (session()->get("success")) : ?>
+              <div class="m-3 alert alert-success">
+                <span>
+                  <?= session()->get("success"); ?>
+                </span>
+              </div>
+            <?php elseif (session()->get("error")) : ?>
+              <div class="m-3 alert alert-danger">
+                <span><?= session()->get("error");  ?></span>
+              </div>
+            <?php endif; ?>
+            <form class="d-flex " action="<?= base_url("cari_paket") ?>" method="POST" enctype="multipart/form-data" style="justify-content: center">
+              <input class="form-control me-2" type="search" placeholder="Search" required name="cari" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
           </div>
           <div class="row ">
-            <?php foreach ($paket_dua as $tiga) : ?>
-              <?php
-              $counts = $jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
-              $mains = count($counts);
-              $id_profile = $tiga['travel_id'];
-              $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
-              ?>
-              <div class="col-md-6 col-12">
-                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" >
-                  <div class  ="col-md-7 p-4 d-flex flex-column position-static">
-                    <strong class="d-inline-block mb-2 "><?= $tiga['nama'];  ?></strong>
-                    <small class="mb-2"><i class="fa-solid fa-calendar " style="padding-right: 5px"></i> <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
-                    <small class="mb-2"><i class="fa-solid fa-location-dot" style="padding-right: 8px"></i> <?= $profile['provinsi'] ?>, <?= $profile['kabupaten'] ?></small>
-                    <small class="mb-2"><i class="fa-solid fa-building" style="padding-right: 8px"></i> <?= $profile['nama_perusahaan'] ?></small>
-                    <small class="mb-2"><i class="fa-solid fa-home" style="padding-right: 5px"></i>    <?= $profile['nama_travel_umrah'] ?></small>
-                    <small class="mb-2"><i class="fa-solid fa-money-bill" style="padding-right: 5px"></i> Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-                    <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <?= $mains;  ?> Orang</small>
-                    <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;"> 
-                      <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
-                      <small><?= $tiga['tahun']; ?></small>
-                    </div>
-                  </div>
-                  <div class="col-md-5 d-none d-lg-block">
-                    <div style="width: 100%;height: 300px;">
-                      <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-position: center; " alt="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <!-- <div class="col">
-                <div class="card shadow-sm">
-                  <div style="width: auto !important;height: 220px !important">
-                    <img src="<?= base_url("assets/upload/" . $tiga['poster']);  ?>" class="w-100" alt="..." style="width: 100%;height: 100%">
-                  </div>
-
-                  <div class="card-body">
-                    <p class="card-text">
-                      <small><?= $tiga['nama'];  ?></small>
-                      <br>
-                      <small>Periode : <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
-                      <br>
-                      <small>Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-                      <br>
-                   
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <a href="<?= base_url("detail_paket_users/$tiga[id]");  ?>" class="btn btn-sm btn-outline-secondary">Daftar</a>
+            <?php $hari = date("Y-m-d");
+            foreach ($paket_dua as $tiga) : ?>
+              <?php if ($hari <= $tiga['tgl_pulang']) : ?>
+                <?php
+                $counts = $jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
+                $mains = count($counts);
+                $id_profile = $tiga['travel_id'];
+                $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
+                ?>
+                <div class="col-md-6 col-12">
+                  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                    <div class="col-md-7 p-4 d-flex flex-column position-static">
+                      <strong class="d-inline-block mb-2 "><?= $tiga['nama'];  ?></strong>
+                      <small class="mb-2"><i class="fa-solid fa-calendar " style="padding-right: 5px"></i> <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
+                      <small class="mb-2"><i class="fa-solid fa-location-dot" style="padding-right: 8px"></i> <?= $profile['provinsi'] ?>, <?= $profile['kabupaten'] ?></small>
+                      <small class="mb-2"><i class="fa-solid fa-building" style="padding-right: 8px"></i> <?= $profile['nama_perusahaan'] ?></small>
+                      <small class="mb-2"><i class="fa-solid fa-home" style="padding-right: 5px"></i> <?= $profile['nama_travel_umrah'] ?></small>
+                      <small class="mb-2"><i class="fa-solid fa-money-bill" style="padding-right: 5px"></i> Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
+                      <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <?= $mains;  ?> Orang</small>
+                      <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;">
+                        <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
+                        <small><?= $tiga['tahun']; ?></small>
                       </div>
-                      <small class="text-muted"><?= date("d-m-Y");  ?></small>
+                    </div>
+                    <div class="col-md-5 d-none d-lg-block">
+                      <div style="width: 100%;height: 300px;">
+                        <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-position: center; " alt="">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div> -->
+              <?php endif; ?>
             <?php endforeach; ?>
           </div>
         </div>
-        <?= $pager->links('paket','pager_baru') ?>
+        <?= $pager->links('paket', 'pager_baru') ?>
       </div>
     </main>
-    <!-- <div class="row">
-      <?php foreach ($paket_dua as $tiga) : ?>
-        <div class="col-md-4">
-        <div class="box">
-          <a href="<?= base_url("detail_paket_users/$tiga[id]");  ?>" style="color: black;text-decoration: none !important;">
-          <div class="row  position-relative">
-                    <div class="col-md-6 mb-md-s0 p-md-4">
-                      <img src="<?= base_url("assets/upload/" . $tiga['poster']);  ?>" class="w-100"
-                        alt="...">
-                    </div>
-                    <div class="col-md-6  ps-md-0 " style="margin-top: 20px;">
-                      <small><?= $tiga['nama'];  ?></small>
-                      <br>
-                      <small>Periode : <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?> </small>
-                      <br>
-                      <small>Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-
-                    </div>
-                  </div>
-          </a>
-        </div>
-        </div>
-        <?php endforeach; ?>
-    </div> -->
   </div>
   <div class="bg-light p-4">
     <footer class="container pt-4 text-center">
-      <p> Copyright <?= date("Y"); ?> Travel-Q</p>
+      <p> Copyright <?= date("Y"); ?> Manasikita</p>
     </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

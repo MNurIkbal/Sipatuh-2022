@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\AsuransiModel;
+use App\Models\BioDataModel;
 use App\Models\DataHotelModel;
 use App\Models\DataProviderModel;
 use App\Models\HotelModel;
@@ -188,8 +189,9 @@ class LevelPetugasController extends BaseController
         $check_satu = $muasahah_baru->where("id",$id)->first();
         $result = new JamaahModel();
         $check_dua = $result->where("muassasah",$check_satu['nama_muassasah'])->first();
-        
-        if($check_dua) {
+        $biodata = new BioDataModel();
+        $check_biodata = $biodata->where("muassasah",$check_satu['nama_muassasah'])->first();
+        if($check_dua || $check_biodata) {
             return redirect()->back()->with("error","Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi");
         }
 
@@ -253,6 +255,19 @@ class LevelPetugasController extends BaseController
             exit;
         }
         $asuransi = new AsuransiModel();
+        $check_asuransi = $asuransi->where("id",$id)->first();
+        if(!$check_asuransi) {
+            return redirect()->back()->with('error','Data Gagal Dihapus');
+        }
+        $biodata = new BioDataModel();
+        $check_biodata = $biodata->where('asuransi',$check_asuransi['nama'])->first();
+        $jamaah = new JamaahModel();
+        $check_jamaah = $jamaah->where("asuransi",$check_asuransi['nama'])->first();
+        $paket = new PaketModel();
+        $check_paket = $paket->where("asuransi",$check_asuransi['nama'])->first();
+        if($check_biodata || $check_jamaah || $check_paket)   {
+            return redirect()->back()->with('error','Data Tidak Dapat Dihapus Karena Sudah Berelasi');  
+        }
         $asuransi->delete($id);
         return redirect()->back()->with("success","Data Berhasil Dihapus");
     }
@@ -326,7 +341,9 @@ class LevelPetugasController extends BaseController
         $result_dua = new PaketModel();
         $check_tiga = $result->where("provider",$check_satu['nama_provider'])->first();
         $check_empat = $result_dua->where("provider",$check_satu['nama_provider'])->first();
-        if($check_tiga || $check_empat) {
+        $biodata = new BioDataModel();
+        $check_biodata = $biodata->where("provider",$check_satu['nama_provider'])->first();
+        if($check_tiga || $check_empat || $check_biodata) {
             return redirect()->back()->with('error',"Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi");
         }
 
@@ -373,7 +390,9 @@ class LevelPetugasController extends BaseController
         $petugas = new PetugasModel();
         $result = $level->where("id",$id)->first();
         $result_dua = $petugas->where("type",$result['nama'])->first(); 
-        if($result_dua) {
+        $petugas_umrah = new PetugasManModel();
+        $check_petugas_umrah = $petugas_umrah->where("tipe_petugas",$result['nama'])->first();
+        if($result_dua || $check_petugas_umrah) {
             return redirect()->back()->with('error','Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi');
         }
         

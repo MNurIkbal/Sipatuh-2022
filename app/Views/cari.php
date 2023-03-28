@@ -96,9 +96,10 @@
       <a href="<?= base_url("/"); ?>" class="btn btn-sm btn-warning mt-3">Kembali</a>
           </div>
           <div class="row ">
-            <?php foreach ($paket_dua as $tiga) : ?>
+            <?php $hari = date("Y-m-d"); foreach ($paket_dua as $tiga) : ?>
+              <?php if($hari <= $tiga['tgl_pulang']) : ?>
               <?php
-              $counts = $jamaah->where("paket_id", $tiga['id'])->findAll();
+              $counts =$jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
               $mains = count($counts);
               $id_profile = $tiga['travel_id'];
               $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
@@ -125,64 +126,16 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="col">
-                <div class="card shadow-sm">
-                  <div style="width: auto !important;height: 220px !important">
-                    <img src="<?= base_url("assets/upload/" . $tiga['poster']);  ?>" class="w-100" alt="..." style="width: 100%;height: 100%">
-                  </div>
-
-                  <div class="card-body">
-                    <p class="card-text">
-                      <small><?= $tiga['nama'];  ?></small>
-                      <br>
-                      <small>Periode : <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
-                      <br>
-                      <small>Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-                      <br>
-                   
-                    </p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <a href="<?= base_url("detail_paket_users/$tiga[id]");  ?>" class="btn btn-sm btn-outline-secondary">Daftar</a>
-                      </div>
-                      <small class="text-muted"><?= date("d-m-Y");  ?></small>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+              <?php endif; ?>
             <?php endforeach; ?>
           </div>
         </div>
       </div>
     </main>
-    <!-- <div class="row">
-      <?php foreach ($paket_dua as $tiga) : ?>
-        <div class="col-md-4">
-        <div class="box">
-          <a href="<?= base_url("detail_paket_users/$tiga[id]");  ?>" style="color: black;text-decoration: none !important;">
-          <div class="row  position-relative">
-                    <div class="col-md-6 mb-md-s0 p-md-4">
-                      <img src="<?= base_url("assets/upload/" . $tiga['poster']);  ?>" class="w-100"
-                        alt="...">
-                    </div>
-                    <div class="col-md-6  ps-md-0 " style="margin-top: 20px;">
-                      <small><?= $tiga['nama'];  ?></small>
-                      <br>
-                      <small>Periode : <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?> </small>
-                      <br>
-                      <small>Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-
-                    </div>
-                  </div>
-          </a>
-        </div>
-        </div>
-        <?php endforeach; ?>
-    </div> -->
   </div>
   <div class="bg-light p-4">
     <footer class="container pt-4 text-center">
-      <p> Copyright 2022 Travel-Q</p>
+      <p> Copyright <?= date("Y"); ?> Manasikita</p>
     </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

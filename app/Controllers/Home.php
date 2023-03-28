@@ -37,13 +37,12 @@ class Home extends BaseController
         $db      = \Config\Database::connect();
         $jamaah = new JamaahModel();
         $paket = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 3 ")->getResultArray();
-        // $paket_dua = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 10 ")->getResultArray();
         $paket = new PaketModel();
         $paket_dua = $paket->main();
 
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
-        $now = date("Y-m-d");
+        $hari_ini = date("Y-m-d");
         $data = [
             'paket_dua' =>  $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket'),
             'pager' =>  $paket->pager,
@@ -54,7 +53,6 @@ class Home extends BaseController
             'title' =>  'Travel-Q',
             'db'    =>  $db,
             'banner'    =>  $banner->findAll(),
-            // 'paket'    => $paket,
             'count' =>  $db->query("SELECT * FROM profile")->getResult(),
         ];
         return view("index",$data);
@@ -248,7 +246,6 @@ class Home extends BaseController
 
 
         // $count = $db->query("SELECT * FROM paket INNER JOIN profile ON paket.travel_id = profile.id WHERE paket.nama LIKE '$data' OR profile.nama_perusahaan LIKE '$data' OR profile.nama_travel_umrah LIKE '$data' OR profile.provinsi LIKE '$data' OR profile.kabupaten  LIKE '$data' OR profile.kecamatan LIKE '$data' AND kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY paket.id DESC LIMIT 10")->getResultArray();
-        
         if($result->num($data)) {
             $travel = new ProfileModel();
             $now = date("Y-m-d");
@@ -258,7 +255,6 @@ class Home extends BaseController
     
             $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
             $count = count($st);
-            
             $main = [
                 'title' =>  "Travel-Q",
                 'paket_dua' =>  $result->cari($data),
@@ -269,6 +265,7 @@ class Home extends BaseController
             'paket'    => $paket,
             'count' =>  $db->query("SELECT * FROM profile")->getResult(),
             ];
+
             // dd($main['paket_dua']);
             return view("cari",$main);
         } else {

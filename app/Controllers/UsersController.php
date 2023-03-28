@@ -197,8 +197,12 @@ class UsersController extends BaseController
             exit;
         }
         $id = $this->request->getVar("id");
-
+        $id_travel = $this->request->getVar('id_travel');
         $user = new Users();
+        $check = $user->where('level_id','jamaah')->where('travel_id',$id_travel)->countAllResults();
+        if($check == 1) {
+            return redirect()->back()->with('error','Minimal User Harus 1');
+        }
         $user->delete($id);
         return redirect()->back();
     }
@@ -209,6 +213,7 @@ class UsersController extends BaseController
             return redirect()->to("/");
             exit;
         }
+
         $paket = new PaketModel();
         $petugas_man  = new PetugasManModel();
         $profil = new ProfileModel();

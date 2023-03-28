@@ -138,6 +138,7 @@ $validation = \Config\Services::validation();
         <form method="POST" enctype="multipart/form-data" action="<?=  base_url("hapus_users_baru");  ?>"
             class="modal-content">
             <input type="text" class="d-none" value="<?=  $users['id'];  ?>" name="id">
+            <input type="text" class="d-none" value="<?=  $id;  ?>" name="id_travel">
             <div class="modal-header">
                 <h5 class="modal-title">Hapus User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

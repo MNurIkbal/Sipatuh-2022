@@ -229,8 +229,8 @@ $routes->post('login', 'LoginController::index');
     $routes->get("/daftar_jamaah/(:any)/(:any)","Home::daftar_jamaah/$1/$2",['filter' => 'DpFilter']);
     $routes->post("/daftar_jamaah_baru","Home::daftar_jamaah_baru",['filter' => 'DpFilter']);
     $routes->post("/ganti_password","Home::ganti_password",['filter' => 'DpFilter']);
-    $routes->post("/cari_paket","Home::cari",['filter' => 'DpFilter']);
-    $routes->get("/cari","Home::mencari",['filter' => 'DpFilter']);
+    $routes->post("/cari_paket","Home::cari");
+    $routes->get("/cari","Home::mencari");
 
     //kloter
     $routes->post("/add_kloter","KloterController::add_kloter",['filter' => 'DpFilter']);

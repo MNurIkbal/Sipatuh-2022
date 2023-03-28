@@ -100,7 +100,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Type Petugas</label>
-                    <select name="type" class="form-control" required id="">
+                    <br>
+                    <select name="type" class="form-control select_petugas" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <?php foreach($level as $levels) : ?>
                             <option value="<?=  $levels['nama'];  ?>"><?=  $levels['nama'];  ?></option>
@@ -198,7 +199,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Type Petugas</label>
-                    <select name="type" class="form-control" required id="">
+                    <br>
+                    <select name="type" class="form-control select_edit<?= $main['id'] ?>" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <?php foreach($level as $levels) : ?>
                             <option <?=  ($main['tipe_petugas'] == $levels['nama']) ? "selected" : "";  ?> value="<?=  $levels['nama'];  ?>"><?=  $levels['nama'];  ?></option>
@@ -251,5 +253,23 @@
         </form>
     </div>
 </div>
+    <?php endforeach; ?>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+       $('.select_petugas').select2({
+        dropdownParent: $('#tambah')
+    });
+  </script>
+  <?php foreach($petugas as $rt) : ?>
+    <script>
+        $(".select_edit<?= $rt['id'] ?>").select2({
+            dropdownParent: $('#edit<?= $rt['id'] ?>')
+        })
+    </script>
     <?php endforeach; ?>
 <?= $this->endSection(); ?>
