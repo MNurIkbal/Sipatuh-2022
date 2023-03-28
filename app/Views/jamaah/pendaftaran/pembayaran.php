@@ -646,6 +646,14 @@ hr {
                                                 <span class="text-sm text-grey-m2 align-middle">Nama:</span>
                                                 <span class="text-600 text-110 text-blue align-middle"><?= $main['nama']; ?></span>
                                             </div>
+                                            <div>
+                <span class="text-sm text-grey-m2 align-middle">Paket :</span>
+                <span class="text-600 text-110 text-blue align-middle"><?= $paket['nama']; ?></span>
+              </div>
+              <div>
+                <span class="text-sm text-grey-m2 align-middle">Kloter :</span>
+                <span class="text-600 text-110 text-blue align-middle"><?= $kloter['nama']; ?></span>
+              </div>
                                             <div class="text-grey-m2">
                                                 <div class="my-1">
                                                     <?= $main['alamat']; ?>
@@ -661,7 +669,10 @@ hr {
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
                                                     Invoice
                                                 </div>
-                    
+                                                <div>
+                <span class="text-sm text-grey-m2 align-middle">No Registrasi :</span>
+                <span class="text-600 text-110  align-middle"><?= $main['no_registrasi']; ?></span>
+              </div>
                     
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> 
                                                 <?php if(!empty($main['tgl_lunas']))  : ?>

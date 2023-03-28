@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BankModel;
 use App\Models\BannerModel;
 use App\Models\DaftarJamaahModel;
 use App\Models\JamaahModel;
@@ -22,11 +23,11 @@ class RequestJamaahController extends BaseController
         $paket = new PaketModel();
         $db      = \Config\Database::connect();
         $travel = session()->get("travel_id");
-        
         $petugas_man  = new PetugasManModel();
         $level = new LevelPetugasModel();
         $jamaah = new JamaahModel();
         $kloter = new KloterModel();
+        $bank  = new BankModel();
         $data = [
             'kloter'    =>  $kloter,
             'level' =>  $level->findAll(),
@@ -78,12 +79,13 @@ class RequestJamaahController extends BaseController
                             jamaah.user_id,
                             
                             paket.travel_id,
+                            paket.rekening_penampung_id,
                             paket.id as id_paket,
                             paket.nama as nama_paket
-
-             FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE  paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY id DESC")->getResultArray(),
+            FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE  paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY id DESC")->getResultArray(),
+            'bank'  =>  $bank
         ];
-        // dd($data['jamaah']);
+
         return view("jamaah/request_jamaah/index",$data);
     }
 

@@ -122,7 +122,10 @@
                         </div>
                         <div class="col-md-6">
                             <li class="list-group-item">NPU : <?=  $main['no_pasti_umrah'];  ?></li>
-                            <li class="list-group-item">Rekening Penampung : <?=  $main['rekening_penampung'];  ?></li>
+                            <?php 
+                            $data_bank = $bank->where("id",$main['rekening_penampung_id'])->first();
+                            ?>
+                            <li class="list-group-item">Rekening Penampung : <?=  $data_bank['bank'];  ?> - <?= $data_bank['no_rekening']; ?></li>
                             <li class="list-group-item">Status Bayar : <span class="badge badge-pill badge-primary"><?=  $main['status_bayar'];  ?></span></li>
                             <!-- <?php if($main['status_bayar'] == "lunas" || $main['status_bayar'] == "cicil") : ?>
                                 <li class="list-group-item">Keterangan Bayar : <?=  $main['keterangan_bayar'];  ?></li>
@@ -143,7 +146,7 @@
                                 </li>
                                 <?php endif; ?> -->
                             <li class="list-group-item">Nomor Polis : <?=  $main['nomor_polis'];  ?></li>
-                            <li class="list-group-item">Tanggal Input : <?=  $main['tgl_input'];  ?></li>
+                            <li class="list-group-item">Tanggal Input Polis : <?=  $main['tgl_input'];  ?></li>
                             <li class="list-group-item">Tanggal Awal Polis : <?=  $main['tgl_awal'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Polis : <?=  $main['tgl_akhir'];  ?></li>
                             <li class="list-group-item">Nomor Visa : <?=  $main['nomor_visa'];  ?></li>
@@ -153,7 +156,6 @@
                             <?php 
                             $biodata = new App\Models\BioDataModel();
                             $result_bio = $biodata->where("user_id",$main['user_id'])->first();
-                            // dd($result_bio);
                             
                             ?>
                             <li class="list-group-item">No Registrasi : <?=  $main['no_registrasi'];  ?></li>

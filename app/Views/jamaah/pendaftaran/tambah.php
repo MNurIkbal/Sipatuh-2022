@@ -53,8 +53,8 @@
                         <?php if($paket['keberangkatan'] != "sudah") : ?>
                         <a href="<?= base_url("insert_jamaah/$id/$id_kloter"); ?>" class="btn btn-primary "><i
                                 class="fas fa-plus"></i></a>
-                        <a href="<?=  base_url("download_template");  ?>" title="Download Template Exel"
-                            class="btn btn-info "><i class="fas fa-arrow-up"></i></a>
+                        <!-- <a href="<?=  base_url("download_template");  ?>" title="Download Template Exel"
+                            class="btn btn-info "><i class="fas fa-arrow-up"></i></a> -->
                         <?php endif; ?>
                         <div class="table-responsive mt-5">
                             <table class="table table-striped" id="table-1">
@@ -538,23 +538,26 @@
                             <li class="list-group-item">Status Pernikahan: <?=  $main['status_pernikahan'];  ?></li>
                             <li class="list-group-item">Jenis Pendidikan: <?=  $main['jenis_pendidikan'];  ?></li>
                             <li class="list-group-item">Jenis Pekerjaan : <?=  $main['jenis_pekerjaan'];  ?></li>
-                        </div>
-                        <div class="col-md-6">
                             <li class="list-group-item">Provider : <?=  $main['provider'];  ?></li>
                             <li class="list-group-item">Asuransi : <?=  $main['asuransi'];  ?></li>
                             <li class="list-group-item">No Paspor : <?=  $main['no_paspor'];  ?></li>
                             <li class="list-group-item">No Identitas : <?=  $main['no_identitas'];  ?></li>
+                        </div>
+                        <div class="col-md-6">
                             <li class="list-group-item">NPU : <?=  $main['no_pasti_umrah'];  ?></li>
                             <li class="list-group-item">Rekening Penampung : <?=  $main['rekening_penampung'];  ?></li>
                             <li class="list-group-item">Status Bayar : <span class="badge badge-pill badge-primary"><?=  $main['status_bayar'];  ?></span></li>
                             <li class="list-group-item">Nomor Polis : <?=  $main['nomor_polis'];  ?></li>
-                            <li class="list-group-item">Tanggal Input : <?=  $main['tgl_input'];  ?></li>
+                            <li class="list-group-item">Tanggal Input Polis : <?=  $main['tgl_input'];  ?></li>
                             <li class="list-group-item">Tanggal Awal Polis : <?=  $main['tgl_awal'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Polis : <?=  $main['tgl_akhir'];  ?></li>
                             <li class="list-group-item">Nomor Visa : <?=  $main['nomor_visa'];  ?></li>
                             <li class="list-group-item">Tanggal Awal Visa : <?=  $main['tgl_awal_visa'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Visa : <?=  $main['tgl_akhir_visa'];  ?></li>
                             <li class="list-group-item">Muassasah : <?=  $main['muassasah'];  ?></li>
+                            <li class="list-group-item">Status Vaksin : <?=  $main['status_vaksin'];  ?></li>
+                            <li class="list-group-item">Tanggal Vaksin : <?=  $main['tgl_vaksin'];  ?></li>
+                            <li class="list-group-item">Jenis Vaksin : <?=  $main['jenis_vaksin'];  ?></li>
                             <li class="list-group-item">No Registrasi : <?=  $main['no_registrasi'];  ?></li>
                             <?php 
                             $biodata = new App\Models\BioDataModel();

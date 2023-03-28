@@ -13,9 +13,6 @@
                         <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" title="Tambah">Tambah</button>
                     </div>
                     <?php
-
-
-
                     if (session()->get("success")) : ?>
                         <div class="m-3 alert alert-success">
                             <span><?= session()->get("success");  ?></span>
