@@ -158,6 +158,7 @@
             class="modal-content">
             <div class="modal-header">
                 <input type="hidden" name="id" value="<?=  $rows['id'];  ?>">
+                <input type="hidden" name="id_cabang" value="<?=  $id_cabang  ?>">
                 <h5 class="modal-title">Hapus User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

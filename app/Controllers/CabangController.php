@@ -144,6 +144,7 @@ class CabangController extends BaseController
         if($result) {
             return redirect()->back()->with('error','Data Sudah Berelasi Tidak Boleh Dihapus');
         }
+        
         $cabang= new CabangModel();
         $cabang->delete($this->request->getVar("id"));
         return redirect()->to("cabang")->with("success","Data Berhasil Dihapus");
@@ -235,6 +236,11 @@ class CabangController extends BaseController
         }
 
         $user = new Users();
+        $id_cabang = $this->request->getVar('id_cabang');
+        $check = $user->where("level_id","cabang")->where("cabang_id",$id_cabang)->countAllResults();
+        if($check == 1) {
+            return redirect()->back()->with('error','Minimal User 1');
+        }
         $user->delete($this->request->getVar('id'));
         return redirect()->back()->with("success","Data Berhasil Dihapus");
     }
