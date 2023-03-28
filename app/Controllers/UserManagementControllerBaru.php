@@ -42,7 +42,7 @@ class UserManagementControllerBaru extends BaseController
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
             $check_travel = $travel->where("id", $check_paket['travel_id'])->first();
             $profile = new ProfileModel();
-            
+
             $kloter = new KloterModel();
 
             $data = [
@@ -57,7 +57,7 @@ class UserManagementControllerBaru extends BaseController
                 'pakets'    => $pakets->where("id", $tes['paket_id'])->first(),
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
-                
+
             ];
             // dd($data['pakets']);
 
@@ -68,22 +68,26 @@ class UserManagementControllerBaru extends BaseController
             $check_travel = $travel->first();
             $profile = new ProfileModel();
             $kloter = new KloterModel();
-$pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
-$hitang =  $db->query("SELECT SUM(sisa_pembayaran) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
+            $pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
+            $hitang =  $db->query("SELECT SUM(sisa_pembayaran) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
 
-$sle = $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id INNER JOIN kloter ON paket.id = kloter.paket_id WHERE jamaah.user_id = '$r' AND kloter.keberangkatan = 'sudah' AND kloter.status_realisasi = 'sudah' AND kloter.done = 'sudah'")->getNumRows();
-foreach($pem as $t) {
-    $rf = $t;
-}   
+            $sle = $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id INNER JOIN kloter ON paket.id = kloter.paket_id WHERE jamaah.user_id = '$r' AND kloter.keberangkatan = 'sudah' AND kloter.status_realisasi = 'sudah' AND kloter.done = 'sudah'")->getNumRows();
+            foreach ($pem as $t) {
+                $rf = $t;
+            }
 
-$daf = new DaftarJamaahModel();
+            $daf = new DaftarJamaahModel();
 
-foreach($hitang as $q) {
-    $v = $q;
-}
+            foreach ($hitang as $q) {
+                $v = $q;
+            }
+            $biodatas = new BioDataModel();
+            $id_users = session()->get('id');
+            $first_biodata = $biodatas->where('user_id',$id_users)->countAllResults();
             $data = [
                 'paket_dua' =>  $paket_dua,
                 'count' =>  $count,
+                'first_biodata' =>  $first_biodata,
                 'kloter'    =>  null,
                 'baru'    =>  $st,
                 'profile'   =>  null,
@@ -99,8 +103,6 @@ foreach($hitang as $q) {
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
                 'pembayaran'    => $rf,
             ];
-            
-            // dd($data['pakets']);
 
             return view("user/dashboard", $data);
         }
@@ -424,7 +426,7 @@ foreach($hitang as $q) {
         $pakets = $paket->where("id", $id)->first();
 
         $kloter = new KloterModel();
-        $kloters = $kloter->where("paket_id", $id)->where("status","aktif")->where("keberangkatan","sudah")->where("status_realisasi",'sudah')->findAll();
+        $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", "sudah")->where("status_realisasi", 'sudah')->findAll();
         $data = [
             'title' =>  'paket',
             'result'    =>  $kloters,
@@ -440,7 +442,7 @@ foreach($hitang as $q) {
         $pakets = $paket->where("id", $id)->first();
 
         $kloter = new KloterModel();
-        $kloters = $kloter->where("paket_id", $id)->where("status","aktif")->where("keberangkatan",null)->findAll();
+        $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", null)->findAll();
         $data = [
             'title' =>  'paket',
             'result'    =>  $kloters,
@@ -458,7 +460,7 @@ foreach($hitang as $q) {
         $pakets = $paket->where('id', $id_paket)->first();
         $kloters = $kloter->where("id", $id_kloter)->first();
         $jamaah = new JamaahModel();
-        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve",null)->where("user_id", session()->get('id'))->findAll();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->findAll();
 
         $data = [
             'id_paket'  =>  $id_paket,
@@ -479,7 +481,7 @@ foreach($hitang as $q) {
         $pakets = $paket->where('id', $id_paket)->first();
         $kloters = $kloter->where("id", $id_kloter)->first();
         $jamaah = new JamaahModel();
-        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")->where("user_id", session()->get('id'))->where('status_bayar','lunas')->where("selesai_pembayaran",'sudah')->findAll();
+        $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")->where("user_id", session()->get('id'))->where('status_bayar', 'lunas')->where("selesai_pembayaran", 'sudah')->findAll();
 
         $data = [
             'id_paket'  =>  $id_paket,
@@ -632,7 +634,7 @@ foreach($hitang as $q) {
     public function insert_checkout()
     {
         try {
-        //     //code...
+            //     //code...
 
             $metode = $this->request->getVar("metode");
             $catatan = htmlspecialchars($this->request->getVar("catatan"), true);
@@ -655,7 +657,7 @@ foreach($hitang as $q) {
                 $seminggu = date("Y-m-d", strtotime("+7 days", strtotime(date("Y-m-d"))));
 
                 if (empty($result_jamaah['status_bayar'])) {
-                    
+
                     $jamaah->update($id_jamaah, [
                         'tgl_bayar' =>  date("Y-m-d"),
                         'rekening_penampung' =>  $this->request->getVar("rek"),
@@ -742,7 +744,7 @@ foreach($hitang as $q) {
                     } elseif ($result_jamaah['status_bayar'] == "lunas") {
                         return redirect()->back()->with('error', 'Pembayaran paket sudah selesai');
                     } elseif (!empty($result_jamaah['sisa_pembayaran'])) {
-                        if($bayar > $result_jamaah['sisa_pembayaran']) {
+                        if ($bayar > $result_jamaah['sisa_pembayaran']) {
                             return redirect()->back()->with('error', 'Pembayaran Melebihi Sisa Pembayaran');
                         }
                     }
@@ -812,7 +814,7 @@ foreach($hitang as $q) {
                 } elseif ($result_jamaah['status_bayar'] == "lunas") {
                     return redirect()->back()->with('error', 'Pembayaran paket sudah selesai');
                 } elseif (!empty($result_jamaah['sisa_pembayaran'])) {
-                    if($bayar > $result_jamaah['sisa_pembayaran']) {
+                    if ($bayar > $result_jamaah['sisa_pembayaran']) {
                         return redirect()->back()->with('error', 'Pembayaran Melebihi Sisa Pembayaran');
                     }
                 }

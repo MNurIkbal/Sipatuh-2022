@@ -352,8 +352,10 @@ class Home extends BaseController
         session()->remove("no_hp");
         session()->remove("username");
         session()->remove("nama");
+        session()->remove("password");
         session()->remove("created_at");
         session()->remove("updated_at");
+        session()->remove("cabang_id");
         session()->remove("travel_id");
         return redirect()->to("/masuk");
     }

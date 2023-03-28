@@ -77,6 +77,23 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-success text-white">
+                    <h5 class="card-title">Kontak Mekkah & Madinah</h5>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                    <li class="list-group-item">No Telephone Mekkah : <?= $profile['no_telp_mekkah']; ?></li>
+                    <li class="list-group-item">Alamat Mekkah : <?= $profile['alamat_mekkah']; ?></li>
+                    <li class="list-group-item">No Telephone Madinah : <?= $profile['no_telp_madinah']; ?></li>
+                    <li class="list-group-item">Alamat Madinah : <?= $profile['alamat_madinah']; ?></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
   </section>
