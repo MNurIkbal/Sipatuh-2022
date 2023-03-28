@@ -153,6 +153,9 @@
                             <li class="list-group-item">Tanggal Awal Visa : <?=  $main['tgl_awal_visa'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Visa : <?=  $main['tgl_akhir_visa'];  ?></li>
                             <li class="list-group-item">Muassasah : <?=  $main['muassasah'];  ?></li>
+                            <li class="list-group-item">Status Vaksin : <?=  $main['status_vaksin'];  ?></li>
+                            <li class="list-group-item">Tanggal Vaksin : <?=  $main['tgl_vaksin'];  ?></li>
+                            <li class="list-group-item">Jenis Vaksin : <?=  $main['jenis_vaksin'];  ?></li>
                             <?php 
                             $biodata = new App\Models\BioDataModel();
                             $result_bio = $biodata->where("user_id",$main['user_id'])->first();

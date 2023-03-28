@@ -77,12 +77,16 @@ class RequestJamaahController extends BaseController
                             jamaah.muassasah,
                             jamaah.no_registrasi,
                             jamaah.user_id,
+                            jamaah.status_vaksin,
+                            jamaah.tgl_vaksin,
+                            jamaah.jenis_vaksin,
                             
                             paket.travel_id,
                             paket.rekening_penampung_id,
+                            paket.travel_id,
                             paket.id as id_paket,
                             paket.nama as nama_paket
-            FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE  paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY id DESC")->getResultArray(),
+            FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE  paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY jamaah.id DESC")->getResultArray(),
             'bank'  =>  $bank
         ];
 
