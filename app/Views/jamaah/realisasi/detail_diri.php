@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                       <div>
-                      <a href="<?= base_url("detail_selesai_jamaah/" . $id_paket . '/' . $id_kloter . '/' . $judul); ?>" class="btn btn-warning">Kembali</a>
+                      <a href="<?= base_url("detail_selesai_jamaah/" .  $id_kloter . '/' . $id_paket . '/' . $judul); ?>" class="btn btn-warning">Kembali</a>
                         <br>
                         <br>    
                         <h6>      

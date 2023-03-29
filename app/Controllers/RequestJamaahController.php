@@ -34,7 +34,7 @@ class RequestJamaahController extends BaseController
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Petugas",
             'petugas'   =>  $petugas_man->where("travel_id",session()->get("travel_id"))->findAll(),
-            'jamaah'    =>  $db->query("SELECT    
+            'jamaah'    =>  $db->query("SELECT
                             jamaah.nama as nama_jamaah,
                             jamaah.kloter_id,
                             jamaah.paket_id,
@@ -80,15 +80,16 @@ class RequestJamaahController extends BaseController
                             jamaah.status_vaksin,
                             jamaah.tgl_vaksin,
                             jamaah.jenis_vaksin,
-                            
+
                             paket.travel_id,
                             paket.rekening_penampung_id,
                             paket.travel_id,
                             paket.id as id_paket,
                             paket.nama as nama_paket
-            FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE  paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY jamaah.id DESC")->getResultArray(),
+            FROM jamaah INNER JOIN paket ON jamaah.paket_id = paket.id WHERE paket.travel_id = '$travel' AND jamaah.kloter_id IS NULL ORDER BY jamaah.id DESC")->getResultArray(),
             'bank'  =>  $bank
         ];
+
 
         return view("jamaah/request_jamaah/index",$data);
     }

@@ -43,15 +43,15 @@
                                         $paket_id = $row['id'];
 
                                         // pembayaran
-                                        $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND status_bayar = 'belum'")->getResult();
-                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id'")->getResult();
-                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id'")->getResult();
-                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id'")->getResult();
+                                        $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND status_bayar = 'belum' AND kloter_id IS NOT NULL")->getResult();
+                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
 
                                         //data
-                                        $visa = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND nomor_visa IS NOT NULL")->getResult();
-                                        $asuransi = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND nomor_polis IS NOT NULL")->getResult();
-                                        $paspor = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND no_paspor IS NOT NULL")->getResult();
+                                        $visa = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND nomor_visa IS NOT NULL AND kloter_id IS NOT NULL")->getResult();
+                                        $asuransi = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND nomor_polis IS NOT NULL AND kloter_id IS NOT NULL")->getResult();
+                                        $paspor = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND no_paspor IS NOT NULL AND kloter_id IS NOT NULL")->getResult();
                                         ?>
                                         <tr>
                                             <td><?=  $no++;  ?></td>

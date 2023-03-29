@@ -219,7 +219,7 @@
                     <div class="mb-3">
                         <label for="">Kloter</label>
                         <br>
-                        <select style="width: 100% !important;" name="kloter" class="form-control sele32" required id="">
+                        <select style="width: 100% !important;" name="kloter" class="form-control sele32<?= $main['id'] ?>" required id="">
                             <?php 
                             $klotes = $kloter->where('paket_id',$main['id_paket'])->where("status","aktif")->where("keberangkatan",NULL)->where("selesai",NULL)->where("status_realisasi",NULL)->where("done",NULL)->findAll();
                             ?>
@@ -238,7 +238,7 @@
         </div>
     </div>
     <script>
-         $('.sele32').select2({
+         $(".sele32<?= $main['id'] ?>").select2({
         dropdownParent: $("#hapus<?= $main['id'] ?>")
     });
     </script>

@@ -340,7 +340,7 @@ hr {
         <div class="card">
           <div class="card-header">
             <div>
-              <a href="<?= base_url("detail_selesai_jamaah/" . $id_paket . '/' . $id_kloter . '/' . $judul); ?>" class="btn btn-warning">Kembali</a>
+              <a href="<?= base_url("detail_selesai_jamaah/"  . $id_kloter . '/' . $id_paket . '/' . $judul); ?>" class="btn btn-warning">Kembali</a>
               <br>
               <br>
               <h6>
@@ -640,6 +640,14 @@ hr {
                                                 <span class="text-sm text-grey-m2 align-middle">Nama:</span>
                                                 <span class="text-600 text-110 text-blue align-middle"><?= $main['nama']; ?></span>
                                             </div>
+                                            <div>
+                                                <span class="text-sm text-grey-m2 align-middle">Paket :</span>
+                                                <span class="text-600 text-110 text-blue align-middle"><?= $paket['nama']; ?></span>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm text-grey-m2 align-middle">Kloter :</span>
+                                                <span class="text-600 text-110 text-blue align-middle"><?= $kloter['nama']; ?></span>
+                                            </div>
                                             <div class="text-grey-m2">
                                                 <div class="my-1">
                                                     <?= $main['alamat']; ?>
@@ -648,27 +656,26 @@ hr {
                                             </div>
                                         </div>
                                         <!-- /.col -->
-                    
                                         <div class="text-95 col-sm-6 align-self-start d-sm-flex justify-content-end">
                                             <hr class="d-sm-none" />
                                             <div class="text-grey-m2">
                                                 <div class="mt-1 mb-2 text-secondary-m1 text-600 text-125">
                                                     Invoice
                                                 </div>
-                    
-                    
+                                                <div>
+                                                <span class="text-sm text-grey-m2 align-middle">No Registrasi :</span>
+                                                <span class="text-600 text-110 text-blue align-middle"><?= $main['no_registrasi']; ?></span>
+                                            </div>
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Issue Date:</span> 
                                                 <?php if(!empty($main['tgl_lunas']))  : ?>
                                                   <?= date("d, F Y",strtotime($main['tgl_lunas'])); ?>
                                                   <?php endif; ?>
                                               </div>
-                    
                                                 <div class="my-2"><i class="fa fa-circle text-blue-m2 text-xs mr-1"></i> <span class="text-600 text-90">Status:</span> <span class="badge badge-success badge-pill px-25">Lunas</span></div>
                                             </div>
                                         </div>
                                         <!-- /.col -->
                                     </div>
-                    
                                     <div class="mt-4">
                                       
                                         <div class="row text-600 text-white bgc-default-tp1 py-25">

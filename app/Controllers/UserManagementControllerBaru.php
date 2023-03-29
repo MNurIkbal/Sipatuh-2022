@@ -615,9 +615,9 @@ class UserManagementControllerBaru extends BaseController
         $bukti = new BuktiModel();
 
         if(session()->get('level_id') == "jamaah") {
-            $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("id", $id_jamaah)->first();
+            $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("id", $id_jamaah)->first();
         } else {
-            $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
+            $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
         }
         $data = [
             'id_paket'  =>  $id_paket,

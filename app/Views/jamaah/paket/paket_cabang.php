@@ -35,6 +35,7 @@
                                         <th>Nama Paket</th>
                                         <th>Periode</th>
                                         <th>Biaya</th>
+                                        <th>Status</th>
                                         <th>Info Jamaah</th>
                                         <th>Action</th>
                                     </tr>
@@ -45,9 +46,9 @@
                                     <?php 
                                         $db      = \Config\Database::connect();
                                         $paket_id = $row['id'];
-                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id'")->getResult();
-                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id'")->getResult();
-                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id'")->getResult();
+                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                         ?>
                                     <tr>
                                         <td><?=  $no++;  ?></td>
@@ -57,6 +58,13 @@
                                         </td>
                                         <td>
                                             <?=  "Rp." . number_format($row['biaya']);  ?>
+                                        </td>
+                                        <td>
+                                            <?php if($row['status_approve'] == "sudah") :  ?>
+                                                <span class="badge badge-pill bg-success text-white">Sudah</span>
+                                                <?php else: ?>
+                                                    <span class="badge badge-pill bg-danger text-white">Belum</span>
+                                                <?php endif; ?>
                                         </td>
                                         <td>
                                             <span>

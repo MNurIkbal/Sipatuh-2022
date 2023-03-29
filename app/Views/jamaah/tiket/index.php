@@ -44,9 +44,9 @@ use App\Models\JamaahModel;
                                         <?php 
                                         $db      = \Config\Database::connect();
                                         $paket_id = $row['id'];
-                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id'")->getResult();
-                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id'")->getResult();
-                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id'")->getResult();
+                                        $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
+                                        $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                         ?>
                                         <tr>
                                             <td><?=  $no++;  ?></td>
