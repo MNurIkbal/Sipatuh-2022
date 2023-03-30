@@ -99,7 +99,7 @@
             <?php $hari = date("Y-m-d"); foreach ($paket_dua as $tiga) : ?>
               <?php if($hari <= $tiga['tgl_pulang']) : ?>
               <?php
-              $counts =$jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
+              $counts =$jamaah->where("paket_id", $tiga['id'])->where('kloter_id','!=',null)->findAll();
               $mains = count($counts);
               $id_profile = $tiga['travel_id'];
               $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();

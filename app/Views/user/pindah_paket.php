@@ -37,7 +37,7 @@
                   <div class="mb-1">
                                     <label for="">Pindah Paket</label>
                                     <input type="hidden" name="id_paket" value="<?=  $id_paket;  ?>">
-                                    <select name="paket" class="form-control" required autofocus autocomplete="" id="paket" onchange="pindah()">
+                                    <select name="paket" class="form-control sele" required autofocus autocomplete="" id="paket" onchange="pindah()">
                                         <option value="">Pilih</option>
                                         <?php foreach($all_paket as $rt) : ?>
                                         <?php if($rt['id'] != $id_paket) : ?>
@@ -69,10 +69,12 @@
 
   </section>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $("#none").hide()
+    $(".sele").select2()
 
     function pindah()
     {

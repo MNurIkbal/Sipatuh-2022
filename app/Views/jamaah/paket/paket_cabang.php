@@ -60,7 +60,7 @@
                                             <?=  "Rp." . number_format($row['biaya']);  ?>
                                         </td>
                                         <td>
-                                            <?php if($row['status_approve'] == "sudah") :  ?>
+                                            <?php if($row['status_paket_cabang'] == "sudah") :  ?>
                                                 <span class="badge badge-pill bg-success text-white">Sudah</span>
                                                 <?php else: ?>
                                                     <span class="badge badge-pill bg-danger text-white">Belum</span>
