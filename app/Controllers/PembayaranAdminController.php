@@ -108,7 +108,6 @@ class PembayaranAdminController extends BaseController
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
         ];
 
-        // dd($data['jamaah']);
         return view("admin/pembayaran/bayar",$data);
     }
 

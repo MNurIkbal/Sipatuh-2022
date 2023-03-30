@@ -173,7 +173,6 @@ class JamaahModel extends Model
         paket.travel_id,
         profile.id as id_profile,
 
-
         ");
         $builder->join("paket","jamaah.paket_id = paket.id");
         $builder->join("profile","paket.travel_id = profile.id");
@@ -181,8 +180,8 @@ class JamaahModel extends Model
         $builder->where("paket.id",$id_paket);
         $builder->where("jamaah.kloter_id",$id_kloter);
         $builder->where("jamaah.selesai_pembayaran",NULL);
-        $builder->orWhere("jamaah.status_bayar","cicil");
-        $builder->orWhere("jamaah.status_bayar","lunas");
+        // $builder->orWhere("jamaah.status_bayar","cicil");
+        // $builder->orWhere("jamaah.status_bayar","lunas");
         $builder->orderby("jamaah.id","desc");
         return $builder->findAll();
 
