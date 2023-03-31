@@ -31,7 +31,7 @@ class RequestPaketController extends BaseController
                 'travel_id' =>  session()->get('travel_id'),
                 'cabang'    =>  'cabang',
                 'status_paket_cabang'   => NULL,
-            ])->findAll(),
+            ])->orderby('id','desc')->findAll(),
             'provider'  =>  $data_provider->findAll(),
             'asuransi'  =>  $asuransi->findAll()
         ];

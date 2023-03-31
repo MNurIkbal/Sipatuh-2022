@@ -614,7 +614,7 @@ class UserManagementControllerBaru extends BaseController
         $bank = new BankModel();
         $bukti = new BuktiModel();
 
-        if(session()->get('level_id') == "jamaah") {
+        if(session()->get('level_id') == "jamaah" || session()->get('level_id') == "cabang") {
             $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("id", $id_jamaah)->first();
         } else {
             $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();

@@ -47,7 +47,7 @@ class HistoryController extends BaseController
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
                 'cabang'    =>  "cabang",
-                'status'    =>  "aktif",
+                'status'    =>  "selesai",
                 'kelengkapan' =>    'sudah',
                 'tiket' =>  'sudah'
             ])->findAll();

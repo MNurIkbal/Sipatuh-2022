@@ -25,10 +25,11 @@ class PembayaranAdminController extends BaseController
         $banner = new BannerModel();
         $pembayaran = new JamaahModel();
         $bukti = new BuktiModel();
-        $travel = session()->get("travel_id");
-        // dd($travel);/
+        $travel = session()->get("travel_id");  
         $paket = new PaketModel();
-        $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->orderby('id','desc')->findAll();
+        $data_paket_travel = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang',null)->orderBy('id','desc')->findAll(); 
+        $data_paket_cabang = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang','cabang')->orderby('id','desc')->findAll();
+        $data_paket = array_merge($data_paket_travel,$data_paket_cabang);
         $data = [
             'bukti' =>  $bukti,
             'title' =>  "Pembayaran",
@@ -40,7 +41,6 @@ class PembayaranAdminController extends BaseController
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
         ];
 
-        // dd($data['jamaah']);
         return view("admin/pembayaran/index",$data);
     }
     public function detail_pembayaran_kloter($id)
