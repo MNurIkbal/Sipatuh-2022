@@ -6,6 +6,8 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
+use function PHPUnit\Framework\isEmpty;
+
 class DpFilter implements FilterInterface
 {
     /**
@@ -27,7 +29,49 @@ class DpFilter implements FilterInterface
     {
         
         $login = session()->get('login');
-        if (!isset($login))
+        $id = session()->get('id');
+        $level_id = session()->get('level_id');
+        $nama = session()->get('nama');
+        $username = session()->get('username');
+        $created_at = session()->get('created_at');
+        $updated_at = session()->get('updated_at');
+        $email = session()->get('email');
+        $password = session()->get('password');
+        $no_hp = session()->get('no_hp');
+        if($level_id == "admin") {
+            $travel_id = "travel untuk admin";
+            $jamaah_id = "ada jamaah admin";
+            $cabang_id = "ada cabang admin";
+        } elseif($level_id == "jamaah") {
+            $cabang_id = "ada cabang admin";
+            $jamaah_id = "ada jamaah admin";
+            $travel_id = session()->get('travel_id');
+        } elseif($level_id == "cabang") {
+            $travel_id = session()->get('travel_id');
+            $jamaah_id = "ada jamaah admin";
+            $cabang_id = session()->get('cabang_id');
+        } elseif($level_id == "user") {
+            $travel_id = 1;
+            $cabang_id = "ada cabang admin";
+            $jamaah_id = 1;
+        }
+        
+        if (
+            !isset($login) ||
+            !isset($id) ||
+            !isset($level_id) ||
+            !isset($nama) || 
+            !isset($nama) ||
+            !isset($username) ||
+            !isset($created_at) ||
+            !isset($updated_at) ||
+            !isset($email)  ||
+            !isset($password) ||
+            !isset($no_hp)  || 
+            !isset($travel_id) || 
+            !isset($cabang_id) || 
+            !isset($jamaah_id)
+        )
 	    {
 	        return redirect()->to("/masuk")->with('error', "Invalid Credential");
 	    }

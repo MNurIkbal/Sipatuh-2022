@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CabangModel;
+use App\Models\DashboardAdmin;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\ProfileModel;
@@ -181,7 +182,9 @@ class UsersController extends BaseController
         $cabang = new CabangModel();
         $check_enam = $cabang->where("travel_id",$id)->first();
         $check_tiga = $petugas->where("travel_id",$id)->first();
-        if($check || $check_tiga || $check_enam) {
+        $check_enam = new DashboardAdmin();
+        $checskl = $check_enam->where("travel_id",$id)->first();
+        if($check || $check_tiga || $check_enam || $checskl) {
             return redirect()->back()->with("error",'Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi');
         }
 

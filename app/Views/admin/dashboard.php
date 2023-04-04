@@ -94,13 +94,13 @@ $validation = \Config\Services::validation();
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-6">
                         <div class="card-header">
                             <h5>Banner</h5>
                         </div>
                         <div class="card-body">
-                            <?php if(!empty($banner)) : ?>
+                            <?php if (!empty($banner)) : ?>
                                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                                 <div class="carousel-indicators">
                                     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -136,6 +136,12 @@ $validation = \Config\Services::validation();
                         <h5>Grafik Pendaftaran Jamaah</h5>
                         <div class="mt-5" id="chart"></div>
                     </div>
+                </div> -->
+                <div class="box">
+                    <h5 class="card-title">Grafik Pendaftaran Jamaah</h5>
+                    <div class="body_box" style="width: 100%;height: 500px;">
+                        <div id="chart" style="width: auto !important;height: 100% !important;"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -144,14 +150,14 @@ $validation = \Config\Services::validation();
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-<script>
+<!-- <script>
     $(document).ready(function() {
 
         var options = {
           series: [{
           name: "Jamaah",
           data: [
-            <?php foreach($daftar as $rt) : ?>
+            <?php foreach ($daftar as $rt) : ?>
                 <?= $rt['jamaah'] . ',' ?>
                 <?php endforeach; ?>
           ]
@@ -184,7 +190,7 @@ $validation = \Config\Services::validation();
             rotate: -45
           },
           categories: [
-            <?php foreach($daftar as $rt) : ?>
+            <?php foreach ($daftar as $rt) : ?>
                 "<?= $rt['bulan']  ?>",
                 <?php endforeach; ?>
           ],
@@ -214,5 +220,65 @@ $validation = \Config\Services::validation();
         chart.render();
       
 })
+</script> -->
+<script>
+    var options = {
+        series: [{
+            name: 'Jamaah',
+            data: [
+                <?php foreach ($dash as $rows_aktif) {
+                        echo "'" . $rows_aktif['score'] . "', "; 
+                }?>
+            ]
+        }],
+
+        chart: {
+            height: 500,
+            type: 'bar',
+        },
+        // plotOptions: {
+        //     bar: {
+        //         borderRadius: 0,
+        //         columnWidth: '10%',
+        //     }
+        // },
+        dataLabels: {
+            enabled: false
+        },
+        stroke: {
+            width: 2
+        },
+
+        grid: {
+            row: {
+                colors: ['#fff', '#f2f2f2']
+            }
+        },
+        xaxis: {
+            categories: [
+                <?php foreach ($dash as $rows_aktif) {
+                        echo "'" . $rows_aktif['nama_travel_umrah'] . "', "; 
+                }?>
+            ],
+            tickPlacement: 'on'
+        },
+
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shade: 'light',
+                type: "horizontal",
+                shadeIntensity: 0.25,
+                gradientToColors: undefined,
+                inverseColors: true,
+                opacityFrom: 0.85,
+                opacityTo: 0.85,
+                stops: [50, 0, 100]
+            },
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
 </script>
 <?= $this->endSection(); ?>

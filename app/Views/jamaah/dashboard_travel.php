@@ -22,7 +22,7 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header text-white bg-success">
-                <h5>Total Paket</h5>
+                <h5> Paket</h5>
               </div>
               <div class="card-body">
                 <h5><?= $paket; ?> Paket</h5>
@@ -32,7 +32,7 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header text-white bg-success">
-                <h5>Total Cabang</h5>
+                <h5> Cabang</h5>
               </div>
               <div class="card-body">
                 <h5><?= $cabang; ?> Cabang</h5>

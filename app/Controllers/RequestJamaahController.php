@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\BankModel;
 use App\Models\BannerModel;
 use App\Models\DaftarJamaahModel;
+use App\Models\DashboardAdmin;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
 use App\Models\LevelPetugasModel;
@@ -147,9 +148,10 @@ class RequestJamaahController extends BaseController
         $baner = new BannerModel();
         $db      = \Config\Database::connect();
         $daftar = new DaftarJamaahModel();
+        $dash = new DashboardAdmin();
         $data = [
             'total_jamaah'    =>  $db->query("SELECT * FROM jamaah")->getNumRows(),
-            'aktif_jamaah'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NULL AND ")->getNumRows(),
+            'aktif_jamaah'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NULL ")->getNumRows(),
             'sudah_berangkat'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NOT NULL")->getNumRows(),
             'paket'    =>  $db->query("SELECT * FROM paket WHERE status = 'aktif'")->getNumRows(),
             'profile'    =>  $db->query("SELECT * FROM profile")->getNumRows(),
@@ -159,6 +161,7 @@ class RequestJamaahController extends BaseController
             'db'    =>  $db,
             'banner'    =>  $baner->findAll(),
             'daftar'    =>  $daftar->groupBy('bulan')->findAll(),
+            'dash'  =>  $dash->myJoinQuery(),
         ];
         return view('admin/dashboard',$data);
     }

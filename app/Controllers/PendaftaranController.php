@@ -10,6 +10,7 @@ use App\Models\BankModel;
 use App\Models\BioDataModel;
 use App\Models\BuktiModel;
 use App\Models\DaftarJamaahModel;
+use App\Models\DashboardAdmin;
 use App\Models\DataProviderModel;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
@@ -600,6 +601,22 @@ if($expireds) {
                 'bulan' =>  date("Y-m-d"),
                 'jamaah'    =>  1,
                 'travel_id' =>  $rt['travel_id']
+            ]);
+        }
+
+        $dash_admin = new DashboardAdmin();
+        $check_dash = $dash_admin->where('travel_id',$rt['travel_id'])->first();
+        if($check_dash) {
+            $dash_admins = new DashboardAdmin();
+            $dash_admins->update($check_dash['id'],[
+                'score' =>  $check_dash['score'] + 1,
+            ]);
+        } else {
+            $dash_admins = new DashboardAdmin();
+            $dash_admins->insert([
+                'travel_id' =>  $rt['travel_id'],
+                'score' =>  1,
+                'created_at'    =>  date("Y-m-d")
             ]);
         }
 

@@ -363,6 +363,7 @@ class Home extends BaseController
         session()->remove("updated_at");
         session()->remove("cabang_id");
         session()->remove("travel_id");
+        session()->remove("jamaah_id");
         return redirect()->to("/masuk");
     }
 
