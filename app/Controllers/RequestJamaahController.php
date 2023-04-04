@@ -149,7 +149,7 @@ class RequestJamaahController extends BaseController
         $daftar = new DaftarJamaahModel();
         $data = [
             'total_jamaah'    =>  $db->query("SELECT * FROM jamaah")->getNumRows(),
-            'aktif_jamaah'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NULL")->getNumRows(),
+            'aktif_jamaah'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NULL AND ")->getNumRows(),
             'sudah_berangkat'    =>  $db->query("SELECT * FROM jamaah WHERE status_approve  IS NOT NULL")->getNumRows(),
             'paket'    =>  $db->query("SELECT * FROM paket WHERE status = 'aktif'")->getNumRows(),
             'profile'    =>  $db->query("SELECT * FROM profile")->getNumRows(),

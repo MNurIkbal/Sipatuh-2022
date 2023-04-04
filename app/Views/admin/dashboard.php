@@ -25,7 +25,7 @@ $validation = \Config\Services::validation();
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-primary">
                                 <h6>Jamaah Aktif</h6>
                             </div>
                             <div class="card-body">
@@ -35,7 +35,7 @@ $validation = \Config\Services::validation();
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-warning">
                                 <h6>Jamaah Sudah Berangkat</h6>
                             </div>
                             <div class="card-body">
@@ -45,7 +45,7 @@ $validation = \Config\Services::validation();
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-danger">
                                 <h6>Paket Travel</h6>
                             </div>
                             <div class="card-body">
@@ -55,17 +55,17 @@ $validation = \Config\Services::validation();
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-dark">
                                 <h6>Travel</h6>
                             </div>
                             <div class="card-body">
-                                <h4><?= $profile; ?> User</h4>
+                                <h4><?= $profile; ?> Travel </h4>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-info">
                                 <h6>Banner</h6>
                             </div>
                             <div class="card-body">
@@ -75,7 +75,7 @@ $validation = \Config\Services::validation();
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-header text-white bg-success">
+                            <div class="card-header text-white bg-secondary">
                                 <h6>Kasus</h6>
                             </div>
                             <div class="card-body">
