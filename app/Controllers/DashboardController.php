@@ -15,62 +15,62 @@ class DashboardController extends BaseController
         $sesi = session()->get("login");
         // dd($sesi);
         $travel_id = session()->get('travel_id');
-        if(!isset($sesi)) {
+        if (!isset($sesi)) {
             return redirect()->to("/");
             exit;
-        } elseif(!isset($travel_id)) {
+        } elseif (!isset($travel_id)) {
             session()->destroy();
-        session()->remove("login");
-        session()->remove("id");
-        session()->remove("level_id");
-        session()->remove("email");
-        session()->remove("no_hp");
-        session()->remove("username");
-        session()->remove("nama");
-        session()->remove("created_at");
-        session()->remove("updated_at");
-        session()->remove("travel_id");
-        return redirect()->to("/masuk");
+            session()->remove("login");
+            session()->remove("id");
+            session()->remove("level_id");
+            session()->remove("email");
+            session()->remove("no_hp");
+            session()->remove("username");
+            session()->remove("nama");
+            session()->remove("created_at");
+            session()->remove("updated_at");
+            session()->remove("travel_id");
+            return redirect()->to("/masuk");
         }
         // die;
-        
-        
 
-        if(session()->get("level_id") == "cabang") {
+
+
+        if (session()->get("level_id") == "cabang") {
             return redirect()->to("paket");
         }
 
         $profile = new ProfileModel();
         $data = [
             'title' =>  "Aplikasi Sipatuh",
-            'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
+            'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
         ];
-        return view("jamaah/dashboard",$data);
+        return view("jamaah/dashboard", $data);
     }
     public function dash()
     {
         $sesi = session()->get("login");
         // dd($sesi);
         $travel_id = session()->get('travel_id');
-        if(!isset($sesi)) {
+        if (!isset($sesi)) {
             return redirect()->to("/");
             exit;
-        } elseif(!isset($travel_id)) {
+        } elseif (!isset($travel_id)) {
             session()->destroy();
-        session()->remove("login");
-        session()->remove("id");
-        session()->remove("level_id");
-        session()->remove("email");
-        session()->remove("no_hp");
-        session()->remove("username");
-        session()->remove("nama");
-        session()->remove("created_at");
-        session()->remove("updated_at");
-        session()->remove("travel_id");
-        return redirect()->to("/masuk");
-        }       
-        
-        if(session()->get("level_id") == "cabang") {
+            session()->remove("login");
+            session()->remove("id");
+            session()->remove("level_id");
+            session()->remove("email");
+            session()->remove("no_hp");
+            session()->remove("username");
+            session()->remove("nama");
+            session()->remove("created_at");
+            session()->remove("updated_at");
+            session()->remove("travel_id");
+            return redirect()->to("/masuk");
+        }
+
+        if (session()->get("level_id") == "cabang") {
             return redirect()->to("paket");
         }
         $cabang = new CabangModel();
@@ -82,7 +82,7 @@ class DashboardController extends BaseController
         $s = session()->get('travel_id');
         $data = [
             'title' =>  "Aplikasi Sipatuh",
-            'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
+            'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
             'paket' => $db->query("SELECT * FROM paket WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),
             'cabang'   => $db->query("SELECT * FROM data_cabang_travel WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),
             'jamaah' => $db->query("SELECT * FROM jamaah 
@@ -93,8 +93,8 @@ class DashboardController extends BaseController
             INNER JOIN paket ON jamaah.paket_id = paket.id 
             INNER JOIN profile ON paket.travel_id = profile.id
             WHERE profile.id = '$s' AND jamaah.kloter_id IS NOT NULL AND jamaah.status_approve IS NOT NULL")->getNumRows(),
-            'daftar'    =>  $daftar->where("travel_id",session('travel_id'))->findAll(),
+            'daftar'    =>  $daftar->where("travel_id", session('travel_id'))->findAll(),
         ];
-        return view("jamaah/dashboard_travel",$data);
+        return view("jamaah/dashboard_travel", $data);
     }
 }
