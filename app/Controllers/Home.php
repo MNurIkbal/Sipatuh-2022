@@ -11,6 +11,7 @@ use App\Models\KloterModel;
 use App\Models\PaketModel;
 use App\Models\ProfileModel;
 use App\Models\Users;
+use CodeIgniter\Database\BaseConnection;
 use Myth\Auth\Entities\User;
 
 class Home extends BaseController
