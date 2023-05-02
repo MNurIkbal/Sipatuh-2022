@@ -52,7 +52,7 @@ $routes->get('/regis', 'Home::regis');
 $routes->post('/daftar', 'Home::daftar');
 $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');
-
+$routes->get('company_user',"CompanyController::index");
 
     $routes->get('/dashboard', 'DashboardController::dash',['filter' => 'DpFilter']);
     $routes->get('/profile_perusaahaan', 'DashboardController::index',['filter' => 'DpFilter']);
@@ -291,6 +291,11 @@ $routes->post('login', 'LoginController::index');
     $routes->get("request_jamaah","RequestJamaahController::index",['filter' => 'DpFilter']);
     $routes->post("pilih_kloter","RequestJamaahController::pilih_kloter",['filter' => 'DpFilter']);
     $routes->get('/dash_admin', 'RequestJamaahController::dash_admin',['filter' => 'DpFilter']);
+
+
+
+    // company profile
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing

@@ -1,6 +1,6 @@
-<?= $this->extend("layout"); ?>
+<?= $this->extend("company/layout/index"); ?>
 
-<?= $this->section("content"); ?>
+<?= $this->section("isi"); ?>
 
         <!-- Carousel Start -->
         <div class="container-fluid p-0 mb-5">

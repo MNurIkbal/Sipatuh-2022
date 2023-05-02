@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controllers\Company;
+namespace App\Controllers;
 
 use App\Controllers\BaseController;
 
@@ -8,6 +8,6 @@ class CompanyController extends BaseController
 {
     public function index()
     {
-        //
+        return view('company/index');
     }
 }
