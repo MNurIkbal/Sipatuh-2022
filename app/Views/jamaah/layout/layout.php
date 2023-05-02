@@ -29,6 +29,10 @@
       font-family: 'Roboto Slab', serif;
 
     }
+    .sy:hover {
+      color: black !important;
+      font-weight: bolder !important;
+    }
   </style>
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -42,13 +46,13 @@
 <!-- /END GA --></head>
 
 <body>
-  <div id="app">
-    <div class="main-wrapper main-wrapper-1">
-      <div class="navbar-bg"></div>
-      <nav class="navbar navbar-expand-lg main-navbar">
+  <div  id="app">
+    <div class="main-wrapper  main-wrapper-1" >
+      <div class="navbar-bg bg-danger"></div>
+      <nav class="navbar bg navbar-expand-lg main-navbar" style="background-color: #F94A29;padding: 0;margin: 0;">
         <form class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
-            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+            <!-- <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li> -->
             <li>
               <a href="<?= base_url("/"); ?>" target="_blank" class="nav nav-link">Beranda</a>
             </li>
@@ -61,8 +65,6 @@
             <img alt="image" src="<?=  base_url("assets/img/avatar/avatar-1.png") ;  ?>" class="rounded-circle mr-1">
             <div class="d-sm-none d-lg-inline-block"><?=  session()->get("nama");  ?></div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <!-- <div class="dropdown-title">Logged in 5 min ago</div> -->
-              <!-- <div class="dropdown-divider"></div> -->
               <a href="#" class="dropdown-item has-icon text-success" data-toggle="modal"
                                             data-target="#ganti">
                 <i class="fas fa-key"></i> Ganti Password
@@ -74,95 +76,93 @@
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2">
+      <div class="main-sidebar sidebar-style-2" style="background-color: #2F58CD;">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="#">Manasikita</a>
+            <a href="#" class="text-white">Manasikita</a>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
-            <a href="#">MSK</a>
+            <a href="#" class="text-white">MSK</a>
           </div>
           <?php
-
                         use App\Models\BioDataModel;
-                        use App\Models\JamaahModel;
-
  if(session()->get("level_id") == "jamaah") : ?>
             
           <ul class="sidebar-menu">
-          <li><a class="nav-link" href="<?=  base_url("dashboard");  ?>"><i class="fas fa-fire"></i><span>Dashboard</span></a></li>
+          <li><a class="nav-link text-white sy" href="<?=  base_url("dashboard");  ?>"><i class="fas fa-fire "></i><span>Dashboard</span></a></li>
           
           <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Paket</span></a>
+              <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Paket</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/paket");  ?>">Aktif</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/paket");  ?>">Aktif</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
               </ul>
             </li>
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-newspaper"></i> <span>Master Data</span></a>
+              <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-newspaper"></i> <span>Master Data</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/petugas");  ?>">Petugas</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/rekening_penampung");  ?>">Rekening Penampung</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/petugas");  ?>">Petugas</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/rekening_penampung");  ?>">Rekening Penampung</a></li>
               </ul>
             </li>
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Pendaftaran</span></a>
+              <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Pendaftaran</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/request_paket");  ?>">Request Paket</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/pendaftaran");  ?>">Pendaftaran Paket</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/request_jamaah");  ?>">Request Jamaah</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/request_paket");  ?>">Request Paket</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/pendaftaran");  ?>">Pendaftaran Paket</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/request_jamaah");  ?>">Request Jamaah</a></li>
+                <li><a class="nav-link  text-white "  href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
               </ul>
             </li>
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Profile Travel</span></a>
+              <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Profile Travel</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/profile_perusaahaan");  ?>">Profile</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/profil");  ?>">Update Profile</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/profile_perusaahaan");  ?>">Profile</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/profil");  ?>">Update Profile</a></li>
               </ul>
             </li>
-            <li><a class="nav-link" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
           </ul>
           <?php elseif(session()->get("level_id") == "admin"): ?>
             <ul class="sidebar-menu">
-            <li><a class="nav-link" href="<?=  base_url("/dash_admin");  ?>"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/users");  ?>"><i class="fas fa-clipboard"></i><span>Travel</span></a></li>
+            <li><a class="nav-link text-white sy" href="<?=  base_url("/dash_admin");  ?>" ><i class="fas fa-home "></i><span>Dashboard</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/users");  ?>"><i class="fas fa-clipboard"></i><span>Travel</span></a></li>
+            
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Master Data</span></a>
+              <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Master Data</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/level_users");  ?>">Level Petugas</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/data_provider");  ?>">Provider</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/data_asuransi");  ?>">Asuransi</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/data_mussahah");  ?>">Muassasah</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/level_users");  ?>">Level Petugas</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/data_provider");  ?>">Provider</a></li>
+                <li><a class="nav-link  text-white "  href="<?=  base_url("/data_asuransi");  ?>">Asuransi</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/data_mussahah");  ?>">Muassasah</a></li>
               </ul>
             </li>
-            <li><a class="nav-link" href="<?=  base_url("/data_hotel");  ?>"><i class="fas fa-hotel"></i><span>Hotel </span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/data_bank");  ?>"><i class="fas fa-building"></i><span>Bank </span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/data_travel");  ?>"><i class="fas fa-city"></i><span>Perusahaan</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/banner");  ?>"><i class="fas fa-newspaper"></i><span>Banner</span></a></li>
-            <li><a class="nav-link" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/data_hotel");  ?>"><i class="fas fa-hotel"></i><span>Hotel </span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/data_bank");  ?>"><i class="fas fa-building"></i><span>Bank </span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/data_travel");  ?>"><i class="fas fa-city"></i><span>Perusahaan</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/banner");  ?>"><i class="fas fa-newspaper"></i><span>Banner</span></a></li>
+            <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
             </ul>
             <?php elseif(session()->get("level_id") == "cabang") : ?>
               <ul class="sidebar-menu">
                 <li class="dropdown ">
-                <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Paket</span></a>
+                <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Paket</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link" href="<?=  base_url("/paket");  ?>">Aktif</a></li>
-                  <li><a class="nav-link" href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
+                  <li><a class="nav-link  text-white " href="<?=  base_url("/paket");  ?>">Aktif</a></li>
+                  <li><a class="nav-link  text-white " href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
                 </ul>
               </li>
-              <li><a class="nav-link" href="<?=  base_url("/pendaftaran");  ?>"><i class="fas fa-edit"></i><span>Pendaftaran</span></a></li>
-              <li><a class="nav-link" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
-              <li><a class="nav-link" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
-              <li><a class="nav-link" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+              <li><a class="nav-link  text-white sy" href="<?=  base_url("/pendaftaran");  ?>"><i class="fas fa-edit"></i><span>Pendaftaran</span></a></li>
+              <li><a class="nav-link  text-white sy" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
+              <li><a class="nav-link  text-white sy" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
+              <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
               </ul>
             <?php elseif(session()->get("level_id") == "user"): ?>
               <ul class="sidebar-menu">
-                <li><a class="nav-link" href="<?=  base_url("/dashboard_user");  ?>"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+                <li><a class="nav-link  text-white sy" href="<?=  base_url("/dashboard_user");  ?>"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
                 <?php
                     // $db      = \Config\Database::connect();
                     // $id_jamaah = session()->get("jamaah_id");
@@ -175,30 +175,23 @@
 
                 if(session()->get("level_id") == "user" ) : ?>
                 <?php if(!$check) : ?>
-                  <li class=""><a class="nav-link" href="<?=  base_url("/profile_jamaah");  ?>"><i class="fas fa-user-tie"></i><span>Profile </span></a></li>
+                  <li class=""><a class="nav-link  text-white sy" href="<?=  base_url("/profile_jamaah");  ?>"><i class="fas fa-user-tie"></i><span>Profile </span></a></li>
                   <?php else: ?>
-                    <li class=""><a class="nav-link" href="<?=  base_url("/view_profile");  ?>"><i class="fas fa-id-card"></i><span>Profile </span></a></li>
+                    <li class=""><a class="nav-link  text-white sy" href="<?=  base_url("/view_profile");  ?>"><i class="fas fa-id-card"></i><span>Profile </span></a></li>
                     <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown"><i class="fa  fa-book"></i> <span>Paket</span></a>
+              <a href="#" class="nav-link has-dropdown text-white sy"><i class="fa  fa-book"></i> <span>Paket</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="<?=  base_url("/paket_user");  ?>">Aktif</a></li>
-                <li><a class="nav-link" href="<?=  base_url("/paket_selesai_user");  ?>">History</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/paket_user");  ?>">Aktif</a></li>
+                <li><a class="nav-link  text-white " href="<?=  base_url("/paket_selesai_user");  ?>">History</a></li>
               </ul>
             </li>
-                    <!-- <li class=""><a class="nav-link" href="<?=  base_url("/pindah_paket_jamaah");  ?>"><i class="fas fa-edit"></i><span>Pindah Paket</span></a></li>
-                    <li><a class="nav-link" href="<?=  base_url("/pembayaran_jamaah");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
-                    <li><a class="nav-link" href="<?=  base_url("/asuransi_jamaah");  ?>"><i class="fas fa-newspaper"></i><span>Asuransi</span></a></li>
-                    <li><a class="nav-link" href="<?=  base_url("/visa_jamaah");  ?>"><i class="fas fa-book"></i><span>Visa</span></a></li> -->
                     <?php endif; ?>
-                    <li><a class="nav-link" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+                    <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
                   <?php endif; ?>
               </ul>
           <?php endif; ?>
        </aside> 
-      </div>
-
-      <!-- Main Content -->
-      
+      </div>      
       <?=  $this->renderSection("content");  ?>
       <footer class="main-footer">
         <div class="footer-left">

@@ -151,6 +151,7 @@
                       <small class="mb-2"><i class="fa-solid fa-home" style="padding-right: 5px"></i> <?= $profile['nama_travel_umrah'] ?></small>
                       <small class="mb-2"><i class="fa-solid fa-money-bill" style="padding-right: 5px"></i> Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
                       <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <?= $mains;  ?> Orang</small>
+                      <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <a href="<?= base_url('company'); ?>" class="nav-link">Company</a></small>
                       <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;">
                         <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
                         <small><?= $tiga['tahun']; ?></small>
