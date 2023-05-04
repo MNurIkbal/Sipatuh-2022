@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Hotelier - Hotel HTML Template</title>
+    <title><?= $profile['nama_perusahaan'] . ' | ' .  $profile['nama_travel_umrah']; ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <!-- <link href="img/favicon.ico" rel="icon"> -->
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
+                        <h5 class="m-0 text-primary text-uppercase"><?= $profile['nama_travel_umrah']; ?></h1>
                     </a>
                 </div>
                 <div class="col-lg-9">
@@ -81,21 +81,21 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Home</a>
-                                <a href="about.html" class="nav-item nav-link">About</a>
-                                <a href="service.html" class="nav-item nav-link">Services</a>
-                                <a href="room.html" class="nav-item nav-link">Rooms</a>
+                                <a href="index.html" class="nav-item nav-link active">Beranda</a>
+                                <a href="about.html" class="nav-item nav-link">Tentang</a>
+                                <a href="room.html" class="nav-item nav-link">Berita</a>
+                                <a href="service.html" class="nav-item nav-link">Layanan</a>
+                                <a href="room.html" class="nav-item nav-link">Paket</a>
+                                <a href="room.html" class="nav-item nav-link">Testimoni</a>
                                 <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="booking.html" class="dropdown-item">Booking</a>
-                                        <a href="team.html" class="dropdown-item">Our Team</a>
-                                        <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                                        <a href="team.html" class="dropdown-item">Foto</a>
+                                        <a href="booking.html" class="dropdown-item">Video</a>
                                     </div>
                                 </div>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                <a href="contact.html" class="nav-item nav-link">Kontak</a>
                             </div>
-                            <a href="https://htmlcodex.com/hotel-html-template-pro" class="btn btn-primary rounded-0 py-4 px-md-5 d-none d-lg-block">Premium Version<i class="fa fa-arrow-right ms-3"></i></a>
                         </div>
                     </nav>
                 </div>
