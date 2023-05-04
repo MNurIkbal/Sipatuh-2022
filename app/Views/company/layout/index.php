@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <link rel="icon" href="<?= base_url("assets/upload/" . $check['logo']); ?>">
 
     <!-- Favicon -->
     <!-- <link href="img/favicon.ico" rel="icon"> -->
@@ -47,7 +48,9 @@
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                        <h5 class="m-0 text-primary text-uppercase"><?= $profile['nama_travel_umrah']; ?></h1>
+                        <div style="width: 100px;height: 100px;">
+                            <img src="<?= base_url("assets/upload/" . $check['logo']); ?>" alt="" style="width: 100%;height: 100%;object-fit: fill;">
+                        </div>
                     </a>
                 </div>
                 <div class="col-lg-9">
@@ -55,46 +58,40 @@
                         <div class="col-lg-7 px-5 text-start">
                             <div class="h-100 d-inline-flex align-items-center py-2 me-4">
                                 <i class="fa fa-envelope text-primary me-2"></i>
-                                <p class="mb-0">info@example.com</p>
+                                <p class="mb-0"><?= $profile['email']; ?></p>
                             </div>
                             <div class="h-100 d-inline-flex align-items-center py-2">
                                 <i class="fa fa-phone-alt text-primary me-2"></i>
-                                <p class="mb-0">+012 345 6789</p>
+                                <p class="mb-0"><?= $profile['no_telp']; ?></p>
                             </div>
                         </div>
                         <div class="col-lg-5 px-5 text-end">
                             <div class="d-inline-flex align-items-center py-2">
-                                <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                                <a class="" href=""><i class="fab fa-youtube"></i></a>
+                                <a class="me-3" href="<?= $check['facebook']; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="me-3" href="<?= $check['twitter']; ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="me-3" href="<?= $check['instagram']; ?>" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="" href="<?= $check['youtube']; ?>" target="_blank"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0">
-                        <a href="index.html" class="navbar-brand d-block d-lg-none">
-                            <h1 class="m-0 text-primary text-uppercase">Hotelier</h1>
-                        </a>
                         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="index.html" class="nav-item nav-link active">Beranda</a>
-                                <a href="about.html" class="nav-item nav-link">Tentang</a>
-                                <a href="room.html" class="nav-item nav-link">Berita</a>
-                                <a href="service.html" class="nav-item nav-link">Layanan</a>
-                                <a href="room.html" class="nav-item nav-link">Paket</a>
-                                <a href="room.html" class="nav-item nav-link">Testimoni</a>
+                                <a href="<?= base_url("company/" . $profile['website']); ?>" class="n av-item nav-link active">Beranda</a>
+                                <a href="<?= base_url("company/profile/" . $profile['website']); ?>" class="nav-item nav-link">Profil</a>
+                                <a href="<?= base_url("company/artikel/" . $profile['website']); ?>" class="nav-item nav-link">Artikel</a>
+                                <a href="<?= base_url("company/paket/" . $profile['website']); ?>" class="nav-item nav-link">Paket</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="team.html" class="dropdown-item">Foto</a>
-                                        <a href="booking.html" class="dropdown-item">Video</a>
+                                        <a href="<?= base_url("company/foto/" . $profile['website']); ?>" class="dropdown-item">Foto</a>
+                                        <a href="<?= base_url("company/video/" . $profile['website']); ?>" class="dropdown-item">Video</a>
                                     </div>
                                 </div>
-                                <a href="contact.html" class="nav-item nav-link">Kontak</a>
+                                <a href="<?= base_url("company/kontak/" . $profile['website']); ?>" class="nav-item nav-link">Kontak</a>
                             </div>
                         </div>
                     </nav>
@@ -103,30 +100,36 @@
         </div>
         <!-- Header End -->
         <?= $this->renderSection("isi");  ?>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
             <div class="container pb-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-4">
                         <div class="bg-primary rounded p-4">
-                            <a href="index.html">
-                                <h1 class="text-white text-uppercase mb-3">Hotelier</h1>
-                            </a>
+                            <div class="d-flex" style="justify-content: center;">
+                            <div style="width: 150px;height: 150px;">
+                                <img src="<?= base_url("assets/upload/" . $check['logo']); ?>" alt="" style="width: 100%;height: 100%;">
+                            </div>
+                            </div>
                             <p class="text-white mb-0">
-                                Download <a class="text-dark fw-medium" href="https://htmlcodex.com/hotel-html-template-pro">Hotelier – Premium Version</a>, build a professional website for your hotel business and grab the attention of new visitors upon your site’s launch.
+                                <?= $check['deskripsi_footer']; ?>
                             </p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <h6 class="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
-                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                        <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?= $profile['alamat'] . ',' . $profile['kabupaten'] ?></p>
+                        <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><?= $profile['no_telp']; ?></p>
+                        <p class="mb-2"><i class="fa fa-envelope me-3"></i><?= $profile['email']; ?></p>
                         <div class="d-flex pt-2">
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-youtube"></i></a>
-                            <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-linkedin-in"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="<?= $check['twitter']; ?>" target="_blank"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="<?= $check['facebook']; ?>" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light btn-social" href="<?= $check['youtube']; ?>" target="_blank"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                     <div class="col-lg-5 col-md-12">
@@ -154,19 +157,8 @@
             <div class="container">
                 <div class="copyright">
                     <div class="row">
-                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved.
-
-                            <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
-                        </div>
-                        <div class="col-md-6 text-center text-md-end">
-                            <div class="footer-menu">
-                                <a href="">Home</a>
-                                <a href="">Cookies</a>
-                                <a href="">Help</a>
-                                <a href="">FQAs</a>
-                            </div>
+                        <div class="d-flex" style="justify-content: center;">
+                            &copy; <?= $profile['nama_travel_umrah'] .  ' ' . date("Y"); ?>
                         </div>
                     </div>
                 </div>

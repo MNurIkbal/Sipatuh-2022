@@ -76,7 +76,7 @@
           </li>
         </ul>
       </nav>
-      <div class="main-sidebar sidebar-style-2" style="background-color: #2F58CD;">
+      <div class="main-sidebar sidebar-style-2" style="background-color: #1985D5;">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <a href="#" class="text-white">Manasikita</a>

@@ -3,31 +3,21 @@
 <?= $this->section("isi"); ?>
 
         <!-- Carousel Start -->
+        <?php if($slider) : ?>
         <div class="container-fluid p-0 mb-5">
             <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img class="w-100" src="img/carousel-1.jpg" alt="Image">
+                <div class="carousel-inner">    
+                    <?php foreach($slider as $slid) : ?>
+                    <div class="carousel-item  <?= ($slid->status == 1) ? 'active' : ''; ?>">
+                        <img class="w-100" src="<?= base_url("assets/upload/$slid->img"); ?>" alt="Image">
                         <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                             <div class="p-3" style="max-width: 700px;">
-                                <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
-                                <h1 class="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
+                                <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown"><?= $slid->sub_title; ?></h6>
+                                <h1 class="display-3 text-white mb-4 animated slideInDown"><?= $slid->title; ?></h1>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <img class="w-100" src="img/carousel-2.jpg" alt="Image">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">Luxury Living</h6>
-                                <h1 class="display-3 text-white mb-4 animated slideInDown">Discover A Brand Luxurious Hotel</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Our Rooms</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Book A Room</a>
-                            </div>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
                     data-bs-slide="prev">
@@ -41,11 +31,8 @@
                 </button>
             </div>
         </div>
-        <!-- Carousel End -->
-
-
-        <!-- Booking Start -->
-        <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
+        <?php endif; ?>
+        <!-- <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
             <div class="container">
                 <div class="bg-white shadow" style="padding: 35px;">
                     <div class="row g-2">
@@ -86,25 +73,20 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Booking End -->
-
-
-        <!-- About Start -->
+        </div> -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6">
                         <h6 class="section-title text-start text-primary text-uppercase">About Us</h6>
-                        <h1 class="mb-4">Welcome to <span class="text-primary text-uppercase">Hotelier</span></h1>
-                        <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat amet</p>
+                        <p class="mb-4"><?= $check['deskripsi_about']; ?></p>
                         <div class="row g-3 pb-4">
                             <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
                                 <div class="border rounded p-1">
                                     <div class="border rounded text-center p-4">
-                                        <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
-                                        <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                        <p class="mb-0">Rooms</p>
+                                        <i class="fa fa-book fa-2x text-primary mb-2"></i>
+                                        <h2 class="mb-1" data-toggle="counter-up"><?= $count_paket; ?></h2>
+                                        <p class="mb-0">Paket</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +95,7 @@
                                     <div class="border rounded text-center p-4">
                                         <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
                                         <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                        <p class="mb-0">Staffs</p>
+                                        <p class="mb-0">Cabang</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +104,7 @@
                                     <div class="border rounded text-center p-4">
                                         <i class="fa fa-users fa-2x text-primary mb-2"></i>
                                         <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                        <p class="mb-0">Clients</p>
+                                        <p class="mb-0">Jamaah</p>
                                     </div>
                                 </div>
                             </div>
