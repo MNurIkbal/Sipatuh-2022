@@ -135,20 +135,22 @@
                     <div class="col-lg-5 col-md-12">
                         <div class="row gy-5 g-4">
                             <div class="col-md-6">
-                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Company</h6>
-                                <a class="btn btn-link" href="">About Us</a>
-                                <a class="btn btn-link" href="">Contact Us</a>
-                                <a class="btn btn-link" href="">Privacy Policy</a>
-                                <a class="btn btn-link" href="">Terms & Condition</a>
-                                <a class="btn btn-link" href="">Support</a>
+                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Travel</h6>
+                                <a class="btn btn-link" href="#">Beranda</a>
+                                <a class="btn btn-link" href="#">Profil</a>
+                                <a class="btn btn-link" href="#">Artikel</a>
+                                <a class="btn btn-link" href="#">Paket</a>
+                                <a class="btn btn-link" href="#">Galeri Foto</a>
+                                <a class="btn btn-link" href="#">Galeri Video</a>
+                                <a class="btn btn-link" href="#">Kontak</a>
                             </div>
                             <div class="col-md-6">
-                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-                                <a class="btn btn-link" href="">Food & Restaurant</a>
-                                <a class="btn btn-link" href="">Spa & Fitness</a>
-                                <a class="btn btn-link" href="">Sports & Gaming</a>
-                                <a class="btn btn-link" href="">Event & Party</a>
-                                <a class="btn btn-link" href="">GYM & Yoga</a>
+                                <h6 class="section-title text-start text-primary text-uppercase mb-4">Layanan</h6>
+                                <a class="btn btn-link" href="#">Haji</a>
+                                <a class="btn btn-link" href="#">Umrah</a>
+                                <a class="btn btn-link" href="#">Penerbangan</a>
+                                <a class="btn btn-link" href="#">Hotel</a>
+                                <a class="btn btn-link" href="#">Paspor</a>
                             </div>
                         </div>
                     </div>

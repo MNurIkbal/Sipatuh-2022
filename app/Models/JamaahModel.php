@@ -186,4 +186,17 @@ class JamaahModel extends Model
         return $builder->findAll();
 
     }
+
+    public function getPaketCount($profileId)
+    {
+        $builder = $this->db->table('jamaah');
+        $builder->selectCount('jamaah.id', 'total_jamaah')
+            ->join('paket', 'paket.id = jamaah.paket_id')
+            ->join('profile', 'profile.id = paket.travel_id')
+            ->where('profile.id', $profileId);
+
+        $result = $builder->get()->getRow();
+
+        return $result->total_jamaah;
+    }
 }
