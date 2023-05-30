@@ -87,7 +87,7 @@
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="<?= base_url("foto_company/" . $profile['website']); ?>" class="dropdown-item">Foto</a>
+                                        <a href="<?= base_url(" /" . $profile['website']); ?>" class="dropdown-item">Foto</a>
                                         <a href="<?= base_url("video_company/" . $profile['website']); ?>" class="dropdown-item">Video</a>
                                     </div>
                                 </div>
