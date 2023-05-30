@@ -45,13 +45,14 @@ class Home extends BaseController
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
         $hari_ini = date("Y-m-d");
-        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('cabang',null)->orderby('id','desc')->paginate(10,'paket');
+        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket');
         $paket_cabang = $paket->where('status','aktif')->where('pemberangkatan',null)->where('cabang','cabang')->where('status_approve','sudah')->orderby('id','desc')->paginate(10,'paket');
         $pakets = array_merge($paket_result,$paket_cabang);
+        
         // dd($pakets);
 
         $data = [
-            'paket_dua' =>$pakets,
+            'paket_dua' => $paket_result,
             // 'paket_dua' =>  $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket'),
             'pager' =>  $paket->pager,
             'count' =>  $count,
@@ -75,6 +76,7 @@ class Home extends BaseController
         $db      = \Config\Database::connect();
         $jamaah = new JamaahModel();
         $paket = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 3 ")->getResultArray();
+        
         // $paket_dua = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 10 ")->getResultArray();
         $paket = new PaketModel();
         $paket_dua = $paket->main();
