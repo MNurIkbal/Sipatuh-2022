@@ -15,7 +15,9 @@ class CompanyController extends BaseController
     {
         $profile = new ProfileModel();
         $result = $profile->where('website',$id)->first();
-        
+        if(!$result) {
+            return redirect()->to('/');
+        }
         $travel =   new ProfileCompany();
         $check  = $travel->where("travel_id",$result['id'])->first();
         $slider = new SliderCompany();
@@ -23,19 +25,20 @@ class CompanyController extends BaseController
          if(!$result || !$check || !$slid)  {
             return redirect()->to('/');
         }
+        
+        
         $slide = $slider->where("travel_id",$result['id'])->get()->getResult();
         $paket = new PaketModel();
         $check_paket = $paket->where("status","aktif")->orWhere('status_approve','sudah')->countAllResults();
         $jamaah = new JamaahModel();
-        $count_jamaah = $jamaah->where("travel_id",$result['id'])->countAllResults();
-       
+        
         $data = [
             'title' =>  $result['nama_travel_umrah'],
             'profile'   =>  $result,
             'check' =>  $check,
             'slider'    =>  $slide,
             'count_paket'   =>  $check_paket,
-            'count_jamaah'  =>  $count_jamaah,    
+            // 'count_jamaah'  =>  $count_jamaah,    
         ];
         return view('company/index',$data);
     }

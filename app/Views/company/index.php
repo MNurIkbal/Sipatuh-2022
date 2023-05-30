@@ -10,12 +10,6 @@
                     <?php foreach($slider as $slid) : ?>
                     <div class="carousel-item  <?= ($slid->status == 1) ? 'active' : ''; ?>">
                         <img class="w-100" src="<?= base_url("assets/upload/$slid->img"); ?>" alt="Image">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown"><?= $slid->sub_title; ?></h6>
-                                <h1 class="display-3 text-white mb-4 animated slideInDown"><?= $slid->title; ?></h1>
-                            </div>
-                        </div>
                     </div>
                     <?php endforeach; ?>
                 </div>
@@ -32,48 +26,6 @@
             </div>
         </div>
         <?php endif; ?>
-        <!-- <div class="container-fluid booking pb-5 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="bg-white shadow" style="padding: 35px;">
-                    <div class="row g-2">
-                        <div class="col-md-10">
-                            <div class="row g-2">
-                                <div class="col-md-3">
-                                    <div class="date" id="date1" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
-                                            placeholder="Check in" data-target="#date1" data-toggle="datetimepicker" />
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="date" id="date2" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" placeholder="Check out" data-target="#date2" data-toggle="datetimepicker"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <select class="form-select">
-                                        <option selected>Adult</option>
-                                        <option value="1">Adult 1</option>
-                                        <option value="2">Adult 2</option>
-                                        <option value="3">Adult 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <select class="form-select">
-                                        <option selected>Child</option>
-                                        <option value="1">Child 1</option>
-                                        <option value="2">Child 2</option>
-                                        <option value="3">Child 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-primary w-100">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <div class="container-xxl py-5">
             <div class="container">
                 <div class="row g-5 align-items-center">
@@ -93,7 +45,7 @@
                             <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
                                 <div class="border rounded p-1">
                                     <div class="border rounded text-center p-4">
-                                        <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
+                                        <i class="fas fa-location-dot  fa-2x text-primary mb-2"></i>
                                         <h2 class="mb-1" data-toggle="counter-up">1234</h2>
                                         <p class="mb-0">Cabang</p>
                                     </div>

@@ -23,6 +23,7 @@ class Home extends BaseController
         $now = date("Y-m-d");
         $banner = new BannerModel();
         $simpan = 0;
+        
         foreach($banner->findAll() as $row) {
             $waktu_mulai  = date("Y-m-d",strtotime($row['star']));
                 $waktu_akhir  = date("Y-m-d",strtotime($row['expired']));
