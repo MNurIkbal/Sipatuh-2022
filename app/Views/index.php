@@ -154,7 +154,7 @@
                       <small class="mb-2"><i class="fas fa-globe" style="padding-right: 5px;color:blue"></i> <a href="<?= base_url("company/" . $profile['website']); ?>" target="_blank" style="color: blue;text-decoration: none;"><?= $profile['website']; ?></a></small>
                       <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;">
                         <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
-                        <small><?= $tiga['tahun']; ?></small>
+                        <small>Tahun <?= $tiga['tahun']; ?></small>
                       </div>
                     </div>
                     <div class="col-md-5 d-none d-lg-block">

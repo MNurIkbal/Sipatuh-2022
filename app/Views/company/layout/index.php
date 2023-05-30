@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Icon Font Stylesheet -->
+    <!-- Icon Font Stylesheet --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
@@ -81,17 +81,17 @@
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
                                 <a href="<?= base_url("company/" . $profile['website']); ?>" class="n av-item nav-link active">Beranda</a>
-                                <a href="<?= base_url("company/profile/" . $profile['website']); ?>" class="nav-item nav-link">Profil</a>
-                                <a href="<?= base_url("company/artikel/" . $profile['website']); ?>" class="nav-item nav-link">Artikel</a>
-                                <a href="<?= base_url("company/paket/" . $profile['website']); ?>" class="nav-item nav-link">Paket</a>
+                                <a href="<?= base_url("profile_company/" . $profile['website']); ?>" class="nav-item nav-link">Profil</a>
+                                <a href="<?= base_url("artikel_company/" . $profile['website']); ?>" class="nav-item nav-link">Artikel</a>
+                                <a href="<?= base_url("paket_company/" . $profile['website']); ?>" class="nav-item nav-link">Paket</a>
                                 <div class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
                                     <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="<?= base_url("company/foto/" . $profile['website']); ?>" class="dropdown-item">Foto</a>
-                                        <a href="<?= base_url("company/video/" . $profile['website']); ?>" class="dropdown-item">Video</a>
+                                        <a href="<?= base_url("foto_company/" . $profile['website']); ?>" class="dropdown-item">Foto</a>
+                                        <a href="<?= base_url("video_company/" . $profile['website']); ?>" class="dropdown-item">Video</a>
                                     </div>
                                 </div>
-                                <a href="<?= base_url("company/kontak/" . $profile['website']); ?>" class="nav-item nav-link">Kontak</a>
+                                <a href="<?= base_url("kontak/" . $profile['website']); ?>" class="nav-item nav-link">Kontak</a>
                             </div>
                         </div>
                     </nav>
