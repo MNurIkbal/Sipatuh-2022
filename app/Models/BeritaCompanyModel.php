@@ -4,34 +4,25 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ProfileCompany extends Model
+class BeritaCompanyModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'profile_company';
+    protected $table            = 'berita_company';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['logo',
-    'facebook',
-    'instagram',
-    'twitter',
-    'youtube',
-    'deskripsi_about',
-    'travel_id',
-    'deskripsi_footer',
-    'created_at',
-    'img_about_1',
-    'img_about_2',
-    'img_about_3',
-    'img_about_4',
-    'img_profile',
-    'visi',
-    'misi',
-    'text_profile'
-];
+    protected $allowedFields    = [
+        'img',
+        'pesan',
+        'title',
+        'lihat',
+        'created_at',
+        'travel_id',
+        'lokasi'
+    ];
 
     // Dates
     protected $useTimestamps = false;

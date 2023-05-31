@@ -53,7 +53,8 @@ $routes->post('/daftar', 'Home::daftar');
 $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');
 $routes->get('company/(:any)',"CompanyController::index/$1");
-$routes->get('profil/(:any)',"CompanyController::profil/$1");
+$routes->get('profile_company/(:any)',"CompanyController::profile_company/$1");
+$routes->get('artikel_company/(:any)',"CompanyController::artikel_company/$1");
 
     $routes->get('/dashboard', 'DashboardController::dash',['filter' => 'DpFilter']);
     $routes->get('/profile_perusaahaan', 'DashboardController::index',['filter' => 'DpFilter']);
