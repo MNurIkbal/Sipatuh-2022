@@ -55,6 +55,9 @@ $routes->post('login', 'LoginController::index');
 $routes->get('company/(:any)',"CompanyController::index/$1");
 $routes->get('profile_company/(:any)',"CompanyController::profile_company/$1");
 $routes->get('artikel_company/(:any)',"CompanyController::artikel_company/$1");
+$routes->get('paket_company/(:any)',"CompanyController::paket_company/$1");
+$routes->get('foto_company/(:any)',"CompanyController::foto_company/$1");
+$routes->get('detail_artikel/(:any)/(:any)',"CompanyController::detail_artikel/$1/$2");
 
     $routes->get('/dashboard', 'DashboardController::dash',['filter' => 'DpFilter']);
     $routes->get('/profile_perusaahaan', 'DashboardController::index',['filter' => 'DpFilter']);

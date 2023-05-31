@@ -116,7 +116,7 @@
                                     
                             </div>
                             <div class="d-flex justify-content-between" style="align-items: center;">
-                                <a class="btn btn-sm btn-dark rounded py-2 px-4" href="<?= base_url("detail_paket_users/" . $rows->id) ?>">Daftar</a>
+                                <a class="btn btn-sm btn-dark rounded py-2 px-4" target="_blank" href="<?= base_url("detail_paket_users/" . $rows->id) ?>">Daftar</a>
                                 <small>Tahun <?= $rows->tahun; ?></small>
                                 </div>
                             </div>

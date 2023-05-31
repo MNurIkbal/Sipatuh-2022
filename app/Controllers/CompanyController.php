@@ -13,10 +13,7 @@ use App\Models\ProfileCompany;
 use App\Models\ProfileModel;
 use App\Models\SliderCompany;
 use App\Models\TestimoniCompanyModel;
-use App\Models\TestomoniCompanyModel;
-use CodeIgniter\Pager\Pager;
-use Config\Pager as ConfigPager;
-use SebastianBergmann\CodeCoverage\TestIdMissingException;
+use Config\Pager;
 
 class CompanyController extends BaseController
 {
@@ -65,7 +62,8 @@ class CompanyController extends BaseController
             'count_paket'   =>  $check_paket,
             'count_jamaah'  =>  $count_jamaah,
             'count_cabang'  =>  $count_cabang,
-            'paket' =>  $new_paket
+            'paket' =>  $new_paket,
+            'title' =>  'Beranda'
         ];
         return view('company/index',$data);
     }
@@ -91,9 +89,87 @@ class CompanyController extends BaseController
             'title' =>  $result['nama_travel_umrah'],
             'profile'   =>  $result,
             'check' =>  $check,
+            'title' =>  'Profile'
 
         ];
         return view('company/about',$data);
+    }
+
+    public function foto_company($id)
+    {
+        $profile = new ProfileModel();
+        $result = $profile->where('website',$id)->first();
+        if(!$result) {
+            return redirect()->to('/');
+        }
+        $travel =   new ProfileCompany();
+        $check  = $travel->where("travel_id",$result['id'])->first();
+        $slider = new SliderCompany();
+        $slid = $slider->where("travel_id",$result['id'])->countAllResults();
+         if(!$result || !$check || !$slid)  {
+            return redirect()->to('/');
+        }
+        
+        
+      
+        $data = [
+            'title' =>  $result['nama_travel_umrah'],
+            'profile'   =>  $result,
+            'check' =>  $check,
+            'title' =>  'Galeri'
+
+        ];
+        return view('company/foto',$data);
+    }
+
+    public function paket_company($id)
+    {
+        $profile = new ProfileModel();
+        $result = $profile->where('website',$id)->first();
+        if(!$result) {
+            return redirect()->to('/');
+        }
+        $travel =   new ProfileCompany();
+        $check  = $travel->where("travel_id",$result['id'])->first();
+        $slider = new SliderCompany();
+        $slid = $slider->where("travel_id",$result['id'])->countAllResults();
+         if(!$result || !$check || !$slid)  {
+            return redirect()->to('/');
+        }
+        $paket = new PaketModel();
+        $new_paket = $paket->where('travel_id',$result['id'])->where('status','aktif')->where('pemberangkatan',NULL)->orderBy('id','desc')->limit(10)->get()->getResult();
+
+        $pager = new Pager();
+
+        // Menentukan jumlah item per halaman
+        $perPage = 10;
+
+        // Mendapatkan data berita dari model dengan paginasi
+        // $beritas = $paket->where('travel_id',$result['id'])->where('status','aktif')->where('pemberangkatan',NULL)->orderBy('id','desc')->paginate($perPage);
+        $hari = date("Y-m-d");
+        $beritas = $paket
+    ->where('travel_id', $result['id'])
+    ->where('status', 'aktif')
+    ->where('pemberangkatan', NULL)
+    ->where("tgl_pulang >",date("Y-m-d"))
+    ->orderBy('id', 'desc')
+    ->paginate($perPage);
+
+
+
+        // Mendapatkan tautan pagination
+        $pagination = $paket->pager->links();
+        $data = [
+            'title' =>  $result['nama_travel_umrah'],
+            'profile'   =>  $result,
+            'check' =>  $check,
+            'paket' =>  $beritas,
+            'jamaah'    =>  new JamaahModel(),
+            'title' =>  'Paket',
+            'db'    =>  \Config\Database::connect(),
+            'pagination' =>  $pagination,
+        ];
+        return view('company/paket',$data);
     }
 
     public function artikel_company($id)
@@ -111,31 +187,62 @@ class CompanyController extends BaseController
             return redirect()->to('/');
         }
         $berita = new BeritaCompanyModel();
-        $news = $berita->where("travel_id",$result['id'])->limit(10)->get()->getResult();
+        $news = $berita->where("travel_id",$result['id'])->get()->getResult();
         
 
-        $model = $berita;
+        $pager = new Pager();
 
-        // Mengatur jumlah item per halaman
-        $perPage = 1;
+        // Menentukan jumlah item per halaman
+        $perPage = 10;
 
-        // Menginisialisasi objek pager
-        
+        // Mendapatkan data berita dari model dengan paginasi
+        $beritas = $berita->where('travel_id',$result['id'])->paginate($perPage);
 
-        // Mengambil data berita dari model dengan paginasi
-        $berita_news = $model->paginate($perPage);
-
-        // Membuat tautan navigasi pagination
-        $pager= $model->pager;
+        // Mendapatkan tautan pagination
+        $pagination = $berita->pager->links();
 
         $data = [
             'title' =>  $result['nama_travel_umrah'],
             'profile'   =>  $result,
             'check' =>  $check,
-            'title' =>  'ARTIKEL',
-            'berita'    =>  $berita_news,
-            'pager' =>  $pager,
+            'title' =>  'Artikel',
+            'berita'    =>  $beritas,
+            'pagination' =>  $pagination,
+            'company'   =>  $id
         ];
         return view('company/artikel',$data);
+    }
+
+    public function detail_artikel($id,$company)
+    {
+        $profile = new ProfileModel();
+        $result = $profile->where('website',$company)->first();
+        if(!$result) {
+            return redirect()->to('/');
+        }
+        $berita = new BeritaCompanyModel();
+        $newst = $berita->where("id",$id)->first();
+        if(!$newst) {
+            return redirect()->to('/');
+        }
+        $travel =   new ProfileCompany();
+        $check  = $travel->where("travel_id",$result['id'])->first();
+        $slider = new SliderCompany();
+        $slid = $slider->where("travel_id",$result['id'])->countAllResults();
+         if(!$result || !$check || !$slid)  {
+            return redirect()->to('/');
+        }
+
+        $artikel = $berita->where('travel_id',$result['id'])->orderby('id','desc')->limit(10)->get()->getResult();
+        $data = [
+            'title' =>  $result['nama_travel_umrah'],
+            'profile'   =>  $result,
+            'check' =>  $check,
+            'title' =>  'Artikel',
+            'berita'    =>  $newst,
+            'artikel'   =>  $artikel,
+            'company'   =>  $company
+        ];
+        return view('company/detail_artikel',$data);
     }
 }

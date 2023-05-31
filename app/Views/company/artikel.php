@@ -1,7 +1,39 @@
 <?= $this->extend("company/layout/index"); ?>
 
 <?= $this->section("isi"); ?>
+<style>
+    .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
 
+.pagination li {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #f2f2f2;
+    color: #333;
+    border-radius: 4px;
+    margin-right: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.pagination li:hover {
+    background-color: #ddd;
+}
+
+.pagination li.active {
+    background-color: #007bff;
+    color: white !important;
+}
+
+    @media screen and (max-width:770px) {
+        .os {
+            margin-top: 30px;
+        }
+    }
+</style>
 
 <div class="container mt-5 mb-5">
     <?php foreach ($berita as $rom) : ?>
@@ -10,7 +42,7 @@
                 <div class="col-md-6">
                     <img src="<?= base_url('company/img/' . $rom['img']); ?>" alt="" class="img-fluid">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 os">
                     <h4>Judul</h4>
                     <div class="d-flex mb-3 mt-3">
                         <span>
@@ -37,15 +69,13 @@
                         <?= $pesan ?>
                     </p>
 
-                    <a href="" class="btn btn-primary">Read More</a>
+                    <a href="<?= base_url('detail_artikel/' . $rom['id'] . '/' . $company); ?>" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
-    <!-- Tampilkan tautan navigasi pagination menggunakan renderer kustom -->
-<div class="pagination">
-    <?= $pager->links('group', new \App\Pager\CustomRenderer()) ?>
+    <div class="pagination">
+    <?= $pagination ?>
 </div>
-
 </div>
 <?= $this->endSection(); ?>

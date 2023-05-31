@@ -44,7 +44,7 @@
         <!-- Spinner End -->
 
         <!-- Header Start -->
-        <div class="container-fluid bg-dark px-0">
+        <div class="container-fluid bg-dark px-0    " >
             <div class="row gx-0">
                 <div class="col-lg-3 bg-dark d-none d-lg-block">
                     <a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
@@ -80,18 +80,12 @@
                         </button>
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto py-0">
-                                <a href="<?= base_url("company/" . $profile['website']); ?>" class="n av-item nav-link active">Beranda</a>
-                                <a href="<?= base_url("profile_company/" . $profile['website']); ?>" class="nav-item nav-link">Profil</a>
-                                <a href="<?= base_url("artikel_company/" . $profile['website']); ?>" class="nav-item nav-link">Artikel</a>
-                                <a href="<?= base_url("paket_company/" . $profile['website']); ?>" class="nav-item nav-link">Paket</a>
-                                <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Galeri</a>
-                                    <div class="dropdown-menu rounded-0 m-0">
-                                        <a href="<?= base_url(" /" . $profile['website']); ?>" class="dropdown-item">Foto</a>
-                                        <a href="<?= base_url("video_company/" . $profile['website']); ?>" class="dropdown-item">Video</a>
-                                    </div>
-                                </div>
-                                <a href="<?= base_url("kontak/" . $profile['website']); ?>" class="nav-item nav-link">Kontak</a>
+                                <a href="<?= base_url("company/" . $profile['website']); ?>" class="nav-item nav-link  <?php if($title == "Beranda") { echo "active";} else { echo ""; } ?>">Beranda</a>
+                                <a href="<?= base_url("profile_company/" . $profile['website']); ?>" class="nav-item nav-link  <?php if($title == "Profile") { echo "active";} else { echo ""; } ?>">Profil</a>
+                                <a href="<?= base_url("artikel_company/" . $profile['website']); ?>" class="nav-item nav-link   <?php if($title == "Artikel") { echo "active";} else { echo ""; } ?>">Artikel</a>
+                                <a href="<?= base_url("paket_company/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Paket") ? "active" : ""; ?>">Paket</a>
+                                <a href="<?= base_url("foto_company/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Galeri") ? "active" : ""; ?>">Galeri</a>
+                                <a href="<?= base_url("kontak/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Kontak") ? "active" : ""; ?>">Kontak</a>
                             </div>
                         </div>
                     </nav>
