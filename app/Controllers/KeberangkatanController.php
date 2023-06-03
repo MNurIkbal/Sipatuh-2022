@@ -14,6 +14,7 @@ class KeberangkatanController extends BaseController
             return redirect()->to("/");
             exit;
         }
+        // cara membuat kondisi
         $pakets_baru = new PaketModel();
         $paket_tes = $pakets_baru->where('id',$this->request->getVar("id"))->first();
         $star_waktu = date("Y-m-d",strtotime($paket_tes['tgl_berangkat']));
