@@ -67,7 +67,7 @@ class LevelPetugasController extends BaseController
         $muasahah = new MuassahModel();
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
-            'title' =>  "Muassahah",
+            'title' =>  "Muassasah",
             'level' =>  $level->findAll(),
             'petugas'   =>  $petugas_man->where("travel_id",session()->get("travel_id"))->findAll(),
             'asuransi'  => $asuransi->findAll(),

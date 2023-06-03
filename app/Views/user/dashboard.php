@@ -56,7 +56,7 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header bg-warning   text-white">
-                <h4 class="card-title">Total Hutang</h4>
+                <h4 class="card-title">Total Belum Terbayar</h4>
               </div>
               <div class="card-body">
                 <h3>Rp. <?= (!empty($hutang)) ? number_format($hutang, 0) : 0; ?></h3>

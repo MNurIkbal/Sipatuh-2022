@@ -48,7 +48,7 @@ class PendaftaranController extends BaseController
             ])->orderBy('id', 'desc')->findAll();
         }
         $data = [
-            'title' =>  "Penddaftaran",
+            'title' =>  "Pendaftaran Paket",
             // 'result'    =>  $paket->where([
             //     'status'    =>  "aktif",
             //     'travel_id'   =>  session()->get("travel_id"),
@@ -69,7 +69,7 @@ class PendaftaranController extends BaseController
         $kloter = new KloterModel();
         $data = [
             'kloter'    =>      $kloter->where("paket_id", $id_paket)->where("status", 'Aktif')->where("done", NULL)->orderBy('id', 'desc')->findAll(),
-            'title' =>  "Kloter",
+            'title' =>  "Pendaftaran Paket",
             'paket'    =>  $paket->where([
                 'id'    =>  $id_paket
             ])->first(),
@@ -91,7 +91,7 @@ class PendaftaranController extends BaseController
         $data_kloter = new KloterModel();
         $data = [
             'kloter'    =>      $kloter->where("paket_id", $id_paket)->where("status", 'Aktif')->findAll(),
-            'title' =>  "Kloter",
+            'title' =>  "Pendaftaran Paket",
             'paket'    =>  $paket->where([
                 'id'    =>  $id_paket
             ])->first(),
@@ -168,7 +168,7 @@ if($expireds) {
             ")->getResult();
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
-            'title' =>  "Pendaftaran",
+            'title' =>  "Pendaftaran Paket",
             'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
                 'paket_id'  =>  $id,
@@ -659,7 +659,7 @@ if($expireds) {
             ")->getResult();
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
-            'title' =>  "Pendaftaran",
+            'title' =>  "Pendaftaran Paket",
             'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
                 'paket_id'  =>  $id_paket,
@@ -760,11 +760,13 @@ if($expireds) {
         $first_jamaah = $jamaah->where("id", $id_jamaah)->first();
         $kloter = new KloterModel();
         $data_akhir_kloter = $kloter->where("id", $id_kloter)->first();
-        // dd($first_jamaah['kloter_id']);
+        dd($first_jamaah['user_id']);
         $check_kloters = $kloter->where("id", $this->request->getVar("kloter"))->first();
         if ($check_kloters['batas_jamaah'] <= 0) {
             return redirect()->back()->with('error', 'Batas kuota jamaah sudah habis');
         }
+
+        // $check_jamaah = $jamaah->where("user_id",)
 
         // kloter baru
         $kloter->update($this->request->getVar("kloter"), [

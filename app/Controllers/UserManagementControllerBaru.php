@@ -50,6 +50,7 @@ class UserManagementControllerBaru extends BaseController
                 'count' =>  $count,
                 'kloter'    =>  $kloter->where("id", $tes['kloter_id'])->first(),
                 'baru'    =>  $st,
+                
                 'profile'   =>  $profile->where('id', $check_travel['id'])->first(),
                 'jamaah'    =>  $jamaah->where("id", session()->get("jamaah_id"))->first(),
                 'title' =>  'Travel-Q',
@@ -68,7 +69,7 @@ class UserManagementControllerBaru extends BaseController
             $check_travel = $travel->first();
             $profile = new ProfileModel();
             $kloter = new KloterModel();
-            $pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
+            $pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' AND kloter_id IS NOT NULL")->getRowArray();
             $hitang =  $db->query("SELECT SUM(sisa_pembayaran) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getRowArray();
 
             $sle = $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id INNER JOIN kloter ON paket.id = kloter.paket_id WHERE jamaah.user_id = '$r' AND kloter.keberangkatan = 'sudah' AND kloter.status_realisasi = 'sudah' AND kloter.done = 'sudah'")->getNumRows();
@@ -94,10 +95,10 @@ class UserManagementControllerBaru extends BaseController
                 'daftar'    =>  $daf->findAll(),
                 'jamaah'    =>  null,
                 'hutang'    =>  $v,
-                'title' =>  'Travel-Q',
+                'title' =>  'Dashboard',
                 'db'    =>  $db,
                 'selesai'   =>  $sle,
-                'paket_terdaftar'   =>  $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r'")->getNumRows(),
+                'paket_terdaftar'   =>  $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' GROUP BY paket_id")->getNumRows(),
                 'pakets'    => null,
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
@@ -135,7 +136,7 @@ class UserManagementControllerBaru extends BaseController
             'kloter'    =>  null,
             'baru'    =>  $st,
             'profile'   =>  null,
-            'title' =>  'Travel-Q',
+            'title' =>  'Profile',
             'db'    =>  $db,
             'pakets'    => null,
             // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
@@ -177,7 +178,7 @@ class UserManagementControllerBaru extends BaseController
             'id_kloter' =>  $tes['kloter_id'],
             'profile'   =>  $profile->where('id', $check_travel['id'])->first(),
             'jamaah'    =>  $jamaah->where("id", $id_jamaah)->first(),
-            'title' =>  'Pindah Paket',
+            'title' =>  'Paket',
             'db'    =>  $db,
             'all_paket' =>  $paket->where([
                 'travel_id'   =>  session()->get("travel_id"),
@@ -384,7 +385,7 @@ class UserManagementControllerBaru extends BaseController
             $result = [];
         }
         $data = [
-            'title' =>  'paket',
+            'title' =>  'Paket',
             'paket' =>  $result
         ];
         return view("user/paket/index", $data);
@@ -414,7 +415,7 @@ class UserManagementControllerBaru extends BaseController
         }
 
         $data = [
-            'title' =>  'paket',
+            'title' =>  'History',
             'paket' =>  $result
         ];
         return view("user/paket/index_selesai", $data);
@@ -444,7 +445,7 @@ class UserManagementControllerBaru extends BaseController
         $kloter = new KloterModel();
         $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", null)->findAll();
         $data = [
-            'title' =>  'paket',
+            'title' =>  'Paket',
             'result'    =>  $kloters,
             'id'    =>  $id,
             'paket' =>  $pakets
@@ -467,7 +468,8 @@ class UserManagementControllerBaru extends BaseController
             'id_kloter' =>  $id_kloter,
             'paket' =>  $pakets,
             'kloter'    =>  $kloters,
-            'jamaah'    =>  $jamaahs
+            'jamaah'    =>  $jamaahs,
+            'title' =>  'Paket'
         ];
 
         return view('user/history/jamaah', $data);
@@ -488,7 +490,8 @@ class UserManagementControllerBaru extends BaseController
             'id_kloter' =>  $id_kloter,
             'paket' =>  $pakets,
             'kloter'    =>  $kloters,
-            'jamaah'    =>  $jamaahs
+            'jamaah'    =>  $jamaahs,
+            'title' =>  'History'
         ];
 
         return view('user/history/jamaah_selesai', $data);
@@ -513,7 +516,8 @@ class UserManagementControllerBaru extends BaseController
             'id_jamaah' =>  $id_jamaah,
             'kloter'    =>  $kloters,
             'main'    =>  $jamaahs,
-            'perusahaan'    =>  $data_profile
+            'perusahaan'    =>  $data_profile,
+            'title' =>  'Paket'
         ];
 
         return view('user/paket/detail_diri', $data);
@@ -562,7 +566,7 @@ class UserManagementControllerBaru extends BaseController
             'paket' =>  $pakets,
             'id_jamaah' =>  $id_jamaah,
             'kloter'    =>  $kloters,
-
+            'title' =>  'Paket',
             'main'    =>  $jamaahs,
             'bank'  =>  $bank->where("id", $pakets['rekening_penampung_id'])->first(),
             'perusahaan'    =>  $data_profile,

@@ -24,7 +24,7 @@ class ProfilController extends BaseController
         $perusahaan = new TravelModel();
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
-            'title' =>  "Profil",
+            'title' =>  "Update Profile",
             'petugas'   =>  $petugas_man->findAll(),
             'db'    =>  $db,
             'perusahaan'    =>  $perusahaan->orderby('nama_travel','asc')->findAll(),

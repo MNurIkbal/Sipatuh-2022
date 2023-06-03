@@ -45,11 +45,10 @@ class Home extends BaseController
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
         $hari_ini = date("Y-m-d");
-        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket');
+        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('tgl_pulang >',$hari_ini)->orderby('id','desc')->paginate(10,'paket');
         $paket_cabang = $paket->where('status','aktif')->where('pemberangkatan',null)->where('cabang','cabang')->where('status_approve','sudah')->orderby('id','desc')->paginate(10,'paket');
         $pakets = array_merge($paket_result,$paket_cabang);
         
-        // dd($pakets);
 
         $data = [
             'paket_dua' => $paket_result,

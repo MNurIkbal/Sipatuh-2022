@@ -22,7 +22,7 @@ class DataTravelController extends BaseController
         $bank = new DataBank();
         $travel  = new TravelModel();
         $data = [
-            'title' =>  "Data Travel",
+            'title' =>  "Perusahaan",
             'bank'  =>  $bank->findAll(),
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
             'travel'    =>  $travel->findAll()

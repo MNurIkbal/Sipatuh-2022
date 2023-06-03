@@ -246,7 +246,7 @@ class PaketController extends BaseController
         $data = [
             'data_hotel'    =>  $data_hotel->findAll(),
             'muasah'    =>  $muasah->where("status",1)->findAll(),
-            'title' =>  "Aplikasi Sipatuh",
+            'title' =>  "Paket",
             'result'    =>  $paket->where([
                 'id'    =>  $id
             ])->first(),

@@ -25,7 +25,6 @@ $validation = \Config\Services::validation();
                         
                     <div class="card-body">
                         <form action="<?=  base_url("update_profile_users");  ?>" enctype="multipart/form-data" method="POST">
-
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="card">

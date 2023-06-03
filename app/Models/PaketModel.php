@@ -42,11 +42,13 @@ class PaketModel extends Model
 
     public function cari($data)
     {   
+        $sekarang = date("Y-m-d ");
         $builder = $this->table('paket');
         $builder->select('*');
         $builder->join('profile', 'paket.travel_id = profile.id');
         $builder->where('paket.pemberangkatan',NULL);
         $builder->where('paket.status',"aktif");
+        // $builder->where('paket.tgl_pulang <=',$sekarang);
         $builder->Like('paket.nama',$data);
         $builder->orLike('profile.nama_perusahaan',$data);
         $builder->orLike('profile.nama_travel_umrah',$data);

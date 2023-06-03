@@ -4,21 +4,24 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class SliderCompany extends Model
+class KontakUserCompanyModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'slider_company';
+    protected $table            = 'kontak_user_company';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["img",
-    "status",
-    "created_at",
-    "travel_id"
-];
+    protected $allowedFields    = [
+        'name',
+        'email',
+        'subjek',
+        'pesan',
+        'created_at',
+        'travel_id'
+    ];
 
     // Dates
     protected $useTimestamps = false;

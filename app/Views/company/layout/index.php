@@ -85,7 +85,7 @@
                                 <a href="<?= base_url("artikel_company/" . $profile['website']); ?>" class="nav-item nav-link   <?php if($title == "Artikel") { echo "active";} else { echo ""; } ?>">Artikel</a>
                                 <a href="<?= base_url("paket_company/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Paket") ? "active" : ""; ?>">Paket</a>
                                 <a href="<?= base_url("foto_company/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Galeri") ? "active" : ""; ?>">Galeri</a>
-                                <a href="<?= base_url("kontak/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Kontak") ? "active" : ""; ?>">Kontak</a>
+                                <a href="<?= base_url("kontak_company/" . $profile['website']); ?>" class="nav-item nav-link <?= ($title == "Kontak") ? "active" : ""; ?>">Kontak</a>
                             </div>
                         </div>
                     </nav>

@@ -42,7 +42,7 @@ class DashboardController extends BaseController
 
         $profile = new ProfileModel();
         $data = [
-            'title' =>  "Aplikasi Sipatuh",
+            'title' =>  "Profile Perusahaan",
             'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
         ];
         return view("jamaah/dashboard", $data);
@@ -81,7 +81,7 @@ class DashboardController extends BaseController
         $daftar = new DaftarJamaahModel();
         $s = session()->get('travel_id');
         $data = [
-            'title' =>  "Aplikasi Sipatuh",
+            'title' =>  "Dashboard",
             'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
             'paket' => $db->query("SELECT * FROM paket WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),
             'cabang'   => $db->query("SELECT * FROM data_cabang_travel WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),

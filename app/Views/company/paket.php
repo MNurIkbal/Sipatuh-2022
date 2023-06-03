@@ -32,9 +32,7 @@
       </style>
 <div class="container-xxl py-5">
     <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <h1 class="mb-5">Layanan <span class="text-primary text-uppercase">Paket</span></h1>
-        </div>
+      
         <div class="row g-4">
             <?php $hari = date("Y-m-d");
             foreach ($paket as $rows) : ?>

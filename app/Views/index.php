@@ -134,7 +134,6 @@
           <div class="row ">
             <?php $hari = date("Y-m-d");
             foreach ($paket_dua as $tiga) : ?>
-              <?php if ($hari <= $tiga['tgl_pulang']) : ?>
                 <?php
                 $counts = $jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
                 $mains = count($counts);
@@ -164,7 +163,6 @@
                     </div>
                   </div>
                 </div>
-              <?php endif; ?>
             <?php endforeach; ?>
           </div>
         </div>

@@ -5,7 +5,7 @@
   <section class="section">
     <div class="card">
       <div class="card-header">
-        <h4 style="text-transform: uppercase">SELAMAT DATANG <?= $profile['nama_perusahaan'];  ?></h4>
+        <h4 style="text-transform: uppercase">SELAMAT DATANG <?= $profile['nama_travel_umrah'];  ?></h4>
       </div>
       <div class="card-body">
         <div class="row">
@@ -42,7 +42,7 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header text-white bg-success">
-                <h5>Jamaah Aktif</h5>
+                <h5>Total Pendapatan</h5>
               </div>
               <div class="card-body">
                 <h5><?= $jamaah_aktif; ?> Jamaah</h5>

@@ -33,7 +33,7 @@ class RequestJamaahController extends BaseController
             'kloter'    =>  $kloter,
             'level' =>  $level->findAll(),
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
-            'title' =>  "Petugas",
+            'title' =>  "Request Jamaah",
             'petugas'   =>  $petugas_man->where("travel_id",session()->get("travel_id"))->findAll(),
             'jamaah'    =>  $db->query("SELECT
                             jamaah.nama as nama_jamaah,
@@ -127,7 +127,7 @@ class RequestJamaahController extends BaseController
         $che = $daftar->where('travel_id',$rt['travel_id'])->where('date(bulan)',$now)->orderby('id','desc')->first();
         if($che) {
             // $daftar
-            $yy = $daftar->where("travel_id")->orderBy('id','desc')->first();
+            $yy = $daftar->where("travel_id",$rt['travel_id'])->orderBy('id','desc')->first();
             $daftar->update($yy['id'],[
                 'jamaah'    =>  $yy['jamaah'] + 1
             ]);
@@ -162,6 +162,7 @@ class RequestJamaahController extends BaseController
             'banner'    =>  $baner->findAll(),
             'daftar'    =>  $daftar->groupBy('bulan')->findAll(),
             'dash'  =>  $dash->myJoinQuery(),
+            'title' =>  'Dashboard'
         ];
         return view('admin/dashboard',$data);
     }

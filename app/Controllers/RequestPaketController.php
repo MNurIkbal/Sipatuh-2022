@@ -25,7 +25,7 @@ class RequestPaketController extends BaseController
         $asuransi = new AsuransiModel();
         $kloter = new KloterModel();
         $data = [
-            'title' =>  "Aplikasi Sipatuh",
+            'title' =>  "Request Paket",
             'kloter'    =>  $kloter->findAll(),
             'result'    =>  $paket->where([
                 'travel_id' =>  session()->get('travel_id'),
