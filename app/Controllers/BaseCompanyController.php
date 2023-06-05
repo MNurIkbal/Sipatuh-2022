@@ -6,9 +6,11 @@ use App\Controllers\BaseController;
 use App\Models\BeritaCompanyModel;
 use App\Models\CompanyVideoModel;
 use App\Models\FotoCompanyModel;
+use App\Models\KontakUserCompanyModel;
 use App\Models\LayananCompanyModel;
 use App\Models\ProfileCompany;
 use App\Models\ProfileModel;
+use App\Models\SliderCompany;
 use App\Models\TestimoniCompanyModel;
 use App\Models\Users;
 
@@ -114,6 +116,7 @@ class BaseCompanyController extends BaseController
                 session()->setFlashdata('error',$this->validator->listErrors());
                 return redirect()->back()->withInput();
             }
+            
             $dataBerkas_1 = $this->request->getFile('file');
             $fileName1 = $dataBerkas_1->getRandomName();
             $img_about_1 = $fileName1;
@@ -123,7 +126,7 @@ class BaseCompanyController extends BaseController
             $foto->insert([
                 'img'   =>  $img_about_1,
                 'created_at'    =>  date("Y-m-d"),
-                'travel_id' =>  session()->get('travel_id'),
+                'travel_id_company' =>  session()->get('travel_id'),
             ]);
             return redirect()->back()->with('success','Data Berhasil Ditambahkan');
         } catch (\Throwable $th) {
@@ -141,10 +144,55 @@ class BaseCompanyController extends BaseController
         $galeri = new FotoCompanyModel();
         $data = [
             'title' =>  'Testimoni',
-            'galeri'    =>  $galeri->where("travel_id",session()->get('travel_id'))->get()->getResult(),
+            'galeri'    =>  $galeri->where("travel_id_company",session()->get('travel_id'))->get()->getResult(),
             'result'    =>   $testimoni->where('travel_id',session()->get('travel_id'))->get()->getResult(),
         ];
         return view('jamaah/testimoni_company/index',$data);
+    }
+
+    public function hapus_kontak()
+    {
+        try {
+            $id = $this->request->getVar('id');
+            $kontak = new KontakUserCompanyModel();
+            $kontak->where("id",$id)->delete();
+            return redirect()->back()->with('success','Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Dihapus');
+            //throw $th;
+        }
+    }
+
+    public function kontak_company()
+    {
+        $profil = new ProfileCompany();
+        $new = new ProfileModel();
+        $video = new CompanyVideoModel();
+        $testimoni = new TestimoniCompanyModel();
+        $galeri = new FotoCompanyModel();
+        $slider = new SliderCompany();
+        $kontak = new KontakUserCompanyModel();
+        $data = [
+            'title' =>  'Contact',
+            'slider'    =>  $slider->where("travel_id",session()->get('travel_id'))->get()->getResult(),
+            'kontak'    =>  $kontak->where("travel_id",session()->get('travel_id'))->get()->getResult(),
+            'galeri'    =>  $galeri->where("travel_id_company",session()->get('travel_id'))->get()->getResult(),
+            'result'    =>   $testimoni->where('travel_id',session()->get('travel_id'))->get()->getResult(),
+        ];
+        return view('jamaah/kontak_company/index',$data);
+    }
+
+    public function hapus_galeri()
+    {
+        try {
+            $id = $this->request->getVar('id');
+            $galeri = new FotoCompanyModel();
+            $galeri->where('id',$id)->delete();
+            return redirect()->back()->with('success','Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Dihapus');
+            //throw $th;
+        }
     }
 
     public function update_video()

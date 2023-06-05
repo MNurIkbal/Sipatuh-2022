@@ -121,6 +121,39 @@
         </div>
     </section>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="tambah">
+    <div class="modal-dialog modal-lg" role="document">
+        <form method="POST" action="<?=  base_url("tambah_layanan");  ?>" enctype="multipart/form-data"
+            class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Layanan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="">Nama Icon</label>
+                    <input type="text" class="form-control" name="icon" required placeholder="Nama Icon" >
+                    <small>Contoh : fas fa-pen (Font mengambil dari fontawesome)</small>
+                </div>
+                <div class="mb-3">
+                    <label for="">Judul</label>
+                    <input type="text" class="form-control" name="judul" required placeholder="Judul" >
+                </div>
+                <div class="mb-3">
+                    <label for="">Pesan</label>
+                    <textarea name="pesan" class="form-control" required id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer bg-whitesmoke br">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
 <div class="modal fade" tabindex="-1" role="dialog" id="tambahs">
     <div class="modal-dialog modal-lg" role="document">
         <form method="POST" action="<?=  base_url("tambah_artikel");  ?>" enctype="multipart/form-data"
@@ -200,7 +233,7 @@
             class="modal-content">
             <input type="hidden" name="id" value="<?= $dua->id; ?>">
             <div class="modal-header">
-                <h5 class="modal-title">Hapus Layanan</h5>
+                <h5 class="modal-title">Hapus Artikel</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

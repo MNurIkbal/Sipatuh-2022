@@ -136,7 +136,7 @@
                 <li class="<?= (isset($title) && $title == "Pengaturan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/pengaturan_company");  ?>">Pengaturan</a></li>
                 <li class="<?= (isset($title) && $title == "Layanan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/layanan_company");  ?>">Layanan & Artikel</a></li>
                 <li class="<?= (isset($title) && $title == "Testimoni") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/testimoni_company");  ?>">Testimoni & Galeri</a></li>
-                <li class="<?= (isset($title) && $title == "Cabang") ? "bg-success" : ""; ?>"><a class="nav-link  text-white "  href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
+                <li class="<?= (isset($title) && $title == "Contact") ? "bg-success" : ""; ?>"><a class="nav-link  text-white "  href="<?=  base_url("/kontak_company");  ?>">Kontak & Slider</a></li>
               </ul>
 
             <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>

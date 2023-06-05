@@ -17,7 +17,7 @@ class FotoCompanyModel extends Model
     protected $allowedFields    = [
         'img',
         'created_at',
-        'travel_id ',
+        'travel_id_company',
     ];
 
     // Dates

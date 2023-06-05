@@ -164,7 +164,7 @@ class CompanyController extends BaseController
         }
         
         $foto = new FotoCompanyModel();
-        $img = $foto->where("travel_id",$result['id'])->get()->getResult();
+        $img = $foto->where("travel_id_company",$result['id'])->get()->getResult();
       
         $data = [
             'title' =>  $result['nama_travel_umrah'],

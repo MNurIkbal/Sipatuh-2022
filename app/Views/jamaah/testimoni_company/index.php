@@ -86,7 +86,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $t = 1; foreach ($galeri as $tiga) : ?>
+                                    <?php $t = 1;
+                                    foreach ($galeri as $tiga) : ?>
                                         <tr>
                                             <td><?= $t++; ?></td>
                                             <td>
@@ -95,11 +96,10 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <?= date("d, F Y",strtotime($tiga->created_at)); ?>
+                                                <?= date("d, F Y", strtotime($tiga->created_at)); ?>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-sm btn-success"><i class="fas fa-pen"></i></a>
-                                                <a href="#" class="btn btn-sm btn-success"><i class="fas fa-trash"></i></a>
+                                                <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#hilang<?= $tiga->id ?>"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -211,6 +211,28 @@
                 <input type="hidden" name="id" value="<?= $dua->id; ?>">
                 <div class="modal-header">
                     <h5 class="modal-title">Hapus Testimoni</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5>Apakah Anda Ingin Menghapus Data Ini!</h5>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Iya</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endforeach; ?>
+<?php foreach ($galeri as $empat) : ?>
+    <div class="modal fade" tabindex="-1" role="dialog" id="hilang<?= $empat->id ?>">
+        <div class="modal-dialog modal-lg" role="document">
+            <form method="POST" action="<?= base_url("hapus_galeri");  ?>" enctype="multipart/form-data" class="modal-content">
+                <input type="hidden" name="id" value="<?= $empat->id; ?>">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Galeri</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

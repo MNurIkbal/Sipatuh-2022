@@ -304,6 +304,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->post('/update_pengaturan', 'BaseCompanyController::update_pengaturan',['filter' => 'DpFilter']);
     $routes->get('/layanan_company', 'BaseCompanyController::layanan_company',['filter' => 'DpFilter']);
     $routes->get('/testimoni_company', 'BaseCompanyController::testimoni_company',['filter' => 'DpFilter']);
+    $routes->get('/kontak_company', 'BaseCompanyController::kontak_company',['filter' => 'DpFilter']);
     $routes->post('/tambah_layanan', 'BaseCompanyController::tambah_layanan',['filter' => 'DpFilter']);
     $routes->post('/edit_layanan', 'BaseCompanyController::edit_layanan',['filter' => 'DpFilter']);
     $routes->post('/hapus_layanan', 'BaseCompanyController::hapus_layanan',['filter' => 'DpFilter']);
@@ -315,6 +316,8 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->post('/edit_testimoni', 'BaseCompanyController::edit_testimoni',['filter' => 'DpFilter']);
     $routes->post('/hapus_testimoni', 'BaseCompanyController::hapus_testimoni',['filter' => 'DpFilter']);
     $routes->post('/tambah_galeri', 'BaseCompanyController::tambah_galeri',['filter' => 'DpFilter']);
+    $routes->post('/hapus_galeri', 'BaseCompanyController::hapus_galeri',['filter' => 'DpFilter']);
+    $routes->post('/hapus_kontak', 'BaseCompanyController::hapus_kontak',['filter' => 'DpFilter']);
 
 
 
