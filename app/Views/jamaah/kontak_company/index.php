@@ -59,7 +59,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Slider Gambar</h4>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambahs">Tambah</a>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#tambah">Tambah</a>
                     </div>
 
                     <div class="card-body">
@@ -84,14 +84,14 @@
                                             </td>
                                             <td>
                                                 <div style="width: 70px;height: 70px;">
-                                                    <img src="<?= base_url('company/img/' . $gg->img); ?>" style="width: 100%;height: 100%;object-fit: contain;" alt="">
+                                                    <img src="<?= base_url('assets/upload/' . $gg->img); ?>" style="width: 100%;height: 100%;object-fit: contain;" alt="">
                                                 </div>
                                             </td>
                                             <td>
                                                 <?= date("d, F Y",strtotime($gg->created_at)); ?>
                                             </td>
                                             <td>
-                                                <a href="#" class="btn btn-sm-btn-success"><i class="fas fa-trash"></i></a>
+                                                <a href="#" class="btn btn-sm btn-success"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -107,26 +107,17 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="tambah">
     <div class="modal-dialog modal-lg" role="document">
-        <form method="POST" action="<?= base_url("tambah_layanan");  ?>" enctype="multipart/form-data" class="modal-content">
+        <form method="POST" action="<?= base_url("tambah_slider");  ?>" enctype="multipart/form-data" class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Layanan</h5>
+                <h5 class="modal-title">Tambah Slider</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama Icon</label>
-                    <input type="text" class="form-control" name="icon" required placeholder="Nama Icon">
-                    <small>Contoh : fas fa-pen (Font mengambil dari fontawesome)</small>
-                </div>
-                <div class="mb-3">
-                    <label for="">Judul</label>
-                    <input type="text" class="form-control" name="judul" required placeholder="Judul">
-                </div>
-                <div class="mb-3">
-                    <label for="">Pesan</label>
-                    <textarea name="pesan" class="form-control" required id="" cols="30" rows="10"></textarea>
+                    <label for="">Gambar</label>
+                    <input type="file" class="form-control" name="file" required placeholder="File">
                 </div>
             </div>
             <div class="modal-footer bg-whitesmoke br">
