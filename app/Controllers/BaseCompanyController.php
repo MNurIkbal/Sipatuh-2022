@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\BeritaCompanyModel;
 use App\Models\CompanyVideoModel;
+use App\Models\FotoCompanyModel;
 use App\Models\LayananCompanyModel;
 use App\Models\ProfileCompany;
 use App\Models\ProfileModel;
@@ -18,22 +19,129 @@ class BaseCompanyController extends BaseController
         $profil = new ProfileCompany();
         $new = new ProfileModel();
         $video = new CompanyVideoModel();
+        $galeri = new FotoCompanyModel();
         $data = [
             'title' =>  'Pengaturan',
             'profile'   =>  $profil->where('travel_id',session()->get('travel_id'))->first(),
             'webapp'    =>  $new->where('id',session()->get('travel_id'))->first(),
-            'video' =>  $video->where('travel_id',session()->get('travel_id'))->first()
+            'video' =>  $video->where('travel_id',session()->get('travel_id'))->first(),
+            
         ];
         return view('jamaah/pengaturan_company/index',$data);
     }
+
+    public function tambah_testimoni()
+    {
+        try {
+            $testimoni = new TestimoniCompanyModel();
+            if(!$this->validate([
+                'file' => [
+                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                ]
+            ])) {
+                session()->setFlashdata('error',$this->validator->listErrors());
+                return redirect()->back()->withInput();
+            }
+            $dataBerkas_1 = $this->request->getFile('file');
+            $fileName1 = $dataBerkas_1->getRandomName();
+            $img_about_1 = $fileName1;
+            $dataBerkas_1->move('company/img/', $fileName1);
+    
+            $testimoni->insert([
+                'nama'  =>  $this->request->getVar('nama'),
+                'travel_id' =>  session()->get('travel_id'),
+                'pesan' =>  $this->request->getVar('pesan'),
+                'created_at'    =>  date("Y-m-d H:i:s"),
+                'profesi'   =>  $this->request->getVar('profesi'),
+                'img'   =>  $img_about_1
+            ]);
+            return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+            //code...
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Ditambahkan');
+            //throw $th;
+        }
+    }
+
+    public function edit_testimoni()
+    {
+        try {
+            $id = $this->request->getvar('id');
+            $testimoni = new TestimoniCompanyModel();
+            $dataBerkas_1 = $this->request->getFile('file');
+            if($dataBerkas_1->getError() === 4) {
+                $img_about_1 = $this->request->getVar('img_lama');
+            } else {
+                $fileName1 = $dataBerkas_1->getRandomName();
+                $img_about_1 = $fileName1;
+                $dataBerkas_1->move('company/img/', $fileName1);
+            }
+
+            $testimoni->update($id,[
+                'nama'  =>  $this->request->getVar('nama'),
+                'pesan' =>  $this->request->getVar('pesan'),
+                'profesi'   =>  $this->request->getVar('profesi'),
+                'img'   =>  $img_about_1
+            ]);
+            return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            //throw $th;
+            return redirect()->back()->with('error','Data Gagal Ditambahkan');
+        }
+    }
+
+    public function hapus_testimoni()
+    {
+        try {
+            $id = $this->request->getVar('id');
+            $testimoni = new TestimoniCompanyModel();
+            $testimoni->where('id',$id)->delete();
+            return redirect()->back()->with('success','Data Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Dihapus');
+            //throw $th;
+        }
+    }
+
+    public function tambah_galeri()
+    {
+        try {
+            if(!$this->validate([
+                'file' => [
+                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                ]
+            ])) {
+                session()->setFlashdata('error',$this->validator->listErrors());
+                return redirect()->back()->withInput();
+            }
+            $dataBerkas_1 = $this->request->getFile('file');
+            $fileName1 = $dataBerkas_1->getRandomName();
+            $img_about_1 = $fileName1;
+            $dataBerkas_1->move('company/img/', $fileName1);
+            
+            $foto = new FotoCompanyModel();
+            $foto->insert([
+                'img'   =>  $img_about_1,
+                'created_at'    =>  date("Y-m-d"),
+                'travel_id' =>  session()->get('travel_id'),
+            ]);
+            return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Ditambahkan');
+            //throw $th;
+        }
+    }
+
     public function testimoni_company()
     {
         $profil = new ProfileCompany();
         $new = new ProfileModel();
         $video = new CompanyVideoModel();
         $testimoni = new TestimoniCompanyModel();
+        $galeri = new FotoCompanyModel();
         $data = [
             'title' =>  'Testimoni',
+            'galeri'    =>  $galeri->where("travel_id",session()->get('travel_id'))->get()->getResult(),
             'result'    =>   $testimoni->where('travel_id',session()->get('travel_id'))->get()->getResult(),
         ];
         return view('jamaah/testimoni_company/index',$data);

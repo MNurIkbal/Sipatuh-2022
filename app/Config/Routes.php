@@ -311,6 +311,10 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->post('/edit_artikel', 'BaseCompanyController::edit_artikel',['filter' => 'DpFilter']);
     $routes->post('/hapus_artikel', 'BaseCompanyController::hapus_artikel',['filter' => 'DpFilter']);
     $routes->post('/update_video', 'BaseCompanyController::update_video',['filter' => 'DpFilter']);
+    $routes->post('/tambah_testimoni', 'BaseCompanyController::tambah_testimoni',['filter' => 'DpFilter']);
+    $routes->post('/edit_testimoni', 'BaseCompanyController::edit_testimoni',['filter' => 'DpFilter']);
+    $routes->post('/hapus_testimoni', 'BaseCompanyController::hapus_testimoni',['filter' => 'DpFilter']);
+    $routes->post('/tambah_galeri', 'BaseCompanyController::tambah_galeri',['filter' => 'DpFilter']);
 
 
 
