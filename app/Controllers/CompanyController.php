@@ -103,6 +103,7 @@ class CompanyController extends BaseController
     {
         $profile = new ProfileModel();
         $result = $profile->where('website',$id)->first();
+        
         if(!$result) {
             return redirect()->to('/');
         }

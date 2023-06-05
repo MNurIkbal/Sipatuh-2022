@@ -387,7 +387,7 @@ class UsersController extends BaseController
             'title' =>  'Judul',
             'sub_title' =>  'Sub Title',
             'img'   =>  'about1.jpg',
-            'yt'    =>  'Tf_taWCMbZQ',
+            'yt'    =>  'rM5THSRxiK8',
             'travel_id'  =>  $akhir['id'],
             'status'    =>  1
         ]);
@@ -396,7 +396,7 @@ class UsersController extends BaseController
         $foto_company->insert([
             'img'   =>  'about_1.jpg',
             'created_at'    =>  date("Y-m-d"),
-            'travel_id' =>  $akhir['id']
+            'travel_id_company' =>  $akhir['id']
         ]);
 
         $layanan_company = new LayananCompanyModel();
@@ -414,7 +414,7 @@ class UsersController extends BaseController
             'facebook'  =>  'https://www.facebook.com',
             'instagram' =>  'https://www.instagram.com',
             'twitter'   =>  'https://www.twitter.com',
-            'yt'    =>  'https://www.youtube.com',
+            'youtube'    =>  'https://www.youtube.com',
             'deskripsi_about'   =>  'Haji adalah salah satu dari lima rukun Islam yang wajib dilakukan oleh setiap Muslim yang mampu secara fisik, finansial, dan mental. Haji merupakan ibadah ziarah ke Baitullah Al-Haram di Makkah, Saudi Arabia, yang dilakukan pada bulan Dzulhijjah, bulan terakhir dalam kalender Hijriah.',
             'travel_id'    =>  $akhir['id'],
             'deskripsi_footer'  =>  'Haji adalah salah satu dari lima rukun Islam yang wajib dilakukan oleh setiap Muslim yang mampu secara fisik, finansial, dan mental. Haji merupakan ibadah ziarah ke Baitullah Al-Haram di Makkah, Saudi Arabia, yang dilakukan pada bulan Dzulhijjah, bulan terakhir dalam kalender Hijriah.',
@@ -426,7 +426,8 @@ class UsersController extends BaseController
             'img_profile'   =>  'about1.jpg',
             'visi'  =>  'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis dolorum iste nihil officiis saepe ad perspiciatis assumenda, corporis et ullam blanditiis necessitatibus, architecto unde, molestias repudiandae voluptates doloremque beatae perferendis.',
             'misi'  =>  'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis dolorum iste nihil officiis saepe ad perspiciatis assumenda, corporis et ullam blanditiis necessitatibus, architecto unde, molestias repudiandae voluptates doloremque beatae perferendis.',
-            'text_profile' =>   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis excepturi delectus, odio ex rerum voluptates laboriosam provident nihil necessitatibus minima consequuntur enim omnis, sapiente debitis ipsum voluptas nemo commodi. Consequatur!'
+            'text_profile' =>   'Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis excepturi delectus, odio ex rerum voluptates laboriosam provident nihil necessitatibus minima consequuntur enim omnis, sapiente debitis ipsum voluptas nemo commodi. Consequatur!',
+            // 'maps'  =>  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15866.427970098475!2d106.807296!3d-6.1833216!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5d2e764b12d%3A0x3d2ad6e1e0e9bcc8!2sMonumen%20Nasional!5e0!3m2!1sid!2sid!4v1685947302713!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         ]);
 
         $slider_company = new SliderCompany();

@@ -75,7 +75,7 @@
         center: true,
         margin: 24,
         dots: true,
-        loop: true,
+        loop: false,
         nav : false,
         responsive: {
             0:{

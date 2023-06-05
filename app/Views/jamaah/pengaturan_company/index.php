@@ -215,6 +215,10 @@
                     <input type="text" class="form-control" name="instagram" required placeholder="Instagram" value="<?= $profile['instagram']; ?>">
                 </div>
                 <div class="mb-3">
+                    <label for="">Maps</label>
+                    <textarea name="maps" class="form-control" id="" cols="30" style="height: 200px !important;" rows="20"><?= $profile['maps']; ?></textarea>
+                </div>
+                <div class="mb-3">
                     <label for="">Gambar About 1</label>
                     <input type="file" class="form-control" name="img_about_1">
                 </div>

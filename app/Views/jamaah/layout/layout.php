@@ -131,7 +131,7 @@
             <li class="<?= (isset($title) && $title == "Pembayaran") ? "bg-success" : ""; ?>  "><a class="nav-link  text-white sy" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
 
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Pengaturan" || $title == "Layanan" || $title == "Testimoni" || $title == "Cabang") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-home"></i> <span>Company Profile</span></a>
+              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Pengaturan" || $title == "Layanan" || $title == "Testimoni" || $title == "Cabang" || $title == "Contact") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-home"></i> <span>Company Profile</span></a>
               <ul class="dropdown-menu">
                 <li class="<?= (isset($title) && $title == "Pengaturan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/pengaturan_company");  ?>">Pengaturan</a></li>
                 <li class="<?= (isset($title) && $title == "Layanan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/layanan_company");  ?>">Layanan & Artikel</a></li>

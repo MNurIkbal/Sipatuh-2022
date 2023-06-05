@@ -163,6 +163,48 @@ class BaseCompanyController extends BaseController
         }
     }
 
+    public function hapus_slider()
+    {
+        try {
+            $id = $this->request->getVar('id');
+            $slider = new SliderCompany();
+            $slider->where('id',$id)->delete();
+            return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Ditambahkan');
+            //throw $th;
+        }
+    }
+
+    public function tambah_slider()
+    {
+        try {
+            if(!$this->validate([
+                'file' => [
+                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+                ]
+            ])) {
+                session()->setFlashdata('error',$this->validator->listErrors());
+                return redirect()->back()->withInput();
+            }
+            $dataBerkas_1 = $this->request->getFile('file');
+            $fileName1 = $dataBerkas_1->getRandomName();
+            $img_about_1 = $fileName1;
+            $dataBerkas_1->move('assets/upload/', $fileName1);
+
+            $slider = new SliderCompany();
+            $slider->insert([
+                'img'   =>  $img_about_1,
+                'created_at'    =>  date("Y-m-d"),
+                'travel_id' =>  session()->get('travel_id')
+            ]);
+            return redirect()->back()->with('success','Data Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Data Gagal Ditambahkan');
+            //throw $th;
+        }
+    }
+
     public function kontak_company()
     {
         $profil = new ProfileCompany();
@@ -472,7 +514,8 @@ class BaseCompanyController extends BaseController
                 'img_profile'   =>  $img_about_5,
                 'visi'  =>  $this->request->getVar('visi'),
                 'misi'  =>  $this->request->getVar('misi'),
-                'text_profile'  =>  $this->request->getVar('deskripsi_profile')
+                'text_profile'  =>  $this->request->getVar('deskripsi_profile'),
+                'maps'  =>  $this->request->getVar('maps')
             ]);
             return redirect()->back()->with('success','Data Berhasil Diupdate');
             //code...

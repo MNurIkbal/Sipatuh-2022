@@ -52,6 +52,8 @@ $routes->get('/regis', 'Home::regis');
 $routes->post('/daftar', 'Home::daftar');
 $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');
+$routes->get('lupa', 'LoginController::lupa');
+$routes->post('forgot', 'LoginController::forgot');
 $routes->get('company/(:any)',"CompanyController::index/$1");
 $routes->get('profile_company/(:any)',"CompanyController::profile_company/$1");
 $routes->get('artikel_company/(:any)',"CompanyController::artikel_company/$1");
@@ -318,6 +320,8 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->post('/tambah_galeri', 'BaseCompanyController::tambah_galeri',['filter' => 'DpFilter']);
     $routes->post('/hapus_galeri', 'BaseCompanyController::hapus_galeri',['filter' => 'DpFilter']);
     $routes->post('/hapus_kontak', 'BaseCompanyController::hapus_kontak',['filter' => 'DpFilter']);
+    $routes->post('/tambah_slider', 'BaseCompanyController::tambah_slider',['filter' => 'DpFilter']);
+    $routes->post('/hapus_slider', 'BaseCompanyController::hapus_slider',['filter' => 'DpFilter']);
 
 
 

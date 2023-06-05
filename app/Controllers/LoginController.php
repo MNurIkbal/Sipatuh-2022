@@ -13,12 +13,61 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 class LoginController extends BaseController
 {
     public function __construct()
-            {
-                if(session()->get("login")) {
-                    return redirect()->to("/dashboard");
-                    exit;
-                }
+    {
+        if (session()->get("login")) {
+            return redirect()->to("/dashboard");
+            exit;
         }
+    }
+
+    public function lupa()
+    {
+        return view('lupa_password');
+    }
+
+    public function forgot()
+    {
+        $email = $this->request->getVar('email');
+        $akun = new Users();
+        $result = $akun->where("email", $email)->first();
+
+        if (!$result) {
+            return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
+        }
+
+        $subjek = "RESET PASSWORD AKUN MANASIKITA";
+        $url = base_url('ganti_password_baru/' . $email);
+        $pesan = "Reset password klik link ini <a href='$url'></a> Terima kasih.";
+
+
+
+        $result = \Config\Services::email();
+        // Ganti pengaturan SMTP sesuai kebutuhan
+        $result->SMTPHost = 'smtp.google.com';
+        $result->SMTPUser = 'ikbalmnur17@gmail.com';
+        $result->SMTPPass = 'qlqffgveybodovoh';
+        $result->SMTPPort = 465;
+        $result->SMTPCrypto = 'ssl';
+
+        // Ganti pengaturan email lainnya
+        $result->mailType = 'html';
+        $result->charset = 'UTF-8';
+        $result->newline = "\r\n";
+        $result->setTo($email);
+        $result->setFrom("manasikita.com", "Manasikita");
+        $result->setSubject($subjek);
+        $result->setMessage($pesan);
+        if ($result->send()) {
+            echo "ok";
+        } else {
+            echo 'belum';
+        }
+        // try {
+        //     //code...
+        // } catch (\Throwable $th) {
+        //     //throw $th;
+        // }
+    }
     public function index()
     {
         $username = $this->request->getVar("username");
@@ -28,9 +77,9 @@ class LoginController extends BaseController
         $data = $result->where([
             "username"  =>  $username
         ])->first();
-        if($data) {
-            if(password_verify($password,$data['password'])) {
-                if($data['level_id'] == "admin") {
+        if ($data) {
+            if (password_verify($password, $data['password'])) {
+                if ($data['level_id'] == "admin") {
                     session()->set([
                         'login' =>  true,
                         'id'    =>  $data['id'],
@@ -45,13 +94,13 @@ class LoginController extends BaseController
                         'travel_id'    =>  $data['travel_id'],
                     ]);
                     return redirect()->to("/users");
-                } elseif($data['level_id'] == "jamaah" || $data['level_id'] == "cabang") {
-                    if($data['level_id'] == "cabang") {
+                } elseif ($data['level_id'] == "jamaah" || $data['level_id'] == "cabang") {
+                    if ($data['level_id'] == "cabang") {
                         $cabang = $data['cabang_id'];
                         $baru = new CabangModel();
-                        $data_baru = $baru->where("id",$data['cabang_id'])->first();
+                        $data_baru = $baru->where("id", $data['cabang_id'])->first();
                         $id_travel = $data_baru['travel_id'];
-                    } else {    
+                    } else {
                         $cabang = null;
                         $id_travel = $data['travel_id'];
                     }
@@ -74,10 +123,10 @@ class LoginController extends BaseController
                     // } else {
                     //     return redirect("/")->with("error","Masih Ada Data Yang Belum Lengkap");
                     // }
-                } elseif($data['level_id'] == "user") {
+                } elseif ($data['level_id'] == "user") {
                     $jamaah = new JamaahModel();
-                    $check = $jamaah->where("id",$data['jamaah_id'])->first();
-                    
+                    $check = $jamaah->where("id", $data['jamaah_id'])->first();
+
                     session()->set([
                         'login' =>  true,
                         'id'    =>  $data['id'],
@@ -116,16 +165,14 @@ class LoginController extends BaseController
                     //     ]);
                     //     return redirect()->to("/dashboard_user");
                     // }
-                }
-                else {
-                    return redirect()->to("/masuk")->with("error","Level User Tidak Diketahui");
+                } else {
+                    return redirect()->to("/masuk")->with("error", "Level User Tidak Diketahui");
                 }
             } else {
-                return redirect()->to("/masuk")->with("error","Email Atau Password Salah");
+                return redirect()->to("/masuk")->with("error", "Email Atau Password Salah");
             }
         } else {
-            return redirect()->to("/masuk")->with("error","Email Atau Password Salah");
+            return redirect()->to("/masuk")->with("error", "Email Atau Password Salah");
         }
-        
     }
 }

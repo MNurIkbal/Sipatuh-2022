@@ -30,7 +30,8 @@ class ProfileCompany extends Model
     'img_profile',
     'visi',
     'misi',
-    'text_profile'
+    'text_profile',
+    'maps'
 ];
 
     // Dates

@@ -51,7 +51,7 @@
           <div class="col-md-6">
             <div class="   card-primary">
               <div class="card-header">
-                <h4>Login</h4>
+                <h4>Lupa Password</h4>
               </div>
               <?php if (session()->get('error')) : ?>
                 <div class="alert m-3 alert-danger"><?= session()->get("error") ?></div>
@@ -60,45 +60,21 @@
                 <div class="alert m-3 alert-success"><?= session()->get("success") ?></div>
               <?php endif; ?>
               <div class="card-body">
-                <form method="POST" action="<?= base_url("login");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                <form method="POST" action="<?= base_url("forgot");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Required Username
-                    </div>
+                    <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+
                   </div>
 
-                  <!-- <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Password</label>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      Required Password
-                    </div>
-                  </div> -->
-                  
-                  <div class="form-group">
-                    <label for="">Password</label>
-                    <div class="input-group mb-3">
-                <input name="password" type="password" value="" class="input form-control" id="password" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
-                <div class="input-group-append" style="cursor: pointer;">
-                  <span class="input-group-text" onclick="password_show_hide();">
-                    <i class="fas fa-eye" id="show_eye"></i>
-                    <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
-                  </span>
-                </div>
-              </div>
-                  </div>
 
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                       Login
                     </button>
-                    <a href="<?= base_url("regis"); ?>" class="btn btn-success mt-2  ">Register</a>
-                    <a href="<?= base_url("lupa"); ?>" class="btn btn-danger mt-2  ">Lupa Password</a>
+                    <a href="<?= base_url("masuk"); ?>" class="btn btn-success mt-2  ">Login</a>
+                    <a href="<?= base_url("regis"); ?>" class="btn btn-primary mt-2  ">Register</a>
                   </div>
                 </form>
                 <div class="text-center mt-4 mb-3">
