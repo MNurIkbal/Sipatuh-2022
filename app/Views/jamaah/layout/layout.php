@@ -135,7 +135,7 @@
               <ul class="dropdown-menu">
                 <li class="<?= (isset($title) && $title == "Pengaturan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/pengaturan_company");  ?>">Pengaturan</a></li>
                 <li class="<?= (isset($title) && $title == "Layanan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/layanan_company");  ?>">Layanan & Artikel</a></li>
-                <li class="<?= (isset($title) && $title == "Testimoni") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/testimoni_company");  ?>">Testimoni</a></li>
+                <li class="<?= (isset($title) && $title == "Testimoni") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/testimoni_company");  ?>">Testimoni & Galeri</a></li>
                 <li class="<?= (isset($title) && $title == "Cabang") ? "bg-success" : ""; ?>"><a class="nav-link  text-white "  href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
               </ul>
 

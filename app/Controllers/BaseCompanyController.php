@@ -8,6 +8,7 @@ use App\Models\CompanyVideoModel;
 use App\Models\LayananCompanyModel;
 use App\Models\ProfileCompany;
 use App\Models\ProfileModel;
+use App\Models\TestimoniCompanyModel;
 use App\Models\Users;
 
 class BaseCompanyController extends BaseController
@@ -24,6 +25,18 @@ class BaseCompanyController extends BaseController
             'video' =>  $video->where('travel_id',session()->get('travel_id'))->first()
         ];
         return view('jamaah/pengaturan_company/index',$data);
+    }
+    public function testimoni_company()
+    {
+        $profil = new ProfileCompany();
+        $new = new ProfileModel();
+        $video = new CompanyVideoModel();
+        $testimoni = new TestimoniCompanyModel();
+        $data = [
+            'title' =>  'Testimoni',
+            'result'    =>   $testimoni->where('travel_id',session()->get('travel_id'))->get()->getResult(),
+        ];
+        return view('jamaah/testimoni_company/index',$data);
     }
 
     public function update_video()
