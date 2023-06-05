@@ -150,6 +150,7 @@ class HistoryController extends BaseController
             'paket' =>  $pakets,
             'id_jamaah' =>  $id_jamaah,
             'kloter'    =>  $kloters,
+            'title' =>  'History',
             'main'    =>  $jamaahs,
             'judul' =>  $judul,
             'perusahaan'    =>  $data_profile
@@ -363,7 +364,7 @@ class HistoryController extends BaseController
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status",1)->findAll(),
-            'title' =>  "Realisasi",
+            'title' =>  "History",
             'data_hotel'    =>  $data_hotel->findAll(),
             // 'result'    =>  $paket->where([
             //     'id'    =>  $id

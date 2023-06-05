@@ -195,6 +195,7 @@
                             <label for="">No Paspor</label>
                             <input type="text" class="form-control" required placeholder="No Paspor" name="no_paspor">
                         </div>
+                        
                     </div>
                 </div>
             </div>

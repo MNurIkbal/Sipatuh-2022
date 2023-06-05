@@ -11,8 +11,8 @@
         <div class="row">
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header text-white bg-success">
-                <h5>Total Jamaah</h5>
+              <div class="card-header text-white bg-danger">
+                <h5> Jamaah</h5>
               </div>
               <div class="card-body">
                 <h5><?= $jamaah; ?> Jamaah</h5>
@@ -21,7 +21,7 @@
           </div>
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header text-white bg-success">
+              <div class="card-header text-white bg-primary">
                 <h5> Paket</h5>
               </div>
               <div class="card-body">
@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-3">
             <div class="card">
-              <div class="card-header text-white bg-success">
+              <div class="card-header text-white bg-warning">
                 <h5> Cabang</h5>
               </div>
               <div class="card-body">
@@ -42,10 +42,10 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header text-white bg-success">
-                <h5>Total Pendapatan</h5>
+                <h5>Petugas</h5>
               </div>
               <div class="card-body">
-                <h5><?= $jamaah_aktif; ?> Jamaah</h5>
+                <h5><?= $petugas_umrah; ?> Jamaah</h5>
               </div>
             </div>
           </div>

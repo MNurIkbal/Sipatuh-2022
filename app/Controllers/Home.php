@@ -40,25 +40,24 @@ class Home extends BaseController
         $jamaah = new JamaahModel();
         $paket = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id DESC LIMIT 3 ")->getResultArray();
         $paket = new PaketModel();
-        $paket_dua = $paket->main();
 
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
         $hari_ini = date("Y-m-d");
-        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('tgl_pulang >',$hari_ini)->orderby('id','desc')->paginate(10,'paket');
-        $paket_cabang = $paket->where('status','aktif')->where('pemberangkatan',null)->where('cabang','cabang')->where('status_approve','sudah')->orderby('id','desc')->paginate(10,'paket');
-        $pakets = array_merge($paket_result,$paket_cabang);
+        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('tgl_pulang >',$hari_ini)->where('status_approve','sudah')->orderby('id','desc')->paginate(10);
+        // $paket_cabang = $paket->where('status','aktif')->where('pemberangkatan',null)->where('tgl_pulang >',$hari_ini)->where('cabang','cabang')->where('status_approve','sudah')->orderby('id','desc')->paginate(10);
+        // $pakets = array_merge($paket_result,$paket_cabang);
         
-
+        $pagination = $paket->pager->links();
         $data = [
             'paket_dua' => $paket_result,
-            // 'paket_dua' =>  $paket->where('status','aktif')->where('pemberangkatan',null)->orderby('id','desc')->paginate(10,'paket'),
             'pager' =>  $paket->pager,
             'count' =>  $count,
             'baru'    =>  $st,
+            'pagination'    =>  $pagination,
             'jamaah'    =>  $jamaah,
             'simpan'    =>  $simpan,
-            'title' =>  'Travel-Q',
+            'title' =>  'Manasikita',
             'db'    =>  $db,
             'banner'    =>  $banner->findAll(),
             'count' =>  $db->query("SELECT * FROM profile")->getResult(),

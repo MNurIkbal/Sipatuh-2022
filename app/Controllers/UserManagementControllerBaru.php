@@ -42,7 +42,6 @@ class UserManagementControllerBaru extends BaseController
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
             $check_travel = $travel->where("id", $check_paket['travel_id'])->first();
             $profile = new ProfileModel();
-
             $kloter = new KloterModel();
 
             $data = [
@@ -67,6 +66,7 @@ class UserManagementControllerBaru extends BaseController
             $r = session()->get('id');
             $check_paket = $pakets->first();
             $check_travel = $travel->first();
+            
             $profile = new ProfileModel();
             $kloter = new KloterModel();
             $pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' AND kloter_id IS NOT NULL")->getRowArray();
@@ -85,6 +85,9 @@ class UserManagementControllerBaru extends BaseController
             $biodatas = new BioDataModel();
             $id_users = session()->get('id');
             $first_biodata = $biodatas->where('user_id',$id_users)->countAllResults();
+            $vaksin = $biodatas->where('user_id',$id_users)->first();
+            
+            $biodatas = new BioDataModel();
             $data = [
                 'paket_dua' =>  $paket_dua,
                 'count' =>  $count,
@@ -103,7 +106,9 @@ class UserManagementControllerBaru extends BaseController
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
                 'pembayaran'    => $rf,
+                'aktif' => $vaksin
             ];
+            
 
             return view("user/dashboard", $data);
         }
@@ -345,7 +350,7 @@ class UserManagementControllerBaru extends BaseController
                 'provinsi'  =>  $db->query("SELECT * FROM provinces ORDER BY name ASC")->getResultArray(),
 
                 'profile'   =>  null,
-                'title' =>  'Pindah Paket',
+                'title' =>  'Profile',
                 'db'    =>  $db,
                 'all_paket' =>  $paket->where([
                     'travel_id'   =>  session()->get("travel_id"),
@@ -539,6 +544,7 @@ class UserManagementControllerBaru extends BaseController
             'id_kloter' =>  $id_kloter,
             'paket' =>  $pakets,
             'id_jamaah' =>  $id_jamaah,
+            'title' =>  'History',
             'kloter'    =>  $kloters,
             'main'    =>  $jamaahs,
             'perusahaan'    =>  $data_profile
@@ -595,6 +601,7 @@ class UserManagementControllerBaru extends BaseController
             'paket' =>  $pakets,
             'id_jamaah' =>  $id_jamaah,
             'kloter'    =>  $kloters,
+            'title' =>  'History',
 
             'main'    =>  $jamaahs,
             'bank'  =>  $bank->where("id", $pakets['rekening_penampung_id'])->first(),

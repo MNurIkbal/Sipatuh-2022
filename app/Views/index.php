@@ -72,11 +72,11 @@
 
   <?php if ($simpan) : ?>
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
+      <!-- <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
+      </div> -->
       <div class="carousel-inner">
         <?php
         $first_active_element = true;
@@ -134,39 +134,64 @@
           <div class="row ">
             <?php $hari = date("Y-m-d");
             foreach ($paket_dua as $tiga) : ?>
-                <?php
-                $counts = $jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
-                $mains = count($counts);
-                $id_profile = $tiga['travel_id'];
-                $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
-                ?>
-                <div class="col-md-6 col-12">
-                  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                    <div class="col-md-7 p-4 d-flex flex-column position-static">
-                      <strong class="d-inline-block mb-2 "><?= $tiga['nama'];  ?></strong>
-                      <small class="mb-2"><i class="fa-solid fa-calendar " style="padding-right: 5px"></i> <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
-                      <small class="mb-2"><i class="fa-solid fa-location-dot" style="padding-right: 8px"></i> <?= $profile['provinsi'] ?>, <?= $profile['kabupaten'] ?></small>
-                      <small class="mb-2"><i class="fa-solid fa-building" style="padding-right: 8px"></i> <?= $profile['nama_perusahaan'] ?></small>
-                      <small class="mb-2"><i class="fa-solid fa-home" style="padding-right: 5px"></i> <?= $profile['nama_travel_umrah'] ?></small>
-                      <small class="mb-2"><i class="fa-solid fa-money-bill" style="padding-right: 5px"></i> Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
-                      <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <?= $mains;  ?> Orang</small>
-                      <small class="mb-2"><i class="fas fa-globe" style="padding-right: 5px;color:blue"></i> <a href="<?= base_url("company/" . $profile['website']); ?>" target="_blank" style="color: blue;text-decoration: none;"><?= $profile['website']; ?></a></small>
-                      <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;">
-                        <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
-                        <small>Tahun <?= $tiga['tahun']; ?></small>
-                      </div>
+              <?php
+              $counts = $jamaah->where("paket_id", $tiga['id'])->where('kloter_id IS NOT NULL')->findAll();
+              $mains = count($counts);
+              $id_profile = $tiga['travel_id'];
+              $profile = $db->query("SELECT * FROM profile WHERE id = '$id_profile'")->getRowArray();
+              ?>
+              <div class="col-md-6 col-12">
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                  <div class="col-md-7 p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 "><?= $tiga['nama'];  ?></strong>
+                    <small class="mb-2"><i class="fa-solid fa-calendar " style="padding-right: 5px"></i> <?= date("d, F Y", strtotime($tiga['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($tiga['tgl_pulang']));  ?></small>
+                    <small class="mb-2"><i class="fa-solid fa-location-dot" style="padding-right: 8px"></i> <?= $profile['provinsi'] ?>, <?= $profile['kabupaten'] ?></small>
+                    <small class="mb-2"><i class="fa-solid fa-building" style="padding-right: 8px"></i> <?= $profile['nama_perusahaan'] ?></small>
+                    <small class="mb-2"><i class="fa-solid fa-home" style="padding-right: 5px"></i> <?= $profile['nama_travel_umrah'] ?></small>
+                    <small class="mb-2"><i class="fa-solid fa-money-bill" style="padding-right: 5px"></i> Rp. <?= number_format($tiga['biaya'], 0);  ?></small>
+                    <small class="mb-2"><i class="fas fa-users" style="padding-right: 5px"></i> <?= $mains;  ?> Orang</small>
+                    <small class="mb-2"><i class="fas fa-globe" style="padding-right: 5px;color:blue"></i> <a href="<?= base_url("company/" . $profile['website']); ?>" target="_blank" style="color: blue;text-decoration: none;"><?= $profile['website']; ?></a></small>
+                    <div class="d-flex" style="justify-content: space-between !important;align-content: center !important;">
+                      <a href="<?= base_url("detail_paket_users/" . $tiga['id']) ?>" class="btn btn-sm btn-outline-success">Daftar</a>
+                      <small>Tahun <?= $tiga['tahun']; ?></small>
                     </div>
-                    <div class="col-md-5 d-none d-lg-block">
-                      <div style="width: 100%;height: 300px;">
-                        <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-position: center; " alt="">
-                      </div>
+                  </div>
+                  <div class="col-md-5 d-none d-lg-block">
+                    <div style="width: 100%;height: 100%;">
+                      <img src="<?= base_url("assets/upload/" . $tiga['poster']) ?>" style="width: 100% !important;height: 100% !important;object-fit: contain; " alt="">
                     </div>
                   </div>
                 </div>
+              </div>
             <?php endforeach; ?>
           </div>
         </div>
-        <?= $pager->links('paket', 'pager_baru') ?>
+        <style>
+          .pagination {
+            justify-content: center;
+          }
+
+          .pagination li a {
+            color: white;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+          }
+
+          .pagination li {
+            margin-left: 10px;
+            background-color: green;
+            padding: 10px;
+            border-radius: 5px;
+          }
+
+          .pagination li.active {
+            background-color: blue !important;
+          }
+        </style>
+
+        <ul class="pagination">
+                <?=  $pagination ?>
+        </ul>
       </div>
     </main>
   </div>

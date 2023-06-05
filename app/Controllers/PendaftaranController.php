@@ -113,7 +113,7 @@ class PendaftaranController extends BaseController
     public function ambil_kolter($id)
     {
         $kloter = new KloterModel();
-        $data = $kloter->where("paket_id", $id)->where("status", "Aktif")->where("done", NULL)->where("keberangkatan",NULL)->findAll();
+        $data = $kloter->where("paket_id", $id)->where("status", "Aktif")->where("done", NULL)->where("keberangkatan", NULL)->findAll();
         foreach ($data as $row) {
             $html = "<option value='$row[id]'>$row[nama]</option>";
             echo $html;
@@ -138,14 +138,14 @@ class PendaftaranController extends BaseController
         $muasah = new MuassahModel();
 
         $sekarang = date("Y-m-d");
-        $expired = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->findAll();
-        $expireds = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->first();
-if($expireds) {
-    foreach($expired as $main) {
-        $satu = date("Y-m-d",strtotime($main['expired_bayar_dp']));
-        $delete = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar",null)->where('date(expired_bayar_dp)',$sekarang)->where('id',$main['id'])->delete();
-    }
-}
+        $expired = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->findAll();
+        $expireds = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->first();
+        if ($expireds) {
+            foreach ($expired as $main) {
+                $satu = date("Y-m-d", strtotime($main['expired_bayar_dp']));
+                $delete = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->where('date(expired_bayar_dp)', $sekarang)->where('id', $main['id'])->delete();
+            }
+        }
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -524,7 +524,7 @@ if($expireds) {
         $paket_first = new PaketModel();
         $kode_paket_satu = $paket_first->where("id", $this->request->getVar("id_paket"))->first();
         $rekenings = new BankModel();
-        $result_rekenings = $rekenings->where("id",$kode_paket_satu['rekening_penampung_id'])->first();
+        $result_rekenings = $rekenings->where("id", $kode_paket_satu['rekening_penampung_id'])->first();
         $kode_paket = $kode_paket_satu['kode_paket'];
         $kloter_result = new KloterModel();
         $provinsi_result = explode("-", $this->request->getVar("provinsi"));
@@ -573,6 +573,20 @@ if($expireds) {
             'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111, 9999),
             'kloter_id' =>  $this->request->getVar("id_kloter"),
         ]);
+        // $db      = \Config\Database::connect();
+        // $users= new Users();
+        // $users->insert([
+        //     'nama'  =>  $this->request->getVar('nama'),
+        //     'username'  =>  $this->request->getVar('email'),
+        //     'password'  =>  password_hash($this->request->getVar('password'),PASSWORD_DEFAULT),
+        //     'level_id'  =>  'user',
+        //     'img'   =>  $fileName,
+        //     'email'=>   $this->request->getVar('email'),
+        //     'no_hp' =>  $this->request->getVar('no_hp'),
+        // ]);
+        // $akhir_user = $users->orderby('id','desc')->first();
+        // $mk = $akhir_user['id'];
+        // $db->query("UPDATE jamaah SET user_id = '$mk' ORDER BY id DESC");
         $dataBerkas->move('assets/upload/', $fileName);
         $kloter = new KloterModel();
         $data_kloter = $kloter->where("id", $this->request->getVar("id_kloter"))->first();
@@ -580,20 +594,20 @@ if($expireds) {
             'batas_jamaah'  =>  $data_kloter['batas_jamaah'] - 1
         ]);
 
-        $e = $jamaah->orderby("id",'desc')->first();
+        $e = $jamaah->orderby("id", 'desc')->first();
 
-        $res = $jamaah->where("id",$e['id'])->first();
+        $res = $jamaah->where("id", $e['id'])->first();
         $pakets = new PaketModel();
-        $rt = $pakets->where("id",$res['paket_id'])->first();
+        $rt = $pakets->where("id", $res['paket_id'])->first();
 
         $daftar = new DaftarJamaahModel();
         $now = date("Y-m-d");
-        $che = $daftar->where('travel_id',$rt['travel_id'])->where('date(bulan)',$now)->orderby('id','desc')->first();
-        if($che) {
+        $che = $daftar->where('travel_id', $rt['travel_id'])->where('date(bulan)', $now)->orderby('id', 'desc')->first();
+        if ($che) {
             // $daftar
-            $yy = $daftar->where("travel_id",$rt['travel_id'])->orderBy('id','desc')->first();
-            
-            $daftar->update($yy['id'],[
+            $yy = $daftar->where("travel_id", $rt['travel_id'])->orderBy('id', 'desc')->first();
+
+            $daftar->update($yy['id'], [
                 'jamaah'    =>  $yy['jamaah'] + 1
             ]);
         } else {
@@ -605,10 +619,10 @@ if($expireds) {
         }
 
         $dash_admin = new DashboardAdmin();
-        $check_dash = $dash_admin->where('travel_id',$rt['travel_id'])->first();
-        if($check_dash) {
+        $check_dash = $dash_admin->where('travel_id', $rt['travel_id'])->first();
+        if ($check_dash) {
             $dash_admins = new DashboardAdmin();
-            $dash_admins->update($check_dash['id'],[
+            $dash_admins->update($check_dash['id'], [
                 'score' =>  $check_dash['score'] + 1,
             ]);
         } else {
@@ -758,9 +772,17 @@ if($expireds) {
         $id_jamaah = $this->request->getVar('id_jamaah');
         $jamaah = new JamaahModel();
         $first_jamaah = $jamaah->where("id", $id_jamaah)->first();
+        $check_count = $jamaah->where('user_id', $first_jamaah['user_id'])->where('paket_id',$this->request->getVar('paket'))->where('kloter_id',$id_kloter)->countAllResults();
         $kloter = new KloterModel();
+        // var_dump($this->request->getVar('paket'));
+        // var_dump($first_jamaah['user_id']);
+        // var_dump($id_kloter);
+        // var_dump($check_count);
+        // die;
+        if($check_count) {
+            return redirect()->back()->with('error','Jamaah Sudah Ada');
+        }
         $data_akhir_kloter = $kloter->where("id", $id_kloter)->first();
-        dd($first_jamaah['user_id']);
         $check_kloters = $kloter->where("id", $this->request->getVar("kloter"))->first();
         if ($check_kloters['batas_jamaah'] <= 0) {
             return redirect()->back()->with('error', 'Batas kuota jamaah sudah habis');
@@ -895,7 +917,7 @@ if($expireds) {
 
             $result = new JamaahModel();
             $paket = new PaketModel();
-            $detail_jamaah = $result->where("id",$id)->first();
+            $detail_jamaah = $result->where("id", $id)->first();
             $nominal = $this->request->getVar("nominal");
             $biaya = str_replace(".", "", $nominal);
             $data_paket = $paket->where("id", $this->request->getVar("id_paket"))->first();
@@ -909,7 +931,7 @@ if($expireds) {
                 session()->setFlashdata('error', "Nominal Pembayaran Melebihi Biaya Paket");
                 return redirect()->back()->withInput();
             }
-            if(empty($detail_jamaah['bukti_pembayaran'])) {
+            if (empty($detail_jamaah['bukti_pembayaran'])) {
                 $result->update($id, [
                     'tgl_bayar' =>  date("Y-m-d"),
                     'rekening_penampung' =>  $this->request->getVar("rekening"),
@@ -920,28 +942,28 @@ if($expireds) {
                     'sisa_pembayaran'   =>  $sisa,
                 ]);
             }
-            
-        $bukti = new BuktiModel();
-        if(!empty($detail_jamaah['bukti_pembayaran'])) {
-            $bukti->insert([
-                'nominal' =>    $biaya,
-                'sisa'  =>  $sisa,
-                'bukti' =>  $foto,
-                'created'   =>  date("Y-m-d"),
-                'jamaah_id' =>  $id,
-                'rekening_penampung'    =>  $this->request->getVar('rekening'),
-                'keterangan'    =>  $this->request->getvar('keterangan'),
-                'paket_id'  =>  $fird['paket_id'],
-                'kloter_id' =>  $fird['kloter_id']
-            ]);
-        }
+
+            $bukti = new BuktiModel();
+            if (!empty($detail_jamaah['bukti_pembayaran'])) {
+                $bukti->insert([
+                    'nominal' =>    $biaya,
+                    'sisa'  =>  $sisa,
+                    'bukti' =>  $foto,
+                    'created'   =>  date("Y-m-d"),
+                    'jamaah_id' =>  $id,
+                    'rekening_penampung'    =>  $this->request->getVar('rekening'),
+                    'keterangan'    =>  $this->request->getvar('keterangan'),
+                    'paket_id'  =>  $fird['paket_id'],
+                    'kloter_id' =>  $fird['kloter_id']
+                ]);
+            }
         } else {
             $nominal = null;
             $foto = null;
             $sisa = null;
             $expired = null;
         }
-        
+
         if ($this->request->getVar("status")  == "DP") {
             $expired = date("Y-m-d", strtotime($this->request->getVar("expired")));
             $sekarang = date("Y-m-d");
@@ -1015,9 +1037,9 @@ if($expireds) {
                 return redirect()->back()->withInput();
             }
 
-            $detail_jamaah = $result->where("id",$id)->first();
+            $detail_jamaah = $result->where("id", $id)->first();
 
-            if(empty($detail_jamaah['expired_bayar_dp'])) {
+            if (empty($detail_jamaah['expired_bayar_dp'])) {
                 $result->update($id, [
                     'tgl_bayar' =>  date("Y-m-d"),
                     'rekening_penampung' =>  $this->request->getVar("rekening"),
@@ -1026,7 +1048,7 @@ if($expireds) {
                     'expired_bayar_dp'  =>  $expired,
                 ]);
             } else {
-                if(empty($detail_jamaah['bukti_pembayaran'])) {
+                if (empty($detail_jamaah['bukti_pembayaran'])) {
                     $result->update($id, [
                         'tgl_bayar' =>  date("Y-m-d"),
                         'rekening_penampung' =>  $this->request->getVar("rekening"),
@@ -1039,28 +1061,28 @@ if($expireds) {
                 }
             }
 
-            
-        $bukti = new BuktiModel();
-        if(!empty($detail_jamaah['bukti_pembayaran'])) {
-            $bukti->insert([
-                'nominal' =>    $biaya,
-                'sisa'  =>  $sisa,
-                'bukti' =>  $foto,
-                'created'   =>  date("Y-m-d"),
-                'jamaah_id' =>  $id,
-                'rekening_penampung'    =>  $this->request->getVar('rekening'),
-                'keterangan'    =>  $this->request->getvar('keterangan'),
-                'paket_id'  =>  $fird['paket_id'],
-                'kloter_id' =>  $fird['kloter_id']
-            ]);
-        }
+
+            $bukti = new BuktiModel();
+            if (!empty($detail_jamaah['bukti_pembayaran'])) {
+                $bukti->insert([
+                    'nominal' =>    $biaya,
+                    'sisa'  =>  $sisa,
+                    'bukti' =>  $foto,
+                    'created'   =>  date("Y-m-d"),
+                    'jamaah_id' =>  $id,
+                    'rekening_penampung'    =>  $this->request->getVar('rekening'),
+                    'keterangan'    =>  $this->request->getvar('keterangan'),
+                    'paket_id'  =>  $fird['paket_id'],
+                    'kloter_id' =>  $fird['kloter_id']
+                ]);
+            }
         } else {
             $expired = null;
             $nominal = null;
             $foto = null;
             $sisa = null;
         }
-        
+
 
         return redirect()->back()->with("success", "Data Berhasil Diupdate");
     }
@@ -1218,8 +1240,8 @@ if($expireds) {
         $paket = new PaketModel();
         $profile = new ProfileModel();
         $bank = new BankModel();
-        $red = $paket->where("id",$id)->first();
-        $mandiri = $bank->where("id",$red['rekening_penampung_id'])->first();
+        $red = $paket->where("id", $id)->first();
+        $mandiri = $bank->where("id", $red['rekening_penampung_id'])->first();
         $data = [
             'jamaah'    =>  $jamaah->where("paket_id", $id)->where("kloter_id", $id_kloter)->findAll(),
             'title' =>  "Print PDF",

@@ -287,8 +287,7 @@
                         <div class="mb-3">
                             <label for="">Provider</label>
                             <br>
-                            <!-- <input type="text" class="form-control" required placeholder="Provider" name="provider" value="<?= $main['provider'] ?>"> -->
-                            <select name="provider" class="form-control select1" style="width: 100% !important;" required id="">
+                            <select name="provider" class="form-control select1<?= $main['id'] ?>" style="width: 100% !important;" required id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($provider as $mains) : ?>
                                 <option <?=  ($mains['nama_provider'] == $main['provider']) ? "selected" : "";  ?>
@@ -338,13 +337,12 @@
                         <div class="mb-3">
                             <label for="">Asuransi</label>
                             <br>
-                            <!-- <input type="text" class="form-control" required placeholder="Asuransi" name="asuransi" value="<?=  $main['asuransi'];  ?>"> -->
-                            <select name="asuransi" required class="form-control asuransia" style="width: 100% !important;" id="">
+                            <select name="asuransi" required class="form-control asuransia<?= $main['id'] ?>" style="width: 100% !important;" id="">
                                 <option value="">Pilih</option>
                                 <?php foreach($asuransi as $main_asurasi) : ?>
-                                <?=  $main_asurasi['nama'];  ?>
                                 <option <?=  ($main_asurasi['nama'] == $main['asuransi']) ? "selected" : "";  ?>
-                                    value="<?=  $main_asurasi['nama'];  ?>"><?=  $main_asurasi['nama'];  ?></option>
+                                    value="<?=  $main_asurasi['nama'];  ?>"><?=  $main_asurasi['nama'];  ?>
+                                </option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -355,10 +353,10 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    $(".select1").select2({
+    $(".select1<?= $main['id'] ?>").select2({
         dropdownParent: $('#edit<?= $main['id'] ?>')
     });
-    $(".asuransia").select2({
+    $(".asuransia<?= $main['id'] ?>").select2({
         dropdownParent: $('#edit<?= $main['id'] ?>')
     });
     

@@ -17,7 +17,7 @@
         <h4 style="text-transform: uppercase">Dashboard</h4>
       </div>
       <div class="card-body">
-        <?php if(!$first_biodata) : ?>
+        <?php if(!isset($first_biodata)) : ?>
           <div class="alert alert-warning  p-3">
             <p>Biodata anda belum lengkap.Silahkan lengkapi terlebih dahulu di menu profile isi semua data yang tercamtum di dalamnya.</p>
           </div>
@@ -29,7 +29,7 @@
                 <h4 class="card-title">Paket Terdaftar</h4>
               </div>
               <div class="card-body">
-                <h3><?= $paket_terdaftar; ?> Paket</h3>
+                <h3><?= (isset($paket_terdaftar)) ? $paket_terdaftar : 0; ?> Paket</h3>
               </div>
             </div>
           </div>
@@ -49,17 +49,23 @@
                 <h4 class="card-title">Paket Selesai</h4>
               </div>
               <div class="card-body">
-                <h3><?= $selesai; ?> Paket</h3>
+                <h3><?= (isset($selesai)) ? $selesai : 0; ?> Paket</h3>
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="card">
               <div class="card-header bg-warning   text-white">
-                <h4 class="card-title">Total Belum Terbayar</h4>
+                <h4 class="card-title">Paket Aktif</h4>
               </div>
               <div class="card-body">
-                <h3>Rp. <?= (!empty($hutang)) ? number_format($hutang, 0) : 0; ?></h3>
+                <h3>
+                  <?php if(isset($vaksin) && $vaksin == "Sudah") : ?>
+                    <h4 class="badge badge-pill badge-success">Sudah</h4>
+                    <?php else: ?>
+                      <h4 class="badge badge-pill badge-success">Belum</h4>
+                      <?php endif; ?>
+                </h3>
               </div>
             </div>
           </div>

@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\CabangModel;
 use App\Models\DaftarJamaahModel;
 use App\Models\PaketModel;
+use App\Models\PetugasManModel;
 use App\Models\ProfileModel;
 
 class DashboardController extends BaseController
@@ -80,6 +81,7 @@ class DashboardController extends BaseController
         $profile = new ProfileModel();
         $daftar = new DaftarJamaahModel();
         $s = session()->get('travel_id');
+        $petugas_umrah = new PetugasManModel();
         $data = [
             'title' =>  "Dashboard",
             'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
@@ -94,6 +96,7 @@ class DashboardController extends BaseController
             INNER JOIN profile ON paket.travel_id = profile.id
             WHERE profile.id = '$s' AND jamaah.kloter_id IS NOT NULL AND jamaah.status_approve IS NOT NULL")->getNumRows(),
             'daftar'    =>  $daftar->where("travel_id", session('travel_id'))->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where('travel_id',session()->get('travel_id'))->countAllResults(),
         ];
         return view("jamaah/dashboard_travel", $data);
     }

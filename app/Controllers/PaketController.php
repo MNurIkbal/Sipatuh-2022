@@ -140,6 +140,7 @@ class PaketController extends BaseController
                 'tour_leader'   =>  $this->request->getVar('leader'),
                 'cabang_id' =>  $cabang,
                 'cabang'    =>  $cabang_baru,
+                'status_approve'    =>  'sudah',
                 'rekening_penampung_id' =>  $this->request->getVar('rekening_penampung')
             ]);
     

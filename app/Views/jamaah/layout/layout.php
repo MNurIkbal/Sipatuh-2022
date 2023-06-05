@@ -129,6 +129,16 @@
             <li class="<?= (isset($title) && $title == "Tiket") ? "bg-success" : ""; ?>"><a class="nav-link  text-white sy" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
             <li class="<?= (isset($title) && $title == "Realiasi") ? "bg-success" : ""; ?>"><a class="nav-link  text-white sy" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
             <li class="<?= (isset($title) && $title == "Pembayaran") ? "bg-success" : ""; ?>  "><a class="nav-link  text-white sy" href="<?=  base_url("/pembayaran_user");  ?>"><i class="fas fa-address-card"></i><span>Pembayaran</span></a></li>
+
+            <li class="dropdown ">
+              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Pengaturan" || $title == "Layanan" || $title == "Testimoni" || $title == "Cabang") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-home"></i> <span>Company Profile</span></a>
+              <ul class="dropdown-menu">
+                <li class="<?= (isset($title) && $title == "Pengaturan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/pengaturan_company");  ?>">Pengaturan</a></li>
+                <li class="<?= (isset($title) && $title == "Layanan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/layanan_company");  ?>">Layanan & Artikel</a></li>
+                <li class="<?= (isset($title) && $title == "Testimoni") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/testimoni_company");  ?>">Testimoni</a></li>
+                <li class="<?= (isset($title) && $title == "Cabang") ? "bg-success" : ""; ?>"><a class="nav-link  text-white "  href="<?=  base_url("/cabang");  ?>">Cabang</a></li>
+              </ul>
+
             <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
           </ul>
           <?php elseif(session()->get("level_id") == "admin"): ?>
@@ -155,15 +165,15 @@
             <?php elseif(session()->get("level_id") == "cabang") : ?>
               <ul class="sidebar-menu">
                 <li class="dropdown ">
-                <a href="#" class="nav-link has-dropdown  text-white sy"><i class="fa  fa-book"></i> <span>Paket</span></a>
+                <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Paket" || $title == "History") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-book"></i> <span>Paket</span></a>
                 <ul class="dropdown-menu">
-                  <li><a class="nav-link  text-white " href="<?=  base_url("/paket");  ?>">Aktif</a></li>
-                  <li><a class="nav-link  text-white " href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
+                  <li class="<?= (isset($title) && $title == "Paket") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/paket");  ?>">Aktif</a></li>
+                  <li class="<?= (isset($title) && $title == "History") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/paket_selesai");  ?>">History</a></li>
                 </ul>
               </li>
-              <li><a class="nav-link  text-white sy" href="<?=  base_url("/pendaftaran");  ?>"><i class="fas fa-edit"></i><span>Pendaftaran</span></a></li>
-              <li><a class="nav-link  text-white sy" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
-              <li><a class="nav-link  text-white sy" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
+              <li class="<?= (isset($title) && $title == "Pendaftaran Paket") ? "bg-success" : ""; ?>"><a class="nav-link  text-white sy" href="<?=  base_url("/pendaftaran");  ?>"><i class="fas fa-edit"></i><span>Pendaftaran</span></a></li>
+              <li class="<?= (isset($title) && $title == "Tiket") ? "bg-success" : ""; ?>"><a class="nav-link  text-white sy" href="<?=  base_url("/tiket");  ?>"><i class="fas fa-tag"></i><span>Tiket</span></a></li>
+              <li class="<?= (isset($title) && $title == "Realiasi") ? "bg-success" : ""; ?>"><a class="nav-link  text-white sy" href="<?=  base_url("/realisasi");  ?>"><i class="fas fa-book-open"></i><span>Realisasi</span></a></li>
               <li><a class="nav-link  text-white sy" href="<?=  base_url("/keluar");  ?>"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
               </ul>
             <?php elseif(session()->get("level_id") == "user"): ?>

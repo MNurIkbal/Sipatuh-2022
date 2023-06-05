@@ -16,7 +16,6 @@ class FotoCompanyModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'img',
-        'title',
         'created_at',
         'travel_id '
     ];

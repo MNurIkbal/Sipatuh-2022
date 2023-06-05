@@ -46,7 +46,7 @@ class CompanyController extends BaseController
         $count_cabang = $cabang->where("travel_id",$result['id'])->countAllResults();
         $paket = new PaketModel();
         $db = \Config\Database::connect();
-        $new_paket = $paket->where('travel_id',$result['id'])->where('status','aktif')->where('pemberangkatan',NULL)->orderBy('id','desc')->limit(10)->get()->getResult();
+        $new_paket = $paket->where('travel_id',$result['id'])->where('status','aktif')->where('pemberangkatan',NULL)->where('status_approve','sudah')->orderBy('id','desc')->limit(10)->get()->getResult();
         $video = new CompanyVideoModel();
         $vidio = $video->where('travel_id',$result['id'])->where("status","1")->first();
         $layanan = new LayananCompanyModel();
@@ -199,13 +199,13 @@ class CompanyController extends BaseController
         $perPage = 10;
 
         // Mendapatkan data berita dari model dengan paginasi
-        // $beritas = $paket->where('travel_id',$result['id'])->where('status','aktif')->where('pemberangkatan',NULL)->orderBy('id','desc')->paginate($perPage);
         $hari = date("Y-m-d");
         $beritas = $paket
     ->where('travel_id', $result['id'])
     ->where('status', 'aktif')
     ->where('pemberangkatan', NULL)
     ->where("tgl_pulang >",date("Y-m-d"))
+    ->where('status_approve','sudah')
     ->orderBy('id', 'desc')
     ->paginate($perPage);
 

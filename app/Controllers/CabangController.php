@@ -48,11 +48,12 @@ class CabangController extends BaseController
             'title' =>  "Cabang",
             'cabang'    =>  $cabang->where("id",$id)->first(),
             'bank'  =>  $bank->findAll(),
-            'user'  =>  $user->where("cabang_id",$id)->findAll(),
+            'user'  =>  $user->where("cabang_id",$id)->where('travel_id',session()->get("travel_id"))->findAll(),
             'banner'    =>  $banner->findAll(),
             'id_cabang' =>  $id,
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
         ];
+        
         return view("jamaah/cabang/users",$data);
     }
 
@@ -185,6 +186,7 @@ class CabangController extends BaseController
             'email' =>  $this->request->getVar('username'),
             'no_hp' =>  $this->request->getVar("no_hp"),
             'kelengkapan'   =>  'sudah',
+            'travel_id' =>  session()->get("travel_id"),    
             'cabang_id' =>  $this->request->getVar('id_cabang')
         ]);
 

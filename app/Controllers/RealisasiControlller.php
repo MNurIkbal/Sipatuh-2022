@@ -82,7 +82,7 @@ class RealisasiControlller extends BaseController
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status",1)->findAll(),
-            'title' =>  "Realisasi",
+            'title' =>  "Realiasi",
             'result'    =>  $paket->where([
                 'id'    =>  $id
             ])->first(),
@@ -137,7 +137,7 @@ class RealisasiControlller extends BaseController
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status",1)->findAll(),
-            'title' =>  "Realisasi",
+            'title' =>  "Realiasi",
             'data_hotel'    =>  $data_hotel->findAll(),
             // 'result'    =>  $paket->where([
             //     'id'    =>  $id
@@ -571,7 +571,7 @@ class RealisasiControlller extends BaseController
             'paket' =>  $paket->first(),
             'kasus' =>  $kasus->where("id",$id_kasus)->first(),
             'result'    =>  $laporan_harian->where("kasus_id",$id_kasus)->findAll(),
-            'title' =>  "Laporan Harian",
+            'title' =>  "Realiasi",
             'id_kasus'  =>  $id_kasus,
             'id_paket'  =>  $id_paket,
             'id_kloter' => $id_kloter,
