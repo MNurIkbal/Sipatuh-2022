@@ -32,7 +32,7 @@
     @media screen and (max-width:590px) {
       body {
         margin: 20px !important;
-      }
+      } 
     }
   </style>
   <!-- /END GA -->
