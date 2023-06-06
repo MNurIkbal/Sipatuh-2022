@@ -32,7 +32,7 @@
     @media screen and (max-width:590px) {
       body {
         margin: 20px !important;
-      }
+      } 
     }
   </style>
   <!-- /END GA -->
@@ -51,7 +51,7 @@
           <div class="col-md-6">
             <div class="   card-primary">
               <div class="card-header">
-                <h4>Login</h4>
+                <h4>Reset Password</h4>
               </div>
               <?php if (session()->get('error')) : ?>
                 <div class="alert m-3 alert-danger"><?= session()->get("error") ?></div>
@@ -60,27 +60,9 @@
                 <div class="alert m-3 alert-success"><?= session()->get("success") ?></div>
               <?php endif; ?>
               <div class="card-body">
-                <form method="POST" action="<?= base_url("login");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Required Username
-                    </div>
-                  </div>
-
-                  <!-- <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Password</label>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                      Required Password
-                    </div>
-                  </div> -->
-                  
-                  <div class="form-group">
-                    <label for="">Password</label>
+                <form method="POST" action="<?= base_url("forgot");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="">Password Baru</label>
                     <div class="input-group mb-3">
                 <input name="password" type="password" value="" class="input form-control" id="password" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
                 <div class="input-group-append" style="cursor: pointer;">
@@ -91,14 +73,25 @@
                 </div>
               </div>
                   </div>
+                  <div class="form-group">
+                    <label for="">Repeat Password</label>
+                    <div class="input-group mb-3">
+                <input name="password" type="password" value="" class="input form-control" id="password_dua" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
+                <div class="input-group-append" style="cursor: pointer;">
+                  <span class="input-group-text" onclick="password_show_hide_dua();">
+                    <i class="fas fa-eye" id="show_eye_dua"></i>
+                    <i class="fas fa-eye-slash d-none" id="hide_eye_dua"></i>
+                  </span>
+                </div>
+              </div>
+                  </div>
+
 
 
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
+                      Reset Password
                     </button>
-                    <a href="<?= base_url("regis"); ?>" class="btn btn-success mt-2  ">Register</a>
-                    <a href="<?= base_url("lupa"); ?>" class="btn btn-danger mt-2  ">Lupa Password</a>
                   </div>
                 </form>
                 <div class="text-center mt-4 mb-3">
@@ -109,58 +102,10 @@
             </div>
           </div>
         </div>
-        <!-- <div class="row">
-          <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-            <div class="login-brand">
-              <img src="<?= base_url("assets/img/stisla-fill.svg");  ?>" alt="logo" width="100" class="shadow-light rounded-circle">
-            </div>
-
-            <div class="card card-primary">
-              <div class="card-header"><h4>Login</h4></div>
-              <?php if (session()->get('error')) : ?>
-                <div class="alert m-3 alert-danger"><?= session()->get("error") ?></div>
-                <?php endif; ?>
-              <div class="card-body">
-                <form method="POST" action="<?= base_url("login");  ?>" 
-                class="needs-validation" novalidate="" enctype="multipart/form-data">
-                  <div class="form-group">
-                    <label for="email">Username</label>
-                    <input id="email" type="text" class="form-control" name="username" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                      Required Username
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="d-block">
-                    	<label for="password" class="control-label">Password</label>
-                    </div>
-                    <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                    <div class="invalid-feedback">
-                    Required Password
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Login
-                    </button>
-                    <a href="<?= base_url("regis"); ?>" class="btn btn-success mt-2  " >Register</a>
-                  </div>
-                </form>
-                <div class="text-center mt-4 mb-3">
-                  <div class="text-job text-muted">Copyright <?= date("Y");  ?></div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-        </div> -->
+        
       </div>
     </section>
   </div>
-  <!-- General JS Scripts -->
   <script src="<?= base_url("assets/modules/jquery.min.js");  ?>"></script>
   <script src="<?= base_url("assets/modules/popper.js");  ?>"></script>
   <script src="<?= base_url("assets/modules/tooltip.js");  ?>"></script>
@@ -168,12 +113,6 @@
   <script src="<?= base_url("assets/modules/nicescroll/jquery.nicescroll.min.js");  ?>"></script>
   <script src="<?= base_url("assets/modules/moment.min.js");  ?>"></script>
   <script src="<?= base_url("assets/js/stisla.js");  ?>"></script>
-
-  <!-- JS Libraies -->
-
-  <!-- Page Specific JS File -->
-
-  <!-- Template JS File -->
   <script src="<?= base_url("assets/js/scripts.js");  ?>"></script>
   <script src="<?= base_url("assets/js/custom.js");  ?>"></script>
   <script>
@@ -181,6 +120,21 @@
   var x = document.getElementById("password");
   var show_eye = document.getElementById("show_eye");
   var hide_eye = document.getElementById("hide_eye");
+  hide_eye.classList.remove("d-none");
+  if (x.type === "password") {
+    x.type = "text";
+    show_eye.style.display = "none";
+    hide_eye.style.display = "block";
+  } else {
+    x.type = "password";
+    show_eye.style.display = "block";
+    hide_eye.style.display = "none";
+  }
+}
+    function password_show_hide_dua() {
+  var x = document.getElementById("password_dua");
+  var show_eye = document.getElementById("show_eye_dua");
+  var hide_eye = document.getElementById("hide_eye_dua");
   hide_eye.classList.remove("d-none");
   if (x.type === "password") {
     x.type = "text";

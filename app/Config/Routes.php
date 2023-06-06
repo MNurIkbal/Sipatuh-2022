@@ -52,6 +52,7 @@ $routes->get('/regis', 'Home::regis');
 $routes->post('/daftar', 'Home::daftar');
 $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');
+$routes->get('ganti_password_baru/(:any)', 'LoginController::ganti_password_baru/$1');
 $routes->get('lupa', 'LoginController::lupa');
 $routes->post('forgot', 'LoginController::forgot');
 $routes->get('company/(:any)',"CompanyController::index/$1");

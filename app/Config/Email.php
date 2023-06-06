@@ -33,7 +33,7 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $protocol = 'mail';
+    public $protocol = 'smtp';
 
     /**
      * The server path to Sendmail.
@@ -47,7 +47,7 @@ class Email extends BaseConfig
      *
      * @var string
      */
-    public $SMTPHost = 'smtp.google.com';
+    public $SMTPHost = 'smtp.googlemail.com';
 
     /**
      * SMTP Username

@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use App\Models\CabangModel;
 use App\Models\JamaahModel;
 use App\Models\Users;
+use CodeIgniter\Email\Email;
+
 use CodeIgniter\HTTP\Request;
 use Myth\Auth\Entities\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -25,48 +27,43 @@ class LoginController extends BaseController
         return view('lupa_password');
     }
 
+    public function ganti_password_baru()
+    {
+        return view('forgot_password');
+    }
+
     public function forgot()
     {
-        $email = $this->request->getVar('email');
-        $akun = new Users();
-        $result = $akun->where("email", $email)->first();
-
-        if (!$result) {
-            return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
+        try {
+            $email = $this->request->getVar('email');
+            $akun = new Users();
+            $result = $akun->where("email", $email)->first();
+    
+            if (!$result) {
+                return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
+            }
+    
+            $subjek = "RESET PASSWORD AKUN MANASIKITA";
+            $url = base_url('ganti_password_baru/' . $email);
+            $pesan = "Reset password klik link ini <a href='$url'>FORGOT EMAIL</a> Terima kasih.";
+    
+            $result = \Config\Services::email();
+            $result->setTo($email);
+            $result->setFrom("manasikita.com", "Manasikita");
+            $result->setSubject($subjek);
+            $result->setMessage($pesan);    
+            
+            
+            if ($result->send()) {
+                return redirect()->back()->with('success','Email Berhasil Di kirim');
+            } else {
+                return redirect()->back()->with('error','Email Gagal Di kirim');
+            }
+            //code...
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error','Email Gagal Di kirim');
+            //throw $th;
         }
-
-        $subjek = "RESET PASSWORD AKUN MANASIKITA";
-        $url = base_url('ganti_password_baru/' . $email);
-        $pesan = "Reset password klik link ini <a href='$url'></a> Terima kasih.";
-
-
-
-        $result = \Config\Services::email();
-        // Ganti pengaturan SMTP sesuai kebutuhan
-        $result->SMTPHost = 'smtp.google.com';
-        $result->SMTPUser = 'ikbalmnur17@gmail.com';
-        $result->SMTPPass = 'qlqffgveybodovoh';
-        $result->SMTPPort = 465;
-        $result->SMTPCrypto = 'ssl';
-
-        // Ganti pengaturan email lainnya
-        $result->mailType = 'html';
-        $result->charset = 'UTF-8';
-        $result->newline = "\r\n";
-        $result->setTo($email);
-        $result->setFrom("manasikita.com", "Manasikita");
-        $result->setSubject($subjek);
-        $result->setMessage($pesan);
-        if ($result->send()) {
-            echo "ok";
-        } else {
-            echo 'belum';
-        }
-        // try {
-        //     //code...
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
     }
     public function index()
     {
