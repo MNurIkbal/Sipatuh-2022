@@ -27,7 +27,8 @@ class Users extends Model
         'kelengkapan',
         'travel_id',
         'jamaah_id',
-        'cabang_id'
+        'cabang_id',
+        'token',
     ];
 
     // Dates

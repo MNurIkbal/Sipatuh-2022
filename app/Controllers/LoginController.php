@@ -25,7 +25,7 @@ class LoginController extends BaseController
 
     public function pass()
     {
-        // try {
+        try {
             $password = $this->request->getVar('password');
             $password_dua = $this->request->getVar('password_dua');
             $email = $this->request->getVar('email');
@@ -43,11 +43,11 @@ class LoginController extends BaseController
             $db = \Config\Database::connect();
             $db->query("UPDATE users SET password = '$hash' WHERE email = '$email'");
 
-            return redirect()->back()->with('success', 'Password Berhasil Diupdate');
-        // } catch (\Throwable $th) {
-        //     return redirect()->back()->with('error', 'Password Gagal Diupdate');
-        //     //throw $th;
-        // }
+            return redirect()->to('/masuk')->with('success', 'Password Berhasil Diupdate');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Password Gagal Diupdate');
+            //throw $th;
+        }
     }
 
     public function lupa()
@@ -55,8 +55,14 @@ class LoginController extends BaseController
         return view('lupa_password');
     }
 
-    public function ganti_password_baru($email)
-    {
+    public function ganti_password_baru($email,$token)
+    {   
+        $user = new Users();
+        $result = $user->where('email',$email)->where('token',$token)->first();
+        if(!$result) {
+            return redirect()->to('/');
+            die;
+        }
         $data = [
             'email' =>  $email
         ];
@@ -75,7 +81,10 @@ class LoginController extends BaseController
             }
 
             $subjek = "RESET PASSWORD AKUN MANASIKITA";
-            $url = base_url('ganti_password_baru/' . $email);
+            $db = \Config\Database::connect();
+            $token = bin2hex(random_bytes(32));
+            $db->query("UPDATE users SET token = '$token' WHERE email = '$email'");
+            $url = base_url('ganti_password_baru/' . $email . '/' . $token);
             $pesan = "Reset password klik link ini <a href='$url'>FORGOT EMAIL</a> Terima kasih.";
 
             $result = \Config\Services::email();

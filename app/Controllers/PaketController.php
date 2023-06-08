@@ -123,11 +123,18 @@ class PaketController extends BaseController
                 $cabang = null;
                 $cabang_baru = null;
             }
+
+            $status = $this->request->getVar('status');
+            if(isset($status)) {
+                $aktif = 'aktif';
+            } else {
+                $aktif = 'belum aktif';
+            }
             
             $paket->insert([
                 'nama'  =>  $this->request->getVar("nama_paket"),
                 'biaya'  =>  $biaya,
-                'status'  =>  $this->request->getVar("status"),
+                'status'  =>  $aktif,
                 'tahun'  =>  $this->request->getVar("tahun"),
                 'tgl_berangkat'  =>  $this->request->getVar("waktu_berangkat"),
                 'tgl_pulang'  =>  $this->request->getVar("waktu_pulang"),
@@ -185,10 +192,16 @@ class PaketController extends BaseController
             session()->setFlashdata('error','Waktu pulang tidak boleh kurang atau sama dengan waktu berangkat');
             return redirect()->back();
         }
+        $staus = $this->request->getVar('status');
+        if(isset($staus)) {
+            $aktif = 'aktif';
+        } else {
+            $aktif = 'belum aktif';
+        }
         $paket->update($id,[
             'nama'  =>  $this->request->getVar("nama_paket"),
             'biaya'  =>  $biaya,
-            'status'  =>  $this->request->getVar("status"),
+            'status'  =>  $aktif,
             'tahun'  =>  $this->request->getVar("tahun"),
             'tgl_berangkat'  =>  $this->request->getVar("waktu_berangkat"),
             'tgl_pulang'  =>  $this->request->getVar("waktu_pulang"),

@@ -98,7 +98,7 @@
                       Login
                     </button>
                     <a href="<?= base_url("regis"); ?>" class="btn btn-success mt-2  ">Register</a>
-                    <!-- <a href="<?= base_url("lupa"); ?>" class="btn btn-danger mt-2  ">Lupa Password</a> -->
+                    <a href="<?= base_url("lupa"); ?>" class="btn btn-danger mt-2  ">Lupa Password</a>
                   </div>
                 </form>
                 <div class="text-center mt-4 mb-3">
