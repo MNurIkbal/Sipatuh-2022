@@ -28,12 +28,12 @@ class HistoryController extends BaseController
 {
     public function index()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
         $paket = new PaketModel();
-        if(session()->get("level_id") == "jamaah") {
+        if (session()->get("level_id") == "jamaah") {
 
             // $datapaket = $paket->where([
             //     'travel_id' =>  session()->get("travel_id"),
@@ -43,16 +43,16 @@ class HistoryController extends BaseController
             //     'tiket' =>  'sudah'
             // ])->findAll();
             $datapaket = $paket->join('kloter', 'paket.id = kloter.paket_id')
-    ->where([
-        'paket.travel_id' => session()->get("travel_id"),
-        'kloter.keberangkatan' => 'sudah',
-        'kloter.status_realisasi'   =>  'sudah',
-        'kloter.done'  =>'sudah',
-        'paket.cabang' => NULL,
-        'paket.kelengkapan' => 'sudah',
-        'paket.tiket' => 'sudah',
-    ])->findAll();
-        } elseif(session()->get("level_id") == "cabang") {
+                ->where([
+                    'paket.travel_id' => session()->get("travel_id"),
+                    'kloter.keberangkatan' => 'sudah',
+                    'kloter.status_realisasi'   =>  'sudah',
+                    'kloter.done'  => 'sudah',
+                    'paket.cabang' => NULL,
+                    'paket.kelengkapan' => 'sudah',
+                    'paket.tiket' => 'sudah',
+                ])->findAll();
+        } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
@@ -66,12 +66,12 @@ class HistoryController extends BaseController
             'title' =>  "History",
             'result'    =>  $datapaket
         ];
-        return view("jamaah/history/index",$data);
+        return view("jamaah/history/index", $data);
     }
 
-    public function detail_selesai_jamaah($id_kloter,$id_paket,$judul)
+    public function detail_selesai_jamaah($id_kloter, $id_paket, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -85,7 +85,7 @@ class HistoryController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
-            $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
+        $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
             AND status_bayar = 'lunas'
@@ -104,15 +104,15 @@ class HistoryController extends BaseController
             AND kloter_id = '$id_kloter'
             AND selesai_pembayaran = 'sudah'
             ")->getResult();
-            $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' AND kloter_id = '$id_kloter'")->getResult();
+        $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
             'title' =>  "Pendaftaran",
-            'kloter'   =>   $kloter->where("id",$id_kloter)->first(),
+            'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
                 'paket_id'  =>  $id_paket,
                 'kloter_id' =>  $id_kloter,
             ])->findAll(),
-            'data_kloter' => $data_kloter->where("paket_id",$id_paket)->where("status","Aktif")->findAll(),
+            'data_kloter' => $data_kloter->where("paket_id", $id_paket)->where("status", "Aktif")->findAll(),
             'count' =>  count($counts),
             'paket' =>  $db->query("SELECT * FROM kloter INNER JOIN paket ON kloter.paket_id = paket.id WHERE  kloter.id = '$id_kloter'")->getRowArray(),
             // 'paket' =>  $paket->where("id",$id_paket)->first(),
@@ -126,19 +126,19 @@ class HistoryController extends BaseController
                 'status'    =>  'aktif',
                 'pemberangkatan'    => null
             ])->findAll(),
-            'judul'=>   $judul,
-            'bank'  =>  $bank->where("status","aktif")->where("travel_id",session()->get("travel_id"))->findAll(),
+            'judul' =>   $judul,
+            'bank'  =>  $bank->where("status", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
             'finish'    =>  count($finish),
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
             'provider'  =>  $provider->findAll(),
             'asuransi'  =>  $asuransi->findAll()
         ];
-        
 
-        return view("jamaah/history/tambah",$data);
+
+        return view("jamaah/history/tambah", $data);
     }
 
-    public function detail_jamaah_selesai($id_jamaah,$id_paket,$id_kloter,$judul)
+    public function detail_jamaah_selesai($id_jamaah, $id_paket, $id_kloter, $judul)
     {
 
         $paket = new PaketModel();
@@ -149,10 +149,10 @@ class HistoryController extends BaseController
         $data_profile = $profile->where("id", $pakets['travel_id'])->first();
         $jamaah = new JamaahModel();
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")
-        ->where("id", $id_jamaah)->first();
+            ->where("id", $id_jamaah)->first();
 
         $rekening_penampung = new BankModel();
-        $banks = $rekening_penampung->where("id",$pakets['rekening_penampung_id'])->first();
+        $banks = $rekening_penampung->where("id", $pakets['rekening_penampung_id'])->first();
         $data = [
             'banks' => $banks,
             'id_paket'  =>  $id_paket,
@@ -166,16 +166,16 @@ class HistoryController extends BaseController
             'perusahaan'    =>  $data_profile
         ];
 
-        return view("jamaah/realisasi/detail_diri",$data);
+        return view("jamaah/realisasi/detail_diri", $data);
     }
 
-    public function pembayaran_selesai($id,$id_paket,$id_kloter,$judul)
+    public function pembayaran_selesai($id, $id_paket, $id_kloter, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
-        
+
         $paket = new PaketModel();
         $petugas_man  = new PetugasManModel();
         $rekening = new BankModel();
@@ -184,37 +184,37 @@ class HistoryController extends BaseController
         $kloter = new KloterModel();
         $bank = new BankModel();
         $bukti = new BuktiModel();
-        $result_paket = $paket->where("id",$id_paket)->first();
+        $result_paket = $paket->where("id", $id_paket)->first();
         $data = [
-            'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
+            'result'    =>  $paket->where("travel_id", session()->get("travel_id"))->where("pemberangkatan", "sudah")->where("status", "aktif")->findAll(),
             'title' =>  "Pembayaran",
             'id_jamaah'    =>  $id,
             'judul' =>  $judul,
-            'kloter'  =>  $kloter->where('id',$id_kloter)->first(),
+            'kloter'  =>  $kloter->where('id', $id_kloter)->first(),
             'id_kloter' =>  $id_kloter,
-            'main'    =>  $jamaah->where("id",$id)->first(),
+            'main'    =>  $jamaah->where("id", $id)->first(),
             'id_paket'  =>  $id_paket,
-            'paket' =>  $paket->where("id",$id_paket)->first(),
+            'paket' =>  $paket->where("id", $id_paket)->first(),
             // 'bank'  =>  $rekening->findAll(),
-            'bank'  =>  $bank->where("id",$result_paket['rekening_penampung_id'])->first(),
+            'bank'  =>  $bank->where("id", $result_paket['rekening_penampung_id'])->first(),
             'petugas'   =>  $petugas_man->findAll(),
-            'bukti' =>  $bukti->where("jamaah_id",$id)->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->findAll(),
-            
-            'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll()
+            'bukti' =>  $bukti->where("jamaah_id", $id)->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->findAll(),
+
+            'rekening'  =>  $rekening->where("travel_id", session()->get("travel_id"))->findAll()
         ];
-        
-        return view("jamaah/realisasi/pembayaran",$data);
+
+        return view("jamaah/realisasi/pembayaran", $data);
     }
 
-    public function detail_history_kloter($id,$judul)
+    public function detail_history_kloter($id, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
         $paket = new PaketModel();
         $kloter = new KloterModel();
-        if(session()->get("level_id") == "jamaah") {
+        if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang'    =>  NULL,
@@ -222,7 +222,7 @@ class HistoryController extends BaseController
                 'status'    =>  "aktif",
                 'tiket' =>  'sudah'
             ])->findAll();
-        } elseif(session()->get("level_id") == "cabang") {
+        } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
@@ -235,16 +235,16 @@ class HistoryController extends BaseController
         $data = [
             'title' =>  "History",
             'result'    =>  $datapaket,
-            'paket'    =>  $paket->where('id',$id)->first(),
+            'paket'    =>  $paket->where('id', $id)->first(),
             'id_paket'  =>  $id,
             'judul' =>  $judul,
-            'kloter'    =>  $kloter->where("paket_id",$id)->where("status","Aktif")->where("keberangkatan",'sudah')->where("status_realisasi","sudah")->where("done","sudah")->findAll(),
+            'kloter'    =>  $kloter->where("paket_id", $id)->where("status", "Aktif")->where("keberangkatan", 'sudah')->where("status_realisasi", "sudah")->where("done", "sudah")->findAll(),
         ];
-        return view("jamaah/history/kloter",$data);
+        return view("jamaah/history/kloter", $data);
     }
-    public function detail_perencanaan_kloter($id,$id_paket,$judul)
+    public function detail_perencanaan_kloter($id, $id_paket, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -259,7 +259,7 @@ class HistoryController extends BaseController
         $bandara = new BandaraModel();
         $muasah = new MuassahModel();
         $data_hotel = new DataHotelModel();
-        if(session()->get("level_id") == "jamaah") {
+        if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang'    =>  NULL,
@@ -267,7 +267,7 @@ class HistoryController extends BaseController
                 'status'    =>  "aktif",
                 'tiket' =>  'sudah'
             ])->findAll();
-        } elseif(session()->get("level_id") == "cabang") {
+        } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
@@ -290,7 +290,7 @@ class HistoryController extends BaseController
                 'paket_id'  =>  $id_paket,
                 // 'kategori'  =>  'perencanaan'
             ])->findAll(),
-            'hotel' =>$hotel->where([
+            'hotel' => $hotel->where([
                 'paket_id'  =>  $id_paket,
                 // 'kategori'  =>  'perencanaan'
             ])->findAll(),
@@ -298,17 +298,17 @@ class HistoryController extends BaseController
                 'paket_id'  =>  $id_paket,
                 // 'kategori'  =>  'perencanaan'
             ])->findAll(),
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
-            'result'    =>  $paket->where('id',$id_paket)->first(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'result'    =>  $paket->where('id', $id_paket)->first(),
             'id_paket'  =>  $id_paket,
             'judul' =>  $judul,
-            'kloter'    =>  $kloter->where("paket_id",$id_paket)->where("done",'sudah')->findAll(),
+            'kloter'    =>  $kloter->where("paket_id", $id_paket)->where("done", 'sudah')->findAll(),
         ];
-        return view("jamaah/history/detail_perencanaan",$data);
+        return view("jamaah/history/detail_perencanaan", $data);
     }
-    public function detail_perencanaan_realisasi($id,$id_paket,$judul)
+    public function detail_perencanaan_realisasi($id, $id_paket, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -326,7 +326,7 @@ class HistoryController extends BaseController
         $travel_id = session()->get("travel_id");
         $data_hotel = new DataHotelModel();
         $kloter = new KloterModel();
-        if(session()->get("level_id") == "jamaah") {
+        if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang'    =>  NULL,
@@ -334,7 +334,7 @@ class HistoryController extends BaseController
                 'status'    =>  "aktif",
                 'tiket' =>  'sudah'
             ])->findAll();
-        } elseif(session()->get("level_id") == "cabang") {
+        } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
@@ -373,7 +373,7 @@ class HistoryController extends BaseController
         // ];
         $data = [
             'bandara'   =>  $bandara->findAll(),
-            'maskapai'  =>  $maskapai->where("status",1)->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
             'title' =>  "History",
             'data_hotel'    =>  $data_hotel->findAll(),
             // 'result'    =>  $paket->where([
@@ -401,13 +401,13 @@ class HistoryController extends BaseController
                 // 'kategori'  =>  'realisasi',
                 // 'kloter_id' =>  $id,
             ])->findAll(),
-            'petugas_umrah' =>  $petugas_umrah->where("travel_id",session()->get("travel_id"))->where("aktif","aktif")->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("travel_id", session()->get("travel_id"))->where("aktif", "aktif")->findAll(),
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id_paket,
                 // 'kategori'  =>  'realisasi',
                 // 'kloter_id' =>  $id,
             ])->findAll(),
-            'hotel' =>$hotel->where([
+            'hotel' => $hotel->where([
                 'paket_id'  =>  $id_paket,
                 // 'kategori'  =>  'realisasi',
                 // 'kloter_id' =>  $id,
@@ -417,30 +417,30 @@ class HistoryController extends BaseController
                 // 'kategori'  =>  'realisasi',
                 // 'kloter_id' =>  $id,
             ])->findAll(),
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
-            'kasus' =>  $kasus->where("paket_id",$id_paket)->where("kloter_id",$id)->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'kasus' =>  $kasus->where("paket_id", $id_paket)->where("kloter_id", $id)->findAll(),
             'id_kloter' =>  $id,
             'judul' =>  $judul,
-            'kloter'    =>  $kloter->where("id",$id)->first()
+            'kloter'    =>  $kloter->where("id", $id)->first()
         ];
-        return view("jamaah/history/detail_realisasi",$data);
+        return view("jamaah/history/detail_realisasi", $data);
     }
 
-    public function laporan_harian_realisasi($id_kasus,$id_paket,$id_kloter,$judul)
+    public function laporan_harian_realisasi($id_kasus, $id_paket, $id_kloter, $judul)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
         $paket = new PaketModel();
         $kasus = new KasusModel();
         $laporan_harian = new LaporanHarianModel();
-        
+
 
         $data = [
             'paket' =>  $paket->first(),
-            'kasus' =>  $kasus->where("id",$id_kasus)->first(),
-            'result'    =>  $laporan_harian->where("kasus_id",$id_kasus)->findAll(),
+            'kasus' =>  $kasus->where("id", $id_kasus)->first(),
+            'result'    =>  $laporan_harian->where("kasus_id", $id_kasus)->findAll(),
             'title' =>  "Laporan Harian",
             'id_kasus'  =>  $id_kasus,
             'id_paket'  =>  $id_paket,
@@ -448,12 +448,12 @@ class HistoryController extends BaseController
             'id_kloter' => $id_kloter,
         ];
 
-        return view("jamaah/history/laporan_harian_kasus",$data);
+        return view("jamaah/history/laporan_harian_kasus", $data);
     }
 
     public function detail_history($id)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -474,25 +474,25 @@ class HistoryController extends BaseController
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id
             ])->findAll(),
-            'hotel' =>$hotel->where([
+            'hotel' => $hotel->where([
                 'paket_id'  =>  $id,
             ])->findAll(),
             'kepulangan'    =>  $kepulangan->where([
                 'paket_id'  =>  $id
             ])->findAll(),
-            'kasus' =>  $kasus->where("paket_id",$id)->findAll(),
+            'kasus' =>  $kasus->where("paket_id", $id)->findAll(),
         ];
-        return view("jamaah/history/detail",$data);
+        return view("jamaah/history/detail", $data);
     }
 
-    public function laporan_harian_history($id_kasus,$id_paket)
+    public function laporan_harian_history($id_kasus, $id_paket)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
 
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -502,19 +502,19 @@ class HistoryController extends BaseController
 
         $data = [
             'paket' =>  $paket->first(),
-            'kasus' =>  $kasus->where("id",$id_kasus)->first(),
+            'kasus' =>  $kasus->where("id", $id_kasus)->first(),
             'result'    =>  $laporan_harian->findAll(),
             'title' =>  "Laporan Harian History",
             'id_kasus'  =>  $id_kasus,
             'id_paket'  =>  $id_paket
         ];
 
-        return view("jamaah/history/laporan_harian",$data);
+        return view("jamaah/history/laporan_harian", $data);
     }
 
     public function detail_jamaah_history($id)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -523,7 +523,7 @@ class HistoryController extends BaseController
         $bank = new BankModel();
         $db      = \Config\Database::connect();
         $muasah = new MuassahModel();
-            $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
+        $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
             AND status_bayar = 'lunas'
@@ -537,7 +537,7 @@ class HistoryController extends BaseController
             AND tgl_akhir_visa IS NOT NULL
             AND muassasah IS NOT NULL
             ")->getResult();
-            $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id'")->getResult();
+        $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id'")->getResult();
         $data = [
             'title' =>  "History Jamaah",
             'result'    => $jamaah->where([
@@ -554,16 +554,16 @@ class HistoryController extends BaseController
                 'id'    =>  $id
             ])->findAll(),
             'id'    =>  $id,
-            'bank'  =>  $bank->where("status","aktif")->where("travel_id",session()->get("travel_id"))->findAll(),
+            'bank'  =>  $bank->where("status", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
             'finish'    =>  count($finish),
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
         ];
-        return view("jamaah/history/jamaah",$data);
+        return view("jamaah/history/jamaah", $data);
     }
 
     public function detail_perencanaan_history($id)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -577,7 +577,7 @@ class HistoryController extends BaseController
         $bandara = new BandaraModel();
         $muasah = new MuassahModel();
         $data = [
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
             'title' =>  "History Perencanaa",
             'result'    =>  $paket->where([
                 'id'    =>  $id
@@ -587,12 +587,12 @@ class HistoryController extends BaseController
                 'paket_id'    =>  $id,
                 'kategori'  =>  'perencanaan'
             ])->findAll(),
-            'maskapai'  =>  $maskapai->where("status",1)->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
             ])->findAll(),
-            'hotel' =>$hotel->where([
+            'hotel' => $hotel->where([
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
             ])->findAll(),
@@ -600,8 +600,8 @@ class HistoryController extends BaseController
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
             ])->findAll(),
-            'petugas_umrah' =>  $petugas_umrah->where("aktif","aktif")->where("travel_id",session()->get("travel_id"))->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
         ];
-        return view("jamaah/history/perencanaan",$data);
+        return view("jamaah/history/perencanaan", $data);
     }
 }
