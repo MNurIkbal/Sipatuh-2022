@@ -30,10 +30,11 @@ class PembayaranAdminController extends BaseController
         $data_paket_travel = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang',null)->orderBy('id','desc')->findAll(); 
         $data_paket_cabang = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang','cabang')->orderby('id','desc')->findAll();
         $data_paket = array_merge($data_paket_travel,$data_paket_cabang);
+        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('status_approve','sudah')->where('status_paket_cabang','sudah')->orderby('id','desc')->findAll();
         $data = [
             'bukti' =>  $bukti,
             'title' =>  "Pembayaran",
-            'data_paket'    =>  $data_paket,
+            'data_paket'    =>  $paket_result,
             'bank'  =>  $bank->findAll(),
             'banner'    =>  $banner->findAll(),
             // 'jamaah'    =>  $pembayaran->where("selesai_pembayaran",NULL)->orWhere("status_bayar",'cicil')->orWhere("status_bayar",'lunas')->findAll(),
@@ -58,9 +59,9 @@ class PembayaranAdminController extends BaseController
         $travel = session()->get("travel_id");
         // dd($travel);/
         $paket = new PaketModel();
-        $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->where('id',$id)->first();
+        $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->where('id',$id)->orderby('id','desc')->first();
         $kloter = new KloterModel();
-        $result = $kloter->where("paket_id",$id)->findAll();
+        $result = $kloter->where("paket_id",$id)->orderby('id','desc')->findAll();
         $data = [
             'data_kloter'    =>  $result,
             'bukti' =>  $bukti,
@@ -104,7 +105,7 @@ class PembayaranAdminController extends BaseController
             'bank'  =>  $bank->findAll(),
             'banner'    =>  $banner->findAll(),
             // 'jamaah'    =>  $pembayaran->where("selesai_pembayaran",NULL)->orWhere("status_bayar",'cicil')->orWhere("status_bayar",'lunas')->findAll(),
-            'jamaah'    =>  $pembayaran->result_dua(session()->get("travel_id"),$id_paket,$id_kloter),
+            'jamaah'    =>  $pembayaran->res    ult_dua(session()->get("travel_id"),$id_paket,$id_kloter),
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
         ];
 

@@ -206,6 +206,7 @@ class CompanyController extends BaseController
     ->where('status', 'aktif')
     ->where('pemberangkatan', NULL)
     ->where("tgl_pulang >",date("Y-m-d"))
+    ->where('status_paket_cabang','sudah')
     ->where('status_approve','sudah')
     ->orderBy('id', 'desc')
     ->paginate($perPage);

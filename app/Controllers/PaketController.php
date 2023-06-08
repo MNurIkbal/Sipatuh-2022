@@ -16,6 +16,7 @@ use App\Models\KepulanganModel;
 use App\Models\KloterModel;
 use App\Models\Maskapai;
 use App\Models\MuassahModel;
+use App\Models\PaketDashboardTravelModel;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\PetugasModel;
@@ -117,9 +118,11 @@ class PaketController extends BaseController
                 $firstcabang = $newcabang->where("id",session()->get("cabang_id"))->first();
                 $travel_ids = $firstcabang['travel_id'];
                 $approve = null;
+                $status_paket = null;
             } else {
                 $travel_ids = session()->get("travel_id");
                 $approve = 'sudah';
+                $status_paket = 'sudah';
                 $cabang = null;
                 $cabang_baru = null;
             }
@@ -148,10 +151,12 @@ class PaketController extends BaseController
                 'poster'    =>  $foto,
                 'tour_leader'   =>  $this->request->getVar('leader'),
                 'cabang_id' =>  $cabang,
+                'status_paket_cabang'   =>  $status_paket,
                 'cabang'    =>  $cabang_baru,
                 'status_approve'    =>  $approve,
                 'rekening_penampung_id' =>  $this->request->getVar('rekening_penampung')
             ]);
+
     
             return redirect()->to("/paket")->with("success","Data Berhasil Ditambahkan");
         } catch (\Throwable $th) {

@@ -15,6 +15,7 @@ use App\Models\DataProviderModel;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
 use App\Models\MuassahModel;
+use App\Models\PaketDashboardTravelModel;
 use App\Models\PaketModel;
 use App\Models\ProfileModel;
 use App\Models\Users;
@@ -102,7 +103,8 @@ class PendaftaranController extends BaseController
             'all_paket' =>  $paket->where([
                 'travel_id'   =>  session()->get("travel_id"),
                 'status'    =>  'aktif',
-                'pemberangkatan'    => null
+                'pemberangkatan'    => null,
+                'status_approve'    =>  'sudah'
             ])->findAll(),
             'data_kloter' => $data_kloter->where("paket_id", $id_paket)->where("status", "Aktif")->findAll(),
         ];
@@ -632,6 +634,25 @@ class PendaftaranController extends BaseController
                 'score' =>  1,
                 'created_at'    =>  date("Y-m-d")
             ]);
+        }
+
+        $paket = new PaketModel();
+        $id_paket = $this->request->getVar('id_paket');
+        $pake_travel = new PaketDashboardTravelModel();
+        $cechK_lima= $pake_travel->where("travel_id",session()->get('travel_id'))->where('paket_id',$id_paket)->first();
+        $paket_akhir = $paket->where('id',$this->request->getVar('id_paket'))->orderby('id','desc')->first();
+        $konek = \Config\Database::connect();
+        if($cechK_lima) { 
+            $akhir_travel = session()->get('travel_id');
+            $totlas = $cechK_lima['total'] + 1;
+            $konek->query("UPDATE paket_dashboard_travel SET total = '$totlas' WHERE travel_id = '$akhir_travel' AND paket_id = '$id_paket'");
+        } else {
+            $pake_travel->insert([
+                'travel_id' =>  session()->get('travel_id'),
+                'total' =>  '1',
+                'created_at'    =>  date("Y-m-d"),
+                'paket_id'  =>  $paket_akhir['id']
+            ]); 
         }
 
         return redirect()->to("tambah_pendaftaran/"  . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Di tambahkan");

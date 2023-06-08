@@ -104,7 +104,7 @@
               </ul>
             </li>
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Petugas" || $title == "Rekening Penampung") ? "bg-success" : ""; ?>  text-white sy"><i class="fa  fa-newspaper"></i> <span>Master Data</span></a>
+              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Petugas" || $title == "Rekening Penampung") ? "bg-success" : ""; ?>  text-white sy"><i class="fas  fa-newspaper"></i> <span>Master Data</span></a>
               <ul class="dropdown-menu">
                 <li class="<?= (isset($title) && $title == "Petugas") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/petugas");  ?>">Petugas</a></li>
                 <li class="<?= (isset($title) && $title == "Rekening Penampung") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/rekening_penampung");  ?>">Rekening Penampung</a></li>
