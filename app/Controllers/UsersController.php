@@ -187,6 +187,7 @@ class UsersController extends BaseController
 
         $users = new Users();
         $check = $users->where("travel_id",$id)->first();
+        
         $petugas = new PetugasManModel();
         $cabang = new CabangModel();
         $check_enam = $cabang->where("travel_id",$id)->first();
@@ -198,7 +199,7 @@ class UsersController extends BaseController
         $vidio_company = new CompanyVideoModel();
         $check_video = $vidio_company->where("travel_id",$id)->countAllResults();
         $foto_company = new FotoCompanyModel();
-        $check_foto = $foto_company->where('travel_id',$id)->countAllResults(); 
+        $check_foto = $foto_company->where('travel_id_company',$id)->countAllResults(); 
         $kontak_company = new KontakUserCompanyModel();
         $check_contact = $kontak_company->where("travel_id",$id)->countAllResults();
         $layanan_company = new LayananCompanyModel();

@@ -11,6 +11,7 @@ use CodeIgniter\Email\Email;
 use CodeIgniter\HTTP\Request;
 use Myth\Auth\Entities\User;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use Config\Database;
 
 class LoginController extends BaseController
 {
@@ -22,14 +23,44 @@ class LoginController extends BaseController
         }
     }
 
+    public function pass()
+    {
+        // try {
+            $password = $this->request->getVar('password');
+            $password_dua = $this->request->getVar('password_dua');
+            $email = $this->request->getVar('email');
+            $result = new Users();
+            $main = $result->where('email', $email)->countAllResults();
+            if (!$main) {
+                return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
+            }
+
+            if ($password != $password_dua) {
+                return redirect()->back()->with('error', 'Password Tidak Sama');
+            }
+
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $db = \Config\Database::connect();
+            $db->query("UPDATE users SET password = '$hash' WHERE email = '$email'");
+
+            return redirect()->back()->with('success', 'Password Berhasil Diupdate');
+        // } catch (\Throwable $th) {
+        //     return redirect()->back()->with('error', 'Password Gagal Diupdate');
+        //     //throw $th;
+        // }
+    }
+
     public function lupa()
     {
         return view('lupa_password');
     }
 
-    public function ganti_password_baru()
+    public function ganti_password_baru($email)
     {
-        return view('forgot_password');
+        $data = [
+            'email' =>  $email
+        ];
+        return view('forgot_password', $data);
     }
 
     public function forgot()
@@ -38,30 +69,30 @@ class LoginController extends BaseController
             $email = $this->request->getVar('email');
             $akun = new Users();
             $result = $akun->where("email", $email)->first();
-    
+
             if (!$result) {
                 return redirect()->back()->with('error', 'Akun Tidak Ditemukan');
             }
-    
+
             $subjek = "RESET PASSWORD AKUN MANASIKITA";
             $url = base_url('ganti_password_baru/' . $email);
             $pesan = "Reset password klik link ini <a href='$url'>FORGOT EMAIL</a> Terima kasih.";
-    
+
             $result = \Config\Services::email();
             $result->setTo($email);
             $result->setFrom("manasikita.com", "Manasikita");
             $result->setSubject($subjek);
-            $result->setMessage($pesan);    
-            
-            
+            $result->setMessage($pesan);
+
+
             if ($result->send()) {
-                return redirect()->back()->with('success','Email Berhasil Di kirim');
+                return redirect()->back()->with('success', 'Email Berhasil Di kirim');
             } else {
-                return redirect()->back()->with('error','Email Gagal Di kirim');
+                return redirect()->back()->with('error', 'Email Gagal Di kirim');
             }
             //code...
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error','Email Gagal Di kirim');
+            return redirect()->back()->with('error', 'Email Gagal Di kirim');
             //throw $th;
         }
     }

@@ -60,8 +60,9 @@
                 <div class="alert m-3 alert-success"><?= session()->get("success") ?></div>
               <?php endif; ?>
               <div class="card-body">
-                <form method="POST" action="<?= base_url("forgot");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
+                <form method="POST" action="<?= base_url("pass");  ?>" class="needs-validation" novalidate="" enctype="multipart/form-data">
                 <div class="form-group">
+                  <input type="hidden" name="email" value="<?= $email; ?>">
                     <label for="">Password Baru</label>
                     <div class="input-group mb-3">
                 <input name="password" type="password" value="" class="input form-control" id="password" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
@@ -76,7 +77,7 @@
                   <div class="form-group">
                     <label for="">Repeat Password</label>
                     <div class="input-group mb-3">
-                <input name="password" type="password" value="" class="input form-control" id="password_dua" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
+                <input name="password_dua" type="password" value="" class="input form-control" id="password_dua" placeholder="Password" required="true" aria-label="password" aria-describedby="basic-addon1" >
                 <div class="input-group-append" style="cursor: pointer;">
                   <span class="input-group-text" onclick="password_show_hide_dua();">
                     <i class="fas fa-eye" id="show_eye_dua"></i>
