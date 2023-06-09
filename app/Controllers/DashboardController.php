@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CabangModel;
 use App\Models\DaftarJamaahModel;
+use App\Models\PaketDashboardTravelModel;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\ProfileModel;
@@ -82,10 +83,11 @@ class DashboardController extends BaseController
         $daftar = new DaftarJamaahModel();
         $s = session()->get('travel_id');
         $petugas_umrah = new PetugasManModel();
+        $dash_travel = new PaketDashboardTravelModel();
         $data = [
             'title' =>  "Dashboard",
             'profile'   =>  $profile->where("id", session()->get("travel_id"))->first(),
-            'paket' => $db->query("SELECT * FROM paket WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),
+            'paket' => $db->query("SELECT * FROM paket WHERE travel_id = '$s' AND status = 'aktif' OR status = 'selesai'")->getNumRows(),
             'cabang'   => $db->query("SELECT * FROM data_cabang_travel WHERE travel_id = '$s' AND status = 'aktif'")->getNumRows(),
             'jamaah' => $db->query("SELECT * FROM jamaah 
             INNER JOIN paket ON jamaah.paket_id = paket.id 
@@ -95,9 +97,10 @@ class DashboardController extends BaseController
             INNER JOIN paket ON jamaah.paket_id = paket.id 
             INNER JOIN profile ON paket.travel_id = profile.id
             WHERE profile.id = '$s' AND jamaah.kloter_id IS NOT NULL AND jamaah.status_approve IS NOT NULL")->getNumRows(),
-            'daftar'    =>  $daftar->where("travel_id", session('travel_id'))->findAll(),
+            'daftar'    =>  $dash_travel->getPaketData(session()->get('travel_id')),
             'petugas_umrah' =>  $petugas_umrah->where('travel_id',session()->get('travel_id'))->countAllResults(),
         ];
+        // dd($data['daftar']);
         return view("jamaah/dashboard_travel", $data);
     }
 }

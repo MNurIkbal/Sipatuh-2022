@@ -290,7 +290,9 @@ class Home extends BaseController
             $kode_paket = $kode_paket_satu['kode_paket'];
             $checks = new BioDataModel();
             $biodata = $checks->where("user_id",session()->get('id'))->first(); 
-            
+            if($biodata) {
+                return redirect()->back()->with('error','Akun Jamaah Sudah Ada');
+            }
 
             $jamaah->insert([
                 'title' =>  $this->request->getVar("title"),

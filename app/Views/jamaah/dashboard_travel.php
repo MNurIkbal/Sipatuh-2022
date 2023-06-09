@@ -45,7 +45,7 @@
                 <h5>Petugas</h5>
               </div>
               <div class="card-body">
-                <h5><?= $petugas_umrah; ?> Jamaah</h5>
+                <h5><?= $petugas_umrah; ?> Petugas</h5>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
           name: "Jamaah",
           data: [
             <?php foreach($daftar as $rt) : ?>
-                <?= $rt['jamaah'] . ',' ?>
+                <?= $rt['total'] . ',' ?>
                 <?php endforeach; ?>
           ]
         }],
@@ -101,7 +101,7 @@
           },
           categories: [
             <?php foreach($daftar as $rt) : ?>
-                "<?= $rt['bulan']  ?>",
+                "<?= $rt['nama']  ?>",
                 <?php endforeach; ?>
           ],
           tickPlacement: 'on'

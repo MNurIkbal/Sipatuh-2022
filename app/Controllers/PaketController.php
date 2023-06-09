@@ -117,7 +117,7 @@ class PaketController extends BaseController
                 $newcabang = new CabangModel();
                 $firstcabang = $newcabang->where("id",session()->get("cabang_id"))->first();
                 $travel_ids = $firstcabang['travel_id'];
-                $approve = null;
+                $approve = 'sudah';
                 $status_paket = null;
             } else {
                 $travel_ids = session()->get("travel_id");

@@ -61,7 +61,7 @@ class PembayaranAdminController extends BaseController
         $paket = new PaketModel();
         $data_paket = $paket->where("travel_id",$travel)->where("status","aktif")->where('id',$id)->orderby('id','desc')->first();
         $kloter = new KloterModel();
-        $result = $kloter->where("paket_id",$id)->orderby('id','desc')->findAll();
+        $result = $kloter->where("paket_id",$id)->where('keberangkatan',null)->where('status_realisasi',null)->where('done',null)->orderby('id','desc')->findAll();
         $data = [
             'data_kloter'    =>  $result,
             'bukti' =>  $bukti,
@@ -105,7 +105,7 @@ class PembayaranAdminController extends BaseController
             'bank'  =>  $bank->findAll(),
             'banner'    =>  $banner->findAll(),
             // 'jamaah'    =>  $pembayaran->where("selesai_pembayaran",NULL)->orWhere("status_bayar",'cicil')->orWhere("status_bayar",'lunas')->findAll(),
-            'jamaah'    =>  $pembayaran->res    ult_dua(session()->get("travel_id"),$id_paket,$id_kloter),
+            'jamaah'    =>  $pembayaran->result_dua(session()->get("travel_id"),$id_paket,$id_kloter),
             'profile'   =>  $profile->where("id",session()->get("travel_id"))->first(),
         ];
 

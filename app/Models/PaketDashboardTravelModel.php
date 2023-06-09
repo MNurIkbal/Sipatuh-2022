@@ -20,6 +20,15 @@ class PaketDashboardTravelModel extends Model
         'created_at',
         'paket_id'
     ];
+    public function getPaketData($travelId)
+    {
+        $this->where('paket_dashboard_travel.travel_id', $travelId);
+        $this->join('paket', 'paket.id = paket_dashboard_travel.paket_id');
+        $this->select('paket.*, paket_dashboard_travel.total');
+
+        return $this->findAll();
+    }
+
 
     // Dates
     protected $useTimestamps = false;

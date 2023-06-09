@@ -76,6 +76,9 @@ use App\Models\JamaahModel;
                                                     class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                 <?php elseif($row['status_approve'] == "tolak"): ?>
                                                     <span class="badge badge-pill badge-warning">Tolak</span>
+                                                <?php elseif($row['status_approve'] == "sudah"): ?>
+                                                    <a title="Detail" href="#" data-toggle="modal" data-target="#hapus<?= $row['id'] ?>"
+                                                    class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                     <?php else: ?>
                                                         <span class="badge badge-pill badge-warning">Belum Dikonfirmasi</span>
                                                 <?php endif; ?>

@@ -43,6 +43,22 @@ class HistoryController extends BaseController
             //     'tiket' =>  'sudah'
             // ])->findAll();
             $datapaket = $paket->join('kloter', 'paket.id = kloter.paket_id')
+                ->select(
+                    "paket.id as id_paket,
+                    paket.nama,
+                    paket.tgl_berangkat,
+                    paket.tgl_pulang,
+                    paket.biaya,
+                    paket.ket_berangkat,
+                    paket.provider,
+                    paket.tahun,
+                    paket.status,
+                    paket.ket_pulang,
+                    paket.asuransi,
+
+                    kloter.id
+                    "
+                )
                 ->where([
                     'paket.travel_id' => session()->get("travel_id"),
                     'kloter.keberangkatan' => 'sudah',
@@ -51,7 +67,10 @@ class HistoryController extends BaseController
                     'paket.cabang' => NULL,
                     'paket.kelengkapan' => 'sudah',
                     'paket.tiket' => 'sudah',
-                ])->findAll();
+                ])
+                ->groupBy('paket.id')
+                ->findAll();
+                
         } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),

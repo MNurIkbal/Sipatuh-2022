@@ -39,7 +39,7 @@
                                     <?php $no = 1; foreach($result as $row) : ?>
                                         <?php 
                                         $db      = \Config\Database::connect();
-                                        $paket_id = $row['id'];
+                                        $paket_id = $row['id_paket'];
                                         $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                         $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                         $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
@@ -67,12 +67,10 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <!-- <a href="<?=  base_url("detail_history/$row[id]");  ?>"   class="btn btn-primary"><i class="fas fa-calendar-check"></i></a>
-                                                <a href="<?=  base_url("detail_jamaah_history/$row[id]");  ?>"   class="btn btn-primary"><i class="fas fa-users"></i></a>
-                                                <a href="<?=  base_url("detail_perencanaan_history/$row[id]");  ?>"   class="btn btn-primary"><i class="fas fa-calendar"></i></a> -->
-                                                <a href="<?=  base_url("detail_history_kloter/$row[id]/perencanaan");  ?>"   class="btn btn-primary"><i class="fas fa-calendar-check"></i></a>
-                                                <a href="<?=  base_url("detail_history_kloter/$row[id]/jamaah");  ?>"   class="btn btn-primary"><i class="fas fa-users"></i></a>
-                                                <a href="<?=  base_url("detail_history_kloter/$row[id]/realisasi");  ?>"   class="btn btn-primary"><i class="fas fa-calendar"></i></a>
+                                                
+                                                <a href="<?=  base_url("detail_history_kloter/$paket_id/perencanaan");  ?>"   class="btn btn-primary"><i class="fas fa-calendar-check"></i></a>
+                                                <a href="<?=  base_url("detail_history_kloter/$paket_id/jamaah");  ?>"   class="btn btn-primary"><i class="fas fa-users"></i></a>
+                                                <a href="<?=  base_url("detail_history_kloter/$paket_id/realisasi");  ?>"   class="btn btn-primary"><i class="fas fa-calendar"></i></a>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -157,9 +155,9 @@
     </div>
 </div>
 <?php foreach($result as $main) : ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="hapus<?= $main['id'] ?>">
+    <div class="modal fade" tabindex="-1" role="dialog" id="hapus<?= $main['id_paket'] ?>">
     <div class="modal-dialog modal-lg" role="document">
-        <form method="POST" enctype="multipart/form-data" action="<?=  base_url("hapus_paket/" . $main['id']);  ?>" class="modal-content">
+        <form method="POST" enctype="multipart/form-data" action="<?=  base_url("hapus_paket/" . $main['id_paket']);  ?>" class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Hapus Paket</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -176,9 +174,9 @@
         </form>
     </div>
 </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $main['id'] ?>">
+    <div class="modal fade" tabindex="-1" role="dialog" id="edit<?= $main['id_paket'] ?>">
     <div class="modal-dialog modal-lg" role="document">
-        <form method="POST" enctype="multipart/form-data" action="<?=  base_url("edit_paket/" . $main['id']);  ?>"
+        <form method="POST" enctype="multipart/form-data" action="<?=  base_url("edit_paket/" . $main['id_paket']);  ?>"
         
             class="modal-content">
             <div class="modal-header">
