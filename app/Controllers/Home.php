@@ -283,16 +283,21 @@ class Home extends BaseController
 
     public function tambah_jamaah_user()
     {
-        try {
+        // try {
             $jamaah = new JamaahModel();
             $paket_first = new PaketModel();
             $kode_paket_satu = $paket_first->where("id",$this->request->getVar("id_paket"))->first();
             $kode_paket = $kode_paket_satu['kode_paket'];
             $checks = new BioDataModel();
-            $biodata = $checks->where("user_id",session()->get('id'))->first(); 
-            if($biodata) {
-                return redirect()->back()->with('error','Akun Jamaah Sudah Ada');
-            }
+            // $biodata = $checks->where("user_id",session()->get('id'))->first(); 
+            $biodata = $checks->join('paket', 'paket.id', '=', 'biodata.paket_id')
+                  ->where('biodata.user_id', session()->get('id'))
+                //   ->where('paket.id', session()->get('travel_id'))
+                  ->first();
+                  dd($biodata);
+            // if($biodata) {
+            //     return redirect()->back()->with('error','Akun Jamaah Sudah Ada');
+            // }
 
             $jamaah->insert([
                 'title' =>  $this->request->getVar("title"),
@@ -340,10 +345,10 @@ class Home extends BaseController
 
     
             return redirect()->to("detail_paket_users/" .  $this->request->getVar("id_paket"))->with("success","Data Berhasil Di tambahkan");
-        } catch (\Throwable $th) {
-            return redirect()->to("detail_paket_users/" .  $this->request->getVar("id_paket"))->with("error","Data Gagal Di tambahkan");
-            //throw $th;
-        }
+        // } catch (\Throwable $th) {
+        //     return redirect()->to("detail_paket_users/" .  $this->request->getVar("id_paket"))->with("error","Data Gagal Di tambahkan");
+        //     //throw $th;
+        // }
        
     }
 

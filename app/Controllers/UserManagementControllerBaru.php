@@ -101,7 +101,7 @@ class UserManagementControllerBaru extends BaseController
                 'title' =>  'Dashboard',
                 'db'    =>  $db,
                 'selesai'   =>  $sle,
-                'paket_terdaftar'   =>  $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' GROUP BY paket_id")->getNumRows(),
+                'paket_terdaftar'   =>  $db->query("SELECT * FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' AND jamaah.status_approve = 'sudah'")->getNumRows(),
                 'pakets'    => null,
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
