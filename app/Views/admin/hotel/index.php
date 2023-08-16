@@ -72,11 +72,11 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama">
                 </div>
                 <div class="mb-3">
-                    <label for="">Lokasi</label>
+                    <label for="">Lokasi*</label>
                     <textarea name="lokasi" id="lokasi" cols="30" class="form-control" required  placeholder="Lokasi Hotel" rows="10"></textarea>
                 </div>
             </div>
@@ -120,11 +120,11 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama" value="<?=  $main['nama'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">Lokasi</label>
+                    <label for="">Lokasi*</label>
                     <textarea name="lokasi" id="lokasi" cols="30" class="form-control" required  placeholder="Lokasi Hotel" rows="10"><?= $main['lokasi']; ?></textarea>
                 </div>
             </div>

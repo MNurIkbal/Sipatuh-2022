@@ -68,7 +68,7 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama">
                 </div>
                 
@@ -113,7 +113,7 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama" value="<?=  $main['nama'];  ?>">
                 </div>
                 

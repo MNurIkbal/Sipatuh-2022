@@ -62,6 +62,11 @@ class UsersController extends BaseController
         $users = new Users();
         $travel = new ProfileModel();
         $perusahaan = new TravelModel();
+        $check = $travel->where('id',$id)->first();
+        
+        if(!$check) {
+            return redirect('users');
+        }
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Travel",
@@ -86,6 +91,10 @@ class UsersController extends BaseController
         $petugas_man  = new PetugasManModel();
         $users = new Users();
         $travel = new ProfileModel();
+        $check = $travel->where("id",$id)->first();
+        if(!$check) {
+            return redirect('users');
+        }
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Travel",
@@ -210,9 +219,9 @@ class UsersController extends BaseController
         $check_slider = $slider_company->where("travel_id",$id)->countAllResults();
         $testimony_company = new TestimoniCompanyModel();
         $check_testimoni = $testimony_company->where('travel_id',$id)->countAllResults();
-        if($check || $check_tiga || $check_enam || $checskl || $check_berita || $check_video || $check_foto || $check_contact || $check_profile || $check_slider || $check_testimoni || $check_layanan) {
-            return redirect()->back()->with("error",'Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi');
-        }
+        // if($check || $check_tiga || $check_enam || $checskl || $check_berita || $check_video || $check_foto || $check_contact || $check_profile || $check_slider || $check_testimoni || $check_layanan) {
+        //     return redirect()->back()->with("error",'Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi');
+        // }
 
         $user = new ProfileModel();
         $user->delete($id);
@@ -344,17 +353,29 @@ class UsersController extends BaseController
         $kabupaten_hasil = $kabupaten_explode[1];
         $kecamatan_explode = explode("-",$this->request->getVar("kecamatan"));
         $kecamatan_hasil = $kecamatan_explode[1];
+        function hapus_karakter($string) {
+            $pattern = '/[!";*&^%$# ]/';
+            $cleanedString = preg_replace($pattern, '', $string);
+            return $cleanedString;
+        }
+
+        if($this->request->getVar('tgl_sk')) {
+            $tgl = $this->request->getVar('tgl_sk');
+        } else {
+            $tgl = null;
+        }
+        $con_web = hapus_karakter($this->request->getVar('website'));
         $profile->insert([
             'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
             'nama_travel_umrah' => $this->request->getVar("nama_travel"),
             'npwp' => $this->request->getVar("npwp"),
             'no_sk' => $this->request->getVar("no_sk"),
-            'tgl_sk' => $this->request->getVar("tgl_sk"),
+            'tgl_sk' => $tgl,
             // 'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),
-            'website' => $this->request->getVar("website"),
+            'website' => $con_web,
             'provinsi' => $provinsi_hasil,
             'kabupaten' => $kabupaten_hasil,
             'kecamatan' => $kecamatan_hasil,
@@ -500,12 +521,18 @@ class UsersController extends BaseController
             $dataBerkasDua->move('assets/upload/', $fileName_dua);
         }
 
+        if($this->request->getVar('tgl_sk')) {
+            $tgl_baru = $this->request->getVar('tgl_sk');
+        } else {
+            $tgl_baru = null;
+        }
+
         $profile->update($id,[
             'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
             'nama_travel_umrah' => $this->request->getVar("nama_travel"),
             'npwp' => $this->request->getVar("npwp"),
             'no_sk' => $this->request->getVar("no_sk"),
-            'tgl_sk' => $this->request->getVar("tgl_sk"),
+            'tgl_sk' => $tgl_baru,
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),

@@ -90,38 +90,38 @@ $validation = \Config\Services::validation();
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama">
                 </div>
                 
                 <div class="mb-3">
-                    <label for="">Password</label>
+                    <label for="">Password*</label>
                     <input type="password" class="form-control" required placeholder="Password" name="password">
                 </div>
-                <div class="mb-3">
-                    <label for="">Level Akses</label>
+                <input type="hidden" name="level" value="jamaah">
+                <!-- <div class="mb-3">
+                    <label for="">Level Akses*</label>
                     <select name="level" class="form-control" required id="">
                         <option value="">Pilih</option>
                         <option value="jamaah">Travel</option>
-                        <!-- <option value="admin">Admin</option> -->
                     </select>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-md-6">
                     <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="email" class="form-control" required placeholder="Email" name="email">
                 </div>
                     </div>
                     <div class="col-md-6">
                     <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" required placeholder="No Hp" name="no_hp">
                 </div>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="">Foto</label>
+                    <label for="">Foto*</label>
                     <input type="file" class="form-control" required placeholder="file" name="file">
                 </div>
             </div>
@@ -168,20 +168,20 @@ $validation = \Config\Services::validation();
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" required placeholder="Nama" name="nama" value="<?=  $users['nama'];  ?>">
                 </div>
                 
                 <div class="row">
                     <div class="col-md-6">
                     <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="email" class="form-control" required placeholder="Email" name="email" value="<?=  $users['email'];  ?>">
                 </div>
                     </div>
                     <div class="col-md-6">
                     <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" required placeholder="No Hp" name="no_hp" value="<?=  $users['no_hp'];  ?>">
                 </div>
                     </div>

@@ -35,7 +35,7 @@ $validation = \Config\Services::validation();
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="">Nama Perushaan</label>
+                                                    <label for="">Nama Perushaan*</label>
                                                     <br>
                                                     <select style="width: 100% !important;" name="nama_perusahaan" class="form-control select1000" required id="" >
                                                         <option value="">Pilih</option>
@@ -45,20 +45,20 @@ $validation = \Config\Services::validation();
                                                     </select>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">Nama Travel Umrah</label>
+                                                    <label for="">Nama Travel Umrah*</label>
                                                     <input type="text" name="nama_travel" value="<?= $users['nama_travel_umrah'];  ?>" required class="form-control" placeholder="Nama Travel Umrah">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">NPWP</label>
-                                                    <input type="text" name="npwp" value="<?= $users['npwp'];  ?>" required class="form-control" placeholder="NPWP">
+                                                    <input type="text" name="npwp" value="<?= $users['npwp'];  ?>"  class="form-control" placeholder="NPWP">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">No Sk</label>
-                                                    <input type="text" name="no_sk" value="<?= $users['no_sk'];  ?>" required class="form-control" placeholder="No Sk">
+                                                    <input type="text" name="no_sk" value="<?= $users['no_sk'];  ?>"  class="form-control" placeholder="No Sk">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Sk</label>
-                                                    <input type="date" name="tgl_sk" value="<?= $users['tgl_sk'];  ?>" required class="form-control" placeholder="Tanggal Sk">
+                                                    <input type="date" name="tgl_sk" value="<?= $users['tgl_sk'];  ?>"  class="form-control" placeholder="Tanggal Sk">
                                                 </div>
                                             </div>
                                         </div>
@@ -70,15 +70,15 @@ $validation = \Config\Services::validation();
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="">No Telp</label>
+                                                    <label for="">No Telp*</label>
                                                     <input type="number" name="no_telp" value="<?= $users['no_telp'];  ?>" required class="form-control" placeholder="No Telp">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Hp</label>
+                                                    <label for="">No Hp*</label>
                                                     <input type="number" name="no_hp" value="<?= $users['no_hp'];  ?>" required class="form-control" placeholder="No Hp">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">Email</label>
+                                                    <label for="">Email*</label>
                                                     <input type="email" name="email" value="<?= $users['email'];  ?>" required class="form-control" placeholder="Email">
                                                 </div>
                                             </div>
@@ -93,19 +93,19 @@ $validation = \Config\Services::validation();
                                             </div>
                                             <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="">Alamat Mekkah</label>
+                                                    <label for="">Alamat Mekkah*</label>
                                                     <textarea name="alamat_mekkah" class="form-control" placeholder="Alamat Mekkah" id="" cols="30" rows="10"><?= $users['alamat_mekkah'];  ?></textarea>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Telp Mekkah</label>
+                                                    <label for="">No Telp Mekkah*</label>
                                                     <input type="number" class="form-control" value="<?= $users['no_telp_mekkah'];  ?>" placeholder="No Telp Mekkah" name="no_telp_mekkah">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">Alamat Madinah</label>
+                                                    <label for="">Alamat Madinah*</label>
                                                     <textarea name="alamat_madinah" class="form-control" placeholder="Alamat Madinah" id="" cols="30" rows="10"><?= $users['alamat_madinah'];  ?></textarea>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Telp Madinah</label>
+                                                    <label for="">No Telp Madinah*</label>
                                                     <input type="number" class="form-control" placeholder="No Telp Madinah" name="no_telp_madinah" value="<?= $users['no_telp_madinah'];  ?>">
                                                 </div>
                                             </div>

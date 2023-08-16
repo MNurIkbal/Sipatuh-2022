@@ -91,15 +91,15 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Foto</label>
+                    <label for="">Foto*</label>
                     <input type="file" class="form-control" required placeholder="Nama" name="file">
                 </div>
             <div class="mb-3">
-                    <label for="">Waktu Mulai</label>
+                    <label for="">Waktu Mulai*</label>
                     <input type="date" class="form-control" required placeholder="" name="start">
                 </div>
             <div class="mb-3">
-                    <label for="">Waktu Akhir</label>
+                    <label for="">Waktu Akhir*</label>
                     <input type="date" class="form-control" required placeholder="" name="expired">
                 </div>
             </div>
@@ -144,15 +144,15 @@
             <div class="modal-body">
             <div class="mb-3">
                 <input type="hidden" name="file_lama" value="<?=  $main['foto'];  ?>">
-                    <label for="">Foto</label>
+                    <label for="">Foto*</label>
                     <input type="file" class="form-control"  placeholder="Nama" name="file">
                 </div>
                 <div class="mb-3">
-                    <label for="">Waktu Mulai</label>
+                    <label for="">Waktu Mulai*</label>
                     <input type="date" class="form-control" required placeholder="" name="start" value="<?= $row['star']; ?>">
                 </div>
             <div class="mb-3">
-                    <label for="">Waktu Akhir</label>
+                    <label for="">Waktu Akhir*</label>
                     <input type="date" class="form-control" required placeholder="" name="expired" value="<?= $row['expired']; ?>">
                 </div>
             </div>

@@ -72,11 +72,11 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Kode Bank</label>
+                    <label for="">Kode Bank*</label>
                     <input type="text" class="form-control" required placeholder="Kode Bank" name="kode">
                 </div>
             <div class="mb-3">
-                    <label for="">Nama Bank</label>
+                    <label for="">Nama Bank*</label>
                     <input type="text" class="form-control" required placeholder="Nama Bank" name="nama">
                 </div>
                 
@@ -121,11 +121,11 @@
             </div>
             <div class="modal-body">
             <div class="mb-3">
-                    <label for="">Kode Bank</label>
+                    <label for="">Kode Bank*</label>
                     <input type="text" class="form-control" required placeholder="Kode Bank" name="kode" value="<?=  $main['kode_bank'];  ?>">
                 </div>
             <div class="mb-3">
-                    <label for="">Nama Bank</label>
+                    <label for="">Nama Bank*</label>
                     <input type="text" class="form-control" required placeholder="Nama Bank" name="nama" value="<?=  $main['nama_bank'];  ?>">
                 </div>
             </div>

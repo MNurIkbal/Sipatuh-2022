@@ -46,6 +46,10 @@ class Autoload extends AutoloadConfig
         'Myth\Auth'   => APPPATH .'ThirdParty/myth-auth/src',
     ];
 
+    public $autoload = [
+        'helper' => ['string'], // Tambahkan 'string' di sini
+    ];
+    
     /**
      * -------------------------------------------------------------------
      * Class Map
