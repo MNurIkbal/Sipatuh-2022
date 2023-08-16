@@ -2,6 +2,7 @@
 
 <?= $this->section("content"); ?>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <div class="main-content">
     <section class="section">
 
@@ -119,8 +120,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="">Waktu Berangkat</label>
-                            <input type="date" class="form-control" required placeholder="Biaya   " name="waktu_berangkat" id="berangkat">
+                            <label for="">Waktu Berangkat & Pulang</label>
+                            <input type="text" class="form-control" required placeholder="" name="waktu_berangkat" id="berangkats">
                         </div>
                         <div class="mb-3">
                             <label for="">Keterangan Berangkat</label>
@@ -205,6 +206,23 @@
         </form>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+<script>
+$(function() {
+  $('#berangkat').daterangepicker({
+    timePicker: true,
+    startDate: moment().startOf('hour'),
+    endDate: moment().startOf('hour').add(32, 'hour'),
+    locale: {
+      format: 'M/DD hh:mm A'
+    }
+  });
+});
+</script>
 <?php foreach ($result as $main) : ?>
     <div class="modal fade" tabindex="-1" role="dialog" id="hapus<?= $main['id'] ?>">
         <div class="modal-dialog modal-lg" role="document">
