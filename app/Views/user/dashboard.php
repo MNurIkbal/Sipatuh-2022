@@ -36,7 +36,7 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header bg-success text-white">
-                <h4 class="card-title">Total Pembayaran</h4>
+                <h4 class="card-title">Pembayaran Paket</h4>
               </div>
               <div class="card-body">
                 <h3>Rp <?= (!empty($pembayaran)) ? number_format($pembayaran, 0) : 0; ?></h3>
@@ -56,11 +56,11 @@
           <div class="col-md-3">
             <div class="card">
               <div class="card-header bg-warning   text-white">
-                <h4 class="card-title">Paket Aktif</h4>
+                <h4 class="card-title">Status Vaksin</h4>
               </div>
               <div class="card-body">
                 <h3>
-                  <?php if(isset($vaksin) && $vaksin == "Sudah") : ?>
+                  <?php if(isset($aktif) && $aktif['status_vaksin'] == "Sudah") : ?>
                     <h4 class="badge badge-pill badge-success">Sudah</h4>
                     <?php else: ?>
                       <h4 class="badge badge-pill badge-success">Belum</h4>

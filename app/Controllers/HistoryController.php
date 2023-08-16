@@ -35,13 +35,7 @@ class HistoryController extends BaseController
         $paket = new PaketModel();
         if (session()->get("level_id") == "jamaah") {
 
-            // $datapaket = $paket->where([
-            //     'travel_id' =>  session()->get("travel_id"),
-            //     'cabang'    =>  NULL,
-            //     'kelengkapan' =>    'sudah',
-            //     'status'    =>  "selesai",
-            //     'tiket' =>  'sudah'
-            // ])->findAll();
+            
             $datapaket = $paket->join('kloter', 'paket.id = kloter.paket_id')
                 ->select(
                     "paket.id as id_paket,
@@ -72,14 +66,43 @@ class HistoryController extends BaseController
                 ->findAll();
                 
         } elseif (session()->get("level_id") == "cabang") {
-            $datapaket = $paket->where([
-                'travel_id' =>  session()->get("travel_id"),
-                'cabang_id' =>  session()->get('cabang_id'),
-                'cabang'    =>  "cabang",
-                'status'    =>  "selesai",
-                'kelengkapan' =>    'sudah',
-                'tiket' =>  'sudah'
-            ])->findAll();
+            // $datapaket = $paket->where([
+            //     'travel_id' =>  session()->get("travel_id"),
+            //     'cabang_id' =>  session()->get('cabang_id'),
+            //     'cabang'    =>  "cabang",
+            //     'status'    =>  "selesai",
+            //     'kelengkapan' =>    'sudah',
+            //     'tiket' =>  'sudah'
+            // ])->findAll();
+            $datapaket = $paket->join('kloter', 'paket.id = kloter.paket_id')
+                ->select(
+                    "paket.id as id_paket,
+                    paket.nama,
+                    paket.tgl_berangkat,
+                    paket.tgl_pulang,
+                    paket.biaya,
+                    paket.ket_berangkat,
+                    paket.provider,
+                    paket.tahun,
+                    paket.status,
+                    paket.ket_pulang,
+                    paket.asuransi,
+
+                    kloter.id
+                    "
+                )
+                ->where([
+                    'paket.travel_id' => session()->get("travel_id"),
+                    'paket.cabang_id'  =>  session()->get('cabang_id'),
+                    'kloter.keberangkatan' => 'sudah',
+                    'kloter.status_realisasi'   =>  'sudah',
+                    'kloter.done'  => 'sudah',
+                    'paket.cabang' => 'cabang',
+                    'paket.kelengkapan' => 'sudah',
+                    'paket.tiket' => 'sudah',
+                ])
+                ->groupBy('paket.id')
+                ->findAll();
         }
         $data = [
             'title' =>  "History",

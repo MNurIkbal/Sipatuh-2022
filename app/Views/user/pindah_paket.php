@@ -50,7 +50,7 @@
                                     <label for="">Kloter</label>
                                     <input type="hidden" name="id_paket" value="<?=  $id_paket;  ?>">
                                     <input type="hidden" name="id_kloter" value="<?=  $id_kloter;  ?>">
-                                    <select name="kloter"  class="form-control" required  autocomplete="" id="kloter">
+                                    <select name="kloter"  class="form-control selee" required  autocomplete="" id="kloter" style="width: 100% !important;">
                                         <option value="">Pilih</option>
                                     </select>
                                 </div>
@@ -75,6 +75,7 @@
 <script>
     $("#none").hide()
     $(".sele").select2()
+    $(".selee").select2()
 
     function pindah()
     {

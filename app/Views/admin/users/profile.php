@@ -33,7 +33,7 @@ $validation = \Config\Services::validation();
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="">Nama Perushaan</label>
+                                                <label for="">Nama Perushaan*</label>
                                                     <br>
                                                     <select name="nama_perusahaan" class="form-control select801" required id="" style="width: 
                                                     100% !important;">
@@ -44,7 +44,7 @@ $validation = \Config\Services::validation();
                                                     </select>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="">Nama Travel Umrah</label>
+                                                <label for="">Nama Travel Umrah*</label>
                                                 <input type="text" name="nama_travel"
                                                     required
                                                     class="form-control" placeholder="Nama Travel Umrah">
@@ -52,17 +52,17 @@ $validation = \Config\Services::validation();
                                             <div class="mb-3">
                                                 <label for="">NPWP</label>
                                                 <input type="text" name="npwp" 
-                                                    required class="form-control" placeholder="NPWP">
+                                                    class="form-control" placeholder="NPWP">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="">No Sk</label>
                                                 <input type="text" name="no_sk"
-                                                    required class="form-control" placeholder="No Sk">
+                                                     class="form-control" placeholder="No Sk">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="">Tanggal Sk</label>
                                                 <input type="date" name="tgl_sk" 
-                                                    required class="form-control" placeholder="Tanggal Sk">
+                                                    class="form-control" placeholder="Tanggal Sk">
                                             </div>
                                         </div>
                                     </div>
@@ -74,27 +74,27 @@ $validation = \Config\Services::validation();
                                         </div>
                                         <div class="card-body">
                                         <div class="mb-3">
-                                        <label for="">No Telp</label>
+                                        <label for="">No Telp*</label>
                                         <input type="number" name="no_telp" 
                                             required class="form-control" placeholder="No Telp">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">No Hp</label>
+                                        <label for="">No Hp*</label>
                                         <input type="number" name="no_hp"  required
                                             class="form-control" placeholder="No Hp">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Email</label>
+                                        <label for="">Email*</label>
                                         <input type="email" name="email"  required
                                             class="form-control" placeholder="Email">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Website</label>
+                                        <label for="">Website*</label>
                                         <input type="text" name="website" required
                                             class="form-control" placeholder="Website">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Provinsi</label>
+                                        <label for="">Provinsi*</label>
                                         <br>
                                             <select name="provinsi" id="provinsi" class="form-control select802" style="width: 100% !important;" required>
                                                 <option value="">Pilih</option>
@@ -104,20 +104,20 @@ $validation = \Config\Services::validation();
                                             </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Kabupaten</label>
+                                        <label for="">Kabupaten*</label>
                                         <br>
                                         <select style="width: 100% !important;" name="kabupaten" id="kabupaten" onchange="daerah_kabupaten()" class="form-control select803" required>
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Kecamatan</label>
+                                        <label for="">Kecamatan*</label>
                                         <br>
                                         <select style="width: 100% !important;" name="kecamatan" id="kecamatan" class="form-control select804" required>
 
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="">Alamat</label>
+                                        <label for="">Alamat*</label>
                                         <textarea name="alamat" class="form-control" required placeholder="Alamat" id=""
                                             cols="30" rows="10"></textarea>
                                     </div>
@@ -133,19 +133,19 @@ $validation = \Config\Services::validation();
                                         </div>
                                         <div class="card-body">
                                             <div class="mb-3">
-                                                <label for="">Alamat Mekkah</label>
+                                                <label for="">Alamat Mekkah*</label>
                                                 <textarea name="alamat_mekkah" class="form-control"  placeholder="Alamat Mekkah" id="" cols="30" rows="10"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="">No Telp Mekkah</label>
+                                                <label for="">No Telp Mekkah*</label>
                                                 <input type="number" class="form-control" placeholder="No Telp Mekkah" name="no_telp_mekkah" >
                                             </div>
                                             <div class="mb-3">
-                                                <label for="">Alamat Madinah</label>
+                                                <label for="">Alamat Madinah*</label>
                                                 <textarea name="alamat_madinah" class="form-control"  placeholder="Alamat Madinah" id="" cols="30" rows="10"></textarea>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="">No Telp Madinah</label>
+                                                <label for="">No Telp Madinah*</label>
                                                 <input type="number" class="form-control" placeholder="No Telp Madinah" name="no_telp_madinah" >
                                             </div>
                                         </div>
@@ -158,7 +158,7 @@ $validation = \Config\Services::validation();
                                         </div>
                                         <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label for="">Foto Kantor</label>
+                                                        <label for="">Foto Kantor*</label>
                                                         <input type="file" name="file" class="form-control" >
                                                     </div>
                                         </div>
@@ -169,7 +169,7 @@ $validation = \Config\Services::validation();
                                         </div>
                                         <div class="card-body">
                                                     <div class="mb-3">
-                                                        <label for="">Logo Travel</label>
+                                                        <label for="">Logo Travel*</label>
                                                         <input type="file" name="file_logo" class="form-control" >
                                                     </div>
                                         </div>

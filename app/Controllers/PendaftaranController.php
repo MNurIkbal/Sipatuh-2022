@@ -869,7 +869,6 @@ class PendaftaranController extends BaseController
         $kloter->update($this->request->getVar("kloter"), [
             'batas_jamaah'  =>  $check_kloters['batas_jamaah'] - 1
         ]);
-        // dd(+$rv);
 
         $jamaah->update($id_jamaah, [
             'paket_id'  =>  $this->request->getVar("paket"),
@@ -883,7 +882,7 @@ class PendaftaranController extends BaseController
         ]);
 
         if (session()->get("level_id") == "user") {
-            return redirect()->back()->with("success", "Data Berhasil Di Update");
+            return redirect()->to('paket_user')->with("success", "Data Berhasil Di Update");
         } else {
             return redirect()->to("/tambah_pendaftaran/" . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("success", "Paket Anda Berhasil Dipindahkan");
         }

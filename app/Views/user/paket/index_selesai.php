@@ -30,7 +30,6 @@
                                         <th class="text-center">
                                             #
                                         </th>
-                                        <th>Kode Paket</th>
                                         <th>Nama Paket</th>
                                         <th>Periode</th>
                                         <th>Biaya</th>
@@ -41,7 +40,6 @@
                                     <?php $no =1; foreach($paket as $row) : ?>
                                     <tr>
                                         <td><?= $no++; ?></td>
-                                        <td><span class="badge badge-pill badge-success bg-success"><?= $row['kode_paket']; ?></span></td>
                                         <td><?= $row['nama']; ?></td>
                                         <td><?= date("d, F Y",strtotime($row['tgl_berangkat'])); ?> - <?= date("d, F Y",strtotime($row['tgl_pulang'])); ?></td>
                                         <td>Rp. <?= number_format($row['biaya'],0); ?></td>
