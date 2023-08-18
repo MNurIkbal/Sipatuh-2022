@@ -84,7 +84,7 @@
                                                 <a title="Detail" href="<?= base_url("detail_paket/$row[id]");  ?>" class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                 <?php if ($row['pemberangkatan'] != "sudah") : ?>
                                                     <a href="#" data-toggle="modal" data-target="#hapus<?= $row['id'] ?>" title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                                    <a href="<?= base_url('edit_paket_jamaah/' . $row['id']); ?>" class="btn btn-success" ><i class="fa fa-pen"></i></a>
+                                                    <a href="<?= base_url('show_update/' . $row['id']); ?>" class="btn btn-success" ><i class="fa fa-pen"></i></a>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>

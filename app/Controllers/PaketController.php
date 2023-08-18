@@ -101,11 +101,10 @@ class PaketController extends BaseController
         return view("jamaah/paket/tambah", $data);
     }
 
-    public function edit_paket_jamaah($id = null)
+    public function show_update($no= null)
     {
         
-        dd($id);
-        
+        dd($no);
         // dd($id);
         // $data_provider = new DataProviderModel();
         // $asuransi = new AsuransiModel();

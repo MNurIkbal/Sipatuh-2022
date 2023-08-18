@@ -70,7 +70,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/paket', 'PaketController::index',['filter' => 'DpFilter']);
     $routes->get('/tambah_pakets', 'PaketController::tambah_pakets',['filter' => 'DpFilter']);
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
-    $routes->get('/edit_paket_jamaah/(:any)', 'PaketController::edit_paket_jamaah',['filter' => 'DpFilter']);
+    $routes->get('show_update/(:any)', 'PaketController::show_update',['filter' => 'DpFilter']);
     $routes->post('/tambah_paket', 'PaketController::tambah_paket',['filter' => 'DpFilter']);
     $routes->post('/edit_paket/(:any)', 'PaketController::edit_paket/$1',['filter' => 'DpFilter']);
     $routes->post('/hapus_paket/(:any)', 'PaketController::hapus_paket/$1',['filter' => 'DpFilter']);
