@@ -5,34 +5,12 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <div class="main-content">
-    <section class="sections">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Detail Perencanaan Paket</h6>
-                        <ul>
-                                <li style="list-style: none;line-height: 40px !important;"><span>Nama Paket : <?= $result['nama'];  ?></span></li>
-                                <li style="list-style: none;line-height: 40px !important;">
-                                    <span>Periode :
-                                        <?= date("d F Y", strtotime($result['tgl_berangkat'])) . " - " . date("d F Y", strtotime($result['tgl_pulang']));  ?></span>
-                                </li>
-                                <li style="list-style: none;line-height: 40px !important;">
-                                    Status :
-                                    <span style="text-transform: uppercase">
-                                        <?php if ($result['status'] != null) : ?>
-                                            <span class="badge badge-pill badge-primary"><?= $result['status'];  ?></span>
-                                        <?php else : ?>
-                                            <span class="badge badge-pill badge-primary">tidak aktif</span>
-                                        <?php endif; ?>
-                                    </span>
-                                </li>
-                                <li style="list-style: none;line-height: 40px !important;">Porta ac consectetur ac</li>
-                                <li style="list-style: none;line-height: 40px !important;">Vestibulum at eros</li>
-                            </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul>
+    <div class="card">
+        <div class="card-body">
+            <h4>Detail Perencanaan Paket</h6>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul>
                             <li style="list-style: none;line-height: 40px !important;"><span>Nama Paket : <?= $result['nama'];  ?></span></li>
                             <li style="list-style: none;line-height: 40px !important;">
                                 <span>Periode :
@@ -48,14 +26,25 @@
                                     <?php endif; ?>
                                 </span>
                             </li>
-                            <li style="list-style: none;line-height: 40px !important;">Porta ac consectetur ac</li>
-                            <li style="list-style: none;line-height: 40px !important;">Vestibulum at eros</li>
+                            <li style="list-style: none;line-height: 40px !important;">Provider : <?= $result['provider']; ?></li>  
+                            <li style="list-style: none;line-height: 40px !important;">Travel : <?= $nama_travel['nama_travel_umrah']; ?></li>  
+                            
                         </ul>
-                    </div>
                 </div>
-
+                <div class="col-md-6">
+                    <ul>
+                        <li style="list-style: none;line-height: 40px !important;">Perusahaan : <?= $nama_travel['nama_perusahaan']; ?></li>
+                        <li style="list-style: none;line-height: 40px !important;">Provinsi : <?= $nama_travel['provinsi']; ?></li>
+                        <li style="list-style: none;line-height: 40px !important;">Tahun : <?= date("Y",strtotime($result['tahun'])); ?></li>
+                            <li style="list-style: none;line-height: 40px !important;">Asuransi : <?= $result['asuransi']; ?></li>
+                        <li style="list-style: none;line-height: 40px !important;">Biaya : Rp. <?= number_format($result['biaya'],0); ?></li>
+                    </ul>
+                </div>
             </div>
+    
         </div>
+    </div>
+    <section class="sections">
         <div class="card">
             <!-- <div class="card-header">
                         
@@ -95,7 +84,7 @@
                         <div class="tab-content" id="petugas">
                             <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
                                 <?php if ($result['pemberangkatan'] != "sudah") : ?>
-                                    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#exampleModal">Tambah</button>
+                                    <a href="<?= base_url('tambah_petugas_rencana/' . $result['id']); ?>" class="btn btn-primary mb-4">Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
                                     <table class="table table-border table-hover table-striped" id="main-satu">
@@ -118,7 +107,7 @@
                                                     <td><?= $rows['type'];  ?></td>
                                                     <?php if ($result['pemberangkatan'] != "sudah") : ?>
                                                         <td>
-                                                            <a href="#" title="Edit" class="btn btn-success" data-toggle="modal" data-target="#edits<?= $rows['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                            <a href="<?= base_url('edit_petugas_paket/' . $rows['id'] . '/' . $result['id']); ?>" title="Edit" class="btn btn-success" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#delete<?= $rows['id'] ?>"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     <?php endif; ?>
@@ -131,7 +120,7 @@
                             </div>
                             <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
                                 <?php if ($result['pemberangkatan'] != "sudah") : ?>
-                                    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_keberangkatan">Tambah</button>
+                                    <a href="<?= base_url('tambah_keberangkatan_paket/' . $result['id']); ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
                                     <table class="table table-border table-hover table-striped" id="table-2">
@@ -165,10 +154,10 @@
                                                     <td><?= $keberangkatans['bandara_tiba'];  ?></td>
                                                     <td><?= date("d, F Y", strtotime($keberangkatans['tgl_bandara_tiba']));  ?>
                                                     </td>
-                                                    <td><?= $keberangkatans['jam_berangkat'];  ?></td>
+                                                    <td><?= $keberangkatans['jam_tiba'];  ?></td>
                                                     <?php if ($result['pemberangkatan'] != "sudah") : ?>
                                                         <td>
-                                                            <a href="#" class="btn btn-success" data-toggle="modal" title="Edit" data-target="#mangkat<?= $keberangkatans['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                            <a href="<?= base_url('edit_keberangakatan_paket/' . $keberangkatans['id'] . '/' . $result['id']); ?>" class="btn btn-success" title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_mangkat<?= $keberangkatans['id'] ?>"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     <?php endif; ?>
@@ -745,93 +734,6 @@
             })
         </script>
     <?php endforeach; ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_keberangkatan">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_keberangkatan");  ?>" class="modal-content">
-                <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Keberangkatan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Maskapai</label>
-                        <br>
-                        <select name="maskapai" class="form-control select26" style="width: 100% !important;" required id="">
-                            <option value="">Pilih</option>
-                            <?php foreach ($maskapai as $main_satu) : ?>
-                                <option value="<?= $main_satu['nama_maskapai'];  ?>"><?= $main_satu['nama_maskapai'];  ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Nomor Penerbangan</label>
-                        <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Berangkat</label>
-                                <br>
-                                <select name="bandara_berangkat" class="form-control select28" style="width: 100% !important;" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $main_dua) : ?>
-                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" id="keberangkatan_id" name="tgl_berangkat">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_berangkat">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Tiba</label>
-                                <br>
-                                <select name="bandara_tiba" class="form-control select27" style="width: 100% !important;" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $main_dua) : ?>
-                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" name="tgl_tiba" id="kepulangan_id">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_tiba">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <script>
-        $(".select26").select2({
-            dropdownParent: $('#add_keberangkatan')
-        })
-        $(".select27").select2({
-            dropdownParent: $('#add_keberangkatan')
-        })
-        $(".select28").select2({
-            dropdownParent: $('#add_keberangkatan')
-        })
-    </script>
     <?php foreach ($keberangkatan as $main_dua) :  ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_mangkat<?= $main_dua['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">
@@ -854,131 +756,8 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="mangkat<?= $main_dua['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_keberangkatan");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $main_dua['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Keberangkatan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Maskapai</label>
-                            <br>
-                            <select style="width: 100% !important;" name="maskapai" class="form-control select29" required id="">
-                                <option value="">Pilih</option>
-                                <?php foreach ($maskapai as $main_satu_empat) : ?>
-                                    <option <?= ($main_satu_empat['nama_maskapai'] == $main_dua['maskapai']) ? "selected" : "";  ?> value="<?= $main_satu_empat['nama_maskapai'];  ?>">
-                                        <?= $main_satu_empat['nama_maskapai'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Nomor Penerbangan</label>
-                            <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor" value="<?= $main_dua['nomor'];  ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Berangkat</label>
-                                    <br>
-                                    <select style="width: 100% !important;" name="bandara_berangkat" class="form-control select30" required id="">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $main_duat) : ?>
-                                            <option <?= ($main_duat['nama'] == $main_dua['nama_bandara']) ? "selected" : "";  ?> value="<?= $main_duat['nama'];  ?>"><?= $main_duat['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_berangkat" value="<?= $main_dua['tgl_berangkat'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_berangkat" value="<?= $main_dua['jam_berangkat'];  ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Tiba</label>
-                                    <br>
-                                    <select style="width: 100% !important;" name="bandara_tiba" class="form-control select31" required id="">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $main_duat_satu) : ?>
-                                            <option <?= ($main_duat_satu['nama'] == $main_dua['bandara_tiba']) ? "selected" : "";  ?> value="<?= $main_duat_satu['nama'];  ?>"><?= $main_duat_satu['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_tiba" value="<?= $main_dua['tgl_bandara_tiba'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_tiba" value="<?= $main_dua['jam_tiba'];  ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <script>
-            $(".select29").select2({
-                dropdownParent: $('#mangkat<?= $main_dua['id'] ?>')
-            })
-            $(".select30").select2({
-                dropdownParent: $('#mangkat<?= $main_dua['id'] ?>')
-            })
-            $(".select31").select2({
-                dropdownParent: $('#mangkat<?= $main_dua['id'] ?>')
-            })
-        </script>
     <?php endforeach; ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_petugas");  ?>" class="modal-content">
-                <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Petugas</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Nama Petugas</label>
-                        <br>
-                        <select name="petugas" class="form-control select24" style="width: 100% !important;" required id="">
-                            <option value="">Pilih</option>
-                            <?php foreach ($petugas_umrah as $petugasumrah) : ?>
-                                <option value="<?= $petugasumrah['id'];  ?>"><?= $petugasumrah['nama'];  ?> -
-                                    <?= $petugasumrah['tipe_petugas'];  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        $(".select24").select2({
-            dropdownParent: $('#exampleModal')
-        });
-    </script>
+    
     <?php foreach ($petugas as $main_satu) : ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="delete<?= $main_satu['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">
@@ -1001,42 +780,6 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="edits<?= $main_satu['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_petugas");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id" value="<?= $main_satu['id'];  ?>">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Petugas</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Nama Petugas</label>
-                            <br>
-                            <select name="petugas" class="form-control select25" style="width: 100% !important;" required id="">
-                                <option value="">Pilih</option>
-                                <?php foreach ($petugas_umrah as $petugasumrah) : ?>
-                                    <option value="<?= $petugasumrah['id'];  ?>" <?= ($petugasumrah['nama'] == $main_satu['nama']) ? "selected" : "";  ?>>
-                                        <?= $petugasumrah['nama'];  ?> - <?= $petugasumrah['tipe_petugas'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <script>
-            $(".select25").select2({
-                dropdownParent: $('#edits<?= $main_satu['id'] ?>')
-            })
-        </script>
     <?php endforeach; ?>
 <?php endif; ?>
 <!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
