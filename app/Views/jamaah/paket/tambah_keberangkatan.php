@@ -76,6 +76,7 @@
         </div>
     </section>
 </div>
+
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -84,8 +85,8 @@
     $(".select24").select2()
     $('#keberangkatan_id').daterangepicker({
     timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
+    startDate: moment(),
+    endDate: moment(),
     locale: {
         format: 'D/MM/YYYY HH:mm'
     }

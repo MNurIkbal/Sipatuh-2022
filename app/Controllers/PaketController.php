@@ -33,6 +33,11 @@ class PaketController extends BaseController
             return redirect()->to("/");
             exit;
         }
+        // if(session()->get('level_id') != "cabang" ) {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // } elseif(session()->get('level_id') != "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
         $paket = new PaketModel();
         $jamaah = new JamaahModel();
         $provider = new ProviderModel();
@@ -369,6 +374,125 @@ class PaketController extends BaseController
         return view("jamaah/paket/detail", $data);
     }
 
+    public function tambah_hotel_paket($id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first()
+        ];
+
+        return view("jamaah/paket/tambah_hotel", $data);
+    }
+
+    public function edit_hotel_paket($id_hotel,$id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first(),
+            'hotel_satu'    =>  $hotel->where('id',$id_hotel)->first()
+        ];
+
+        return view("jamaah/paket/edit_hotel", $data);
+    }
+
     public function edit_keberangakatan_paket($id_keberangakatan,$id)
     {
 
@@ -376,9 +500,9 @@ class PaketController extends BaseController
             return redirect()->to("/");
             exit;
         }
-        if (session()->get('level_id') !== "jamaah") {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        // if (session()->get('level_id') != "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
 
         $paket = new PaketModel();
         $check = $paket->where([
@@ -441,9 +565,9 @@ class PaketController extends BaseController
             exit;
         }
 
-        if (session()->get('level_id') !== "jamaah") {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        // if (session()->get('level_id') != "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
         $paket = new PaketModel();
         $check = $paket->where([
             'id'    =>  $id

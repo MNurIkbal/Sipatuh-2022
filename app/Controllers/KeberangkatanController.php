@@ -15,9 +15,9 @@ class KeberangkatanController extends BaseController
             return redirect()->to("/");
             exit;
         }
-        if (session()->get('level_id') !== "jamaah") {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        // if (session()->get('level_id') !== "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
         // cara membuat kondisi
         try {
             $pakets_baru = new PaketModel();
@@ -72,9 +72,9 @@ class KeberangkatanController extends BaseController
             return redirect()->to("/");
             exit;
         }
-        if (session()->get('level_id') !== "jamaah") {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        // if (session()->get('level_id') !== "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
         $pakets_baru = new PaketModel();
         $time_waktu = $this->request->getVar('tgl_berangkat');
         $parts = explode(' - ', $time_waktu);
@@ -120,9 +120,9 @@ class KeberangkatanController extends BaseController
             return redirect()->to("/");
             exit;
         }
-        if (session()->get('level_id') !== "jamaah") {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-        }
+        // if (session()->get('level_id') !== "jamaah") {
+        //     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        // }
         $keberangkatan = new Keberangkatan();
         $keberangkatan->delete($this->request->getVar("id"));
         return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Dihapus");

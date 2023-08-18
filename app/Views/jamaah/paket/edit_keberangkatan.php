@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="">Tanggal Keberangkatan & Kepulangan</label>
-                                    <input type="text" readonly id="tgl_waktu" class="form-control" required placeholder="" name="tgl_berangkat" >
+                                    <input type="text" readonly id="tgl_waktu" class="form-control" required placeholder="" name="tgl_berangkat"  >
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -80,15 +80,31 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 <script>
     $(".select24").select2()
+    var tgl_berangkat = "<?php echo date('Y/m/d', strtotime($main_dua['tgl_berangkat'])); ?>";
+    var jam_berangkat = "<?php echo $main_dua['jam_berangkat']; ?>";
+    var tgl_bandara_tiba = "<?php echo date('Y/m/d', strtotime($main_dua['tgl_bandara_tiba'])); ?>";
+    var jam_tiba = "<?php echo $main_dua['jam_tiba']; ?>";
+
+    var combinedValue = tgl_berangkat + ' ' + jam_berangkat ;
+    var dua = tgl_bandara_tiba + ' ' + jam_tiba;
+// console.log(combinedValue);
+    // document.getElementById("tgl_waktu").value = combinedValue;
+    // $("#tgl_waktu").click(function() {
+    // })
     $('#tgl_waktu').daterangepicker({
     timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
+    
+    startDate: moment(combinedValue),
+    endDate: moment(dua),
     locale: {
         format: 'D/MM/YYYY HH:mm'
+
     }
-  });
+
+});
+
 </script>
 <?= $this->endSection(); ?>

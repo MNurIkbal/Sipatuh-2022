@@ -18,20 +18,27 @@ class HotelController extends BaseController
 
         $paket = new PaketModel();
         $get = $paket->where("id",$this->request->getVar('id'))->first();
-        $start = date("Y-m-d",strtotime($get['tgl_berangkat']));
-        $end = date("Y-m-d",strtotime($get['tgl_pulang']));
+        
+        $time_waktu = $this->request->getVar('masuk');
+        $parts = explode(' - ', $time_waktu);
+        $tanggalWaktuPertama = $parts[0]; // "18/09/2023 17:00"
+        $tanggalWaktuKedua = $parts[1];
+        $tgl_pertaman = explode(' ', $tanggalWaktuPertama);
 
-        $awal = date("Y-m-d",strtotime($this->request->getVar("masuk")));
-        $akhir = date("Y-m-d",strtotime($this->request->getVar("keluar")));
+        // waktu pertaman
+        $time_satu = $tgl_pertaman[0];
+        $time_dua = $tgl_pertaman[1];
+        list($day, $month, $year) = explode('/', $time_satu);
+        $newDateFormat = sprintf('%04d-%02d-%02d', $year, $month, $day);
 
-        if($awal < $start) {
-            return redirect()->back()->with("error","Waktu Berangkat Kurang Dari Waktu Keberangkatan Paket");
-        } elseif($akhir > $end) {
-            return redirect()->back()->with("error","Waktu Kepulangan Melebihi Dari Waktu Pulang  Paket");
-        } 
-        if($akhir <= $awal) {
-            return redirect()->back()->with("error","Waktu Pulang Tidak Boleh Kurang Atau Sama Dengan Waktu Keberangkatan");
-        }
+
+        $tgl_two = explode(' ', $tanggalWaktuKedua);
+
+        //waktu kedua
+        $time_lima  = $tgl_two[0];
+        $time_enam = $tgl_two[1];
+        list($hari, $bulan, $tahun) = explode('/', $time_lima);
+        $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
 
         $hotel = new HotelModel();
         $data_hotel = new DataHotelModel();
@@ -40,8 +47,8 @@ class HotelController extends BaseController
             'lokasi'    =>  $result_hotel['lokasi'],
             'hotel'    =>  $this->request->getVar("nama_hotel"),
             'orang_perkamar'    =>  $this->request->getVar("orang"),
-            'tgl_masuk'    =>  $this->request->getVar("masuk"),
-            'tgl_keluar'    =>  $this->request->getVar("keluar"),
+            'tgl_masuk'    =>  $newDateFormat,
+            'tgl_keluar'    =>  $newDateFormat_dua,
             'paket_id'    =>  $this->request->getVar("id"),
             'created_at'    =>  date("Y-m-d"),
             'updated_at'    =>  date("Y-m-d"),
