@@ -23,11 +23,12 @@ use App\Models\PetugasModel;
 use App\Models\ProviderModel;
 use CodeIgniter\Database\Database;
 use Config\Database as ConfigDatabase;
+
 class PaketController extends BaseController
 {
     public function index()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -43,134 +44,136 @@ class PaketController extends BaseController
             'selesai'
         ];
 
-        
-        
-        if(session()->get("level_id") == "jamaah") {
+
+
+        if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang'    =>  NULL,
                 'status !=' =>  'selesai'
-            ])->orderBy('id','desc')->findAll();
-        } elseif(session()->get("level_id") == "cabang") {
+            ])->orderBy('id', 'desc')->findAll();
+        } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
                 'cabang_id' =>  session()->get('cabang_id'),
                 'cabang'    =>  "cabang",
                 'status !=' =>  'selesai'
                 // 'status_approve'    =>  'sudah'
-            ])->orderBy('id','desc')->findAll();
+            ])->orderBy('id', 'desc')->findAll();
         }
-        
+
         $data = [
             'title' =>  "Paket",
-            'rekening_penampung'    => $rekening_penampung->where("travel_id",session()->get("travel_id"))->where("status","aktif")->findAll(),
+            'rekening_penampung'    => $rekening_penampung->where("travel_id", session()->get("travel_id"))->where("status", "aktif")->findAll(),
             'kloter'    =>  $kloter->findAll(),
             'result'    =>  $datapaket,
-            'provider'  =>  $data_provider->orderBy('nama_provider','ASC')->findAll(),
-            'asuransi'  =>  $asuransi->orderby('nama',"ASC")->findAll(),
-            'petugas'   =>  $petugas->where("aktif","aktif")->where("travel_id",session()->get('travel_id'))->orderby('nama',"ASC")->findAll()
+            'provider'  =>  $data_provider->orderBy('nama_provider', 'ASC')->findAll(),
+            'asuransi'  =>  $asuransi->orderby('nama', "ASC")->findAll(),
+            'petugas'   =>  $petugas->where("aktif", "aktif")->where("travel_id", session()->get('travel_id'))->orderby('nama', "ASC")->findAll()
         ];
-        if(session()->get("level_id") == "jamaah") {
-            return view("jamaah/paket/index",$data);
+        if (session()->get("level_id") == "jamaah") {
+            return view("jamaah/paket/index", $data);
         } else {
-            return view("jamaah/paket/paket_cabang",$data);
+            return view("jamaah/paket/paket_cabang", $data);
         }
     }
 
     public function tambah_paket()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
-        
-        try {
-            //code...
-            $kode = random_int(1111,9999);
-            $paket  = new PaketModel();
-            $biaya = str_replace(".", "", $this->request->getVar("biaya"));
-            $awal = date("Y-m-d",strtotime($this->request->getVar("waktu_berangkat")));
-            $end = date("Y-m-d",strtotime($this->request->getVar("waktu_pulang")));
-            if($end <= $awal) {
-                session()->setFlashdata('error','Waktu pulang tidak boleh kurang atau sama dengan waktu berangkat');
-                return redirect()->back();
-            }
-            if(!$this->validate([
-                'file' => [
-                    "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
-                ],
-                'kode'  =>  [
-                    'rules' =>  'is_unique[paket.kode_paket]'
-                ],
-            ])) {
-                session()->setFlashdata('error',$this->validator->listErrors());
-                return redirect()->back()->withInput();
-            }
-            
-            $dataBerkas = $this->request->getFile('file');
-            $fileName = $dataBerkas->getRandomName();
-            $foto = $fileName;
-            $dataBerkas->move('assets/upload/', $fileName);
-            if(session()->get("level_id") == "cabang") {
-                $cabang = session()->get("cabang_id");
-                $cabang_baru = "cabang";
-                $newcabang = new CabangModel();
-                $firstcabang = $newcabang->where("id",session()->get("cabang_id"))->first();
-                $travel_ids = $firstcabang['travel_id'];
-                $approve = 'sudah';
-                $status_paket = null;
-            } else {
-                $travel_ids = session()->get("travel_id");
-                $approve = 'sudah';
-                $status_paket = 'sudah';
-                $cabang = null;
-                $cabang_baru = null;
-            }
 
-            $status = $this->request->getVar('status');
-            if(isset($status)) {
-                $aktif = 'aktif';
-            } else {
-                $aktif = 'belum aktif';
-            }
-            
-            $paket->insert([
-                'nama'  =>  $this->request->getVar("nama_paket"),
-                'biaya'  =>  $biaya,
-                'status'  =>  $aktif,
-                'tahun'  =>  $this->request->getVar("tahun"),
-                'tgl_berangkat'  =>  $this->request->getVar("waktu_berangkat"),
-                'tgl_pulang'  =>  $this->request->getVar("waktu_pulang"),
-                'provider'  =>  $this->request->getVar("provider"),
-                'asuransi'  =>  $this->request->getVar("asuransi"),
-                'ket_berangkat'  =>  $this->request->getVar("ket_berangkat"),
-                'ket_pulang'  =>  $this->request->getVar("ket_pulang"),
-                'kode_paket'    => $kode,
-                'user_id'   => session()->get("id"),
-                'travel_id' =>  $travel_ids,
-                'poster'    =>  $foto,
-                'tour_leader'   =>  $this->request->getVar('leader'),
-                'cabang_id' =>  $cabang,
-                'status_paket_cabang'   =>  $status_paket,
-                'cabang'    =>  $cabang_baru,
-                'status_approve'    =>  $approve,
-                'rekening_penampung_id' =>  $this->request->getVar('rekening_penampung')
-            ]);
+        // try {
+        //code...
+        $kode = random_int(1111, 99999999);
+        $paket  = new PaketModel();
+        $waktus = $this->request->getVar('waktu_berangkat');
+        $biaya = str_replace(".", "", $this->request->getVar("biaya"));
+        $dateParts = explode(" - ", $waktus);
 
-    
-            return redirect()->to("/paket")->with("success","Data Berhasil Ditambahkan");
-        } catch (\Throwable $th) {
-            return redirect()->to("/paket")->with("error","Data Gagal Ditambahkan");
-            //throw $th;
+        $startDate = date("Y-m-d",strtotime($dateParts[0]));
+        $endDate = date("Y-m-d",strtotime($dateParts[1]));
+        // $awal = date("Y-m-d",strtotime($this->request->getVar("waktu_berangkat")));
+        // $end = date("Y-m-d",strtotime($this->request->getVar("waktu_pulang")));
+        // if($end <= $awal) {
+        //     session()->setFlashdata('error','Waktu pulang tidak boleh kurang atau sama dengan waktu berangkat');
+        //     return redirect()->back();
+        // }
+        if (!$this->validate([
+            'file' => [
+                "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
+            ]
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
         }
+
+        $dataBerkas = $this->request->getFile('file');
+        $fileName = $dataBerkas->getRandomName();
+        $foto = $fileName;
+        $dataBerkas->move('assets/upload/', $fileName);
+        if (session()->get("level_id") == "cabang") {
+            $cabang = session()->get("cabang_id");
+            $cabang_baru = "cabang";
+            $newcabang = new CabangModel();
+            $firstcabang = $newcabang->where("id", session()->get("cabang_id"))->first();
+            $travel_ids = $firstcabang['travel_id'];
+            $approve = 'sudah';
+            $status_paket = null;
+        } else {
+            $travel_ids = session()->get("travel_id");
+            $approve = 'sudah';
+            $status_paket = 'sudah';
+            $cabang = null;
+            $cabang_baru = null;
+        }
+
+        $status = $this->request->getVar('status');
+        if (isset($status)) {
+            $aktif = 'aktif';
+        } else {
+            $aktif = 'belum aktif';
+        }
+
+        $paket->insert([
+            'nama'  =>  $this->request->getVar("nama_paket"),
+            'biaya'  =>  $biaya,
+            'status'  =>  $aktif,
+            'tahun'  =>  $this->request->getVar("tahun"),
+            'tgl_berangkat'  =>  $startDate,
+            'tgl_pulang'  =>  $endDate,
+            'provider'  =>  $this->request->getVar("provider"),
+            'asuransi'  =>  $this->request->getVar("asuransi"),
+            'ket_berangkat'  =>  $this->request->getVar("ket_berangkat"),
+            'ket_pulang'  =>  $this->request->getVar("ket_pulang"),
+            'kode_paket'    => $kode,
+            'user_id'   => session()->get("id"),
+            'travel_id' =>  $travel_ids,
+            'poster'    =>  $foto,
+            'tour_leader'   =>  $this->request->getVar('leader'),
+            'cabang_id' =>  $cabang,
+            'status_paket_cabang'   =>  $status_paket,
+            'cabang'    =>  $cabang_baru,
+            'status_approve'    =>  $approve,
+            'rekening_penampung_id' =>  $this->request->getVar('rekening_penampung')
+        ]);
+
+
+        return redirect()->to("/paket")->with("success", "Data Berhasil Ditambahkan");
+        // } catch (\Throwable $th) {
+        //     return redirect()->to("/paket")->with("error","Data Gagal Ditambahkan");
+        //     //throw $th;
+        // }
     }
     public function edit_paket($id)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
-        if(!$this->validate([
+        if (!$this->validate([
             'file' => [
                 "rules" =>  "max_size[file,3024]|mime_in[file,image/jpg,image/jpeg,image/png]"
             ],
@@ -178,11 +181,11 @@ class PaketController extends BaseController
                 'rules' =>  'is_unique[paket.kode_paket]'
             ],
         ])) {
-            session()->setFlashdata('error',$this->validator->listErrors());
+            session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
         $dataBerkas = $this->request->getFile('file');
-        if($dataBerkas->getError() === 4) {
+        if ($dataBerkas->getError() === 4) {
             $foto = $this->request->getVar("file_lama");
         } else {
             $fileName = $dataBerkas->getRandomName();
@@ -191,19 +194,19 @@ class PaketController extends BaseController
         }
         $paket  = new PaketModel();
         $biaya = str_replace(".", "", $this->request->getVar("biaya"));
-        $awal = date("Y-m-d",strtotime($this->request->getVar("waktu_berangkat")));
-        $end = date("Y-m-d",strtotime($this->request->getVar("waktu_pulang")));
-        if($end <= $awal) {
-            session()->setFlashdata('error','Waktu pulang tidak boleh kurang atau sama dengan waktu berangkat');
+        $awal = date("Y-m-d", strtotime($this->request->getVar("waktu_berangkat")));
+        $end = date("Y-m-d", strtotime($this->request->getVar("waktu_pulang")));
+        if ($end <= $awal) {
+            session()->setFlashdata('error', 'Waktu pulang tidak boleh kurang atau sama dengan waktu berangkat');
             return redirect()->back();
         }
         $staus = $this->request->getVar('status');
-        if(isset($staus)) {
+        if (isset($staus)) {
             $aktif = 'aktif';
         } else {
             $aktif = 'belum aktif';
         }
-        $paket->update($id,[
+        $paket->update($id, [
             'nama'  =>  $this->request->getVar("nama_paket"),
             'biaya'  =>  $biaya,
             'status'  =>  $aktif,
@@ -217,39 +220,39 @@ class PaketController extends BaseController
             'poster'    =>  $foto,
         ]);
 
-        return redirect()->to("/paket")->with("success","Data Berhasil Diupdate");
+        return redirect()->to("/paket")->with("success", "Data Berhasil Diupdate");
     }
 
     public function hapus_paket($id)
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
         $paket = new PaketModel();
         $petugas = new PetugasModel();
-        $check_satu = $petugas->where("paket_id",$id)->first();
+        $check_satu = $petugas->where("paket_id", $id)->first();
         $keberangkatan = new Keberangkatan();
-        $check_dua = $keberangkatan->where("paket_id",$id)->first();
+        $check_dua = $keberangkatan->where("paket_id", $id)->first();
         $hotel = new HotelModel();
-        $check_tiga = $hotel->where("paket_id",$id)->first();
+        $check_tiga = $hotel->where("paket_id", $id)->first();
         $kloter = new KloterModel();
-        $check_empat = $kloter->where("paket_id",$id)->first();
+        $check_empat = $kloter->where("paket_id", $id)->first();
         $kepulangan = new KepulanganModel();
-        $check_lima = $kepulangan->where("paket_id",$id)->first();
+        $check_lima = $kepulangan->where("paket_id", $id)->first();
         $jamaah = new JamaahModel();
-        $check_enam = $jamaah->where("paket_id",$id)->first();
-        if($check_satu || $check_dua || $check_tiga || $check_empat || $check_lima || $check_enam) {
-            return redirect()->back()->with("error","Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi");
+        $check_enam = $jamaah->where("paket_id", $id)->first();
+        if ($check_satu || $check_dua || $check_tiga || $check_empat || $check_lima || $check_enam) {
+            return redirect()->back()->with("error", "Data Ini Tidak Boleh Dihapus Karena Sudah Berelasi");
         }
         $paket->delete($id);
-        return redirect()->to("/paket")->with("success","Data Berhasil Dihapus");
+        return redirect()->to("/paket")->with("success", "Data Berhasil Dihapus");
     }
 
     public function detail_paket($id)
     {
-        
-        if(!session()->get("login") || session()->get("login") == null) {
+
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -266,39 +269,39 @@ class PaketController extends BaseController
         $data_hotel = new DataHotelModel();
         $data = [
             'data_hotel'    =>  $data_hotel->findAll(),
-            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
             'title' =>  "Paket",
             'result'    =>  $paket->where([
                 'id'    =>  $id
             ])->first(),
-            'kloter'    =>  $kloter->where('paket_id',$id)->orderBy('id','desc')->findAll(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
             'bandara'   =>  $bandara->findAll(),
             'petugas'   =>  $petugas->where([
                 'paket_id'    =>  $id,
                 'kategori'  =>  'perencanaan'
-            ])->orderBy('id','desc')->findAll(),
-            'maskapai'  =>  $maskapai->where("status",1)->findAll(),
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
             'keberangkatan' => $keberangkatan->where([
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
-            ])->orderBy('id','desc')->findAll(),
-            'hotel' =>$hotel->where([
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
-            ])->orderBy('id','desc')->findAll(),
+            ])->orderBy('id', 'desc')->findAll(),
             'kepulangan'    =>  $kepulangan->where([
                 'paket_id'  =>  $id,
                 'kategori'  =>  'perencanaan'
-            ])->orderBy('id','desc')->findAll(),
-            'petugas_umrah' =>  $petugas_umrah->where("aktif","aktif")->where("travel_id",session()->get("travel_id"))->findAll(),
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
         ];
-            
-        return view("jamaah/paket/detail",$data);
+
+        return view("jamaah/paket/detail", $data);
     }
 
     public function tambah_petugas()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -306,11 +309,11 @@ class PaketController extends BaseController
         $petugas = $this->request->getVar('petugas');
 
         $petugas_umrah = new PetugasManModel();
-        $data = $petugas_umrah->where("id",$petugas)->first();
+        $data = $petugas_umrah->where("id", $petugas)->first();
         $petugas = new PetugasModel();
-        $check = $petugas->where("nama",$data['nama'])->where("kategori",'perencanaan')->where("paket_id",$id)->first();
-        if($check) {
-            return redirect()->to("detail_paket/" . $id)->with("success","Petugas Sudah Pernah Ditambahkan");
+        $check = $petugas->where("nama", $data['nama'])->where("kategori", 'perencanaan')->where("paket_id", $id)->first();
+        if ($check) {
+            return redirect()->to("detail_paket/" . $id)->with("success", "Petugas Sudah Pernah Ditambahkan");
             exit;
         }
         $petugas->insert([
@@ -322,12 +325,12 @@ class PaketController extends BaseController
             'kategori'  =>  'perencanaan'
         ]);
 
-        return redirect()->to("detail_paket/" . $id)->with("success","Data Berhasil Di Tambahkan");
+        return redirect()->to("detail_paket/" . $id)->with("success", "Data Berhasil Di Tambahkan");
     }
 
     public function edit_petugas()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
@@ -335,29 +338,29 @@ class PaketController extends BaseController
         $id_paket = $this->request->getVar("id_paket");
         $petugas = $this->request->getVar('petugas');
         $petugas_umrah = new PetugasManModel();
-        $data = $petugas_umrah->where("id",$petugas)->first();
+        $data = $petugas_umrah->where("id", $petugas)->first();
         $petugas = new PetugasModel();
-        $check = $petugas->where("nama",$data['nama'])->first();
-        if($check) {
-            return redirect()->to("detail_paket/" . $id_paket)->with("success","Petugas Sudah Pernah Ditambahkan");
+        $check = $petugas->where("nama", $data['nama'])->first();
+        if ($check) {
+            return redirect()->to("detail_paket/" . $id_paket)->with("success", "Petugas Sudah Pernah Ditambahkan");
             exit;
         }
         $petugas = new PetugasModel();
-        $petugas->update($id,[
+        $petugas->update($id, [
             'nama'  =>  $data['nama'],
             'type'  =>  $data['tipe_petugas'],
         ]);
-        return redirect()->to("detail_paket/" . $id_paket)->with("success","Data Berhasil Diupdate");
+        return redirect()->to("detail_paket/" . $id_paket)->with("success", "Data Berhasil Diupdate");
     }
 
     public function hapus_petugas()
     {
-        if(!session()->get("login") || session()->get("login") == null) {
+        if (!session()->get("login") || session()->get("login") == null) {
             return redirect()->to("/");
             exit;
         }
         $petugas = new PetugasModel();
         $petugas->delete($this->request->getVar("id"));
-        return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success","Data Berhasil Dihapus");
+        return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Dihapus");
     }
 }
