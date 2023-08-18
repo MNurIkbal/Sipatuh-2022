@@ -11,8 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Paket Umrah</h4>
-                        <a href="<?= base_url('tambah_paket') ?>" class="btn btn-primary"  title="Tambah">Tambah</a>
-
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" title="Tambah">Tambah</button>
                     </div>
                     <?php
                     if (session()->get("success")) : ?>
