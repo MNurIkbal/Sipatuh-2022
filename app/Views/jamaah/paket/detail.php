@@ -7,10 +7,15 @@
 <div class="main-content">
     <section class="section">
 
-        <div class="row">
-            <div class="col-12">
+        <div class="rows">
+            <div class="col-lgs">
                 <div class="card">
                     <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                
+                            </div>
+                        </div>
                         <ul>
                             <li style="list-style: none">
                                 <h4>Detail Perencanaan Paket</h6>
@@ -25,7 +30,14 @@
                             </li>
                             <li style="list-style: none">
 
-                                <span>Kode : <?=  $result['kode_paket'];  ?></span>
+                                Status :
+                                <span style="text-transform: uppercase">
+                                                     <?php if ($result['status'] != null) : ?>
+                                                        <span class="badge badge-pill badge-primary"><?= $result['status'];  ?></span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-pill badge-primary">tidak aktif</span>
+                                                    <?php endif; ?>
+                                                </span>
                             </li>
                         </ul>
                     </div>

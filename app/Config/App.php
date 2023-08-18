@@ -99,7 +99,10 @@ class App extends BaseConfig
      *
      * @var string[]
      */
-    public $supportedLocales = ['en'];
+    public $supportedLocales = [
+        'en'    => ['en_US', 'en_US.utf8'],
+        'id'    => ['id_ID', 'id_ID.utf8'], 
+    ];
 
     /**
      * --------------------------------------------------------------------------

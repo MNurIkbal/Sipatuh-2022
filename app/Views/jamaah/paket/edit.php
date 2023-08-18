@@ -23,8 +23,8 @@
                         </div>
                     <?php endif; ?>
                     <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_paket/" . $main['id']);  ?>" class="modal-content">
-                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_paket/" . $main['id']);  ?>" >
+                <div>
                     <div class="mb-3">
                         <label for="">Nama Paket*</label>
                         <input type="text" class="form-control" required placeholder="Nama Paket" name="nama_paket" value="<?= $main['nama'];  ?>">
@@ -37,7 +37,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="">Waktu Berangkat & Kepulangan*</label>
-                                <input type="text" class="form-control" required placeholder="" id="main_berangkat<?= $main['id']  ?>" name="waktu_berangkat" readonly>
+                                <input type="text" class="form-control" required placeholder="" id="berangkats" name="waktu_berangkat" readonly >
                             </div>
                             
                             <div class="mb-3">
@@ -101,17 +101,11 @@
                 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
                 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
                 <script>
-                    $(".select1<?= $main['id'] ?>").select2({
-                        dropdownParent: $('#edit<?= $main['id'] ?>')
-                    });
-                    $(".asuransia<?= $main['id'] ?>").select2({
-                        dropdownParent: $('#edit<?= $main['id'] ?>')
-                    });
+                    $(".select1<?= $main['id'] ?>").select2();
+                    $(".asuransia<?= $main['id'] ?>").select2();
                 </script>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a href="<?= base_url('/paket'); ?>" class="btn btn-dark">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
             </form>
                     </div>
                 </div>
@@ -126,6 +120,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 <script type="text/javascript">
+    var tglBerangkat = '<?= date("m/d/Y",strtotime($main['tgl_berangkat'])); ?>';
+var tglPulang = '<?= date("m/d/Y",strtotime($main['tgl_pulang'])); ?>';
+
+// Mengatur nilai awal pada elemen input
+$('#berangkats').val(tglBerangkat + ' - ' + tglPulang);
     $('#berangkats').daterangepicker({
         autoUpdateInput: false,
         locale: {
@@ -144,14 +143,12 @@
 
 <script>
    
-    var uang = document.getElementById("uang");
-    uang.addEventListener("keyup", function(e) {
-        
-        uang.value = formatRupiah(this.value, "Rp. ");
-    });
-
 
     var uang_baru = document.getElementById("uang_baru");
+    var biayaValue = uang_baru.value;
+
+// Mengubah nilai menjadi format Rupiah saat halaman dimuat
+uang_baru.value = formatRupiah(biayaValue, "Rp. ");
     uang_baru.addEventListener("keyup", function(e) {
         // tambahkan 'Rp.' pada saat form di ketik
         // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
