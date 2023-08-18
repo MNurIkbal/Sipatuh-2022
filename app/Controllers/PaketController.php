@@ -78,6 +78,52 @@ class PaketController extends BaseController
         }
     }
 
+    public function tambah_pakets()
+    {
+        $paket = new PaketModel();
+        $jamaah = new JamaahModel();
+        $provider = new ProviderModel();
+        $data_provider = new DataProviderModel();
+        $asuransi = new AsuransiModel();
+        $kloter = new KloterModel();
+        $petugas = new PetugasManModel();
+        $rekening_penampung = new BankModel();
+        $data = [
+            'title' =>  "Paket",
+            'rekening_penampung'    => $rekening_penampung->where("travel_id", session()->get("travel_id"))->where("status", "aktif")->findAll(),
+            'kloter'    =>  $kloter->findAll(),
+            
+            'provider'  =>  $data_provider->orderBy('nama_provider', 'ASC')->findAll(),
+            'asuransi'  =>  $asuransi->orderby('nama', "ASC")->findAll(),
+            'petugas'   =>  $petugas->where("aktif", "aktif")->where("travel_id", session()->get('travel_id'))->orderby('nama', "ASC")->findAll()
+        ];
+
+        return view("jamaah/paket/tambah", $data);
+    }
+
+    public function edit_paket_jamaah($id = null)
+    {
+        
+        dd($id);
+        
+        // dd($id);
+        // $data_provider = new DataProviderModel();
+        // $asuransi = new AsuransiModel();
+        // $kloter = new KloterModel();
+        // $petugas = new PetugasManModel();
+        // $rekening_penampung = new BankModel();
+        // $data = [
+        //     'title' =>  "Paket",
+        //     'rekening_penampung' => $rekening_penampung->where("travel_id", session()->get("travel_id"))->where("status", "aktif")->findAll(),
+        //     'kloter'    =>  $kloter->findAll(),
+        //     'provider'  =>  $data_provider->orderBy('nama_provider', 'ASC')->findAll(),
+        //     'asuransi'  =>  $asuransi->orderby('nama', "ASC")->findAll(),
+        //     'petugas'   =>  $petugas->where("aktif", "aktif")->where("travel_id", session()->get('travel_id'))->orderby('nama', "ASC")->findAll()
+        // ];
+
+        // return view("jamaah/paket/edit", $data);
+    }
+
     public function tambah_paket()
     {
         if (!session()->get("login") || session()->get("login") == null) {
@@ -85,7 +131,7 @@ class PaketController extends BaseController
             exit;
         }
 
-        // try {
+        try {
         //code...
         $kode = random_int(1111, 99999999);
         $paket  = new PaketModel();
@@ -162,10 +208,10 @@ class PaketController extends BaseController
 
 
         return redirect()->to("/paket")->with("success", "Data Berhasil Ditambahkan");
-        // } catch (\Throwable $th) {
-        //     return redirect()->to("/paket")->with("error","Data Gagal Ditambahkan");
-        //     //throw $th;
-        // }
+        } catch (\Throwable $th) {
+            return redirect()->to("/paket")->with("error","Data Gagal Ditambahkan");
+            //throw $th;
+        }
     }
     public function edit_paket($id)
     {

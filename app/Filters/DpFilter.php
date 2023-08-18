@@ -27,10 +27,8 @@ class DpFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        
         $login = session()->get('login');
-        if(!$login) {
-            return redirect('/masuk');
-        }
         $id = session()->get('id');
         $level_id = session()->get('level_id');
         $nama = session()->get('nama');
@@ -44,7 +42,6 @@ class DpFilter implements FilterInterface
             $travel_id = "travel untuk admin";
             $jamaah_id = "ada jamaah admin";
             $cabang_id = "ada cabang admin";
-            // return redirect('users');
         } elseif($level_id == "jamaah") {
             $cabang_id = "ada cabang admin";
             $jamaah_id = "ada jamaah admin";
