@@ -101,7 +101,7 @@ class PaketController extends BaseController
         return view("jamaah/paket/tambah", $data);
     }
 
-    public function show_update($no= null)
+    public function show_update($no)
     {
         
         dd($no);
