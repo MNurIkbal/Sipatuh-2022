@@ -24,7 +24,7 @@
                 <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
                 <div>
                     <div class="mb-3">
-                        <label for="">Nama Petugas</label>
+                        <label for="">Nama Petugas*</label>
                         <br>
                         <select name="petugas" class="form-control select24" style="width: 100% !important;" required id="">
                             <option value="">Pilih</option>

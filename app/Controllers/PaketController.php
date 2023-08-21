@@ -433,6 +433,252 @@ class PaketController extends BaseController
         return view("jamaah/paket/tambah_hotel", $data);
     }
 
+    public function tambah_pulang($id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first()
+        ];
+
+        return view("jamaah/paket/tambah_kepulangan", $data);
+    }
+
+    public function tambah_kloter_baru($id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first()
+        ];
+
+        return view("jamaah/paket/tambah_kloter", $data);
+    }
+    
+    public function edit_kloter_baru($id_kloter,$id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $check_dua = $kloter->where('id',$id_kloter)->first();
+        if(!$check_dua) {
+            return redirect()->to('paket');
+        }
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first(),
+            'kloter_satu'   =>  $kloter->where('id',$id_kloter)->first()
+        ];
+
+        return view("jamaah/paket/edit_kloter", $data);
+    }
+
+    public function edit_kepulangan_pakets($id_kepulangan,$id)
+    {
+
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+
+        $paket = new PaketModel();
+        $check = $paket->where([
+            'id'    =>  $id
+        ])->first();
+        if(!$check) {
+            return redirect()->to('paket');
+        }
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $maskapai = new Maskapai();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kloter = new KloterModel();
+        $petugas_umrah = new PetugasManModel();
+        $bandara = new BandaraModel();
+        $muasah = new MuassahModel();
+        $data_hotel = new DataHotelModel();
+        $profile = new ProfileModel();
+        $check_dua = $kepulangan->where("id",$id_kepulangan)->first();
+        if(!$check_dua) {
+            return redirect()->to('paket');
+        }
+        $data = [
+            'data_hotel'    =>  $data_hotel->orderby('nama','asc')->findAll(),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'title' =>  "Paket",
+            'result'    =>  $paket->where([
+                'id'    =>  $id
+            ])->first(),
+            'kloter'    =>  $kloter->where('paket_id', $id)->orderBy('id', 'desc')->findAll(),
+            'bandara'   =>  $bandara->findAll(),
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'hotel' => $hotel->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                'kategori'  =>  'perencanaan'
+            ])->orderBy('id', 'desc')->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("aktif", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'nama_travel'   => $profile->where('id',$check['travel_id'])->first(),
+            'kepulangan_row'    =>  $kepulangan->where('id',$id_kepulangan)->first(),
+        ];
+
+        return view("jamaah/paket/edit_kepulangan", $data);
+    }
+
     public function edit_hotel_paket($id_hotel,$id)
     {
 

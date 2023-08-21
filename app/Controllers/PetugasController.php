@@ -27,6 +27,47 @@ class PetugasController extends BaseController
         ];
         return view("jamaah/petugas/index",$data);
     }
+    
+    public function tambah_petugas_baru()
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $paket = new PaketModel();
+        $petugas_man  = new PetugasManModel();
+        $level = new LevelPetugasModel();
+        $data = [
+            'level' =>  $level->findAll(),
+            'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
+            'title' =>  "Petugas",
+            'petugas'   =>  $petugas_man->where("travel_id",session()->get("travel_id"))->findAll(),
+        ];
+        return view("jamaah/petugas/tambah_petugas",$data);
+    }
+    
+    public function edit_petugas_barus($id)
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $paket = new PaketModel();
+        $petugas_man  = new PetugasManModel();
+        $level = new LevelPetugasModel();
+        $check= $petugas_man->where('id',$id)->first();
+        if(!$check) {
+            return redirect()->to('petugas');
+        }
+        $data = [
+            'level' =>  $level->findAll(),
+            'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
+            'title' =>  "Petugas",
+            'petugas'   =>  $petugas_man->where("travel_id",session()->get("travel_id"))->findAll(),
+            'main'  =>  $petugas_man->where('id',$id)->first()
+        ];
+        return view("jamaah/petugas/edit_petugas",$data);
+    }
 
     public function add_petugas()
     {

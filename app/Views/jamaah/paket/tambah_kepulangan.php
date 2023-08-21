@@ -17,48 +17,16 @@
                 </div>
             <?php endif; ?>
             <div class="card-header">
-                <h4>Tambah Keberangkatan</h4>
+                <h4>Tambah Hotel</h4>
             </div>
             <div class="card-body">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_keberangkatan");  ?>" >
+            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_kepulangan");  ?>" >
                 <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
                 <div >
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Berangkat*</label>
-                                <br>
-                                <select name="bandara_berangkat" class="form-control select24" style="width: 100% !important;" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $main_dua) : ?>
-                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                        <label for="">Nomor Penerbangan*</label>
-                        <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor">
-                    </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal Keberangkatan & Kepulangan*</label>
-                                <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="tgl_berangkat" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Tiba*</label>
-                                <br>
-                                <select name="bandara_tiba" class="form-control select24" style="width: 100% !important;" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $main_dua) : ?>
-                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
+                    <div class="mb-3">
                         <label for="">Maskapai*</label>
                         <br>
-                        <select name="maskapai" class="form-control select24" style="width: 100% !important;" required id="">
+                        <select style="width: 100% !important;" name="maskapai" class="form-control select24" required id="">
                             <option value="">Pilih</option>
                             <?php foreach ($maskapai as $main_satu) : ?>
                                 <option value="<?= $main_satu['nama_maskapai'];  ?>"><?= $main_satu['nama_maskapai'];  ?>
@@ -66,11 +34,43 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="">Nomor Penerbangan*</label>
+                        <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="">Bandara Berangkat*</label>
+                                <br>
+                                <select style="width: 100% !important;" name="bandara_berangkat" class="form-control select24" required id="">
+                                    <option value="">Pilih</option>
+                                    <?php foreach ($bandara as $main_dua) : ?>
+                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="">Bandara Tiba*</label>
+                                <br>
+                                <select name="bandara_tiba" class="form-control select24" required id="" style="width: 100% !important;">
+                                    <option value="">Pilih</option>
+                                    <?php foreach ($bandara as $mainenam) : ?>
+                                        <option value="<?= $mainenam['nama'];  ?>"><?= $mainenam['nama'];  ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                            <label for="">Tanggal Keberangkatan & Kepulangan*</label>
+                            <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="tgl_berangkat" readonly>
+                        </div>
                 </div>
-                    <a href="<?= base_url('detail_paket/' . $result['id']); ?>"  class="btn btn-dark">Kembali</a>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
+                <a href="<?= base_url('detail_paket/' . $result['id']); ?>"  class="btn btn-secondary" >Kembali</a>
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
             </div>
         </div>
@@ -81,7 +81,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-    $('#keberangkatan_id').val(''); 
     $(".select24").select2()
     $('#keberangkatan_id').daterangepicker({
     timePicker: true,

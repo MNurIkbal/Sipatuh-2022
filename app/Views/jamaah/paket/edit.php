@@ -58,7 +58,7 @@
                                 <img src="<?= base_url("assets/upload/$main[poster]"); ?>" alt="" class="img-thumbnail img-fluid w-100 h-100">
                             </div>
                             <div class="mb-3">
-                                <label for="">Poster*</label>
+                                <label for="">Poster</label>
                                 <input type="hidden" name="file_lama" value="<?= $main['poster'];  ?>">
                                 <input type="file" class="form-control" name="file">
                             </div>

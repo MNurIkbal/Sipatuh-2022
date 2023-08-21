@@ -73,21 +73,16 @@ class HotelController extends BaseController
         $tgl_pertaman = explode(' ', $tanggalWaktuPertama);
         // waktu pertaman
         $time_satu = $tgl_pertaman[0];
-        list($day, $month, $year) = explode('/', $time_satu);
-        $newDateFormat = sprintf('%04d-%02d-%02d', $year, $month, $day);
-
-
+        // list($day, $month, $year) = explode('/', $time_satu);
+        // $newDateFormat = sprintf('%04d-%02d-%02d', $year, $month, $day);
 
         //waktu kedua
         $time_lima  = $parts[1];
-        list($hari, $bulan, $tahun) = explode('/', $time_lima);
-        $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
+        // list($hari, $bulan, $tahun) = explode('/', $time_lima);
+        // $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
+        $akhir = date("Y-m-d",strtotime($time_lima));
+        $mulai = date("Y-m-d",strtotime($time_satu));
         
-        // $one = explode("-",$newDateFormat);
-        // $two = explode("-",$newDateFormat_dua);
-        $main = date("Y-m-d",strtotime($newDateFormat));
-        var_dump("mulai",$main);
-        die;
         try {
             //code...
             $hotel = new HotelModel();
@@ -97,8 +92,8 @@ class HotelController extends BaseController
                 'lokasi'    =>  $result_hotel['lokasi'],
                 'hotel'    =>  $this->request->getVar("nama_hotel"),
                 'orang_perkamar'    =>  $this->request->getVar("orang"),
-                'tgl_masuk'    =>  $newDateFormat,
-                'tgl_keluar'    =>  $newDateFormat_dua,
+                'tgl_masuk'    =>  $mulai,
+                'tgl_keluar'    =>  $akhir,
             ]);
     
             return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success","Data Berhasil Diupdate");

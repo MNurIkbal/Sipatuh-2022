@@ -11,6 +11,7 @@ use App\Models\BioDataModel;
 use App\Models\BuktiModel;
 use App\Models\DaftarJamaahModel;
 use App\Models\DashboardAdmin;
+use App\Models\DataBank;
 use App\Models\DataProviderModel;
 use App\Models\JamaahModel;
 use App\Models\KloterModel;
@@ -68,6 +69,10 @@ class PendaftaranController extends BaseController
         }
         $paket = new PaketModel();
         $kloter = new KloterModel();
+        $check = $paket->where('id',$id_paket)->first();
+        if(!$check) {
+            return redirect()->to('pendaftaran');
+        }
         $data = [
             'kloter'    =>      $kloter->where("paket_id", $id_paket)->where("status", 'Aktif')->where("done", NULL)->orderBy('id', 'desc')->findAll(),
             'title' =>  "Pendaftaran Paket",
@@ -138,6 +143,15 @@ class PendaftaranController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_kloter) {
+            return redirect()->to('pendaftaran');
+        }
+
+        $check_dua = $paket->where('id',$id)->first();
+        if(!$check_dua) {
+            return redirect()->to('pendaftaran');
+        }
 
         $sekarang = date("Y-m-d");
         $expired = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->findAll();
@@ -148,6 +162,7 @@ class PendaftaranController extends BaseController
                 $delete = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->where('date(expired_bayar_dp)', $sekarang)->where('id', $main['id'])->delete();
             }
         }
+        $bank_rekening = new BankModel();
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -194,6 +209,7 @@ class PendaftaranController extends BaseController
             'muasah'    =>  $muasah->where("status", 1)->findAll(),
             'provider'  =>  $provider->findAll(),
             'asuransi'  =>  $asuransi->findAll(),
+            'rekening_penampung'    =>  $bank_rekening,
         ];
 
         return view("jamaah/pendaftaran/tambah", $data);
@@ -431,6 +447,12 @@ class PendaftaranController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+        $check_paket = $paket->where('id',$id)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_jamaah = $jamaah->where("id",$ids)->first();
+        if(!$check_paket || !$check_kloter || !$check_jamaah) {
+            return redirect()->to('pendaftaran');
+        }
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -453,7 +475,7 @@ class PendaftaranController extends BaseController
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
             'title' =>  "Pendaftaran",
-            'main'  =>  $jamaah->where('id', $id)->first(),
+            'main'  =>  $jamaah->where('id', $ids)->first(),
             'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
                 'paket_id'  =>  $id,
@@ -563,32 +585,18 @@ class PendaftaranController extends BaseController
             'status_pernikahan' =>  $this->request->getVar("nikah"),
             'jenis_pendidikan' =>  $this->request->getVar("jenis_pendidikan"),
             'jenis_pekerjaan' =>  $this->request->getVar("jenis_pekerjaan"),
-            'provider' =>  $this->request->getVar("provider"),
-            'asuransi' =>  $this->request->getVar("asuransi"),
+            'provider' =>  $kode_paket_satu['provider'],
+            'asuransi' =>  $kode_paket_satu['asuransi'],
             'paket_id' =>  $this->request->getVar("id_paket"),
             'created_at' =>  date("Y-m-d"),
             'updated_at' =>  date("Y-m-d"),
             'no_paspor' =>  $this->request->getVar("no_paspor"),
             'no_identitas' =>  $this->request->getVar("no_identitas"),
             'rekening_penampung'    =>  $result_rekenings['bank'] . ' / ' .  $result_rekenings['no_rekening'] .  ' / ' . $result_rekenings['nama'],
-            'no_pasti_umrah'    =>  "URM"  . date("Y") . date("m") . rand(1111, 9999),
-            'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111, 9999),
+            'no_pasti_umrah'    =>  "URM"  . date("Y") . date("m") . rand(1111, 999999999999),
+            'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111, 99999999999),
             'kloter_id' =>  $this->request->getVar("id_kloter"),
         ]);
-        // $db      = \Config\Database::connect();
-        // $users= new Users();
-        // $users->insert([
-        //     'nama'  =>  $this->request->getVar('nama'),
-        //     'username'  =>  $this->request->getVar('email'),
-        //     'password'  =>  password_hash($this->request->getVar('password'),PASSWORD_DEFAULT),
-        //     'level_id'  =>  'user',
-        //     'img'   =>  $fileName,
-        //     'email'=>   $this->request->getVar('email'),
-        //     'no_hp' =>  $this->request->getVar('no_hp'),
-        // ]);
-        // $akhir_user = $users->orderby('id','desc')->first();
-        // $mk = $akhir_user['id'];
-        // $db->query("UPDATE jamaah SET user_id = '$mk' ORDER BY id DESC");
         $dataBerkas->move('assets/upload/', $fileName);
         $kloter = new KloterModel();
         $data_kloter = $kloter->where("id", $this->request->getVar("id_kloter"))->first();
@@ -673,6 +681,11 @@ class PendaftaranController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_paket || !$check_kloter) {
+            return redirect()->to('pendaftaran');
+        }
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 

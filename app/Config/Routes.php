@@ -72,10 +72,14 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_petugas_rencana/(:any)', 'PaketController::tambah_petugas_rencana/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_hotel_paket/(:any)', 'PaketController::tambah_hotel_paket/$1',['filter' => 'DpFilter']);
+    $routes->get('tambah_kloter_baru/(:any)', 'PaketController::tambah_kloter_baru/$1',['filter' => 'DpFilter']);
     $routes->get('edit_petugas_paket/(:any)/(:any)', 'PaketController::edit_petugas_paket/$1/$2',['filter' => 'DpFilter']);
+    $routes->get('edit_kloter_baru/(:any)/(:any)', 'PaketController::edit_kloter_baru/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_keberangakatan_paket/(:any)/(:any)', 'PaketController::edit_keberangakatan_paket/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_hotel_paket/(:any)/(:any)', 'PaketController::edit_hotel_paket/$1/$2',['filter' => 'DpFilter']);
+    $routes->get('edit_kepulangan_pakets/(:any)/(:any)', 'PaketController::edit_kepulangan_pakets/$1/$2',['filter' => 'DpFilter']);
     $routes->get('show_update/(:any)', 'PaketController::show_update/$1',['filter' => 'DpFilter']);
+    $routes->get('tambah_pulang/(:any)', 'PaketController::tambah_pulang/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_keberangkatan_paket/(:any)', 'PaketController::tambah_keberangkatan_paket/$1',['filter' => 'DpFilter']);
     $routes->post('/tambah_paket', 'PaketController::tambah_paket',['filter' => 'DpFilter']);
     $routes->post('/edit_paket/(:any)', 'PaketController::edit_paket/$1',['filter' => 'DpFilter']);
@@ -159,6 +163,8 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
 
     //petugas
     $routes->get("/petugas","PetugasController::index",['filter' => 'DpFilter']);
+    $routes->get("/tambah_petugas_baru","PetugasController::tambah_petugas_baru",['filter' => 'DpFilter']);
+    $routes->get("/edit_petugas_barus/(:any)","PetugasController::edit_petugas_barus/$1",['filter' => 'DpFilter']);
     $routes->post("/add_petugas","PetugasController::add_petugas",['filter' => 'DpFilter']);
     $routes->post("/edit_petugas_baru/(:any)","PetugasController::edit_petugas_baru/$1",['filter' => 'DpFilter']);
     $routes->post("/hapus_petugas_baru/(:any)","PetugasController::hapus_petugas_baru/$1",['filter' => 'DpFilter']);

@@ -17,34 +17,31 @@
                 </div>
             <?php endif; ?>
             <div class="card-header">
-                <h4>Edit Hotel</h4>
+                <h4>Edit Kloter</h4>
             </div>
             <div class="card-body">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_hotel");  ?>" >
+            <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_kloter");  ?>" >
                     <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $hotel_satu['id'];  ?>">
+                    <input type="text" class="d-none" name="id" value="<?= $kloter_satu['id'];  ?>">
                     <div >
                         <div class="mb-3">
-                            <label for="">Hotel*</label>
-                            <br>
-                            <select name="nama_hotel" style="width: 100% !important;" class="form-control select24" required id="">
+                            <label for="">Nama Kloter*</label>
+                            <input type="text" name="kloter" class="form-control" required placeholder="Nama Kloter" value="<?= $kloter_satu['nama'];  ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Batas Jamaah*</label>
+                            <input value="<?= $kloter_satu['batas_jamaah']; ?>" type="number" name="batas" class="form-control" required placeholder="Batas Jamaah">
+                        </div>
+                        <div class="mb-3">
+                            <label for="">Status*</label>
+                            <select name="status" class="form-control" required id="">
                                 <option value="">Pilih</option>
-                                <?php foreach ($data_hotel as $data_hotels) : ?>
-                                    <option value="<?= $data_hotels['nama'];  ?>" <?= ($data_hotels['nama'] == $hotel_satu['hotel']) ? "selected" : ""; ?>><?= $data_hotels['nama'];  ?></option>
-                                <?php endforeach; ?>
+                                <option value="Aktif" <?= ($kloter_satu['status'] == "Aktif") ? "selected" : "";  ?>>Aktif</option>
+                                <option <?= ($kloter_satu['status'] == "Tidak Aktif") ? "selected" : "";  ?> value="Tidak Aktif">Tidak Aktif</option>
                             </select>
                         </div>
-
-                        <div class="mb-3">
-                            <label for="">Orang Perkamar*</label>
-                            <input type="text" class="form-control" required placeholder="Orang Perkamar" name="orang" value="<?= $hotel_satu['orang_perkamar'];  ?>">
-                        </div>
-                        <div class="mb-3">
-                                    <label for="">Tanggal Masuk & Keluar*</label>
-                                    <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="masuk" readonly value="<?= date("m/d/Y",strtotime($hotel_satu['tgl_masuk'])) . ' - ' . date("m/d/Y",strtotime($hotel_satu['tgl_keluar'])) ?>">
-                                </div>
                     </div>
-                        <a href="<?= base_url('detail_paket/' . $result['id']); ?>" class="btn btn-dark" >Kembali</a>
+                        <a href="<?= base_url('detail_paket/'.$result['id']); ?>" class="btn btn-dark">Kembali</a>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                 </form>
             </div>
@@ -56,12 +53,13 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-    $(".select24").select2();
-    var mulai = <?= date("Y-m-d",strtotime($hotel_satu['tgl_masuk'])) ?>;
-    var selesai = <?= date("Y-m-d",strtotime($hotel_satu['tgl_keluar'])) ?>;
-    
+    $(".select24").select2()
     $('#keberangkatan_id').daterangepicker({
-    opens: 'left',
-  });
+        opens: 'left',
+        locale: {
+            format: 'D/MM/YYYY' // Format tanggal dengan bulan angka (contoh: 18 08 2023)
+
+        }
+    });
 </script>
 <?= $this->endSection(); ?>

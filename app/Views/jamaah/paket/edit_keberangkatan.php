@@ -27,11 +27,11 @@
                         <div class="row">
                             <div class="col-md-6">
                             <div class="mb-3">
-                            <label for="">Nomor Penerbangan</label>
+                            <label for="">Nomor Penerbangan*</label>
                             <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor" value="<?= $main_dua['nomor'];  ?>">
                         </div>
                                 <div class="mb-3">
-                                    <label for="">Bandara Berangkat</label>
+                                    <label for="">Bandara Berangkat*</label>
                                     <br>
                                     <select style="width: 100% !important;" name="bandara_berangkat" class="form-control select24" required id="">
                                         <option value="">Pilih</option>
@@ -41,13 +41,13 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="">Tanggal Keberangkatan & Kepulangan</label>
+                                    <label for="">Tanggal Keberangkatan & Kepulangan*</label>
                                     <input type="text" readonly id="tgl_waktu" class="form-control" required placeholder="" name="tgl_berangkat"  >
                                 </div>
                             </div>
                             <div class="col-md-6">
                             <div class="mb-3">
-                            <label for="">Maskapai</label>
+                            <label for="">Maskapai*</label>
                             <br>
                             <select style="width: 100% !important;" name="maskapai" class="form-control select24" required id="">
                                 <option value="">Pilih</option>
@@ -58,7 +58,7 @@
                             </select>
                         </div>
                                 <div class="mb-3">
-                                    <label for="">Bandara Tiba</label>
+                                    <label for="">Bandara Tiba*</label>
                                     <br>
                                     <select style="width: 100% !important;" name="bandara_tiba" class="form-control select24" required id="">
                                         <option value="">Pilih</option>
@@ -90,10 +90,6 @@
 
     var combinedValue = tgl_berangkat + ' ' + jam_berangkat ;
     var dua = tgl_bandara_tiba + ' ' + jam_tiba;
-// console.log(combinedValue);
-    // document.getElementById("tgl_waktu").value = combinedValue;
-    // $("#tgl_waktu").click(function() {
-    // })
     $('#tgl_waktu').daterangepicker({
     timePicker: true,
     

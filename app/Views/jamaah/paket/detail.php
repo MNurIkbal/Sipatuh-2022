@@ -59,11 +59,11 @@
                 </div>
             <?php endif; ?>
             <div class="card-body">
-                <div class="card">
-                    <div class="card-header">
+                <div >
+                    <div class="mb-4">
                         <a href="<?= base_url("/paket");  ?>" class="btn btn-warning">Kembali</a>
                     </div>
-                    <div class="card-body">
+                    <div >
                         <ul class="nav nav-pills d-flex justify-content-center" id="myTab3" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab3" data-toggle="tab" href="#home3" role="tab" aria-controls="home" aria-selected="true">Petugas</a>
@@ -214,7 +214,7 @@
                             </div>
                             <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
                                 <?php if ($result['pemberangkatan'] != "sudah") : ?>
-                                    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_kepulangan">Tambah</button>
+                                    <a href="<?= base_url('tambah_pulang/'.$result['id']) ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
                                     <table class="table table-border table-hover table-striped" id="table-4">
@@ -248,10 +248,10 @@
                                                     <td><?= $kepulangans['bandara_tiba'];  ?></td>
                                                     <td><?= date("d, F Y", strtotime($kepulangans['tgl_penerbangan_tiba']));  ?>
                                                     </td>
-                                                    <td><?= $kepulangans['jam_berangkat'];  ?></td>
+                                                    <td><?= $kepulangans['jam_tiba'];  ?></td>
                                                     <?php if ($result['pemberangkatan'] != "sudah") : ?>
                                                         <td>
-                                                            <a href="#" class="btn btn-success" data-toggle="modal" title="Edit" data-target="#edit_kepulangan<?= $kepulangans['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                            <a href="<?= base_url('edit_kepulangan_pakets/' . $kepulangans['id'] . '/' . $result['id']); ?>" class="btn btn-success"  title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_kepulangan<?= $kepulangans['id'] ?>"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     <?php endif; ?>
@@ -264,7 +264,7 @@
                             </div>
                             <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab4">
                                 <?php if ($result['pemberangkatan'] != "sudah") : ?>
-                                    <button class="btn btn-primary mb-4" data-toggle="modal" data-target="#add_kloter">Tambah</button>
+                                    <a href="<?= base_url('tambah_kloter_baru/' . $result['id']); ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
                                     <table class="table table-border table-hover table-striped" id="table-5">
@@ -291,7 +291,7 @@
                                                     <td><?= $kloters['created_at'];  ?></td>
                                                     <?php if ($result['pemberangkatan'] != "sudah") : ?>
                                                         <td>
-                                                            <a href="#" class="btn btn-success" data-toggle="modal" title="Edit" data-target="#edit_kloter<?= $kloters['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                            <a href="<?= base_url('edit_kloter_baru/' . $kloters['id'] . '/' . $result['id']); ?>" class="btn btn-success"  title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_kloter<?= $kloters['id'] ?>"><i class="fa fa-trash"></i></a>
                                                         </td>
                                                     <?php endif; ?>
@@ -309,79 +309,9 @@
         </div>
     </section>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="add_kloter">
-    <div class="modal-dialog modal-lg" role="document">
-        <form method="POST" enctype="multipart/form-data" action="<?= base_url("add_kloter");  ?>" class="modal-content">
-            <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-            <div class="modal-header">
-                <h5 class="modal-title">Tambah Kloter</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="">Nama Kloter</label>
-                    <input type="text" name="kloter" class="form-control" required placeholder="Nama Kloter">
-                </div>
-                <div class="mb-3">
-                    <label for="">Batas Jamaah</label>
-                    <input type="number" name="batas" class="form-control" required placeholder="Batas Jamaah">
-                </div>
-                <div class="mb-3">
-                    <label for="">Status</label>
-                    <select name="status" class="form-control" required id="">
-                        <option value="">Pilih</option>
-                        <option value="Aktif">Aktif</option>
-                        <option value="Tidak Aktif">Tidak Aktif</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-            </div>
-        </form>
-    </div>
-</div>
+
 <?php if ($result['pemberangkatan'] != "sudah") : ?>
     <?php foreach ($kloter as $kloter_satu) : ?>
-        <div class="modal fade" tabindex="-1" role="dialog" id="edit_kloter<?= $kloter_satu['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_kloter");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $kloter_satu['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Kloter</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Nama Kloter</label>
-                            <input type="text" name="kloter" class="form-control" required placeholder="Nama Kloter" value="<?= $kloter_satu['nama'];  ?>">
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Batas Jamaah</label>
-                            <input value="<?= $kloter_satu['batas_jamaah']; ?>" type="number" name="batas" class="form-control" required placeholder="Batas Jamaah">
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Status</label>
-                            <select name="status" class="form-control" required id="">
-                                <option value="">Pilih</option>
-                                <option value="Aktif" <?= ($kloter_satu['status'] == "Aktif") ? "selected" : "";  ?>>Aktif</option>
-                                <option <?= ($kloter_satu['status'] == "Tidak Aktif") ? "selected" : "";  ?> value="Tidak Aktif">Tidak Aktif</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_kloter<?= $kloter_satu['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">
                 <form method="POST" enctype="multipart/form-data" action="<?= base_url("hapus_kloter");  ?>" class="modal-content">
@@ -426,184 +356,7 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="edit_kepulangan<?= $kepulangan_row['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_kepulangan");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $kepulangan_row['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Kepulangan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Maskapai</label>
-                            <br>
-                            <select name="maskapai" class="form-control select37" required id="" style="width: 100% !important;">
-                                <option value="">Pilih</option>
-                                <?php foreach ($maskapai as $main_satu_tiga) : ?>
-                                    <option <?= ($main_satu_tiga['nama_maskapai'] == $kepulangan_row['maskapai']) ? "selected" : "";  ?> value="<?= $main_satu_tiga['nama_maskapai'];  ?>">
-                                        <?= $main_satu_tiga['nama_maskapai'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Nomor Penerbangan</label>
-                            <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor" value="<?= $kepulangan_row['nomor'];  ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Berangkat</label>
-                                    <br>
-                                    <select name="bandara_berangkat" class="form-control select38" required id="" style="width: 100% !important;">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $main_duat_satu_empat_lima) : ?>
-                                            <option <?= ($main_duat_satu_empat_lima['nama'] == $kepulangan_row['bandara_berangkat']) ? "selected" : "";  ?> value="<?= $main_duat_satu_empat_lima['nama'];  ?>">
-                                                <?= $main_duat_satu_empat_lima['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_berangkat" value="<?= $kepulangan_row['tgl_berangkat'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_berangkat" value="<?= $kepulangan_row['jam_berangkat'];  ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Tiba</label>
-                                    <br>
-                                    <select name="bandara_tiba" class="form-control select39" required id="" style="width: 100% !important;">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $main_duat_satu_empat) : ?>
-                                            <option <?= ($main_duat_satu_empat['nama'] == $kepulangan_row['bandara_tiba']) ? "selected" : "";  ?> value="<?= $main_duat_satu_empat['nama'];  ?>">
-                                                <?= $main_duat_satu_empat['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_tiba" value="<?= $kepulangan_row['tgl_penerbangan_tiba'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_tiba" value="<?= $kepulangan_row['jam_tiba'];  ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <script>
-            $(".select37").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            })
-            $(".select38").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            })
-            $(".select39").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            })
-        </script>
     <?php endforeach; ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_kepulangan">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_kepulangan");  ?>" class="modal-content">
-                <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Kepulangan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Maskapai</label>
-                        <br>
-                        <select style="width: 100% !important;" name="maskapai" class="form-control select34" required id="">
-                            <option value="">Pilih</option>
-                            <?php foreach ($maskapai as $main_satu) : ?>
-                                <option value="<?= $main_satu['nama_maskapai'];  ?>"><?= $main_satu['nama_maskapai'];  ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Nomor Penerbangan</label>
-                        <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Berangkat</label>
-                                <br>
-                                <select style="width: 100% !important;" name="bandara_berangkat" class="form-control select35" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $main_dua) : ?>
-                                        <option value="<?= $main_dua['nama'];  ?>"><?= $main_dua['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" name="tgl_berangkat">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_berangkat">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Tiba</label>
-                                <br>
-                                <select name="bandara_tiba" class="form-control select36" required id="" style="width: 100% !important;">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $mainenam) : ?>
-                                        <option value="<?= $mainenam['nama'];  ?>"><?= $mainenam['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" name="tgl_tiba">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_tiba">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <script>
-        $(".select34").select2({
-            dropdownParent: $('#add_kepulangan')
-        })
-        $(".select35").select2({
-            dropdownParent: $('#add_kepulangan')
-        })
-        $(".select36").select2({
-            dropdownParent: $('#add_kepulangan')
-        })
-    </script>
     <?php foreach ($hotel as $hotel_satu) : ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_hotel<?= $hotel_satu['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">
@@ -675,7 +428,7 @@
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
-<!-- <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script> -->
+
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {

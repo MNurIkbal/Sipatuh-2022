@@ -24,7 +24,7 @@
                 <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
                 <div >
                     <div class="mb-3">
-                        <label for="">Nama Hotel</label>
+                        <label for="">Nama Hotel*</label>
                         <br>
                         <select style="width: 100% !important;" name="nama_hotel" class="form-control select24" required id="">
                             <option value="">Pilih</option>
@@ -35,11 +35,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="">Orang Perkamar</label>
+                        <label for="">Orang Perkamar*</label>
                         <input type="text" class="form-control" required placeholder="Orang Perkamar" name="orang">
                     </div>
                     <div class="mb-3">
-                        <label for="">Tanggal Masuk & Keluar</label>
+                        <label for="">Tanggal Masuk & Keluar*</label>
                         <input type="text" class="form-control" required id="keberangkatan_id" readonly placeholder="" value="<?= date("d/m/Y"); ?>" name="masuk">
                     </div>
                 </div>
