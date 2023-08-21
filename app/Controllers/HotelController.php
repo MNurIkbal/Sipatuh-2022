@@ -85,7 +85,7 @@ class HotelController extends BaseController
         
         // $one = explode("-",$newDateFormat);
         // $two = explode("-",$newDateFormat_dua);
-        $main =date("Y-m-d",strtotime($newDateFormat));
+        $main = date("Y-m-d",strtotime($newDateFormat));
         var_dump("mulai",$main);
         die;
         try {
