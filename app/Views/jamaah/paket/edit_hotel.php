@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-3">
                                     <label for="">Tanggal Masuk & Keluar</label>
-                                    <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="masuk" readonly value="<?= date("m/d/Y",strtotime($hotel_satu['tgl_masuk'])) . ' - ' . date("m/d/Y",strtotime($hotel_satu['tgl_keluar'])) ?>">
+                                    <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="masuk"  value="<?= date("m/d/Y",strtotime($hotel_satu['tgl_masuk'])) . ' - ' . date("m/d/Y",strtotime($hotel_satu['tgl_keluar'])) ?>">
                                 </div>
                     </div>
                         <a href="<?= base_url('detail_paket/' . $result['id']); ?>" class="btn btn-dark" >Kembali</a>

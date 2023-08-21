@@ -82,10 +82,12 @@ class HotelController extends BaseController
         $time_lima  = $parts[1];
         list($hari, $bulan, $tahun) = explode('/', $time_lima);
         $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
-        $hasil_dua = date("Y-m-d",strtotime($newDateFormat_dua));
-        // var_dump($hasil_dua);
-        // die;
-
+        
+        // $one = explode("-",$newDateFormat);
+        // $two = explode("-",$newDateFormat_dua);
+        $main =date("Y-m-d",strtotime($newDateFormat));
+        var_dump("mulai",$main);
+        die;
         try {
             //code...
             $hotel = new HotelModel();
