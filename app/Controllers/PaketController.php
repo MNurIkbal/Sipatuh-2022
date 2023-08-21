@@ -452,6 +452,10 @@ class PaketController extends BaseController
         $keberangkatan = new Keberangkatan();
         $maskapai = new Maskapai();
         $hotel = new HotelModel();
+        $check_dua = $hotel->where('id',$id_hotel)->first();
+        if(!$check_dua) {
+            return redirect()->to('paket');
+        }
         $kepulangan = new KepulanganModel();
         $kloter = new KloterModel();
         $petugas_umrah = new PetugasManModel();
@@ -513,6 +517,10 @@ class PaketController extends BaseController
         }
         $petugas = new PetugasModel();
         $keberangkatan = new Keberangkatan();
+        $check_dua = $keberangkatan->where('id',$id_keberangakatan)->first();
+        if(!$check_dua) {
+            return redirect()->to('paket');
+        }
         $maskapai = new Maskapai();
         $hotel = new HotelModel();
         $kepulangan = new KepulanganModel();
@@ -669,6 +677,10 @@ class PaketController extends BaseController
             return redirect()->to('paket');
         }
         $petugas = new PetugasModel();
+        $check_dua = $petugas->where('id',$id_petugas)->first();
+        if(!$check_dua) {
+            return redirect()->to('paket');
+        }
         $keberangkatan = new Keberangkatan();
         $maskapai = new Maskapai();
         $hotel = new HotelModel();

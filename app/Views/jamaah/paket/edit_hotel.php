@@ -41,7 +41,7 @@
                         </div>
                         <div class="mb-3">
                                     <label for="">Tanggal Masuk & Keluar</label>
-                                    <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="masuk" readonly>
+                                    <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="masuk" readonly value="<?= date("m/d/Y",strtotime($hotel_satu['tgl_masuk'])) . ' - ' . date("m/d/Y",strtotime($hotel_satu['tgl_keluar'])) ?>">
                                 </div>
                     </div>
                         <a href="<?= base_url('detail_paket/' . $result['id']); ?>" class="btn btn-dark" >Kembali</a>
@@ -56,17 +56,12 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
-    $(".select24").select2()
-    var mulai = <?= date("Y/m/d",strtotime($hotel_satu['tgl_masuk'])) ?>;
-    var selesai = <?= date("Y/m/d",strtotime($hotel_satu['tgl_keluar'])) ?>;
-    console.log(selesai)
+    $(".select24").select2();
+    var mulai = <?= date("Y-m-d",strtotime($hotel_satu['tgl_masuk'])) ?>;
+    var selesai = <?= date("Y-m-d",strtotime($hotel_satu['tgl_keluar'])) ?>;
+    
     $('#keberangkatan_id').daterangepicker({
-    timePicker: true,
-    startDate: moment(mulai),
-    endDate: moment(selesai),
-    locale: {
-        format: 'D/MM/YYYY HH:mm'
-    }
+    opens: 'left',
   });
 </script>
 <?= $this->endSection(); ?>

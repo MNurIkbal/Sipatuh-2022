@@ -40,7 +40,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="">Tanggal Masuk & Keluar</label>
-                        <input type="text" class="form-control" required id="keberangkatan_id" readonly placeholder="" name="masuk">
+                        <input type="text" class="form-control" required id="keberangkatan_id" readonly placeholder="" value="<?= date("d/m/Y"); ?>" name="masuk">
                     </div>
                 </div>
                     <a href="<?= base_url('detail_paket/' . $result['id']); ?>" class="btn btn-dark" >Kembali</a>
@@ -57,11 +57,10 @@
 <script>
     $(".select24").select2()
     $('#keberangkatan_id').daterangepicker({
-    timePicker: true,
-    startDate: moment(),
-    endDate: moment(),
+    opens: 'left',
     locale: {
-        format: 'D/MM/YYYY HH:mm'
+        format: 'D/MM/YYYY' // Format tanggal dengan bulan angka (contoh: 18 08 2023)
+
     }
   });
 </script>

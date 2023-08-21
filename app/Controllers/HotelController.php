@@ -20,23 +20,20 @@ class HotelController extends BaseController
         $get = $paket->where("id",$this->request->getVar('id'))->first();
         
         $time_waktu = $this->request->getVar('masuk');
+        
         $parts = explode(' - ', $time_waktu);
         $tanggalWaktuPertama = $parts[0]; // "18/09/2023 17:00"
-        $tanggalWaktuKedua = $parts[1];
+        
         $tgl_pertaman = explode(' ', $tanggalWaktuPertama);
-
         // waktu pertaman
         $time_satu = $tgl_pertaman[0];
-        $time_dua = $tgl_pertaman[1];
         list($day, $month, $year) = explode('/', $time_satu);
         $newDateFormat = sprintf('%04d-%02d-%02d', $year, $month, $day);
 
 
-        $tgl_two = explode(' ', $tanggalWaktuKedua);
 
         //waktu kedua
-        $time_lima  = $tgl_two[0];
-        $time_enam = $tgl_two[1];
+        $time_lima  = $parts[1];
         list($hari, $bulan, $tahun) = explode('/', $time_lima);
         $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
 
@@ -68,31 +65,45 @@ class HotelController extends BaseController
         $paket = new PaketModel();
         $get = $paket->where("id",$this->request->getVar('id_paket'))->first();
        
-        $start = date("Y-m-d",strtotime($get['tgl_berangkat']));
-        $end = date("Y-m-d",strtotime($get['tgl_pulang']));
-        $awal = date("Y-m-d",strtotime($this->request->getVar("masuk")));
-        $akhir = date("Y-m-d",strtotime($this->request->getVar("keluar")));
+        $time_waktu = $this->request->getVar('masuk');
+        
+        $parts = explode(' - ', $time_waktu);
+        $tanggalWaktuPertama = $parts[0]; // "18/09/2023 17:00"
+        
+        $tgl_pertaman = explode(' ', $tanggalWaktuPertama);
+        // waktu pertaman
+        $time_satu = $tgl_pertaman[0];
+        list($day, $month, $year) = explode('/', $time_satu);
+        $newDateFormat = sprintf('%04d-%02d-%02d', $year, $month, $day);
 
-        if($awal < $start) {
-            return redirect()->back()->with("error","Waktu Berangkat Kurang Dari Waktu Keberangkatan Paket");
-        } elseif($akhir > $end) {
-            return redirect()->back()->with("error","Waktu Kepulangan Melebihi Dari Waktu Pulang  Paket");
-        } 
-        if($akhir <= $awal) {
-            return redirect()->back()->with("error","Waktu Pulang Tidak Boleh Kurang Atau Sama Dengan Waktu Keberangkatan");
+
+
+        //waktu kedua
+        $time_lima  = $parts[1];
+        list($hari, $bulan, $tahun) = explode('/', $time_lima);
+        $newDateFormat_dua = sprintf('%04d-%02d-%02d', $tahun, $bulan, $hari);
+        $hasil_dua = date("Y-m-d",strtotime($newDateFormat_dua));
+        // var_dump($hasil_dua);
+        // die;
+
+        try {
+            //code...
+            $hotel = new HotelModel();
+            $data_hotel = new DataHotelModel();
+            $result_hotel = $data_hotel->where("nama",$this->request->getVar("nama_hotel"))->first();
+            $hotel->update($this->request->getVar("id"),[
+                'lokasi'    =>  $result_hotel['lokasi'],
+                'hotel'    =>  $this->request->getVar("nama_hotel"),
+                'orang_perkamar'    =>  $this->request->getVar("orang"),
+                'tgl_masuk'    =>  $newDateFormat,
+                'tgl_keluar'    =>  $newDateFormat_dua,
+            ]);
+    
+            return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success","Data Berhasil Diupdate");
+        } catch (\Throwable $th) {
+            return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("error","Data Gagal Diupdate");
+            //throw $th;
         }
-        $hotel = new HotelModel();
-        $data_hotel = new DataHotelModel();
-        $result_hotel = $data_hotel->where("nama",$this->request->getVar("nama_hotel"))->first();
-        $hotel->update($this->request->getVar("id"),[
-            'lokasi'    =>  $result_hotel['lokasi'],
-            'hotel'    =>  $this->request->getVar("nama_hotel"),
-            'orang_perkamar'    =>  $this->request->getVar("orang"),
-            'tgl_masuk'    =>  $this->request->getVar("masuk"),
-            'tgl_keluar'    =>  $this->request->getVar("keluar"),
-        ]);
-
-        return redirect()->to("detail_paket/" . $this->request->getVar("id_paket"))->with("success","Data Berhasil Diupdate");
     }
 
     public function hapus_hotel()
