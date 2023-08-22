@@ -362,14 +362,14 @@
 <script>
   $(document).ready(function() {
     document.getElementById("msform").addEventListener("submit", function(event) {
-    const ktp = document.getElementById("ktp").val();
-    console.log(ktp)
-    if (ktp === "") {
-      alert("ktp cannot be empty");
-      return;
-      event.preventDefault();
-    }
-  });
+      const ktp = document.getElementById("ktp").val();
+      console.log(ktp)
+      if (ktp === "") {
+        alert("ktp cannot be empty");
+        return;
+        event.preventDefault();
+      }
+    });
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
 
