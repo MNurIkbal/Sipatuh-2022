@@ -232,7 +232,7 @@
         </div>
       <?php endif; ?>
 
-      <div id="error-kk" >
+      <div id="error-kk">
       </div>
       <div class="card-body">
         <div class="row">
@@ -360,31 +360,17 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
 <script>
-  // Mendengarkan aksi saat form di-submit
-  $("#my-form").submit(function(event) {
-    // Reset pesan error
-    $(".error-message").text("");
-
-    // Validasi KK dan KTP
-    var kkValue = $("#kk").val();
-    var ktpFile = $("#ktp")[0].files[0]; // Mengambil file yang diupload
-    if (kkValue === "") {
-      $("#error-kk").text("Field KK harus diisi.");
-      event.preventDefault();
-    }
-    if (!ktpFile) {
-      $("#error-ktp").text("File KTP harus diupload.");
-      event.preventDefault();
-    } else if (ktpFile.type !== "application/pdf") {
-      $("#error-ktp").text("File KTP harus berformat PDF.");
-      event.preventDefault();
-    }
-
-    // Lanjutkan dengan pengiriman form jika validasi berhasil
-  });
-
   $(document).ready(function() {
+    document.getElementById("msform").addEventListener("submit", function(event) {
+    const ktp = document.getElementById("ktp").val();
+    console.log(ktp)
 
+    if (ktp === "") {
+      alert("ktp cannot be empty");
+      return;
+      event.preventDefault();
+    }
+  });
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
 
