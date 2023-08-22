@@ -218,8 +218,8 @@
     <div class="card">
       <div class="card-header">
         <div>
-            <h4 style="text-transform: uppercase">Kelengkapan Jamaah</h4>
-            <a href="<?= base_url("tambah_pendaftaran/$id_kloter/$id"); ?>" class="btn btn-warning mt-3">Kembali</a>
+          <h4 style="text-transform: uppercase">Kelengkapan Jamaah</h4>
+          <a href="<?= base_url("tambah_pendaftaran/$id_kloter/$id"); ?>" class="btn btn-warning mt-3">Kembali</a>
         </div>
       </div>
       <?php if (session()->get("success")) : ?>
@@ -248,20 +248,20 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="">Dokumen KTP</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_ktp">
+                      <label for="">Dokumen KTP*</label>
+                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_ktp">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                      <div class="mb-3">
-                        <label for="">Dokumen Kartu Keluarga</label>
-                        <input type="file" class="form-control" required placeholder="No Paspor" name="file_kk">
-                        <small class="text-danger">File PDF Size 3 MB</small>
-                      </div>
+                    <div class="mb-3">
+                      <label for="">Dokumen Kartu Keluarga*</label>
+                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_kk">
+                      <small class="text-danger">File PDF Size 3 MB</small>
+                    </div>
                   </div>
-                  <div class="col-md-6">     
+                  <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Dokumen Paspor</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_paspor">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_paspor">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
@@ -275,27 +275,22 @@
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">No Polis</label>
-                        <input type="text" name="nomor" class="form-control " required placeholder="Nomor Polis">
+                        <input type="text" name="nomor" class="form-control " placeholder="Nomor Polis">
                       </div>
                       <div class="form-group">
                         <label for="">Tanggal Input</label>
-                        <input type="date" name="tgl_input" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="tgl_input" class="form-control " placeholder="Tanggal">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">Tanggal Awal Polis: </label>
-                        <input type="date" name="awal" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="awal" class="form-control " placeholder="Tanggal">
                       </div>
                       <div class="form-group">
                         <label for="">Tanggal Akhir Polis: </label>
-                        <input type="date" name="akhir" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="akhir" class="form-control " placeholder="Tanggal">
                       </div>
-                      <div class="mb-3">
-                      <label for="">Dokumen Asuransi</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_asuransi">
-                      <small class="text-danger">File PDF Size 3 MB</small>
-                    </div>
                     </div>
                   </div>
                 </div>
@@ -303,69 +298,59 @@
                 <input type="button" name="next" class="next action-button" value="Next Step" />
               </fieldset>
               <fieldset>
-              <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                        <label for="">Nomor Visa: </label>
-                    <input type="text" name="nomor_visa" class="form-control " required placeholder="Nomor Visa"
-                        >
-                        </div>
-                        <div class="form-group">
-                        <label for="">Tanggal Akhir Visa: </label>
-                    <input type="date" name="tgl_akhir_visa" class="form-control " required placeholder="Tanggal"
-                        >
-                        </div>
-                        <div class="mb-3">
-                      <label for="">Dokumen Provider</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_provider">
-                      <small class="text-danger">File PDF Size 3 MB</small>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Nomor Visa: </label>
+                      <input type="text" name="nomor_visa" class="form-control " placeholder="Nomor Visa">
                     </div>
+                    <div class="form-group">
+                      <label for="">Tanggal Akhir Visa: </label>
+                      <input type="date" name="tgl_akhir_visa" class="form-control " placeholder="Tanggal">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label for="">Tanggal Awal Visa: </label>
+                      <input type="date" name="tgl_awal_visa" class="form-control " placeholder="Tanggal">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Muassasah: </label>
+                      <div style="width: 100% !important;">
+                        <select name="muassasah"  class="form-control select2" style="width: 100% !important;" id="">
+                          <option value="">Pilih</option>
+                          <?php foreach ($muasah as $row_dua) : ?>
+                            <option value="<?= $row_dua['nama_muassasah'];  ?>"><?= $row_dua['nama_muassasah'];  ?></option>
+                          <?php endforeach; ?>
+                        </select>
                       </div>
-                      <div class="col-md-6">
-                        
-                        <div class="form-group">
-                        <label for="">Tanggal Awal Visa: </label>
-                    <input type="date" name="tgl_awal_visa" class="form-control " required placeholder="Tanggal"
-                       >
-                        </div>
-                        <div class="form-group" >
-                        <label for="">Muassasah: </label>
-                        <div style="width: 100% !important;">
-                            <select name="muassasah" required class="form-control select2" style="width: 100% !important;" id="">
-                                <option value="">Pilih</option>
-                                <?php foreach($muasah as $row_dua) : ?>
-                                <option 
-                                    value="<?=  $row_dua['nama_muassasah'];  ?>"><?=  $row_dua['nama_muassasah'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        </div>
-                        <div class="mb-3">
+                    </div>
+                    <div class="mb-3">
                       <label for="">Dokumen Visa</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_visa">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_visa">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                      </div>
-                    </div>
+                  </div>
+                </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next Step" />
               </fieldset>
               <fieldset>
                 <div class="form-group">
-                <label for="">Jenis Vaksin</label>
-                    <input type="text" name="jenis" class="form-control" required placeholder="Jenis Vaksin" >
+                  <label for="">Jenis Vaksin*</label>
+                  <input type="text" name="jenis" class="form-control"  placeholder="Jenis Vaksin">
                 </div>
                 <div class="form-group">
-                <label for="">Tanggal Vaksin</label>
-                    <input type="date" name="tgl" value="" class="form-control" required placeholder="">
+                  <label for="">Tanggal Vaksin*</label>
+                  <input type="date" name="tgl" value="" class="form-control"  placeholder="">
                 </div>
                 <div class="mb-3">
-                      <label for="">Sertifikat Vaksin</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="sertifikat_vaksin">
-                      <small class="text-danger">File PDF Size 3 MB</small>
-                    </div>
+                  <label for="">Sertifikat Vaksin*</label>
+                  <input type="file" class="form-control"  placeholder="No Paspor" name="sertifikat_vaksin">
+                  <small class="text-danger">File PDF Size 3 MB</small>
+                </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                <!-- <input type="submit" name="make_payment" class="next action-button" value="Confirm" /> -->
                 <button type="submit" class="action-button">Simpan</button>
               </fieldset>
             </form>
@@ -380,6 +365,24 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
 <script>
+  // Mendengarkan aksi saat form di-submit
+  $("#msform").submit(function(event) {
+    var valid = true;
+
+    // Cek setiap input di dalam tab-content
+    $(".tab-content input").each(function() {
+      if ($(this).val() === "") {
+        valid = false;
+        return false; // Hentikan iterasi jika ada input kosong
+      }
+    });
+
+    if (!valid) {
+      event.preventDefault(); // Hentikan pengiriman form jika validasi gagal
+      alert("Semua input harus diisi!");
+    }
+  });
+
   $(document).ready(function() {
 
     var current_fs, next_fs, previous_fs; //fieldsets
@@ -462,7 +465,7 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-$(".select2").select2()
+  $(".select2").select2()
 </script>
 
 <?= $this->endSection(); ?>

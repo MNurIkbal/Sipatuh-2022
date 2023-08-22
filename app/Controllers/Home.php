@@ -104,12 +104,6 @@ class Home extends BaseController
         $explode = $str[0];
         $kabupaten = $db->query("SELECT * FROM   regencies WHERE  province_id = '$explode' ORDER BY name ASC")->getResultArray();
 
-        // foreach ($kabupaten as $row) {
-        //     $id = $row['id'];
-        //     $nama = $row['name'];
-        //     $data  = "<option data-kabupaten-id='$id'  value='$id-$nama'>$nama</option>";
-        //     echo $data;
-        // }
         $dataKabupaten = [];
         foreach ($kabupaten as $row) {
             $id = $row['id'];
@@ -122,7 +116,54 @@ class Home extends BaseController
         }
         $jsonData = json_encode($dataKabupaten);
 
-        // Mengirimkan JSON sebagai respons
+        header('Content-Type: application/json');
+        echo $jsonData;
+    }
+
+    public function ambil_kabupaten_satu($id)
+    {
+        
+        $db      = \Config\Database::connect();
+        $check = $db->query("SELECT * FROM regencies WHERE name = '$id'")->getFirstRow();
+        $data_id = $check->id;
+        $kecamatan = $db->query("SELECT * FROM   districts WHERE  regency_id = '$data_id' ORDER BY name ASC")->getResultArray();
+
+        $dataKecamatan = [];
+        foreach ($kecamatan as $row) {
+            $id = $row['id'];
+            $nama = $row['name'];
+            
+            $dataKecamatan[] = [
+                'id' => $id,
+                'nama' => $nama
+            ];
+        }
+        $jsonData = json_encode($dataKecamatan);
+
+        header('Content-Type: application/json');
+        echo $jsonData;
+    }
+
+    public function ambil_kelurahan_satu($id)
+    {
+        
+        $db      = \Config\Database::connect();
+        $check = $db->query("SELECT * FROM districts WHERE name = '$id'")->getFirstRow();
+        $data_id = $check->id;
+        $kelurahan = $db->query("SELECT * FROM   villages WHERE  district_id = '$data_id' ORDER BY name ASC")->getResultArray();
+
+        $kelurahanData = [];
+        foreach ($kelurahan as $row) {
+            $id = $row['id'];
+            $nama = $row['name'];
+            
+            $kelurahanData[] = [
+                'id' => $id,
+                'nama' => $nama
+            ];
+        }
+        $jsonData = json_encode($kelurahanData);
+
         header('Content-Type: application/json');
         echo $jsonData;
     }
@@ -156,12 +197,19 @@ class Home extends BaseController
         $explode = $str[0];
         $kecamatan = $db->query("SELECT * FROM   districts WHERE  regency_id = '$explode' ORDER BY name ASC")->getResultArray();
 
+        $data_kecamatan = [];
         foreach ($kecamatan as $row) {
             $id = $row['id'];
             $nama = $row['name'];
-            $data  = "<option value='$id-$nama'>$nama</option>";
-            echo $data;
+            
+            $data_kecamatan[] = [
+                'id' => $id,
+                'nama' => $nama
+            ];
         }
+        $jsonData = json_encode($data_kecamatan);
+        header('Content-Type: application/json');
+        echo $jsonData;
     }
 
     public function validation_waktu($start, $end, $id_paket)

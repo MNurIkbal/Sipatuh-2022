@@ -21,7 +21,7 @@
                     <?php endif; ?>
                     <div class="card-body">
                         <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_jamaah/" . $main['id']);  ?>">
-                            <input type="hidden" name="id_paket" value="<?= $ids;  ?>">
+                            <input type="hidden" name="id_paket" value="<?= $id;  ?>">
                             <input type="hidden" name="id_kloter" value="<?= $id_kloter;  ?>">
                             <div class="modal-bodys">
                                 <div class="row">
@@ -47,6 +47,14 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <input type="hidden" name="jenis_identitas" value="nik" required>
+                                        <div class="mb-3">
+                                            <label for="">Nama*</label>
+                                            <input type="text" class="form-control " required placeholder="Nama" value="<?= $main['nama'];  ?>" name="nama">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Foto</label>
+                                            <input type="file" class="form-control " placeholder="Nama" name="foto">
+                                        </div>
                                         <div class="mb-3">
                                             <label for="">No Identitas*</label>
                                             <input type="text" class="form-control " required placeholder="No Identitas" value="<?= $main['no_identitas'];  ?>" name="no_identitas">
@@ -95,14 +103,13 @@
                                                 </option>
                                             </select>
                                         </div>
+
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             <label for="">Nama Paspor</label>
                                             <input type="text" class="form-control" placeholder="Nama Paspor" name="nama_paspor" value="<?= $main['nama_paspor'];  ?>">
                                         </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-
                                         <div class="mb-3">
                                             <label for="">Alamat* </label>
                                             <textarea name="alamat" id="" class="form-control" required cols="30" rows="10" placeholder="Alamat"><?= $main['alamat'];  ?></textarea>
@@ -117,7 +124,7 @@
                                                     nikah</option>
                                             </select>
                                         </div>
-
+                        <input type="hidden" name="foto_lama" value="<?= $main['foto']; ?>">
                                         <div class="mb-3">
                                             <label for="">Jenis Pekerjaan*</label>
                                             <select name="jenis_pekerjaan" class="form-control select2" required id="">
@@ -172,7 +179,7 @@
                                 </div>
                             </div>
                             <div class="modal-footers sbg-whitesmoke br">
-                                <a href="<?= base_url("tambah_pendaftaran/" . $id_kloter . '/' . $id); ?>" class="btn btn-secondary">Kembali</a>
+                                <a href="<?= base_url("tambah_pendaftaran/" . $id_kloter . '/' . $id); ?>" class="btn btn-dark">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -192,46 +199,55 @@
     $(".select2").select2();
 
     let selectedProvinsiId = $("#provinsi option:selected").data("provinsi-id");
-    
+    var kabupaten_data = "<?= $main['kabupaten']  ?>";
+    var kecamatan_data = "<?= $main['kecamatan'] ?>";
     $.ajax({
         url: "<?= base_url('ambil_provinsi') ?>/" + selectedProvinsiId,
         dataType: "json",
         success: function(data_dua) {
             var options = "";
             $.each(data_dua, function(index, kabupaten) {
-                options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'";
+
+                if (kabupaten.nama === kabupaten_data) {
+                    options += " selected";
+                }
+
+                options += ">" + kabupaten.nama + "</option>";
             });
             $("#kabupaten").html(options);
         }
     });
 
 
-    function provinsi_satu() {
+    $.ajax({
+        url: "<?= base_url('ambil_kabupaten_satu') ?>/" + kabupaten_data,
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+            });
+            $("#kecamatan").html(options);
+        }
+    });
 
+    $.ajax({
+        url: "<?= base_url('ambil_kelurahan_satu') ?>/" + kecamatan_data,
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+            });
+            $("#kelurahan").html(options);
+        }
+    });
+
+    function provinsi_satu() {
         let val = $("#provinsi").val()
         $.ajax({
-            url: "<?= base_url("ambil_provinsi") ?>/" + val,
-            success: function(data) {
-                $("#kabupaten").html(data)
-            }
-        });
-
-    }
-
-
-
-    function kabupaten_dua() {
-
-        let kab = $("#kabupaten").val()
-        // $.ajax({
-        //     url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
-        //     success: function(data_dua) {
-        //         $("#kecamatan").html(data_dua)
-        //     }
-        // })
-
-        $.ajax({
-            url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            url: "<?= base_url('ambil_provinsi') ?>/" + val,
             dataType: "json",
             success: function(data_dua) {
                 var options = "";
@@ -242,6 +258,23 @@
             }
         });
 
+    }
+
+
+    function kabupaten_dua() {
+
+        let kab = $("#kabupaten").val()
+        $.ajax({
+            url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kecamatan").html(options);
+            }
+        });
 
     }
 

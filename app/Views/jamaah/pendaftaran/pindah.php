@@ -24,25 +24,51 @@
                             <input type="hidden" name="id_kloter" value="<?= $id_kloter;  ?>">
                             <input type="hidden" name="id_jamaah" value="<?= $id;  ?>">
                             <div>
-                                <div class="mb-1">
-                                    <label for="">Nama Jamaah : </label>
-                                    <b><?= $main['nama'];  ?></b>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Nomor Registrasi : </label>
-                                    <b><?= $main['no_registrasi'];  ?></b>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">No Pasti Umrah : </label>
-                                    <b><?= $main['no_pasti_umrah'];  ?></b>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Nama Paket : </label>
-                                    <b><?= $main['nama'];  ?></b>
-                                </div>
-                                <div class="mb-1">
-                                    <label for="">Periode : </label>
-                                    <b><?= date("d F Y", strtotime($paket['tgl_berangkat'])) . ' - ' . date("d F Y", strtotime($paket['tgl_pulang']));  ?></b>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label for="">Nama Jamaah : </label>
+                                            <b><?= $main['nama'];  ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Nomor Registrasi : </label>
+                                            <b><?= $main['no_registrasi'];  ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">No Pasti Umrah : </label>
+                                            <b><?= $main['no_pasti_umrah'];  ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Nama Paket : </label>
+                                            <b><?= $main['nama'];  ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Periode : </label>
+                                            <b><?= date("d F Y", strtotime($paket['tgl_berangkat'])) . ' - ' . date("d F Y", strtotime($paket['tgl_pulang']));  ?></b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label for="">Biaya : </label>
+                                            <b>Rp. <?= number_format($paket['biaya']);  ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Tahun : </label>
+                                            <b><?= $paket['tahun']; ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Provider : </label>
+                                            <b><?= $paket['provider']; ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Asuransi : </label>
+                                            <b><?= $paket['asuransi']; ?></b>
+                                        </div>
+                                        <div class="mb-1">
+                                            <label for="">Kloter : </label>
+                                            <b><?= $nama_kloter['nama']; ?></b>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-1">
                                     <label for="">Pindah Paket</label>

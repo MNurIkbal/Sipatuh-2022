@@ -42,6 +42,8 @@ $routes->get('/detail_paket_users/(:any)', 'Home::detail_paket_users/$1');
 $routes->get("validation_waktu/(:any)/(:any)/(:any)","Home::validation_waktu/$1/$2/$3");
 $routes->get("detail_provinsi/(:any)","Home::detail_provinsi/$1");
 $routes->get("ambil_provinsi/(:any)","Home::ambil_provinsi/$1");
+$routes->get("ambil_kabupaten_satu/(:any)","Home::ambil_kabupaten_satu/$1");
+$routes->get("ambil_kelurahan_satu/(:any)","Home::ambil_kelurahan_satu/$1");
 $routes->get("ambil_provinsi_edit/(:any)","Home::ambil_provinsi_edit/$1");
 $routes->get("ambil_kabupaten/(:any)","Home::ambil_kabupaten/$1");
 $routes->get("ambil_kabupaten_edits/(:any)/(:any)","Home::ambil_kabupaten_edits/$1/$2");
@@ -115,6 +117,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/pendaftaran', 'PendaftaranController::pendaftaran',['filter' => 'DpFilter']);
     
     $routes->get("/tambah_pendaftaran/(:any)/(:any)","PendaftaranController::tambah_pendaftaran/$1/$2",['filter' => 'DpFilter']);
+    $routes->get("/detail_jamaah/(:any)/(:any)/(:any)","PendaftaranController::detail_jamaah/$1/$2/$3",['filter' => 'DpFilter']);
     // $routes->post("/tambah_pendaftaran/(:any)/(:any)","PendaftaranController::tambah_pendaftaran/$1/$2");
     $routes->get("/detail_pendaftaran_kloter/(:any)","PendaftaranController::detail_pendaftaran_kloter/$1",['filter' => 'DpFilter']);
     $routes->get("/kelengkapan_jamaah/(:any)/(:any)/(:any)","PendaftaranController::kelengkapan_jamaah/$1/$2/$3",['filter' => 'DpFilter']);

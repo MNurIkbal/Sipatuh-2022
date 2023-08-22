@@ -95,6 +95,12 @@ class PendaftaranController extends BaseController
         $kloter = new KloterModel();
         $jamaah = new JamaahModel();
         $data_kloter = new KloterModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_jamaah = $jamaah->where('id',$id)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_paket || !$check_jamaah || !$check_kloter) {
+            return redirect()->to('pendaftaran');
+        } 
         $data = [
             'kloter'    =>      $kloter->where("paket_id", $id_paket)->where("status", 'Aktif')->findAll(),
             'title' =>  "Pendaftaran Paket",
@@ -103,6 +109,7 @@ class PendaftaranController extends BaseController
             ])->first(),
             'id_paket'  =>  $id_paket,
             'id_kloter' =>  $id_kloter,
+            'nama_kloter'   =>  $kloter->where('id',$id_kloter)->first(),
             'id'    =>  $id,
             'main'  =>  $jamaah->where("id", $id)->first(),
             'all_paket' =>  $paket->where([
@@ -126,6 +133,97 @@ class PendaftaranController extends BaseController
             echo $html;
         }
         // return $id;
+    }
+
+    public function detail_jamaah($id_kloter, $id,$id_jamaah)
+    {
+        if (!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $kloter = new KloterModel();
+        $jamaah = new JamaahModel();
+        $paket = new PaketModel();
+        $provider = new DataProviderModel();
+        $asuransi = new AsuransiModel();
+        $bank = new BankModel();
+        $db      = \Config\Database::connect();
+        $data_kloter = new KloterModel();
+        $muasah = new MuassahModel();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_kloter) {
+            return redirect()->to('pendaftaran');
+        }
+
+        $check_dua = $paket->where('id',$id)->first();
+        if(!$check_dua) {
+            return redirect()->to('pendaftaran');
+        }
+        $check_jamaah = $jamaah->where('id',$id_jamaah)->first();
+        if(!$check_jamaah) {
+            return redirect()->to('pendaftaran');
+        }
+        $sekarang = date("Y-m-d");
+        $expired = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->findAll();
+        $expireds = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->first();
+        if ($expireds) {
+            foreach ($expired as $main) {
+                $satu = date("Y-m-d", strtotime($main['expired_bayar_dp']));
+                $delete = $jamaah->where("expired_bayar_dp IS NOT NUll")->where("status_bayar", null)->where('date(expired_bayar_dp)', $sekarang)->where('id', $main['id'])->delete();
+            }
+        }
+        $bank_rekening = new BankModel();
+        $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
+            AND tgl_bayar IS NOT NULL
+            AND rekening_penampung IS NOT NULL 
+            AND status_bayar = 'lunas'
+            AND keterangan_bayar IS NOT NULL 
+            AND nomor_polis  IS NOT NULL
+            AND tgl_input IS NOT NULL
+            AND tgl_awal IS NOT NULL
+            AND tgl_akhir IS NOT NULL
+            AND nomor_visa IS NOT NULL
+            AND tgl_awal_visa IS NOT NULL
+            AND tgl_akhir_visa IS NOT NULL
+            AND muassasah IS NOT NULL
+            AND status_vaksin IS NOT NULL
+            AND tgl_vaksin IS NOT NULL
+            AND jenis_vaksin IS NOT NULL
+            AND kloter_id = '$id_kloter'
+            AND selesai_pembayaran = 'sudah'
+            
+            ")->getResult();
+        $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' AND kloter_id = '$id_kloter'")->getResult();
+        $data = [
+            'title' =>  "Pendaftaran Paket",
+            'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
+            'result'    => $jamaah->where([
+                'paket_id'  =>  $id,
+                'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'data_kloter' => $data_kloter->where("paket_id", $id)->where("status", "Aktif")->findAll(),
+            'count' =>  count($counts),
+            'paket' =>  $db->query("SELECT * FROM kloter INNER JOIN paket ON kloter.paket_id = paket.id WHERE  kloter.id = '$id_kloter'")->getRowArray(),
+            // 'paket' =>  $paket->where([
+            //     'id'    =>  $id
+            // ])->first(),
+            'id'    =>  $id,
+            'id_kloter' =>  $id_kloter,
+            'all_paket' =>  $paket->where([
+                'travel_id'   =>  session()->get("travel_id"),
+                'status'    =>  'aktif',
+                'pemberangkatan'    => null
+            ])->findAll(),
+            'bank'  =>  $bank->where("status", "aktif")->where("travel_id", session()->get("travel_id"))->findAll(),
+            'finish'    =>  count($finish),
+            'muasah'    =>  $muasah->where("status", 1)->findAll(),
+            'provider'  =>  $provider->findAll(),
+            'asuransi'  =>  $asuransi->findAll(),
+            'rekening_penampung'    =>  $bank_rekening,
+            'main'  =>  $jamaah->where('id',$id_jamaah)->first()
+        ];
+
+        return view("jamaah/pendaftaran/detail_jamaah", $data);
     }
 
     public function tambah_pendaftaran($id_kloter, $id)
@@ -230,6 +328,12 @@ class PendaftaranController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+        $check_jamaah = $jamaah->where('id',$id_jamaah)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        if(!$check_jamaah || !$check_kloter || !$check_paket) {
+            return redirect()->to('pendaftaran');
+        }
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -744,28 +848,63 @@ class PendaftaranController extends BaseController
             exit;
         }
 
+        if (!$this->validate([
+            'foto' => [
+                "rules" =>  "max_size[foto,3024]|mime_in[foto,image/jpg,image/jpeg,image/png]"
+            ],
+        ])) {
+            session()->setFlashdata('error', $this->validator->listErrors());
+            return redirect()->back()->withInput();
+        }
+
+        $dataBerkas = $this->request->getFile('foto');
+        $check = $dataBerkas->getError();
+        if($check != 4) {
+            $file_name = $dataBerkas->getRandomName();
+            $dataBerkas->move('assets/upload/', $file_name);
+        } else {
+            $file_name= $this->request->getVar('foto_lama');
+        }
+        
+        $pisah_provinsi = explode("-",$this->request->getVar('provinsi'));
+        $pisah_kabupaten = explode("-",$this->request->getVar('kabupaten'));
+        $pisah_kecamatan = explode("-",$this->request->getVar('kecamatan'));
+        $pisah_kelurahan = explode("-",$this->request->getVar('kelurahan'));
+        
+        
+
         $jamaah = new JamaahModel();
-        $jamaah->update($id, [
-            'title' =>  $this->request->getVar("title"),
-            'nama_paspor' =>  $this->request->getVar("nama_paspor"),
-            'ayah'  => $this->request->getVar("ayah"),
-            'jenis_identitas' =>  $this->request->getVar("jenis_identitas"),
-            'tempat_lahir' =>  $this->request->getVar("tempat_lahir"),
-            'tgl_lahir' =>  $this->request->getVar("tgl_lahir"),
-            'alamat' =>  $this->request->getVar("alamat"),
-            'no_telp' =>  $this->request->getVar("no_telpon"),
-            'kewargannegaraan' =>  $this->request->getVar("warganegara"),
-            'status_pernikahan' =>  $this->request->getVar("nikah"),
-            'jenis_pendidikan' =>  $this->request->getVar("jenis_pendidikan"),
-            'jenis_pekerjaan' =>  $this->request->getVar("jenis_pekerjaan"),
-            'provider' =>  $this->request->getVar("provider"),
-            'asuransi' =>  $this->request->getVar("asuransi"),
-            'no_paspor' =>  $this->request->getVar("no_paspor"),
-            'no_identitas' =>  $this->request->getVar("no_identitas"),
-        ]);
-
-
-        return redirect()->to("tambah_pendaftaran/" . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Di Update");
+        try {
+            //code...
+            $jamaah->update($id, [
+                'title' =>  $this->request->getVar("title"),
+                'nama'  =>  $this->request->getVar('nama'),
+                'nama_paspor' =>  $this->request->getVar("nama_paspor"),
+                'ayah'  => $this->request->getVar("ayah"),
+                'jenis_identitas' =>  $this->request->getVar("jenis_identitas"),
+                'tempat_lahir' =>  $this->request->getVar("tempat_lahir"),
+                'tgl_lahir' =>  $this->request->getVar("tgl_lahir"),
+                'foto'  =>  $file_name,
+                'alamat' =>  $this->request->getVar("alamat"),
+                'provinsi'  =>  $pisah_provinsi[1],
+                'kabupaten' =>  $pisah_kabupaten[1],
+                'kecamatan' =>  $pisah_kecamatan[1],
+                'kelurahan' =>  $pisah_kelurahan[1],
+                'no_telp' =>  $this->request->getVar("no_telpon"),
+                'kewargannegaraan' =>  $this->request->getVar("warganegara"),
+                'status_pernikahan' =>  $this->request->getVar("nikah"),
+                'jenis_pendidikan' =>  $this->request->getVar("jenis_pendidikan"),
+                'jenis_pekerjaan' =>  $this->request->getVar("jenis_pekerjaan"),
+                'no_paspor' =>  $this->request->getVar("no_paspor"),
+                'no_identitas' =>  $this->request->getVar("no_identitas"),
+            ]);
+    
+    
+            return redirect()->to("tambah_pendaftaran/" . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("success", "Data Berhasil Di Update");
+        } catch (\Throwable $th) {
+            return redirect()->to("tambah_pendaftaran/" . $this->request->getVar("id_kloter") . '/' . $this->request->getVar("id_paket"))->with("error", "Data Gagal Di Update");
+            //throw $th;
+        }
     }
 
     public function hapus_jamaah($id)

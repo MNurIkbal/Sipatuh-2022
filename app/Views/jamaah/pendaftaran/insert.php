@@ -185,11 +185,15 @@
     function provinsi_satu() {
 
         let val = $("#provinsi").val()
-        console.log(val)
         $.ajax({
-            url: "<?= base_url("ambil_provinsi") ?>/" + val,
-            success: function(data) {
-                $("#kabupaten").html(data)
+            url: "<?= base_url('ambil_provinsi') ?>/" + val,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kabupaten").html(options);
             }
         });
 
@@ -201,11 +205,15 @@
         let kab = $("#kabupaten").val()
         $.ajax({
             url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
             success: function(data_dua) {
-                $("#kecamatan").html(data_dua)
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kecamatan").html(options);
             }
-        })
-
+        });
     }
 
     function kecamatan_tiga() {
