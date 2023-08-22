@@ -231,6 +231,9 @@
           <span><?= session()->get("error");  ?></span>
         </div>
       <?php endif; ?>
+
+      <div id="error-kk" >
+      </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-12 mx-0">
@@ -242,26 +245,26 @@
                 </li>
                 <li id="personal"><strong>Informasi Asuransi</strong></li>
                 <li id="payment"><strong>Informasi Visa</strong></li>
-                <li id="confirm"><strong>Informasi Vaksin</strong></li>
+                <li id="confirm"><strong>Verifikasi</strong></li>
               </ul>
               <fieldset>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Dokumen KTP*</label>
-                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_ktp">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_ktp" accept=".pdf" id="ktp">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                     <div class="mb-3">
                       <label for="">Dokumen Kartu Keluarga*</label>
-                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_kk">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_kk" accept=".pdf" id="kk">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Dokumen Paspor</label>
-                      <input type="file" class="form-control" placeholder="No Paspor" name="file_paspor">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_paspor" accept=".pdf">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
@@ -318,7 +321,7 @@
                     <div class="form-group">
                       <label for="">Muassasah: </label>
                       <div style="width: 100% !important;">
-                        <select name="muassasah"  class="form-control select2" style="width: 100% !important;" id="">
+                        <select name="muassasah" class="form-control select2" style="width: 100% !important;" id="">
                           <option value="">Pilih</option>
                           <?php foreach ($muasah as $row_dua) : ?>
                             <option value="<?= $row_dua['nama_muassasah'];  ?>"><?= $row_dua['nama_muassasah'];  ?></option>
@@ -328,7 +331,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="">Dokumen Visa</label>
-                      <input type="file" class="form-control" placeholder="No Paspor" name="file_visa">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_visa" accept=".pdf">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
@@ -337,18 +340,10 @@
                 <input type="button" name="next" class="next action-button" value="Next Step" />
               </fieldset>
               <fieldset>
-                <div class="form-group">
-                  <label for="">Jenis Vaksin*</label>
-                  <input type="text" name="jenis" class="form-control"  placeholder="Jenis Vaksin">
-                </div>
-                <div class="form-group">
-                  <label for="">Tanggal Vaksin*</label>
-                  <input type="date" name="tgl" value="" class="form-control"  placeholder="">
-                </div>
-                <div class="mb-3">
-                  <label for="">Sertifikat Vaksin*</label>
-                  <input type="file" class="form-control"  placeholder="No Paspor" name="sertifikat_vaksin">
-                  <small class="text-danger">File PDF Size 3 MB</small>
+                <div class="alert alert-warning">
+                  <p>
+                    Pastikan Dokumen Yang Anda Punya Diisi Di Kolom Input!
+                  </p>
                 </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                 <button type="submit" class="action-button">Simpan</button>
@@ -366,21 +361,26 @@
 
 <script>
   // Mendengarkan aksi saat form di-submit
-  $("#msform").submit(function(event) {
-    var valid = true;
+  $("#my-form").submit(function(event) {
+    // Reset pesan error
+    $(".error-message").text("");
 
-    // Cek setiap input di dalam tab-content
-    $(".tab-content input").each(function() {
-      if ($(this).val() === "") {
-        valid = false;
-        return false; // Hentikan iterasi jika ada input kosong
-      }
-    });
-
-    if (!valid) {
-      event.preventDefault(); // Hentikan pengiriman form jika validasi gagal
-      alert("Semua input harus diisi!");
+    // Validasi KK dan KTP
+    var kkValue = $("#kk").val();
+    var ktpFile = $("#ktp")[0].files[0]; // Mengambil file yang diupload
+    if (kkValue === "") {
+      $("#error-kk").text("Field KK harus diisi.");
+      event.preventDefault();
     }
+    if (!ktpFile) {
+      $("#error-ktp").text("File KTP harus diupload.");
+      event.preventDefault();
+    } else if (ktpFile.type !== "application/pdf") {
+      $("#error-ktp").text("File KTP harus berformat PDF.");
+      event.preventDefault();
+    }
+
+    // Lanjutkan dengan pengiriman form jika validasi berhasil
   });
 
   $(document).ready(function() {

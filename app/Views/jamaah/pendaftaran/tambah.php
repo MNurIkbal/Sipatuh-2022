@@ -93,7 +93,7 @@
                                         <th>Identitas</th>
                                         <th>No Pasti Umrah</th>
                                         <th>Status Pembayaran</th>
-                                        <th>Status Vaksin</th>
+                                        <!-- <th>Status Vaksin</th> -->
                                         <th>Info</th>
                                         <th>Action</th>
                                     </tr>
@@ -111,8 +111,6 @@
                                             <td>
                                                 <span>NIK : <?= $row['no_identitas'];  ?></span>
                                                 <br>
-                                                <span>No Telpon : <?= $row['no_telp'];  ?></span>
-                                                <br>
                                                 <span>No Hp : <?= $row['no_hp'];  ?></span>
                                             </td>
                                             <td><?= $row['no_pasti_umrah'];  ?></td>
@@ -125,27 +123,7 @@
                                                             BAYAR</span></span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td>
-                                                <span>
-                                                    <?php if ($row['status_vaksin'] == "sudah") : ?>
-                                                        STATUS VAKSIN : <span class="badge badge-success">Sudah</span>
-                                                    <?php else : ?>
-                                                        STATUS VAKSIN : <span class="badge badge-danger">Belum</span>
-                                                    <?php endif; ?>
-                                                </span>
-                                                <br>
-                                                <?php if ($row['tgl_vaksin']) : ?>
-                                                    <span>
-                                                        TANGGAL VAKSIN : <?= date("d-m-Y", strtotime($row['tgl_vaksin']));  ?>
-                                                    </span>
-                                                <?php else : ?>
-                                                    <span>TANGGAL VAKSIN : </span>
-                                                <?php endif; ?>
-                                                <br>
-                                                <span>
-                                                    JENIS VAKSIN : <?= $row['jenis_vaksin'];  ?>
-                                                </span>
-                                            </td>
+                                            
                                             <td>
                                                 <span>POLIS : <?= $row['nomor_polis'];  ?></span>
                                                 <br>
