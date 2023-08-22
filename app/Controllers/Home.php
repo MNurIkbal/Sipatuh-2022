@@ -98,17 +98,33 @@ class Home extends BaseController
 
     public function ambil_provinsi($id)
     {
+        // 1101
         $db      = \Config\Database::connect();
         $str = explode("-", $id);
         $explode = $str[0];
         $kabupaten = $db->query("SELECT * FROM   regencies WHERE  province_id = '$explode' ORDER BY name ASC")->getResultArray();
 
+        // foreach ($kabupaten as $row) {
+        //     $id = $row['id'];
+        //     $nama = $row['name'];
+        //     $data  = "<option data-kabupaten-id='$id'  value='$id-$nama'>$nama</option>";
+        //     echo $data;
+        // }
+        $dataKabupaten = [];
         foreach ($kabupaten as $row) {
             $id = $row['id'];
             $nama = $row['name'];
-            $data  = "<option value='$id-$nama'>$nama</option>";
-            echo $data;
+            
+            $dataKabupaten[] = [
+                'id' => $id,
+                'nama' => $nama
+            ];
         }
+        $jsonData = json_encode($dataKabupaten);
+
+        // Mengirimkan JSON sebagai respons
+        header('Content-Type: application/json');
+        echo $jsonData;
     }
 
     public function detail_provinsi($id)
@@ -139,7 +155,6 @@ class Home extends BaseController
         $str = explode("-", $id);
         $explode = $str[0];
         $kecamatan = $db->query("SELECT * FROM   districts WHERE  regency_id = '$explode' ORDER BY name ASC")->getResultArray();
-
 
         foreach ($kecamatan as $row) {
             $id = $row['id'];
@@ -289,13 +304,13 @@ class Home extends BaseController
         $kode_paket_satu = $paket_first->where("id", $this->request->getVar("id_paket"))->first();
         $kode_paket = $kode_paket_satu['kode_paket'];
         $checks = new BioDataModel();
-        $biodata = $checks->where("user_id",session()->get('id'))->first(); 
+        $biodata = $checks->where("user_id", session()->get('id'))->first();
         $result_main = $jamaah
             ->where('jamaah.user_id', session()->get('id'))
-              ->where('paket_id',$this->request->getVar('id_paket'))
+            ->where('paket_id', $this->request->getVar('id_paket'))
             ->countAllResults();
-        if($result_main) {
-            return redirect()->back()->with('error','Akun Jamaah Sudah Ada');
+        if ($result_main) {
+            return redirect()->back()->with('error', 'Akun Jamaah Sudah Ada');
         }
 
         $jamaah->insert([

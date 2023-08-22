@@ -102,7 +102,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Bank</label>
+                    <label for="">Bank*</label>
                     <br>
                     <select style="width: 100% !important;" name="bank" class="form-control selectlama<?= $main['id'] ?>" required  id="">
                         <option value="">Pilih</option>
@@ -112,15 +112,15 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="">Alamat</label>
+                    <label for="">Alamat*</label>
                     <textarea name="alamat" class="form-control " required placeholder="Alamat"  id="" cols="30" rows="10"><?=  $main['alamat'];  ?></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="">Nomor Rekening</label>
+                    <label for="">Nomor Rekening*</label>
                     <input type="number" class="form-control" required placeholder="No Rekening" name="no_rekening" value="<?=  $main['no_rekening'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">Nama Pemilik Rekening</label>
+                    <label for="">Nama Pemilik Rekening*</label>
                     <input type="text" class="form-control" required name="nama_pemilik" placeholder="Nama Pemilik Rekening" value="<?=  $main['nama'];  ?>">
                 </div>
                 <div class="mb-3">
@@ -153,7 +153,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Bank</label>
+                    <label for="">Bank*</label>
                     <br>
                     <select style="width: 100% !important;" name="bank" class="form-control selectbaru" required  id="">
                         <option value="">Pilih</option>
@@ -163,15 +163,15 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="">Alamat</label>
+                    <label for="">Alamat*</label>
                     <textarea name="alamat" class="form-control " required placeholder="Alamat"  id="" cols="30" rows="10"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="">Nomor Rekening</label>
+                    <label for="">Nomor Rekening*</label>
                     <input type="number" class="form-control" required placeholder="No Rekening" name="no_rekening">
                 </div>
                 <div class="mb-3">
-                    <label for="">Nama Pemilik Rekening</label>
+                    <label for="">Nama Pemilik Rekening*</label>
                     <input type="text" class="form-control" required name="nama_pemilik" placeholder="Nama Pemilik Rekening">
                 </div>
                 <div class="mb-3">

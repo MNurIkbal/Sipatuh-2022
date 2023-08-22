@@ -148,28 +148,24 @@
                                             $mains =  $db->query("SELECT * FROM provinces ORDER BY name ASC")->getResultArray();
                                             ?>
                                             <select name="provinsi" id="provinsi" class="form-control select2" required onchange="provinsi_satu()">
-                                                <option value="">Pilih</option>
                                                 <?php foreach ($mains as $rt) :  ?>
-                                                    <option <?= ($rt['name'] == $main['provinsi'] ? "selected" : ""); ?> value="<?= $rt['id']  . '-' . $rt['name']; ?>"><?= $rt['name']; ?></option>
+                                                    <option data-provinsi-id="<?= $rt['id']; ?>" <?= ($rt['name'] == $main['provinsi'] ? "selected" : ""); ?> value="<?= $rt['id']  . '-' . $rt['name']; ?>"><?= $rt['name']; ?></option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Kabupaten*</label>
                                             <select name="kabupaten" id="kabupaten" class="form-control select2 " onchange="kabupaten_dua()" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Kecamatan*</label>
                                             <select name="kecamatan" id="kecamatan" class="form-control select2" onchange="kecamatan_tiga()" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Kelurahan*</label>
                                             <select name="kelurahan" id="kelurahan" class="form-control select2" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                     </div>
@@ -194,10 +190,25 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(".select2").select2();
+
+    let selectedProvinsiId = $("#provinsi option:selected").data("provinsi-id");
+    
+    $.ajax({
+        url: "<?= base_url('ambil_provinsi') ?>/" + selectedProvinsiId,
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+            });
+            $("#kabupaten").html(options);
+        }
+    });
+
+
     function provinsi_satu() {
 
         let val = $("#provinsi").val()
-        console.log(val)
         $.ajax({
             url: "<?= base_url("ambil_provinsi") ?>/" + val,
             success: function(data) {
@@ -207,15 +218,30 @@
 
     }
 
+
+
     function kabupaten_dua() {
 
         let kab = $("#kabupaten").val()
+        // $.ajax({
+        //     url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+        //     success: function(data_dua) {
+        //         $("#kecamatan").html(data_dua)
+        //     }
+        // })
+
         $.ajax({
             url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
             success: function(data_dua) {
-                $("#kecamatan").html(data_dua)
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kabupaten").html(options);
             }
-        })
+        });
+
 
     }
 

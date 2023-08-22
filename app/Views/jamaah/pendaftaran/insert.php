@@ -98,7 +98,6 @@
                                             $mains =  $db->query("SELECT * FROM provinces ORDER BY name ASC")->getResultArray();
                                             ?>
                                             <select name="provinsi" id="provinsi" class="form-control select2" required onchange="provinsi_satu()">
-                                                <option value="">Pilih</option>
                                                 <?php foreach ($mains as $rt) :  ?>
                                                     <option value="<?= $rt['id']  . '-' . $rt['name']; ?>"><?= $rt['name']; ?></option>
                                                 <?php endforeach; ?>
@@ -107,19 +106,16 @@
                                         <div class="mb-3">
                                             <label for="">Kabupaten*</label>
                                             <select name="kabupaten" id="kabupaten" class="form-control select2 " onchange="kabupaten_dua()" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Kecamatan*</label>
                                             <select name="kecamatan" id="kecamatan" class="form-control select2" onchange="kecamatan_tiga()" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">Kelurahan*</label>
                                             <select name="kelurahan" id="kelurahan" class="form-control select2" required>
-                                                <option value="">Pilih</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
