@@ -399,20 +399,11 @@ class PendaftaranController extends BaseController
             'file_kk' => [
                 "rules" => "uploaded[file_kk]|mime_in[file_kk,application/pdf]|max_size[file_kk,3024]"
             ],
-            'sertifikat_vaksin' => [
-                "rules" => "uploaded[sertifikat_vaksin]|mime_in[sertifikat_vaksin,application/pdf]|max_size[sertifikat_vaksin,3024]"
-            ],
-            'file_asuransi' => [
-                "rules" => "uploaded[file_asuransi]|mime_in[file_asuransi,application/pdf]|max_size[file_asuransi,3024]"
-            ],
-            'file_provider' => [
-                "rules" => "uploaded[file_provider]|mime_in[file_provider,application/pdf]|max_size[file_provider,3024]"
-            ],
             'file_paspor' => [
-                "rules" => "uploaded[file_paspor]|mime_in[file_paspor,application/pdf]|max_size[file_paspor,3024]"
+                "rules" => "mime_in[file_paspor,application/pdf]|max_size[file_paspor,3024]"
             ],
             'file_visa' => [
-                "rules" => "uploaded[file_visa]|mime_in[file_visa,application/pdf]|max_size[file_visa,3024]"
+                "rules" => "mime_in[file_visa,application/pdf]|max_size[file_visa,3024]"
             ],
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
@@ -429,29 +420,25 @@ class PendaftaranController extends BaseController
         $satu->move('assets/upload/', $kk);
 
         $dua = $this->request->getFile('file_visa');
-        $visa = $dua->getRandomName();
-        $data_visa = $visa;
-        $dua->move('assets/upload/', $visa);
+        $check = $dua->getError();
+        if($check != 4) {
+            $visa = $dua->getRandomName();
+            $data_visa = $visa;
+            $dua->move('assets/upload/', $visa);
+        } else {
+            $data_visa = null;
+        }
 
-        $tiga = $this->request->getFile('file_provider');
-        $provider = $tiga->getRandomName();
-        $data_provider = $provider;
-        $tiga->move('assets/upload/', $provider);
-
-        $empat = $this->request->getFile('sertifikat_vaksin');
-        $vaksin = $empat->getRandomName();
-        $data_vaksin = $vaksin;
-        $empat->move('assets/upload/', $vaksin);
-
-        $lima = $this->request->getFile('file_asuransi');
-        $asuransi = $lima->getRandomName();
-        $data_asuransi = $asuransi;
-        $lima->move('assets/upload/', $asuransi);
 
         $enam = $this->request->getFile('file_paspor');
-        $paspor = $enam->getRandomName();
-        $file_paspor = $paspor;
-        $enam->move('assets/upload/', $paspor);
+        $check_dua = $enam->getError();
+        if($check_dua != 4) {
+            $paspor = $enam->getRandomName();
+            $file_paspor = $paspor;
+            $enam->move('assets/upload/', $paspor);
+        } else {
+            $file_paspor = null;
+        }
 
         try {
             $data_result = new JamaahModel();
@@ -465,7 +452,7 @@ class PendaftaranController extends BaseController
                 'created_at'    =>  date("Y-m-d"),
                 'img'   =>  $datas['foto'],
                 'email' =>  "",
-                'no_hp' =>  $datas['no_telp'],
+                'no_hp' =>  $datas['no_hp'],
                 'jamaah_id' =>  $datas['id']
             ]);
 
@@ -509,10 +496,10 @@ class PendaftaranController extends BaseController
                 'file_paspor' =>  $file_paspor,
                 'file_ktp' =>  $data_ktp,
                 'file_kk' =>  $data_kk,
-                'file_sertifikat_vaksin' =>  $data_vaksin,
+                'file_sertifikat_vaksin' =>  null,
                 'file_visa' =>  $data_visa,
-                'file_asuransi' =>  $data_asuransi,
-                'file_provider' =>  $data_provider,
+                'file_asuransi' =>  $datas['asuransi'],
+                'file_provider' =>  $datas['provider'],
             ]);
 
             $data_result->update($id_jamaah, [
@@ -524,9 +511,6 @@ class PendaftaranController extends BaseController
                 'tgl_awal_visa' =>  $this->request->getVar("tgl_awal_visa"),
                 'tgl_akhir_visa' =>  $this->request->getVar("tgl_akhir_visa"),
                 'muassasah' =>  $this->request->getVar("muassasah"),
-                'status_vaksin' => "sudah",
-                'tgl_vaksin' =>  $this->request->getVar("tgl"),
-                'jenis_vaksin' =>  $this->request->getVar("jenis"),
                 'user_id'   =>  $end['id']
             ]);
 

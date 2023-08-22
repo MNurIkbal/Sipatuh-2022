@@ -47,6 +47,12 @@ class RekeningPenampungController extends BaseController
         $kloter = new KloterModel();
         $bank = new BankModel();
         $bukti = new BuktiModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_jamaah = $jamaah->where('id',$id)->first();
+        if(!$check_paket || !$check_jamaah || !$check_kloter) {
+            return redirect()->to('pendaftaran');
+        }
         $result_paket = $paket->where("id",$id_paket)->first();
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
@@ -61,8 +67,9 @@ class RekeningPenampungController extends BaseController
             'bank'  =>  $bank->where("id",$result_paket['rekening_penampung_id'])->first(),
             'petugas'   =>  $petugas_man->findAll(),
             'bukti' =>  $bukti->where("jamaah_id",$id)->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->findAll(),
-            
-            'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll()
+            'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll(),
+            'jamaah'    =>  $jamaah->where('id',$id)->first(),
+            'rekening_penampung'    =>  $bank->where('id',$check_paket['rekening_penampung_id'])->first(),
         ];
         
         return view("jamaah/pendaftaran/pembayaran",$data);

@@ -231,9 +231,6 @@
           <span><?= session()->get("error");  ?></span>
         </div>
       <?php endif; ?>
-
-      <div id="error-kk">
-      </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-12 mx-0">
@@ -252,12 +249,12 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Dokumen KTP*</label>
-                      <input type="file" class="form-control" placeholder="No Paspor" name="file_ktp" accept=".pdf" id="ktp">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_ktp" accept=".pdf" id="ktp_data">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                     <div class="mb-3">
                       <label for="">Dokumen Kartu Keluarga*</label>
-                      <input type="file" class="form-control" placeholder="No Paspor" name="file_kk" accept=".pdf" id="kk">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_kk" accept=".pdf" id="kk_data">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
@@ -313,7 +310,6 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-
                     <div class="form-group">
                       <label for="">Tanggal Awal Visa: </label>
                       <input type="date" name="tgl_awal_visa" class="form-control " placeholder="Tanggal">
@@ -361,13 +357,17 @@
 
 <script>
   $(document).ready(function() {
-    document.getElementById("msform").addEventListener("submit", function(event) {
-      const ktp = document.getElementById("ktp").val();
-      console.log(ktp)
-      if (ktp === "") {
-        alert("ktp cannot be empty");
-        return;
-        event.preventDefault();
+    const form = document.getElementById('msform');
+    form.addEventListener("submit", function(e) {
+      var ma_data = document.getElementById('ktp_data');
+      var kk = document.getElementById('kk_data');
+      if (ma_data.files.length === 0) {
+        alert("Dokumen KTP Harus Diisi");
+        e.preventDefault();
+      }
+      if(kk.files.length === 0) {
+        alert("Dokumen KK Harus Diisi");
+        e.preventDefault();
       }
     });
     var current_fs, next_fs, previous_fs; //fieldsets
