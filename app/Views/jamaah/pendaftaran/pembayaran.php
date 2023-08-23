@@ -620,6 +620,9 @@
                                     <?= date("d, F Y", strtotime($main['tgl_bayar'])); ?>
                                   <?php endif; ?>
                                 </li>
+                                <li class="list-group-item" style="text-align: left !important;">
+                                  Download Invoice : <a href="<?= base_url('cetak_invoice/' . $main['id'] . '/' . $id_paket . '/' . $id_kloter); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
+                                </li>
                               </ul>
                             </div>
                           </div>

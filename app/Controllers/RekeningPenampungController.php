@@ -10,6 +10,7 @@ use App\Models\JamaahModel;
 use App\Models\KloterModel;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
+use App\Models\ProfileModel;
 
 class RekeningPenampungController extends BaseController
 {
@@ -73,6 +74,50 @@ class RekeningPenampungController extends BaseController
         ];
         
         return view("jamaah/pendaftaran/pembayaran",$data);
+    }
+
+    public function cetak_invoice($id,$id_paket,$id_kloter)
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $paket = new PaketModel();
+        $petugas_man  = new PetugasManModel();
+        $rekening = new BankModel();
+        $data_bank = new DataBank();
+        $jamaah = new JamaahModel();
+        $kloter = new KloterModel();
+        $bank = new BankModel();
+        $bukti = new BuktiModel();
+        $profil = new ProfileModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_jamaah = $jamaah->where('id',$id)->first();
+        if(!$check_paket || !$check_jamaah || !$check_kloter) {
+            return redirect()->to('pendaftaran');
+        }
+        $result_paket = $paket->where("id",$id_paket)->first();
+        $data = [
+            'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
+            'title' =>  "Pembayaran",
+            'id_jamaah'    =>  $id,
+            'kloter'  =>  $kloter->where('id',$id_kloter)->first(),
+            'id_kloter' =>  $id_kloter,
+            'main'    =>  $jamaah->where("id",$id)->first(),
+            'id_paket'  =>  $id_paket,
+            'paket' =>  $paket->where("id",$id_paket)->first(),
+            // 'bank'  =>  $rekening->findAll(),
+            'bank'  =>  $bank->where("id",$result_paket['rekening_penampung_id'])->first(),
+            'petugas'   =>  $petugas_man->findAll(),
+            'bukti' =>  $bukti->where("jamaah_id",$id)->where("paket_id",$id_paket)->where('kloter_id',$id_kloter)->findAll(),
+            'rekening'  =>  $rekening->where("travel_id",session()->get("travel_id"))->findAll(),
+            'jamaah'    =>  $jamaah->where('id',$id)->first(),
+            'rekening_penampung'    =>  $bank->where('id',$check_paket['rekening_penampung_id'])->first(),
+            'profile'   =>  $profil->where('id',$check_paket['travel_id'])->first(),
+        ];
+        
+        return view("jamaah/pendaftaran/cetak_history",$data);
     }
 
     public function bayar_cicil($id)
