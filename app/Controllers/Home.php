@@ -281,6 +281,9 @@ class Home extends BaseController
         $banner = new BannerModel();
         $db      = \Config\Database::connect();
         $paket = $paket->where("id", $id)->first();
+        if(!$paket) {
+            return redirect()->to('/');
+        }
         $paket_dua = $db->query("SELECT * FROM paket WHERE kelengkapan = 'sudah' AND pemberangkatan IS NULL ORDER BY id ASC LIMIT 10 ")->getResultArray();
 
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
@@ -404,7 +407,6 @@ class Home extends BaseController
             'user_id'   =>  session()->get('id')
             // 'kloter_id' =>  $this->request->getVar("id_kloter"),
         ]);
-
 
         return redirect()->to("detail_paket_users/" .  $this->request->getVar("id_paket"))->with("success", "Data Berhasil Di tambahkan");
         // } catch (\Throwable $th) {

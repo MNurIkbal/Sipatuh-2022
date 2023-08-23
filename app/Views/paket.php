@@ -162,7 +162,7 @@
                   </div>
                   <div class="col-md-6    ">
                     <div class="mb-3">
-                      <label for="">Nama</label>
+                      <label for="">Nama*</label>
                       <input type="text" class="form-control" required placeholder="Nama" readonly name="nama" value="<?= session()->get('nama') ?>">
                     </div>
                   </div>
@@ -170,53 +170,46 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="">Nama Ayah</label>
+                      <label for="">Nama Ayah*</label>
                       <input type="text" class="form-control" required placeholder="Nama Ayah" name="ayah" value="<?= $biodata['ayah']; ?>">
                     </div>
+                    <input type="hidden" name="jenis_identitas" value="nik">
                     <div class="mb-3">
-                      <label for="">Jenis Identitas</label>
-                      <select name="jenis_identitas" id="" class="form-control select2" required>
-                        <option value="">Pilih</option>
-                        <option value="nik" <?= ($biodata['jenis_identitas'] == "nik") ? "selected" : ""; ?>>Nik</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="">No Identitas</label>
+                      <label for="">No Identitas*</label>
                       <input type="text" class="form-control " name="no_identitas" value="<?= $biodata['no_identitas']; ?>" required placeholder="No Identitas">
                     </div>
                     <div class="mb-3">
-                      <label for="">Tempat Lahir</label>
+                      <label for="">Tempat Lahir*</label>
                       <input type="text" class="form-control " required placeholder="Tempat Lahir" name="tempat_lahir" value="<?= $biodata['tempat_lahir']; ?>">
                     </div>
                     <div class="mb-3">
-                      <label for="">Tanggal Lahir</label>
+                      <label for="">Tanggal Lahir*</label>
                       <input type="date" class="form-control" required placeholder="" name="tgl_lahir" value="<?= $biodata['tgl_lahir']; ?>">
                     </div>
                     <div class="mb-3">
                       <label for="">No Telepon</label>
-                      <input type="number" class="form-control" required placeholder="No Telepon" name="no_telpon" value="<?= $biodata['no_telp']; ?>">
+                      <input type="number" class="form-control" placeholder="No Telepon" name="no_telpon" value="<?= $biodata['no_telp']; ?>">
                     </div>
                     <div class="mb-3">
-                      <label for="">No Hp</label>
+                      <label for="">No Hp*</label>
                       <input type="number" class="form-control" required placeholder="No Hp" name="no_hp" value="<?= session()->get('no_hp'); ?>">
                     </div>
-                    
-                    <div class="mb-3">
-                        <label for="">Kewarganegaraan</label>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="mb-3">
+                        <label for="">Kewarganegaraan*</label>
                         <select name="warganegara" class="form-control select2" required id="">
                           <option value="">Pilih</option>
                           <option value="wni" <?= ($biodata['kewargannegaraan'] == "wni") ? "selected" : ""; ?>>WNI</option>
                           <option value="wna" <?= ($biodata['kewargannegaraan'] == "wna") ? "selected" : ""; ?>>WNA</option>
                         </select>
                       </div>
-                  </div>
-                  <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Nama Paspor</label>
-                      <input type="text" class="form-control" required placeholder="Nama Paspor" name="nama_paspor" value="<?= $biodata['nama_paspor']; ?>">
+                      <input type="text" class="form-control"  placeholder="Nama Paspor" name="nama_paspor" value="<?= $biodata['nama_paspor']; ?>">
                     </div>
                     <div class="mb-3">
-                      <label for="">Status Pernikahan</label>
+                      <label for="">Status Pernikahan*</label>
                       <select name="nikah" class="form-control select2" required id="">
                         <option value="">Pilih</option>
                         <option value="sudah nikah" <?= ($biodata['status_pernikahan'] == "sudah nikah") ? "selected" : ""; ?>>sudah nikah</option>
@@ -224,7 +217,7 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Jenis Pendidikan</label>
+                      <label for="">Jenis Pendidikan*</label>
                       <select name="jenis_pendidikan" class="form-control select2" required id="">
                         <option value="">Pilih</option>
                         <option value="tidak sekolah" <?= ($biodata['jenis_pendidikan'] == "tidak sekolah") ? "selected" : ""; ?>>Tidak Sekolah</option>
@@ -236,7 +229,7 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Jenis Pekerjaan</label>
+                      <label for="">Jenis Pekerjaan*</label>
                       <select name="jenis_pekerjaan" class="form-control select2" required id="">
                         <option value="">Pilih</option>
                         <option value="tidak bekerja" <?= ($biodata['jenis_pekerjaan'] == "tidak bekerja") ? "selected" : ""; ?>>Tidak Bekerja</option>
@@ -251,28 +244,8 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Provider</label>
-                      <!-- <input type="text" class="form-control" required placeholder="Provider" name="provider"> -->
-                      <select name="provider" class="form-control select2" required id="">
-                        <option value="">Pilih</option>
-                        <?php foreach ($provider as $providers) : ?>
-                          <option value="<?= $providers['nama_provider'];  ?>" <?= ($providers['nama_provider'] == $biodata['provider']) ? "selected" : ""; ?>>
-                            <?= $providers['nama_provider'];  ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="">Asuransi</label>
-                      <select name="asuransi" required class="form-control select2" id="">
-                        <option value="">Pilih</option>
-                        <?php foreach ($asuransi as $asuransis) : ?>
-                          <option value="<?= $asuransis['nama'];  ?>" <?= ($asuransis['nama'] == $biodata['asuransi']) ? "selected" : ""; ?>><?= $asuransis['nama'];  ?></option>
-                        <?php endforeach; ?>
-                      </select>
-                    </div>
-                    <div class="mb-3">
                       <label for="">No Paspor</label>
-                      <input type="text" class="form-control" value="<?= $biodata['no_paspor']; ?>" required placeholder="No Paspor" name="no_paspor">
+                      <input type="text" class="form-control" value="<?= $biodata['no_paspor']; ?>"  placeholder="No Paspor" name="no_paspor">
                     </div>
                   </div>
                   <button type="submit" class="btn btn-primary ml-3">Simpan</button>
