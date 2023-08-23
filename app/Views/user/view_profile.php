@@ -117,19 +117,37 @@
                       Dokumen Kartu Keluarga : <a href="<?= base_url("assets/upload/" . $jamaah['file_kk']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
                   </li>
                   <li class="list-group-item">
-                      Dokumen Paspor : <a href="<?= base_url("assets/upload/" . $jamaah['file_paspor']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                      Dokumen Paspor :
+                      <?php if($jamaah['file_paspor']) : ?>
+                        <a href="<?= base_url("assets/upload/" . $jamaah['file_paspor']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                        <?php else: ?>
+                          <?php endif; ?>
                   </li>
                   <li class="list-group-item">
-                      Dokumen Visa : <a href="<?= base_url("assets/upload/" . $jamaah['file_visa']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                      Dokumen Visa : 
+                      <?php if($jamaah['file_visa']) : ?>
+                        <a href="<?= base_url("assets/upload/" . $jamaah['file_visa']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                        <?php else: ?>
+                          <?php endif; ?>
                   </li>
                   <li class="list-group-item">
-                      Dokumen Asuransi : <a href="<?= base_url("assets/upload/" . $jamaah['file_asuransi']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                      Dokumen Asuransi :
+                      <?php if($jamaah['file_asuransi']) :  ?>
+                        <a href="<?= base_url("assets/upload/" . $jamaah['file_asuransi']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                        <?php else: ?>
+                          <?php endif; ?>
                   </li>
                   <li class="list-group-item">
-                      Dokumen Provider : <a href="<?= base_url("assets/upload/" . $jamaah['file_provider']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                      Dokumen Provider :
+                      <?php if($jamaah['file_provider']) :  ?>
+                        <a href="<?= base_url("assets/upload/" . $jamaah['file_provider']); ?>" download="" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                        <?php endif; ?>
                   </li>
                   <li class="list-group-item">
-                      Dokumen Sertifikat Vaksin : <a download="" href="<?= base_url("assets/upload/" . $jamaah['file_sertifikat_vaksin']); ?>" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                      Dokumen Sertifikat Vaksin :
+                        <?php if($jamaah['file_sertifikat_vaksin']) : ?>
+                          <a download="" href="<?= base_url("assets/upload/" . $jamaah['file_sertifikat_vaksin']); ?>" class="btn btn-success   "><i class="fas fa-download"></i></a>
+                          <?php endif; ?>
                   </li>
                 </ul>
               </div>
@@ -247,52 +265,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-12">
-            <div class="card">
-            <div class="card-header bg-success text-white">
-                <h4>Informasi Vaksin</h4>
-              </div>
-              <div class="card-bodys">
-                <?php if($jamaah) : ?>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                    Status Vaksin : 
-                    <?php 
-                    if($jamaah['status_vaksin']) :
-                    ?>
-                    <span class="badge badge-pill badge-primary"><?=  $jamaah['status_vaksin'];  ?></span>
-                    <?php else: ?>
-                      <span class="badge badge-pill badge-primary">Belum</span>
-                    <?php endif; ?>
-                    </li>
-                    <li class="list-group-item">
-                    Jenis Vaksin : <?=  $jamaah['jenis_vaksin'];  ?>
-                    </li>
-                    <li class="list-group-item">
-                    <?php if($jamaah['tgl_vaksin']) : ?>
-                        Tanggal Vaksin : <?=  date("d, F Y",strtotime($jamaah['tgl_vaksin']));  ?>
-                        <?php else: ?>
-                          Tanggal Vaksin : 
-                        <?php endif; ?>
-                    </li>
-                  </ul>
-                  <?php else: ?>
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                      Status Vaksin : 
-                        <span class="badge badge-pill badge-primary">Belum</span>
-                      </li>
-                      <li class="list-group-item">
-                      Jenis Vaksin : -
-                      </li>
-                      <li class="list-group-item">
-                            Tanggal Vaksin : - 
-                      </li>
-                    </ul>
-                    <?php endif; ?>
-              </div>
-            </div>
-          </div>
+          
          
         </div>
       </div>

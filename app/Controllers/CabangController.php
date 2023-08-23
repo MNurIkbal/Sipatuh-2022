@@ -44,6 +44,10 @@ class CabangController extends BaseController
         $banner = new BannerModel();
         $cabang = new CabangModel();
         $user = new Users();
+        $check = $cabang->where('id',$id)->first();
+        if(!$check) {
+            return redirect()->to('cabang');
+        }
         $data = [
             'title' =>  "Cabang",
             'cabang'    =>  $cabang->where("id",$id)->first(),

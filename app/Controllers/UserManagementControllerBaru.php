@@ -37,6 +37,9 @@ class UserManagementControllerBaru extends BaseController
 
         $st = $db->query("SELECT * FROM banner WHERE expired >= '$now'")->getResultArray();
         $count = count($st);
+        $biodata = new BioDataModel();
+        $id_jamaah = session()->get('id');
+        $check_biodata = $biodata->where('user_id',$id_jamaah)->first();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
         if ($tes) {
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
@@ -49,11 +52,12 @@ class UserManagementControllerBaru extends BaseController
                 'count' =>  $count,
                 'kloter'    =>  $kloter->where("id", $tes['kloter_id'])->first(),
                 'baru'    =>  $st,
-                
+                'tes'   =>  $tes,
                 'profile'   =>  $profile->where('id', $check_travel['id'])->first(),
                 'jamaah'    =>  $jamaah->where("id", session()->get("jamaah_id"))->first(),
                 'title' =>  'Travel-Q',
                 'db'    =>  $db,
+                'check_biodata' =>  $check_biodata,
                 'pakets'    => $pakets->where("id", $tes['paket_id'])->first(),
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
@@ -95,6 +99,7 @@ class UserManagementControllerBaru extends BaseController
                 'kloter'    =>  null,
                 'baru'    =>  $st,
                 'tes'   =>  $tes,
+                'check_biodata' =>  $check_biodata,
                 'profile'   =>  null,
                 'daftar'    =>  $daf->findAll(),
                 'jamaah'    =>  null,
@@ -135,7 +140,11 @@ class UserManagementControllerBaru extends BaseController
         $count = count($st);
         $biodata = new BioDataModel();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
-
+        $biodatas = new BioDataModel();
+        $cheks = $biodata->where('user_id',session()->get('id'))->first();
+        if(!$cheks) {
+            return redirect()->to('profile_jamaah');
+        }
         $data = [
             'paket_dua' =>  $paket_dua,
             'count' =>  $count,
@@ -1032,6 +1041,31 @@ class UserManagementControllerBaru extends BaseController
             $kelurahan_explode = explode('-', $this->request->getVar("kelurahan"));
             $kelurahan_hasil = $kelurahan_explode[1];
             $biodata = new BioDataModel();
+            if($this->request->getVar('tgl_input')) {
+                $satus = $this->request->getVar('tgl_input');
+            } else {
+                $satus = null;
+            }
+            if($this->request->getVar('awal')) {
+                $duas = $this->request->getVar('awal');
+            } else {
+                $duas = null;
+            }
+            if($this->request->getVar('akhir')) {
+                $tigas = $this->request->getVar('akhir');
+            } else {
+                $tigas = null;
+            }
+            if($this->request->getVar('tgl_awal_visa')) {
+                $empats = $this->request->getVar('tgl_awal_visa');
+            } else {
+                $empats = null;
+            }
+            if($this->request->getVar('tgl_akhir_visa')) {
+                $limas = $this->request->getVar('tgl_akhir_visa');
+            } else {
+                $limas = null;
+            }
             $biodata->insert([
                 'title' =>  $this->request->getvar('title'),
                 'nama_paspor' =>  $this->request->getvar('nama_paspor'),
@@ -1049,19 +1083,17 @@ class UserManagementControllerBaru extends BaseController
                 'status_pernikahan' =>  $this->request->getvar('nikah'),
                 'jenis_pendidikan' =>  $this->request->getvar('jenis_pendidikan'),
                 'jenis_pekerjaan' =>  $this->request->getvar('jenis_pekerjaan'),
-                'provider' =>  $this->request->getvar('provider'),
-                'asuransi' =>  $this->request->getvar('asuransi'),
                 'created_at' =>  date("Y-m-d"),
                 'updated_at' =>  date("Y-m-d"),
                 'no_identitas' =>  $this->request->getvar('no_identitas'),
                 'no_paspor' =>  $this->request->getvar('no_paspor'),
                 'nomor_polis' =>  $this->request->getvar('nomor'),
-                'tgl_input' =>  $this->request->getvar('tgl_input'),
-                'tgl_awal' =>  $this->request->getvar('awal'),
-                'tgl_akhir' =>  $this->request->getvar('akhir'),
+                'tgl_input' =>  $satus,
+                'tgl_awal' =>  $duas,
+                'tgl_akhir' =>  $tigas,
                 'nomor_visa' =>  $this->request->getvar('nomor_visa'),
-                'tgl_awal_visa' =>  $this->request->getvar('tgl_awal_visa'),
-                'tgl_akhir_visa' =>  $this->request->getvar('tgl_akhir_visa'),
+                'tgl_awal_visa' =>  $empats,
+                'tgl_akhir_visa' =>  $limas,
                 'muassasah' =>  $this->request->getvar('muassasah'),
                 'status_vaksin' => "Sudah",
                 'status_approve' => null,

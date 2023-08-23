@@ -84,15 +84,15 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama Cabang</label>
+                    <label for="">Nama Cabang*</label>
                     <input type="text" class="form-control" name="nama" required placeholder="Nama Cabang">
                 </div>
                 <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" name="no_hp" required placeholder="No Hp">
                 </div>
                 <div class="mb-3">
-                    <label for="">Status</label>
+                    <label for="">Status*</label>
                     <select name="status" class="form-control" required id="">
                         <option value="">Pilih</option>
                         <option value="aktif">Aktif</option>
@@ -100,15 +100,15 @@
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="">Foto</label>
+                    <label for="">Foto*</label>
                     <input type="file" class="form-control" name="file" required placeholder="file">
                 </div>
                 <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="email" class="form-control" name="email" required placeholder="Email">
                 </div>
                 <div class="mb-3">
-                    <label for="">Alamat</label>
+                    <label for="">Alamat*</label>
                     <textarea name="alamat" class="form-control" required id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
@@ -134,17 +134,17 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama Cabang</label>
+                    <label for="">Nama Cabang*</label>
                     <input type="text" class="form-control" name="nama" required placeholder="Nama Cabang"
                         value="<?=  $rows['nama'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" name="no_hp" required placeholder="No Hp"
                         value="<?=  $rows['no_hp'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">Status</label>
+                    <label for="">Status*</label>
                     <select name="status" class="form-control" required id="">
                         <option value="">Pilih</option>
                         <option value="aktif" <?=  ($rows['status'] == "aktif") ? "selected" : "";  ?>>Aktif</option>
@@ -161,12 +161,12 @@
                     <input type="file" class="form-control" name="file" placeholder="file">
                 </div>
                 <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="email" class="form-control" name="email" required placeholder="Email"
                         value="<?=  $rows['email'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">Alamat</label>
+                    <label for="">Alamat*</label>
                     <textarea name="alamat" class="form-control" required id="" cols="30"
                         rows="10"><?=  $rows['alamat'];  ?></textarea>
                 </div>

@@ -82,23 +82,23 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" name="nama" required placeholder="Nama">
                 </div>
                 <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="text" class="form-control" name="username" required placeholder="Email">
                 </div>
                 <div class="mb-3">
-                    <label for="">Password</label>
+                    <label for="">Password*</label>
                     <input type="password" class="form-control" name="password" required placeholder="Password">
                 </div>
                 <div class="mb-3">
-                    <label for="">Foto</label>
+                    <label for="">Foto*</label>
                     <input type="file" class="form-control" name="file" required placeholder="file">
                 </div>
                 <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" name="no_hp" required placeholder="No Hp">
                 </div>
             </div>
@@ -125,11 +125,11 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="">Nama</label>
+                    <label for="">Nama*</label>
                     <input type="text" class="form-control" name="nama" required placeholder="Nama" value="<?=  $rows['nama'];  ?>">
                 </div>
                 <div class="mb-3">
-                    <label for="">Email</label>
+                    <label for="">Email*</label>
                     <input type="text" class="form-control" name="username" required placeholder="Email" value="<?=  $rows['username'];  ?>">
                 </div>
                 <div class="mb-3">
@@ -141,7 +141,7 @@
                     <input type="file" class="form-control" name="file"  placeholder="file">
                 </div>
                 <div class="mb-3">
-                    <label for="">No Hp</label>
+                    <label for="">No Hp*</label>
                     <input type="number" class="form-control" name="no_hp" required placeholder="No Hp" value="<?=  $rows['no_hp'];  ?>">
                 </div>
             </div>

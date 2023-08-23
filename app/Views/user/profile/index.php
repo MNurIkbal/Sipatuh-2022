@@ -249,7 +249,7 @@
                     <div class="mb-3">
                       <label for="">Title*</label>
                       <br>
-                      <select name="title" class="form-control select2" required id="" style="width: 100% !important;">
+                      <select name="title" class="form-control select2"  id="title" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <option value="Tuan">Tuan</option>
                         <option value="Nyonya">Nyoya</option>
@@ -267,20 +267,20 @@
                   <div class="col-md-6">
                     <div class="mb-3">
                       <label for="">Nama Ayah*</label>
-                      <input type="text" class="form-control" required placeholder="Nama Ayah" name="ayah">
+                      <input type="text" class="form-control"  placeholder="Nama Ayah" id="nama_ayah" name="ayah">
                     </div>
                     <input type="hidden" name="jenis_identitas" value="nik">
                     <div class="mb-3">
                       <label for="">No Identitas*</label>
-                      <input type="text" class="form-control " name="no_identitas" required placeholder="No Identitas">
+                      <input type="text" class="form-control " name="no_identitas" id="no_identitas"  placeholder="No Identitas">
                     </div>
                     <div class="mb-3">
                       <label for="">Tempat Lahir*</label>
-                      <input type="text" class="form-control " required placeholder="Tempat Lahir" name="tempat_lahir">
+                      <input type="text" class="form-control "  id="tempat_lahir" placeholder="Tempat Lahir" name="tempat_lahir">
                     </div>
                     <div class="mb-3">
                       <label for="">Tanggal Lahir*</label>
-                      <input type="date" class="form-control" required placeholder="" name="tgl_lahir">
+                      <input type="date" class="form-control"  placeholder="" name="tgl_lahir" id="tgl_lahir">
                     </div>
                     <div class="mb-3">
                       <label for="">No Telepon</label>
@@ -289,7 +289,7 @@
                     <div class="mb-3">
                       <label for="">Kewarganegaraan*</label>
                       <br>
-                      <select name="warganegara" class="form-control select2" style="width: 100% !important;" required id="">
+                      <select name="warganegara" class="form-control select2" style="width: 100% !important;"  id="wni">
                         <option value="">Pilih</option>
                         <option value="wni">WNI</option>
                         <option value="wna">WNA</option>
@@ -298,16 +298,16 @@
 
                     <div class="mb-3">
                       <label for="">Alamat* </label>
-                      <textarea name="alamat" id="" class="form-control" required cols="30" rows="10" placeholder="Alamat"></textarea>
+                      <textarea name="alamat" id="alamat" class="form-control"  cols="30" rows="10" placeholder="Alamat"></textarea>
                     </div>
                     <div class="mb-3">
                       <label for="">Dokumen KTP*</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_ktp">
+                      <input type="file" class="form-control"  placeholder="No Paspor" id="ktp" name="file_ktp">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                     <div class="mb-3">
                       <label for="">Dokumen Kartu Keluarga*</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_kk">
+                      <input type="file" class="form-control"  placeholder="No Paspor" id="kk" name="file_kk">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
                   </div>
@@ -315,7 +315,7 @@
                     <div class="mb-3">
                       <label for="">Jenis Pendidikan*</label>
                       <br>
-                      <select name="jenis_pendidikan" class="form-control select2" style="width: 100% !important;" required id="">
+                      <select name="jenis_pendidikan" class="form-control select2" style="width: 100% !important;"  id="jenis_pendidikan">
                         <option value="">Pilih</option>
                         <option value="tidak sekolah">Tidak Sekolah</option>
                         <option value="SD">SD</option>
@@ -328,8 +328,7 @@
                     <div class="mb-3 ">
                       <label for="">Provinsi*</label>
                       <br>
-                      <select name="provinsi" name="provinsi" required class="form-control provinsi select2" onchange="prov_satu()" id="provinsi" style="width: 100% !important;">
-                        <option value="">Pilih</option>
+                      <select name="provinsi" name="provinsi"  class="form-control provinsi select2" onchange="prov_satu()" id="provinsi" style="width: 100% !important;">
                         <?php foreach ($provinsi as $main_provinsi) : ?>
                           <option value="<?= $main_provinsi['id'] . '-' . $main_provinsi['name']; ?>"><?= $main_provinsi['name']; ?></option>
                         <?php endforeach; ?>
@@ -338,28 +337,25 @@
                     <div class="mb-3">
                       <label for="">Kabupaten*</label>
                       <br>
-                      <select name="kabupaten" class="form-control select2" required id="kabupaten" style="width: 100% !important;">
-                        <option value="">Pilih</option>
+                      <select name="kabupaten" class="form-control select2"  id="kabupaten" style="width: 100% !important;">
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="">Kecamatan*</label>
                       <br>
-                      <select name="kecamatan" class="form-control select2" required id="kecamatan" style="width: 100% !important;">
-                        <option value="">Pilih</option>
+                      <select name="kecamatan" class="form-control select2"  id="kecamatan" style="width: 100% !important;">
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="">Kelurahan*</label>
                       <br>
-                      <select name="kelurahan" class="form-control select2" required id="kelurahan" style="width: 100% !important;">
-                        <option value="">Pilih</option>
+                      <select name="kelurahan" class="form-control select2"  id="kelurahan" style="width: 100% !important;">
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="">Status Pernikahan*</label>
                       <br>
-                      <select name="nikah" class="form-control select2" required id="" style="width: 100% !important;">
+                      <select name="nikah" class="form-control select2"  id="status_pernikahan" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <option value="sudah nikah">sudah nikah</option>
                         <option value="belum nikah">belum nikah</option>
@@ -369,7 +365,7 @@
                     <div class="mb-3">
                       <label for="">Jenis Pekerjaan*</label>
                       <br>
-                      <select name="jenis_pekerjaan" class="form-control select2" required id="" style="width: 100% !important;">
+                      <select name="jenis_pekerjaan" class="form-control select2"  id="jenis_pekerjaan" style="width: 100% !important;">
                         <option value="">Pilih</option>
                         <option value="tidak bekerja">Tidak Bekerja</option>
                         <option value="guru">Guru</option>
@@ -389,7 +385,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="">No Paspor</label>
-                      <input type="text" class="form-control" required placeholder="No Paspor" name="no_paspor">
+                      <input type="text" class="form-control"  placeholder="No Paspor" name="no_paspor">
                     </div>
                   </div>
                 </div>
@@ -477,7 +473,7 @@
                   <p>Pastikan semua input sudah di isi jika ada simbol bintang.</p>
                 </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
-                <!-- <input type="submit" name="make_payment" class="next action-button" value="Confirm" /> -->
+                
                 <button type="submit" class="action-button">Simpan</button>
               </fieldset>
             </form>
@@ -492,8 +488,95 @@
 <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
 
 <script>
+  
   $(document).ready(function() {
+    const form = document.getElementById('msform');
+   form.addEventListener('submit',function(e) {
+    const title = document.getElementById('title').value;
+    const nama_ayah = document.getElementById('nama_ayah').value;
+    const no_identitas = document.getElementById("no_identitas").value;
+    const tempat_lahir = document.getElementById('tempat_lahir').value;
+    const tgl_lahir = document.getElementById("tgl_lahir").value;
+    const wni = document.getElementById('wni').value;
+    const alamat = document.getElementById('alamat').value;
+    const ktp = document.getElementById('ktp').value;
+    const kk = document.getElementById('kk').value;
+    const jenis_pendidikan = document.getElementById('jenis_pendidikan').value;
+    const provinsi = document.getElementById("provinsi").value;
+    const kabupaten = document.getElementById("kabupaten").value;
+    const kecamatan = document.getElementById("kecamatan").value;
+    const kelurahan = document.getElementById("kelurahan").value;
+    const status_pernihakan = document.getElementById('status_pernikahan').value;
+    const jenis_pekerjaan = document.getElementById('jenis_pekerjaan').value;
 
+    if(title.length == 0) {
+      alert('Title Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+   
+    if(nama_ayah.length == 0) {
+      alert('Nama Ayah Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(no_identitas.length == 0) {
+      alert('No Identitas Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(tempat_lahir.length == 0) {
+      alert('Tempat Lahir Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(tgl_lahir.length == 0) {
+      alert('Tanggal Lahir Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(wni.length == 0) {
+      alert('Kewarganegaraan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(alamat.length == 0) {
+      alert('Alamat Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(ktp.length == 0) {
+      alert('KTP Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(kk.length == 0) {
+      alert('Kartu Keluarga Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(jenis_pendidikan.length == 0) {
+      alert('Jenis Pendidikan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(provinsi.length == 0) {
+      alert('Provinsi Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(kabupaten.length == 0) {
+      alert('Kabupaten Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(kecamatan.length == 0) {
+      alert('Kecamatan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(kelurahan.length == 0) {
+      alert('Kelurahan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(status_pernihakan.length == 0) {
+      alert('Status Pernikahan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+    if(jenis_pekerjaan.length == 0) {
+      alert('Jenis Pekerjaan Harus Di Isi');
+      event.preventDefault(); // Ini akan mencegah pengiriman form secara default
+    }
+
+    // return;
+  }); 
     var current_fs, next_fs, previous_fs; //fieldsets
     var opacity;
 
@@ -563,14 +646,13 @@
       $(this).addClass('selected');
     });
 
-    $(".submit").click(function() {
-      return false;
-    })
-
+   
   });
+ 
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
@@ -579,33 +661,44 @@
 <script>
   function prov_satu() {
     let val = $("#provinsi").val()
-    $.ajax({
-      url: "<?= base_url("ambil_provinsi") ?>/" + val,
-      success: function(data) {
-        $("#kabupaten").html(data)
-      }
-    });
+        $.ajax({
+            url: "<?= base_url('ambil_provinsi') ?>/" + val,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kabupaten").html(options);
+            }
+        });
   }
 
 
   $("#kabupaten").change(function() {
-    let kab = $(this).val()
-    $.ajax({
-      url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
-      success: function(data_dua) {
-        $("#kecamatan").html(data_dua)
-      }
-    })
+    
+    let kab = $("#kabupaten").val()
+        $.ajax({
+            url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kecamatan").html(options);
+            }
+        });
   });
 
   $("#kecamatan").change(function() {
-    let kec = $(this).val()
-    $.ajax({
-      url: "<?= base_url("ambil_kecamatan") ?>/" + kec,
-      success: function(data_tiga) {
-        $("#kelurahan").html(data_tiga)
-      }
-    })
+    let kec = $("#kecamatan").val()
+        $.ajax({
+            url: "<?= base_url("ambil_kecamatan") ?>/" + kec,
+            success: function(data_tiga) {
+                $("#kelurahan").html(data_tiga)
+            }
+        })
   })
 
 

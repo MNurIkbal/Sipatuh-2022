@@ -54,7 +54,7 @@
             </div>
           </div>
         </div>
-        <?php if(!$tes)  : ?>
+        <?php if(!$check_biodata)  : ?>
           <div class="alert-warning alert">
             <h4>Pemberitahuan </h4>
             <p>Anda belum melengkapi biodata harap di lengkapi terlebih dahulu di menu profile</p>

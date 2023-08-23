@@ -62,14 +62,23 @@ class ProfilController extends BaseController
         }
 
 
-
+            if($this->request->getVar('akhir_sk')) {
+                $t = $this->request->getVar('akhir_sk');
+            } else {
+                $t = null;
+            }
+            if($this->request->getVar('tgl_sk')) {
+                $y = $this->request->getVar('tgl_sk');
+            } else {
+                $y = null;
+            }
         $profile->update(session()->get("travel_id"),[
             'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
             'nama_travel_umrah' => $this->request->getVar("nama_travel"),
             'npwp' => $this->request->getVar("npwp"),
             'no_sk' => $this->request->getVar("no_sk"),
-            'tgl_sk' => $this->request->getVar("tgl_sk"),
-            'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
+            'tgl_sk' => $y,
+            'tgl_berakhir_sk' => $t,
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),

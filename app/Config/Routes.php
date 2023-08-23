@@ -71,6 +71,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/profile_perusaahaan', 'DashboardController::index',['filter' => 'DpFilter']);
     $routes->get('/paket', 'PaketController::index',['filter' => 'DpFilter']);
     $routes->get('/tambah_pakets', 'PaketController::tambah_pakets',['filter' => 'DpFilter']);
+    $routes->get('/tambah_pakets_cabang', 'PaketController::tambah_pakets_cabang',['filter' => 'DpFilter']);
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_petugas_rencana/(:any)', 'PaketController::tambah_petugas_rencana/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_hotel_paket/(:any)', 'PaketController::tambah_hotel_paket/$1',['filter' => 'DpFilter']);
