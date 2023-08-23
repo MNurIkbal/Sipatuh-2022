@@ -621,7 +621,7 @@
                                   <?php endif; ?>
                                 </li>
                                 <li class="list-group-item" style="text-align: left !important;">
-                                  Download Invoice : <a href="<?= base_url('cetak_invoice/' . $main['id'] . '/' . $id_paket . '/' . $id_kloter); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
+                                  Download Invoice : <a target="_blank" href="<?= base_url('cetak_invoice/' . $main['id'] . '/' . $id_paket . '/' . $id_kloter); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
                                 </li>
                               </ul>
                             </div>
@@ -637,9 +637,6 @@
                             </div>
                             <div class="card-body">
                               <ul class="list-group">
-                                <li class="list-group-item" style="text-align: left !important;">
-                                  Rekening Penampung : <?= $rows['rekening_penampung']; ?>
-                                </li>
                                 <?php if (!empty($rows['nominal'])) : ?>
                                   <li class="list-group-item" style="text-align: left !important;">
                                     Nominal : Rp. <?= number_format($rows['nominal']); ?>
@@ -657,6 +654,9 @@
                                 </li>
                                 <li class="list-group-item" style="text-align: left !important;">
                                   Dibuat : <?= date("d, F Y", strtotime($rows['created'])); ?>
+                                </li>
+                                <li class="list-group-item" style="text-align: left !important;">
+                                  Download Invoice : <a target="_blank" href="<?= base_url('cetak_prints/' . $main['id'] . '/' . $id_paket . '/' . $id_kloter . '/' . $rows['id']); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
                                 </li>
                               </ul>
                             </div>

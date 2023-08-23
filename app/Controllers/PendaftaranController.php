@@ -266,17 +266,6 @@ class PendaftaranController extends BaseController
             AND rekening_penampung IS NOT NULL 
             AND status_bayar = 'lunas'
             AND keterangan_bayar IS NOT NULL 
-            AND nomor_polis  IS NOT NULL
-            AND tgl_input IS NOT NULL
-            AND tgl_awal IS NOT NULL
-            AND tgl_akhir IS NOT NULL
-            AND nomor_visa IS NOT NULL
-            AND tgl_awal_visa IS NOT NULL
-            AND tgl_akhir_visa IS NOT NULL
-            AND muassasah IS NOT NULL
-            AND status_vaksin IS NOT NULL
-            AND tgl_vaksin IS NOT NULL
-            AND jenis_vaksin IS NOT NULL
             AND kloter_id = '$id_kloter'
             AND selesai_pembayaran = 'sudah'
             

@@ -52,8 +52,18 @@
                                 <li class="list-group-item">Rekening Penampung : <?= $main['rekening_penampung'];  ?></li>
                                 <li class="list-group-item">Status Bayar : <span class="badge badge-pill badge-primary"><?= $main['status_bayar'];  ?></span></li>
                                 <li class="list-group-item">Nomor Polis : <?= $main['nomor_polis'];  ?></li>
-                                <li class="list-group-item">Tanggal Input Polis : <?= $main['tgl_input'];  ?></li>
-                                <li class="list-group-item">Tanggal Awal Polis : <?= $main['tgl_awal'];  ?></li>
+                                <li class="list-group-item">Tanggal Input Polis : 
+                                    <?php if($main['tgl_input']) : ?>
+                                        <?= $main['tgl_input'];  ?>
+                                        <?php else: ?>
+                                            <?php endif ?>
+                                </li>
+                                <li class="list-group-item">Tanggal Awal Polis : 
+                                    <?php if(!empty($main['tgl_awal'])) : ?>
+                                    <?= $main['tgl_awal'];  ?>
+                                    <?php else: ?>
+                                    <?php endif; ?>
+                                </li>
                                 <li class="list-group-item">Tanggal Akhir Polis : <?= $main['tgl_akhir'];  ?></li>
                                 <li class="list-group-item">Nomor Visa : <?= $main['nomor_visa'];  ?></li>
                                 <li class="list-group-item">Tanggal Awal Visa : <?= $main['tgl_awal_visa'];  ?></li>

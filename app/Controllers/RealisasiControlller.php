@@ -79,6 +79,10 @@ class RealisasiControlller extends BaseController
         $maskapai  = new Maskapai();
         $bandara = new BandaraModel();
         $kloter = new KloterModel();
+        $check = $paket->where('id',$id)->first();
+        if(!$check) {
+            return redirect()->to('realisasi');
+        }
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status",1)->findAll(),

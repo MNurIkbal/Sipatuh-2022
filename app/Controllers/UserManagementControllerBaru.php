@@ -94,6 +94,7 @@ class UserManagementControllerBaru extends BaseController
                 'first_biodata' =>  $first_biodata,
                 'kloter'    =>  null,
                 'baru'    =>  $st,
+                'tes'   =>  $tes,
                 'profile'   =>  null,
                 'daftar'    =>  $daf->findAll(),
                 'jamaah'    =>  null,
@@ -954,26 +955,22 @@ class UserManagementControllerBaru extends BaseController
             'file_kk' => [
                 "rules" => "uploaded[file_kk]|mime_in[file_kk,application/pdf]|max_size[file_kk,3024]"
             ],
-            'sertifikat_vaksin' => [
-                "rules" => "uploaded[sertifikat_vaksin]|mime_in[sertifikat_vaksin,application/pdf]|max_size[sertifikat_vaksin,3024]"
-            ],
             'file_asuransi' => [
-                "rules" => "uploaded[file_asuransi]|mime_in[file_asuransi,application/pdf]|max_size[file_asuransi,3024]"
+                "rules" => "mime_in[file_asuransi,application/pdf]|max_size[file_asuransi,3024]"
             ],
             'file_provider' => [
-                "rules" => "uploaded[file_provider]|mime_in[file_provider,application/pdf]|max_size[file_provider,3024]"
+                "rules" => "mime_in[file_provider,application/pdf]|max_size[file_provider,3024]"
             ],
             'file_paspor' => [
-                "rules" => "uploaded[file_paspor]|mime_in[file_paspor,application/pdf]|max_size[file_paspor,3024]"
+                "rules" => "mime_in[file_paspor,application/pdf]|max_size[file_paspor,3024]"
             ],
             'file_visa' => [
-                "rules" => "uploaded[file_visa]|mime_in[file_visa,application/pdf]|max_size[file_visa,3024]"
+                "rules" => "mime_in[file_visa,application/pdf]|max_size[file_visa,3024]"
             ],
         ])) {
             session()->setFlashdata('error', $this->validator->listErrors());
             return redirect()->back()->withInput();
         }
-
 
         try {
             $dataBerkas = $this->request->getFile('file_ktp');
@@ -987,29 +984,44 @@ class UserManagementControllerBaru extends BaseController
             $satu->move('assets/upload/', $kk);
 
             $dua = $this->request->getFile('file_visa');
-            $visa = $dua->getRandomName();
-            $data_visa = $visa;
-            $dua->move('assets/upload/', $visa);
+            $check_satu = $dua->getError();
+            if($check_satu != 4) {
+                $visa = $dua->getRandomName();
+                $data_visa = $visa;
+                $dua->move('assets/upload/', $visa);
+            } else {
+                $data_visa = null;
+            }
 
             $tiga = $this->request->getFile('file_provider');
-            $provider = $tiga->getRandomName();
-            $data_provider = $provider;
-            $tiga->move('assets/upload/', $provider);
-
-            $empat = $this->request->getFile('sertifikat_vaksin');
-            $vaksin = $empat->getRandomName();
-            $data_vaksin = $vaksin;
-            $empat->move('assets/upload/', $vaksin);
+            $check_dua = $tiga->getError();
+            if($check_dua != 4) {
+                $provider = $tiga->getRandomName();
+                $data_provider = $provider;
+                $tiga->move('assets/upload/', $provider);
+            } else {
+                $data_provider = null;
+            }
 
             $lima = $this->request->getFile('file_asuransi');
-            $asuransi = $lima->getRandomName();
-            $data_asuransi = $asuransi;
-            $lima->move('assets/upload/', $asuransi);
+            $check_enam = $lima->getError();
+            if($check_enam != 4) {
+                $asuransi = $lima->getRandomName();
+                $data_asuransi = $asuransi;
+                $lima->move('assets/upload/', $asuransi);
+            } else {
+                $data_asuransi = null;
+            }
 
             $enam = $this->request->getFile('file_paspor');
-            $paspor = $enam->getRandomName();
-            $file_paspor = $paspor;
-            $enam->move('assets/upload/', $paspor);
+            $check_tuju = $enam->getError();
+            if($check_tuju != 4) {
+                $paspor = $enam->getRandomName();
+                $file_paspor = $paspor;
+                $enam->move('assets/upload/', $paspor);
+            } else {
+                $file_paspor = null;
+            }
             //code...
             $provinsi_explode = explode("-", $this->request->getVar("provinsi"));
             $provinsi_hasil = $provinsi_explode[1];
@@ -1052,14 +1064,11 @@ class UserManagementControllerBaru extends BaseController
                 'tgl_akhir_visa' =>  $this->request->getvar('tgl_akhir_visa'),
                 'muassasah' =>  $this->request->getvar('muassasah'),
                 'status_vaksin' => "Sudah",
-                'tgl_vaksin' =>  $this->request->getvar('tgl'),
-                'jenis_vaksin' =>  $this->request->getvar('jenis'),
                 'status_approve' => null,
                 'user_id'   =>  session()->get('id'),
                 'file_paspor'   =>  $file_paspor,
                 'file_ktp'  =>  $data_ktp,
                 'file_kk'   =>  $data_kk,
-                'file_sertifikat_vaksin' =>  $data_vaksin,
                 'file_visa' =>  $data_visa,
                 'file_asuransi' =>  $data_asuransi,
                 'file_provider' =>  $data_provider

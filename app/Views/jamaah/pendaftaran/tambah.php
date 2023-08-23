@@ -75,7 +75,7 @@
                             <a title="Export Exel" href="<?= base_url("download_jamaah/$id/$id_kloter");  ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
                             <a target="_blank" title="Download PDF" href="<?= base_url("download_pdf/$id/$id_kloter");  ?>" class="btn btn-warning"><i class="fas fa-download" title="Download PDF"></i></a>
                             <?php if ($finish >= $count) : ?>
-                                <a target="_blank" title="Print Kartu" href="<?= base_url("print_kartu/$id");  ?>" class="btn btn-dark"><i class="fas fa-print"></i></a>
+                                <!-- <a target="_blank" title="Print Kartu" href="<?= base_url("print_kartu/$id");  ?>" class="btn btn-dark"><i class="fas fa-print"></i></a> -->
                                 <?php if ($paket['keberangkatan'] != "sudah") : ?>
                                     <a href="#" class="btn btn-danger " title="Siap Berangkat" data-toggle="modal" data-target="#berangkat"><i class="fas fa-plane"></i></a>
                                 <?php endif; ?>

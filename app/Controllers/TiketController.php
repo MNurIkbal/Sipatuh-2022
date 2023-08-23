@@ -68,9 +68,15 @@ class TiketController extends BaseController
         $jamaah = new JamaahModel();
         $muasah = new MuassahModel();
         $paket = new PaketModel();
+        $kloter = new KloterModel();
         $bank = new BankModel();
         $provider = new DataProviderModel();
         $db      = \Config\Database::connect();
+        $chek = $paket->where('id',$id_paket)->first();
+        $check_dua = $kloter->where('id',$id_kloter)->first();
+        if(!$chek || !$check_dua) {
+            return redirect()->to('tiket');
+        }
             $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -112,6 +118,7 @@ class TiketController extends BaseController
                 'paket_id'  =>  $id_paket,
                 'kloter_id' =>  $id_kloter
             ])->findAll(),
+            'kloters'   =>  $kloter->where('id',$id_kloter)->first(),
         ];
         return view("jamaah/tiket/detail",$data);
     }
@@ -122,6 +129,7 @@ class TiketController extends BaseController
             return redirect()->to("/");
             exit;
         }
+        
         $paket = new PaketModel();
         $jamaah = new JamaahModel();
         $muasah = new MuassahModel();
@@ -129,6 +137,13 @@ class TiketController extends BaseController
         $bank = new BankModel();
         $provider = new DataProviderModel();
         $db      = \Config\Database::connect();
+        $kloter = new KloterModel();
+        $check_satu = $paket->where('id',$id_paket)->first();
+        $check_dua = $jamaah->where('id',$id_jamaah)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_dua || !$check_satu || !$check_kloter) {
+            return redirect()->to('tiket');
+        }
             $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -152,6 +167,7 @@ class TiketController extends BaseController
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->first(),
             'title' =>  "Tiket",
             'count' =>  count($counts),
+            'kloters'   =>  $kloter->where('id',$id_kloter)->first(),
             'paket' =>  $paket->where([
                 'id'    =>  $id_paket
             ])->first(),
@@ -188,6 +204,11 @@ class TiketController extends BaseController
         $kloter = new KloterModel();
         $bank = new BankModel();
         $provider = new DataProviderModel();
+        $check = $paket->where('id',$id)->first();
+        // $check_dua = $kloter->where('id',$id_kloter)->first();
+        if(!$check) {
+            return redirect()->to('tiket');
+        }
         $db      = \Config\Database::connect();
             $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
             AND tgl_bayar IS NOT NULL
@@ -242,6 +263,10 @@ class TiketController extends BaseController
         $paket = new PaketModel();
         $kloter = new KloterModel();
         $bank = new BankModel();
+        $check = $paket->where('id',$id)->first();
+        if(!$check) {
+            return redirect()->to('tiket');
+        }
         $provider = new DataProviderModel();
         $db      = \Config\Database::connect();
             $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' 
@@ -299,7 +324,6 @@ class TiketController extends BaseController
         $jamaah = new  JamaahModel();
         $jamaah->update($id,[
             'nama_paspor'   =>  $this->request->getVar("nama_paspor"),
-            'provider'   =>  $this->request->getVar("provider"),
             'no_paspor'   =>  $this->request->getVar("nomor_paspor"),
             'nomor_visa'   =>  $this->request->getVar("nomor_visa"),
             'tgl_awal_visa'   =>  $this->request->getVar("tgl_berlaku_visa"),

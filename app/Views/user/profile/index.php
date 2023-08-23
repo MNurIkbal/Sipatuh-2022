@@ -4,7 +4,7 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
 
 <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <style>
   /*form styles*/
@@ -247,7 +247,7 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="">Title</label>
+                      <label for="">Title*</label>
                       <br>
                       <select name="title" class="form-control select2" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
@@ -257,44 +257,37 @@
                     </div>
                   </div>
                   <div class="col-md-6    ">
-                  <div class="mb-3">
+                    <div class="mb-3">
                       <label for="">Nama Paspor</label>
-                      <input type="text" class="form-control" required placeholder="Nama Paspor" name="nama_paspor">
+                      <input type="text" class="form-control" placeholder="Nama Paspor" name="nama_paspor">
                     </div>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6">
                     <div class="mb-3">
-                      <label for="">Nama Ayah</label>
+                      <label for="">Nama Ayah*</label>
                       <input type="text" class="form-control" required placeholder="Nama Ayah" name="ayah">
                     </div>
+                    <input type="hidden" name="jenis_identitas" value="nik">
                     <div class="mb-3">
-                      <label for="">Jenis Identitas</label>
-                      <br>
-                      <select name="jenis_identitas" id="" class="form-control select2" style="width: 100% !important;" required>
-                        <option value="">Pilih</option>
-                        <option value="nik">Nik</option>
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="">No Identitas</label>
+                      <label for="">No Identitas*</label>
                       <input type="text" class="form-control " name="no_identitas" required placeholder="No Identitas">
                     </div>
                     <div class="mb-3">
-                      <label for="">Tempat Lahir</label>
+                      <label for="">Tempat Lahir*</label>
                       <input type="text" class="form-control " required placeholder="Tempat Lahir" name="tempat_lahir">
                     </div>
                     <div class="mb-3">
-                      <label for="">Tanggal Lahir</label>
+                      <label for="">Tanggal Lahir*</label>
                       <input type="date" class="form-control" required placeholder="" name="tgl_lahir">
                     </div>
                     <div class="mb-3">
                       <label for="">No Telepon</label>
-                      <input type="number" class="form-control" required placeholder="No Telepon" name="no_telpon">
+                      <input type="number" class="form-control" placeholder="No Telepon" name="no_telpon">
                     </div>
                     <div class="mb-3">
-                      <label for="">Kewarganegaraan</label>
+                      <label for="">Kewarganegaraan*</label>
                       <br>
                       <select name="warganegara" class="form-control select2" style="width: 100% !important;" required id="">
                         <option value="">Pilih</option>
@@ -302,25 +295,25 @@
                         <option value="wna">WNA</option>
                       </select>
                     </div>
-                   
+
                     <div class="mb-3">
-                      <label for="">Alamat </label>
+                      <label for="">Alamat* </label>
                       <textarea name="alamat" id="" class="form-control" required cols="30" rows="10" placeholder="Alamat"></textarea>
                     </div>
                     <div class="mb-3">
-                      <label for="">Dokumen KTP</label>
+                      <label for="">Dokumen KTP*</label>
                       <input type="file" class="form-control" required placeholder="No Paspor" name="file_ktp">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                      <div class="mb-3">
-                        <label for="">Dokumen Kartu Keluarga</label>
-                        <input type="file" class="form-control" required placeholder="No Paspor" name="file_kk">
-                        <small class="text-danger">File PDF Size 3 MB</small>
-                      </div>
+                    <div class="mb-3">
+                      <label for="">Dokumen Kartu Keluarga*</label>
+                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_kk">
+                      <small class="text-danger">File PDF Size 3 MB</small>
+                    </div>
                   </div>
                   <div class="col-md-6">
-                  <div class="mb-3">
-                      <label for="">Jenis Pendidikan</label>
+                    <div class="mb-3">
+                      <label for="">Jenis Pendidikan*</label>
                       <br>
                       <select name="jenis_pendidikan" class="form-control select2" style="width: 100% !important;" required id="">
                         <option value="">Pilih</option>
@@ -333,7 +326,7 @@
                       </select>
                     </div>
                     <div class="mb-3 ">
-                      <label for="">Provinsi</label>
+                      <label for="">Provinsi*</label>
                       <br>
                       <select name="provinsi" name="provinsi" required class="form-control provinsi select2" onchange="prov_satu()" id="provinsi" style="width: 100% !important;">
                         <option value="">Pilih</option>
@@ -343,28 +336,28 @@
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Kabupaten</label>
+                      <label for="">Kabupaten*</label>
                       <br>
                       <select name="kabupaten" class="form-control select2" required id="kabupaten" style="width: 100% !important;">
                         <option value="">Pilih</option>
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Kecamatan</label>
+                      <label for="">Kecamatan*</label>
                       <br>
                       <select name="kecamatan" class="form-control select2" required id="kecamatan" style="width: 100% !important;">
                         <option value="">Pilih</option>
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Kelurahan</label>
+                      <label for="">Kelurahan*</label>
                       <br>
                       <select name="kelurahan" class="form-control select2" required id="kelurahan" style="width: 100% !important;">
                         <option value="">Pilih</option>
                       </select>
                     </div>
                     <div class="mb-3">
-                      <label for="">Status Pernikahan</label>
+                      <label for="">Status Pernikahan*</label>
                       <br>
                       <select name="nikah" class="form-control select2" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
@@ -372,9 +365,9 @@
                         <option value="belum nikah">belum nikah</option>
                       </select>
                     </div>
-                    
+
                     <div class="mb-3">
-                      <label for="">Jenis Pekerjaan</label>
+                      <label for="">Jenis Pekerjaan*</label>
                       <br>
                       <select name="jenis_pekerjaan" class="form-control select2" required id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
@@ -389,15 +382,11 @@
                         <option value="lainnya">lainnya</option>
                       </select>
                     </div>
-                                       
                     <div class="mb-3">
                       <label for="">Dokumen Paspor</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_paspor">
+                      <input type="file" class="form-control" placeholder="No Paspor" name="file_paspor">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                                       
-                    
-                                       
                     <div class="mb-3">
                       <label for="">No Paspor</label>
                       <input type="text" class="form-control" required placeholder="No Paspor" name="no_paspor">
@@ -412,38 +401,28 @@
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
-                        <label for="">Asuransi</label>
-                        <br>
-                        <select name="asuransi" class="form-control select2" required id="" style="width: 100% !important;">
-                          <option value="">Pilih</option>
-                          <?php foreach ($asuransi as $main_empat) : ?>
-                            <option value="<?= $main_empat['nama'];  ?>"><?= $main_empat['nama'];  ?></option>
-                          <?php endforeach; ?>
-                        </select>
-                      </div>
-                      <div class="form-group">
                         <label for="">No Polis</label>
-                        <input type="text" name="nomor" class="form-control " required placeholder="Nomor Polis">
+                        <input type="text" name="nomor" class="form-control " placeholder="Nomor Polis">
                       </div>
                       <div class="form-group">
                         <label for="">Tanggal Input</label>
-                        <input type="date" name="tgl_input" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="tgl_input" class="form-control " placeholder="Tanggal">
                       </div>
                     </div>
                     <div class="col-md-6">
                       <div class="form-group">
                         <label for="">Tanggal Awal Polis: </label>
-                        <input type="date" name="awal" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="awal" class="form-control " placeholder="Tanggal">
                       </div>
                       <div class="form-group">
                         <label for="">Tanggal Akhir Polis: </label>
-                        <input type="date" name="akhir" class="form-control " required placeholder="Tanggal">
+                        <input type="date" name="akhir" class="form-control " placeholder="Tanggal">
                       </div>
                       <div class="mb-3">
-                      <label for="">Dokumen Asuransi</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_asuransi">
-                      <small class="text-danger">File PDF Size 3 MB</small>
-                    </div>
+                        <label for="">Dokumen Asuransi</label>
+                        <input type="file" class="form-control" placeholder="No Paspor" name="file_asuransi">
+                        <small class="text-danger">File PDF Size 3 MB</small>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -451,76 +430,52 @@
                 <input type="button" name="next" class="next action-button" value="Next Step" />
               </fieldset>
               <fieldset>
-              <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                        <label for="">Provider : </label>
-                        <br>
-                        <select name="provider" class="form-control select2" required id="" style="width: 100% !important;">
-                            <option value="">Pilih</option>
-                            <?php foreach($provider as $main_tiga) : ?>
-                                <option value="<?=  $main_tiga['nama_provider'];  ?>"><?=  $main_tiga['nama_provider'];  ?></option>
-                                <?php endforeach; ?>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                        <label for="">Nomor Visa: </label>
-                    <input type="text" name="nomor_visa" class="form-control " required placeholder="Nomor Visa"
-                        >
-                        </div>
-                        <div class="form-group">
-                        <label for="">Tanggal Akhir Visa: </label>
-                    <input type="date" name="tgl_akhir_visa" class="form-control " required placeholder="Tanggal"
-                        >
-                        </div>
-                        <div class="mb-3">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="">Nomor Visa: </label>
+                      <input type="text" name="nomor_visa" class="form-control "  placeholder="Nomor Visa">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Tanggal Akhir Visa: </label>
+                      <input type="date" name="tgl_akhir_visa" class="form-control "  placeholder="Tanggal">
+                    </div>
+                    <div class="mb-3">
                       <label for="">Dokumen Provider</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_provider">
+                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_provider">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                      </div>
-                      <div class="col-md-6">
-                        
-                        <div class="form-group">
-                        <label for="">Tanggal Awal Visa: </label>
-                    <input type="date" name="tgl_awal_visa" class="form-control " required placeholder="Tanggal"
-                       >
-                        </div>
-                        <div class="form-group">
-                        <label for="">Muassasah: </label>
-                        <br>
-                    <select name="muassasah" required class="form-control select2" id="" style="width: 100% !important;">
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group">
+                      <label for="">Tanggal Awal Visa: </label>
+                      <input type="date" name="tgl_awal_visa" class="form-control "  placeholder="Tanggal">
+                    </div>
+                    <div class="form-group">
+                      <label for="">Muassasah: </label>
+                      <br>
+                      <select name="muassasah"  class="form-control select2" id="" style="width: 100% !important;">
                         <option value="">Pilih</option>
-                        <?php foreach($muasah as $row_dua) : ?>
-                        <option 
-                            value="<?=  $row_dua['nama_muassasah'];  ?>"><?=  $row_dua['nama_muassasah'];  ?></option>
+                        <?php foreach ($muasah as $row_dua) : ?>
+                          <option value="<?= $row_dua['nama_muassasah'];  ?>"><?= $row_dua['nama_muassasah'];  ?></option>
                         <?php endforeach; ?>
-                    </select>
-                        </div>
-                        <div class="mb-3">
+                      </select>
+                    </div>
+                    <div class="mb-3">
                       <label for="">Dokumen Visa</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="file_visa">
+                      <input type="file" class="form-control"  placeholder="No Paspor" name="file_visa">
                       <small class="text-danger">File PDF Size 3 MB</small>
                     </div>
-                      </div>
-                    </div>
+                  </div>
+                </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                 <input type="button" name="next" class="next action-button" value="Next Step" />
               </fieldset>
               <fieldset>
-                <div class="form-group">
-                <label for="">Jenis Vaksin</label>
-                    <input type="text" name="jenis" class="form-control" required placeholder="Jenis Vaksin" >
+                <div class="alert alert-warning">
+                  <p>Pastikan semua input sudah di isi jika ada simbol bintang.</p>
                 </div>
-                <div class="form-group">
-                <label for="">Tanggal Vaksin</label>
-                    <input type="date" name="tgl" value="" class="form-control" required placeholder="">
-                </div>
-                <div class="mb-3">
-                      <label for="">Sertifikat Vaksin</label>
-                      <input type="file" class="form-control" required placeholder="No Paspor" name="sertifikat_vaksin">
-                      <small class="text-danger">File PDF Size 3 MB</small>
-                    </div>
                 <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                 <!-- <input type="submit" name="make_payment" class="next action-button" value="Confirm" /> -->
                 <button type="submit" class="action-button">Simpan</button>
@@ -622,8 +577,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-  function prov_satu()
-  {
+  function prov_satu() {
     let val = $("#provinsi").val()
     $.ajax({
       url: "<?= base_url("ambil_provinsi") ?>/" + val,
@@ -632,28 +586,28 @@
       }
     });
   }
- 
 
-    $("#kabupaten").change(function() {
-      let kab = $(this).val()
-      $.ajax({
-        url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
-        success: function(data_dua) {
-          $("#kecamatan").html(data_dua)
-        }
-      })
-    });
 
-    $("#kecamatan").change(function() {
-      let kec = $(this).val()
-      $.ajax({
-        url: "<?= base_url("ambil_kecamatan") ?>/" + kec,
-        success: function(data_tiga) {
-          $("#kelurahan").html(data_tiga)
-        }
-      })
+  $("#kabupaten").change(function() {
+    let kab = $(this).val()
+    $.ajax({
+      url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+      success: function(data_dua) {
+        $("#kecamatan").html(data_dua)
+      }
     })
-  
+  });
+
+  $("#kecamatan").change(function() {
+    let kec = $(this).val()
+    $.ajax({
+      url: "<?= base_url("ambil_kecamatan") ?>/" + kec,
+      success: function(data_tiga) {
+        $("#kelurahan").html(data_tiga)
+      }
+    })
+  })
+
 
   $(".select2").select2()
 </script>

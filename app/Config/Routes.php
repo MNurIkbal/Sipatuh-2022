@@ -226,6 +226,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     // rekening penampung
     $routes->get("/rekening_penampung","RekeningPenampungController::index",['filter' => 'DpFilter']);
     $routes->get("/pembayaran/(:any)/(:any)/(:any)","RekeningPenampungController::pembayaran/$1/$2/$3",['filter' => 'DpFilter']);
+    $routes->get("/cetak_prints/(:any)/(:any)/(:any)/(:any)","RekeningPenampungController::cetak_prints/$1/$2/$3/$4",['filter' => 'DpFilter']);
     $routes->get("/cetak_invoice/(:any)/(:any)/(:any)","RekeningPenampungController::cetak_invoice/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->post("/tambah_rekening","RekeningPenampungController::tambah_rekening",['filter' => 'DpFilter']);
     $routes->post("/edit_rekening","RekeningPenampungController::edit_rekening",['filter' => 'DpFilter']);

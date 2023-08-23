@@ -27,7 +27,9 @@
                             <span>Periode :
                                 <?= date("d F Y", strtotime($paket['tgl_berangkat'])) . ' - ' . date("d, F Y", strtotime($paket['tgl_pulang']));  ?></span>
                             <br>
-                            <span>Kode Paket : <?= $paket['kode_paket'];  ?></span>
+                            <span>Tour Leader : <?= $paket['tour_leader'];  ?></span>
+                            <br>
+                            <span>Kloter : <?= $kloters['nama'];  ?></span>
                         </b>
                         <br>
                         <br>
@@ -40,67 +42,58 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="mb-3">
-                                                    <label for="">Nama Jamaah</label>
+                                                    <label for="">Nama Jamaah*</label>
                                                     <input type="text" class="form-control" required placeholder="Nama Jamaah" name="nama" value="<?= $main['nama'];  ?>" readonly>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Nama Paspor</label>
-                                                    <input type="text" class="form-control" required placeholder="Nama Paspor" name="nama_paspor" value="<?= $main['nama_paspor'];  ?>">
+                                                    <input type="text" class="form-control"  placeholder="Nama Paspor" name="nama_paspor" value="<?= $main['nama_paspor'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Nomor Paspor</label>
-                                                    <input type="text" class="form-control" required placeholder="Nomor Paspor" name="nomor_paspor" value="<?= $main['no_paspor'];  ?>">
+                                                    <input type="text" class="form-control"  placeholder="Nomor Paspor" name="nomor_paspor" value="<?= $main['no_paspor'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Dikeluarkan Paspor</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="tgl_keluar_paspor" value="<?= $main['tgl_keluar_paspor'];  ?>">
+                                                    <input type="date" class="form-control"  placeholder="" name="tgl_keluar_paspor" value="<?= $main['tgl_keluar_paspor'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Habis Paspor</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="tgl_habis_paspor" value="<?= $main['tgl_habis_paspor'];  ?>">
+                                                    <input type="date" class="form-control"  placeholder="" name="tgl_habis_paspor" value="<?= $main['tgl_habis_paspor'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Kota Paspor</label>
-                                                    <input type="text" class="form-control" required placeholder="Kota Paspor" name="kota_paspor" value="<?= $main['kota_paspor'];  ?>">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="">Provider</label>
-                                                    <select name="provider" class="form-control" required id="provider">
-                                                        <option value="">Pilih</option>
-                                                        <?php foreach ($provider as $lr) : ?>
-                                                            <option <?= ($lr['nama_provider'] == $main['provider']) ? "selected" : "";  ?> value="<?= $lr['nama_provider'];  ?>"><?= $lr['nama_provider'];  ?></option>
-                                                        <?php endforeach; ?>
-                                                    </select>
+                                                    <input type="text" class="form-control"  placeholder="Kota Paspor" name="kota_paspor" value="<?= $main['kota_paspor'];  ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label for="">Nomor Visa</label>
-                                                    <input type="text" class="form-control" required placeholder="Nomor Visa" name="nomor_visa" value="<?= $main['nomor_visa'];  ?>">
+                                                    <input type="text" class="form-control"  placeholder="Nomor Visa" name="nomor_visa" value="<?= $main['nomor_visa'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Tiket Berangkat</label>
+                                                    <label for="">No Tiket Berangkat*</label>
                                                     <input type="text" class="form-control" required placeholder="No Tiket Berangkat" name="tiket_berangkat" value="<?= $main['tiket_cgk_med'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Tiket Pulang</label>
+                                                    <label for="">No Tiket Pulang*</label>
                                                     <input type="text" class="form-control" required placeholder="No Tiket Pulang" name="tiket_pulang" value="<?= $main['tiket_med_gk'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Berlaku Visa</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="tgl_berlaku_visa" value="<?= $main['tgl_awal_visa'];  ?>">
+                                                    <input type="date" class="form-control"  placeholder="" name="tgl_berlaku_visa" value="<?= $main['tgl_awal_visa'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Habis Visa</label>
-                                                    <input type="date" class="form-control" required placeholder="" name="tgl_habis_visa" value="<?= $main['tgl_akhir_visa'];  ?>">
+                                                    <input type="date" class="form-control"  placeholder="" name="tgl_habis_visa" value="<?= $main['tgl_akhir_visa'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="">No Kursi</label>
+                                                    <label for="">No Kursi*</label>
                                                     <input type="text" class="form-control" required placeholder="" name="no_kursi" value="<?= $main['no_kursi'];  ?>">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Muassasah</label>
-                                                    <select name="muassasah" required class="form-control" id="muas">
+                                                    <select name="muassasah"  class="form-control" id="muas">
                                                         <option value="">Pilih</option>
                                                         <?php foreach ($muasah as $row_dua) : ?>
                                                             <option <?= ($row_dua['nama_muassasah'] == $main['muassasah']) ? "selected" : "";  ?> value="<?= $row_dua['nama_muassasah'];  ?>"><?= $row_dua['nama_muassasah'];  ?>
