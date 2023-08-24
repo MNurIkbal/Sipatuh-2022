@@ -320,6 +320,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get("tolak_paket/(:any)","RequestPaketController::tolak_paket/$1",['filter' => 'DpFilter']);
 
     $routes->get("request_jamaah","RequestJamaahController::index",['filter' => 'DpFilter']);
+    $routes->get("detail_jamaah_lokasi/(:any)","RequestJamaahController::detail_jamaah_lokasi/$1",['filter' => 'DpFilter']);
     $routes->post("pilih_kloter","RequestJamaahController::pilih_kloter",['filter' => 'DpFilter']);
     $routes->get('/dash_admin', 'RequestJamaahController::dash_admin',['filter' => 'DpFilter']);
     

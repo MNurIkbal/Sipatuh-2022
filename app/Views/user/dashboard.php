@@ -17,11 +17,11 @@
         <h4 style="text-transform: uppercase">Dashboard</h4>
       </div>
       <div class="card-body">
-        <?php if(!isset($first_biodata)) : ?>
+        <?php if (!isset($first_biodata)) : ?>
           <div class="alert alert-warning  p-3">
             <p>Biodata anda belum lengkap.Silahkan lengkapi terlebih dahulu di menu profile isi semua data yang tercamtum di dalamnya.</p>
           </div>
-          <?php endif; ?>
+        <?php endif; ?>
         <div class="row">
           <div class="col-md-4">
             <div class="card">
@@ -54,12 +54,46 @@
             </div>
           </div>
         </div>
-        <?php if(!$check_biodata)  : ?>
+        <?php if (!$check_biodata) : ?>
           <div class="alert-warning alert">
             <h4>Pemberitahuan </h4>
             <p>Anda belum melengkapi biodata harap di lengkapi terlebih dahulu di menu profile</p>
           </div>
-          <?php endif; ?>
+        <?php endif; ?>
+        <?php if($result_jamaah) : ?>
+        <div class="row">
+          <div class="col-md-8">
+            <ul class="list-group">
+              <li class="active list-group-item">
+                <h5>History Paket Request Belum Di Approve</h5>
+              </li>
+              <?php $no = 1; foreach ($result_jamaah as $mains) : ?>
+                <?php 
+                $id_paket = $mains->paket_id;
+                  $pa =  $db->table('paket')
+                  ->where('id', $id_paket)
+                  ->get()
+                  ->getRow();
+                  ?>
+                <li class="list-group-item">
+                  <h6>
+                    <?= $no++ . '. ' .  $pa->nama; ?>
+                  </h6>
+                  <span>
+                    Periode : <?= date("d, F Y",strtotime($pa->tgl_berangkat))  . ' - ' . date("d, F Y",strtotime($pa->tgl_pulang)) ?>
+                  </span>
+                  <br>
+                  <span>Biaya : Rp. <?= number_format($pa->biaya,0); ?></span>
+                  <br>
+                  <span>Status Approve : 
+                        <span class="badge badge-pill bg-danger badge-success">Belum </span>
+                </span>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        </div>
+        <?php endif; ?>
       </div>
     </div>
 

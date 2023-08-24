@@ -41,6 +41,8 @@ class UserManagementControllerBaru extends BaseController
         $id_jamaah = session()->get('id');
         $check_biodata = $biodata->where('user_id',$id_jamaah)->first();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
+        $result_jamaah = $jamaah->where('user_id',session()->get('id'))->where('status_approve',null)->get()->getResult();
+
         if ($tes) {
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
             $check_travel = $travel->where("id", $check_paket['travel_id'])->first();
@@ -50,6 +52,7 @@ class UserManagementControllerBaru extends BaseController
             $data = [
                 'paket_dua' =>  $paket_dua,
                 'count' =>  $count,
+                'result_jamaah' =>  $result_jamaah,
                 'kloter'    =>  $kloter->where("id", $tes['kloter_id'])->first(),
                 'baru'    =>  $st,
                 'tes'   =>  $tes,
@@ -113,7 +116,8 @@ class UserManagementControllerBaru extends BaseController
                 // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
                 'count' =>  $db->query("SELECT * FROM profile")->getResult(),
                 'pembayaran'    => $rf,
-                'aktif' => $vaksin
+                'aktif' => $vaksin,
+                'result_jamaah' =>  $result_jamaah,
             ];
             
 

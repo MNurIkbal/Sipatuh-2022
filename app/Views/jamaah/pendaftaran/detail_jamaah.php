@@ -72,7 +72,6 @@
                                 <li class="list-group-item">No Registrasi : <?= $main['no_registrasi'];  ?></li>
                                 <?php
                                 $biodata = new App\Models\BioDataModel();
-
                                 $result_bio = $biodata->where("user_id", $main['user_id'])->first();
                                 // dd($result_bio);
                                 if ($result_bio) :
