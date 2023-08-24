@@ -69,9 +69,6 @@
                                 <li class="list-group-item">Tanggal Awal Visa : <?= $main['tgl_awal_visa'];  ?></li>
                                 <li class="list-group-item">Tanggal Akhir Visa : <?= $main['tgl_akhir_visa'];  ?></li>
                                 <li class="list-group-item">Muassasah : <?= $main['muassasah'];  ?></li>
-                                <li class="list-group-item">Status Vaksin : <?= $main['status_vaksin'];  ?></li>
-                                <li class="list-group-item">Tanggal Vaksin : <?= $main['tgl_vaksin'];  ?></li>
-                                <li class="list-group-item">Jenis Vaksin : <?= $main['jenis_vaksin'];  ?></li>
                                 <li class="list-group-item">No Registrasi : <?= $main['no_registrasi'];  ?></li>
                                 <?php
                                 $biodata = new App\Models\BioDataModel();
@@ -100,11 +97,6 @@
                                             <a download="" href="<?= base_url("assets/upload/" . $result_bio['file_visa']); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
                                         <?php endif; ?>
                                     </li>
-                                    <li class="list-group-item">Sertifikat Vaksin :
-                                        <?php if ($result_bio['file_sertifikat_vaksin']) : ?>
-                                            <a download="" href="<?= base_url("assets/upload/" . $result_bio['file_sertifikat_vaksin']); ?>" class="btn btn-success"><i class="fas fa-download"></i></a>
-                                    </li>
-                                <?php endif; ?>
                             <?php endif; ?>
                             <li class="list-group-item">
                                 Foto

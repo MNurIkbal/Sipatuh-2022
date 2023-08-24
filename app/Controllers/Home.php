@@ -352,6 +352,8 @@ class Home extends BaseController
         // try {
         $jamaah = new JamaahModel();
         $paket_first = new PaketModel();
+        $id_paket = $this->request->getVar('id_paket');
+        $check_paket = $paket_first->where('id',$id_paket)->first();
         $kode_paket_satu = $paket_first->where("id", $this->request->getVar("id_paket"))->first();
         $kode_paket = $kode_paket_satu['kode_paket'];
         $checks = new BioDataModel();
@@ -384,8 +386,8 @@ class Home extends BaseController
             'status_pernikahan' =>  $this->request->getVar("nikah"),
             'jenis_pendidikan' =>  $this->request->getVar("jenis_pendidikan"),
             'jenis_pekerjaan' =>  $this->request->getVar("jenis_pekerjaan"),
-            'provider' =>  $this->request->getVar("provider"),
-            'asuransi' =>  $this->request->getVar("asuransi"),
+            'provider' =>  $check_paket['provider'],
+            'asuransi' =>  $check_paket['asuransi'],
             'paket_id' =>  $this->request->getVar("id_paket"),
             'created_at' =>  date("Y-m-d"),
             'updated_at' =>  date("Y-m-d"),

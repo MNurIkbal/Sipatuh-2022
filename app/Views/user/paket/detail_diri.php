@@ -107,11 +107,6 @@
                             <a download="" href="<?= base_url("assets/upload/" . $result_bio['file_visa']); ?>" class="btn btn-success" ><i class="fas fa-download"></i></a>
                             <?php endif; ?>
                         </li>
-                            <li class="list-group-item">Sertifikat Vaksin :
-                        <?php if($result_bio['file_sertifikat_vaksin']) : ?>        
-                            <a download="" href="<?= base_url("assets/upload/" . $result_bio['file_sertifikat_vaksin']); ?>" class="btn btn-success" ><i class="fas fa-download"></i></a>
-                        </li>
-                        <?php endif; ?>
                             <?php endif; ?>
                         </div>
                         <div class="col-md-6 mt-5">
@@ -131,17 +126,6 @@
                             <li class="list-group-item">Tanggal Input : <?=  $main['tgl_input'];  ?></li>
                             <li class="list-group-item">Tanggal Awal Polis : <?=  $main['tgl_awal'];  ?></li>
                             <li class="list-group-item">Tanggal Akhir Polis : <?=  $main['tgl_akhir'];  ?></li>
-                        </div>
-                        <div class="col-md-6 mt-5">
-                            <li class="list-group-item active">Informasi Vaksin</li>
-                        <li class="list-group-item">Status Vaksin : <?=  $main['status_vaksin'];  ?></li>
-                            <li class="list-group-item">Tanggal Vaksin :
-                                <?php if($main['tgl_vaksin']) : ?>
-                                    <?=  $main['tgl_vaksin'];  ?>
-                                    <?php else: ?>
-                                        <?php endif; ?>
-                            </li>
-                            <li class="list-group-item">Jenis Vaksin : <?=  $main['jenis_vaksin'];  ?></li>
                         </div>
                         <div class="col-md-12 mt-5">
                             <li class="list-group-item active "> 

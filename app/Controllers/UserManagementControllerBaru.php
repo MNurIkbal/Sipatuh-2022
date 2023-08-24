@@ -461,6 +461,9 @@ class UserManagementControllerBaru extends BaseController
     {
         $paket = new PaketModel();
         $pakets = $paket->where("id", $id)->first();
+        if(!$pakets) {
+            return redirect()->to('paket_user');
+        }
 
         $kloter = new KloterModel();
         $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", null)->orderby('id','desc')->findAll();
@@ -480,6 +483,9 @@ class UserManagementControllerBaru extends BaseController
         $kloter = new KloterModel();
         $pakets = $paket->where('id', $id_paket)->first();
         $kloters = $kloter->where("id", $id_kloter)->first();
+        if(!$kloters || !$pakets) {
+            return redirect()->to('paket_user');
+        }
         $jamaah = new JamaahModel();
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->findAll();
 
@@ -527,8 +533,11 @@ class UserManagementControllerBaru extends BaseController
         $profile = new ProfileModel();
         $data_profile = $profile->where("id", $pakets['travel_id'])->first();
         $jamaah = new JamaahModel();
+        $checks = $jamaah->where('id',$id_jamaah)->first();
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
-
+        if(!$kloters || !$pakets || !$checks) {
+            return redirect()->to('paket_user');
+        }
         $data = [
             'id_paket'  =>  $id_paket,
             'id_kloter' =>  $id_kloter,
@@ -579,6 +588,10 @@ class UserManagementControllerBaru extends BaseController
         $jamaah = new JamaahModel();
         $bank = new BankModel();
         $bukti = new BuktiModel();
+        $check_jamaah = $jamaah->where('id',$id_jamaah)->first();
+        if(!$pakets || !$kloters || !$check_jamaah) {
+            return redirect()->to('paket_user');
+        }
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
 
         $data = [
