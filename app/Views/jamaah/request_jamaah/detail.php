@@ -9,6 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Request Jamaah</h4>
+                            
                     </div>
                     <?php if (session()->get("success")) : ?>
                         <div class="m-3 alert alert-success">
@@ -21,6 +22,9 @@
                     <?php endif; ?>
 
                     <div class="card-body">
+                    <a href="<?= base_url('request_jamaah'); ?>" class="btn btn-warning">Kembali</a>
+                    <br>
+                    <br>
                         <ul class="list-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -51,10 +55,10 @@
                                     <li class="list-group-item">NPU : <?= $main['no_pasti_umrah'];  ?></li>
                                     <?php
                                     $paker = $dbs->table('paket')->where('id',$main['paket_id'])->get()->getRow();
-                                    $rek = $dbs->table('rekening_penampung')->where('id',$paker->rekening_penampung_id)->get()->getRow();
+                                    $rek = $dbs->table('bank_rekening')->where('id',$paker->rekening_penampung_id)->get()->getRow();
                                     
                                     ?>
-                                    <li class="list-group-item">Rekening Penampung : <?= $rek['no_rekening'];  ?> - <?= $rek['no_rekening']; ?></li>
+                                    <li class="list-group-item">Rekening Penampung : <?= $rek->no_rekening;  ?> - <?= $rek->nama; ?></li>
                                     <li class="list-group-item">Status Bayar : <span class="badge badge-pill badge-primary"><?= $main['status_bayar'];  ?></span></li>
                                     <li class="list-group-item">Nomor Polis : <?= $main['nomor_polis'];  ?></li>
                                     <li class="list-group-item">Tanggal Input Polis : <?= $main['tgl_input'];  ?></li>

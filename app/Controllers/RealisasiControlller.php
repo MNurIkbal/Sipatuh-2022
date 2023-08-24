@@ -17,9 +17,14 @@ use App\Models\MuassahModel;
 use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\PetugasModel;
+use App\Models\ProfileModel;
 
 class RealisasiControlller extends BaseController
 {
+    function ok()
+    {
+        return "ok";
+    }
     public function index()
     {
         if(!session()->get("login") || session()->get("login") == null) {
@@ -138,10 +143,18 @@ class RealisasiControlller extends BaseController
         $travel_id = session()->get("travel_id");
         $data_hotel = new DataHotelModel();
         $kloter = new KloterModel();
+        $prof = new ProfileModel();
+        $check_paket = $paket->where('id',$id)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_paket || !$check_kloter) {
+            return redirect()->to('realisasi');
+        }
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status",1)->findAll(),
             'title' =>  "Realiasi",
+            'check_paket'   =>  $check_paket,
+            'nama_travel'   =>  $prof->where('id',$check_paket['travel_id'])->first(),
             'data_hotel'    =>  $data_hotel->findAll(),
             // 'result'    =>  $paket->where([
             //     'id'    =>  $id
@@ -175,6 +188,142 @@ class RealisasiControlller extends BaseController
             'kloter'    =>  $kloter->where("id",$id_kloter)->first()
         ];
         return view("jamaah/realisasi/detail",$data);
+    }
+
+    public function tambah_petugas_realisasis($id_kloter,$id)
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $paket = new PaketModel();
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kasus = new KasusModel();
+        $petugas_umrah = new PetugasManModel();
+        $muasah = new MuassahModel();
+        $maskapai  = new Maskapai();
+        $bandara = new BandaraModel();
+        $db      = \Config\Database::connect();
+        $travel_id = session()->get("travel_id");
+        $data_hotel = new DataHotelModel();
+        $kloter = new KloterModel();
+        $prof = new ProfileModel();
+        $check_paket = $paket->where('id',$id)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_paket || !$check_kloter) {
+            return redirect()->to('realisasi');
+        }
+        $data = [
+            'bandara'   =>  $bandara->findAll(),
+            'maskapai'  =>  $maskapai->where("status",1)->findAll(),
+            'title' =>  "Realiasi",
+            'check_paket'   =>  $check_paket,
+            'nama_travel'   =>  $prof->where('id',$check_paket['travel_id'])->first(),
+            'data_hotel'    =>  $data_hotel->findAll(),
+            // 'result'    =>  $paket->where([
+            //     'id'    =>  $id
+            // ])->first(),
+            'result'    =>  $db->query("SELECT paket.nama,paket.tgl_berangkat,paket.tgl_pulang,paket.biaya,paket.id,paket.kode_paket,kloter.keberangkatan,paket.pemberangkatan,kloter.selesai FROM paket LEFT JOIN kloter ON paket.id = kloter.paket_id WHERE travel_id = '$travel_id' AND kloter.keberangkatan = 'sudah' AND paket.status = 'aktif' AND paket.kelengkapan = 'sudah' AND kloter.id = '$id_kloter' AND paket.id = '$id'")->getRowArray(),
+            'id_paket'  =>  $id,
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                // 'kategori'  =>  'realisasi', 
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("travel_id",session()->get("travel_id"))->where("aktif","aktif")->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'hotel' =>$hotel->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'kasus' =>  $kasus->where("paket_id",$id)->where("kloter_id",$id_kloter)->findAll(),
+            'id_kloter' =>  $id_kloter,
+            'kloter'    =>  $kloter->where("id",$id_kloter)->first()
+        ];
+        return view("jamaah/realisasi/tambah_petugas",$data);
+    }
+
+    public function edit_petugas_real($id_kloter,$id,$id_petugas)
+    {
+        if(!session()->get("login") || session()->get("login") == null) {
+            return redirect()->to("/");
+            exit;
+        }
+        $paket = new PaketModel();
+        $petugas = new PetugasModel();
+        $keberangkatan = new Keberangkatan();
+        $hotel = new HotelModel();
+        $kepulangan = new KepulanganModel();
+        $kasus = new KasusModel();
+        $petugas_umrah = new PetugasManModel();
+        $muasah = new MuassahModel();
+        $maskapai  = new Maskapai();
+        $bandara = new BandaraModel();
+        $db      = \Config\Database::connect();
+        $travel_id = session()->get("travel_id");
+        $data_hotel = new DataHotelModel();
+        $kloter = new KloterModel();
+        $prof = new ProfileModel();
+        $check_paket = $paket->where('id',$id)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_petugas = $petugas->where('id',$id_petugas)->first();
+        if(!$check_paket || !$check_kloter || !$check_petugas) {
+            return redirect()->to('realisasi');
+        }
+        $data = [
+            'bandara'   =>  $bandara->findAll(),
+            'maskapai'  =>  $maskapai->where("status",1)->findAll(),
+            'title' =>  "Realiasi",
+            'check_paket'   =>  $check_paket,
+            'nama_travel'   =>  $prof->where('id',$check_paket['travel_id'])->first(),
+            'data_hotel'    =>  $data_hotel->findAll(),
+            // 'result'    =>  $paket->where([
+            //     'id'    =>  $id
+            // ])->first(),
+            'main_satu' =>  $check_petugas,
+            'result'    =>  $db->query("SELECT paket.nama,paket.tgl_berangkat,paket.tgl_pulang,paket.biaya,paket.id,paket.kode_paket,kloter.keberangkatan,paket.pemberangkatan,kloter.selesai FROM paket LEFT JOIN kloter ON paket.id = kloter.paket_id WHERE travel_id = '$travel_id' AND kloter.keberangkatan = 'sudah' AND paket.status = 'aktif' AND paket.kelengkapan = 'sudah' AND kloter.id = '$id_kloter' AND paket.id = '$id'")->getRowArray(),
+            'id_paket'  =>  $id,
+            'petugas'   =>  $petugas->where([
+                'paket_id'    =>  $id,
+                // 'kategori'  =>  'realisasi', 
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'petugas_umrah' =>  $petugas_umrah->where("travel_id",session()->get("travel_id"))->where("aktif","aktif")->findAll(),
+            'keberangkatan' => $keberangkatan->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'hotel' =>$hotel->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'kepulangan'    =>  $kepulangan->where([
+                'paket_id'  =>  $id,
+                // 'kategori'  =>  'realisasi',
+                // 'kloter_id' =>  $id_kloter,
+            ])->findAll(),
+            'muasah'    =>  $muasah->where("status",1)->findAll(),
+            'kasus' =>  $kasus->where("paket_id",$id)->where("kloter_id",$id_kloter)->findAll(),
+            'id_kloter' =>  $id_kloter,
+            'kloter'    =>  $kloter->where("id",$id_kloter)->first()
+        ];
+        return view("jamaah/realisasi/edit_petugas",$data);
     }
 
     public function tambah_petugas_realisasi()

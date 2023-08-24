@@ -75,30 +75,40 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_petugas_rencana/(:any)', 'PaketController::tambah_petugas_rencana/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_hotel_paket/(:any)', 'PaketController::tambah_hotel_paket/$1',['filter' => 'DpFilter']);
+    $routes->get('add_hotel/(:any)/(:any)', 'PaketController::add_hotel/$1/$2',['filter' => 'DpFilter']);
     $routes->get('tambah_kloter_baru/(:any)', 'PaketController::tambah_kloter_baru/$1',['filter' => 'DpFilter']);
     $routes->get('edit_petugas_paket/(:any)/(:any)', 'PaketController::edit_petugas_paket/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_kloter_baru/(:any)/(:any)', 'PaketController::edit_kloter_baru/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_keberangakatan_paket/(:any)/(:any)', 'PaketController::edit_keberangakatan_paket/$1/$2',['filter' => 'DpFilter']);
+    $routes->get('edit_berangkat/(:any)/(:any)/(:any)', 'PaketController::edit_berangkat/$1/$2/$3',['filter' => 'DpFilter']);
     $routes->get('edit_hotel_paket/(:any)/(:any)', 'PaketController::edit_hotel_paket/$1/$2',['filter' => 'DpFilter']);
+    $routes->get('edit_hotels/(:any)/(:any)', 'PaketController::edit_hotels/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_kepulangan_pakets/(:any)/(:any)', 'PaketController::edit_kepulangan_pakets/$1/$2',['filter' => 'DpFilter']);
     $routes->get('show_update/(:any)', 'PaketController::show_update/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_pulang/(:any)', 'PaketController::tambah_pulang/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_keberangkatan_paket/(:any)', 'PaketController::tambah_keberangkatan_paket/$1',['filter' => 'DpFilter']);
+    $routes->get('add_berangkat/(:any)/(:any)', 'PaketController::add_berangkat/$1/$2',['filter' => 'DpFilter']);
     $routes->post('/tambah_paket', 'PaketController::tambah_paket',['filter' => 'DpFilter']);
     $routes->post('/edit_paket/(:any)', 'PaketController::edit_paket/$1',['filter' => 'DpFilter']);
     $routes->post('/hapus_paket/(:any)', 'PaketController::hapus_paket/$1',['filter' => 'DpFilter']);
     $routes->post('/hapus_petugas', 'PaketController::hapus_petugas',['filter' => 'DpFilter']);
     $routes->post('/edit_petugas', 'PaketController::edit_petugas',['filter' => 'DpFilter']);
+    $routes->post('/edit_petugas_satu', 'PaketController::edit_petugas_satu',['filter' => 'DpFilter']);
     $routes->post('/tambah_petugas', 'PaketController::tambah_petugas',['filter' => 'DpFilter']);
+    $routes->post('/tambah_petugas_baru', 'PaketController::tambah_petugas_baru',['filter' => 'DpFilter']);
     
     
     $routes->post('/tambah_keberangkatan', 'KeberangkatanController::tambah_keberangkatan',['filter' => 'DpFilter']);
+    $routes->post('/tambah_keberangkatan_real', 'KeberangkatanController::tambah_keberangkatan_real',['filter' => 'DpFilter']);
     $routes->post('/edit_keberangkatan', 'KeberangkatanController::edit_keberangkatan',['filter' => 'DpFilter']);
+    $routes->post('/edit_keberangkatan_real', 'KeberangkatanController::edit_keberangkatan_real',['filter' => 'DpFilter']);
     $routes->post('/hapus_keberangkatan', 'KeberangkatanController::hapus_keberangkatan',['filter' => 'DpFilter']);
     
     
     $routes->post('/tambah_hotel', 'HotelController::tambah_hotel',['filter' => 'DpFilter']);
+    $routes->post('/tambah_hotel_real', 'HotelController::tambah_hotel_real',['filter' => 'DpFilter']);
     $routes->post('/edit_hotel', 'HotelController::edit_hotel',['filter' => 'DpFilter']);
+    $routes->post('/edit_hotel_satu', 'HotelController::edit_hotel_satu',['filter' => 'DpFilter']);
     $routes->post('/hapus_hotel', 'HotelController::hapus_hotel',['filter' => 'DpFilter']);
     
     // kepulangan
@@ -181,6 +191,8 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     //realisasi
     $routes->get("/realisasi","RealisasiControlller::index",['filter' => 'DpFilter']);
     $routes->get("/detail_realisasi_kloter/(:any)","RealisasiControlller::detail_realisasi_kloter/$1",['filter' => 'DpFilter']);
+    $routes->get("/tambah_petugas_realisasis/(:any)?(:any)","RealisasiControlller::tambah_petugas_realisasis/$1/$2",['filter' => 'DpFilter']);
+    $routes->get("/edit_petugas_real/(:any)/(:any)/(:any)","RealisasiControlller::edit_petugas_real/$1/$2/$3",['filter' => 'DpFilter']);
     $routes->get("/detail_realisasi/(:any)/(:any)","RealisasiControlller::detail_realisasi/$1/$2",['filter' => 'DpFilter']);
     $routes->get("/selesai_paket/(:any)/(:any)","RealisasiControlller::selesai_paket/$1/$2",['filter' => 'DpFilter']);
     $routes->post("/tambah_petugas_realisasi","RealisasiControlller::tambah_petugas_realisasi",['filter' => 'DpFilter']);

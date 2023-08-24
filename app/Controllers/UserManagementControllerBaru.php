@@ -41,7 +41,7 @@ class UserManagementControllerBaru extends BaseController
         $id_jamaah = session()->get('id');
         $check_biodata = $biodata->where('user_id',$id_jamaah)->first();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
-        $result_jamaah = $jamaah->where('user_id',session()->get('id'))->where('status_approve',null)->get()->getResult();
+        $result_jamaah = $jamaah->where('user_id',session()->get('id'))->where('kloter_id','!=',null)->get()->getResult();
 
         if ($tes) {
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
