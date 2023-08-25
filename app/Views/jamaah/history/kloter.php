@@ -29,7 +29,7 @@
                             <span>Periode :
                                 <?=  date("d F Y",strtotime($paket['tgl_berangkat'])) . ' - ' . date("d, F Y",strtotime($paket['tgl_pulang']));  ?></span>
                             <br>
-                            <span>Kode Paket : <?=  $paket['kode_paket'];  ?></span>
+                            <span>Tour Leader : <?=  $paket['tour_leader'];  ?></span>
                             <br>
                         </b>
 

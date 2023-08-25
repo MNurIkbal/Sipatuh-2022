@@ -6,10 +6,46 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Pelaporan Jamaah</h4>
+            <div class="card">
+                    <div class="card-body">
+                        <h4>Detail Jamaah</h6>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li style="list-style: none;line-height: 40px !important;"><span>Nama Paket : <?= $results['nama'];  ?></span></li>
+                                        <li style="list-style: none;line-height: 40px !important;">
+                                            <span>Periode :
+                                                <?= date("d F Y", strtotime($results['tgl_berangkat'])) . " - " . date("d F Y", strtotime($results['tgl_pulang']));  ?></span>
+                                        </li>
+                                        <li style="list-style: none;line-height: 40px !important;">
+                                            Status :
+                                            <span style="text-transform: uppercase">
+                                                <?php if ($results['status'] != null) : ?>
+                                                    <span class="badge badge-pill badge-primary"><?= $results['status'];  ?></span>
+                                                <?php else : ?>
+                                                    <span class="badge badge-pill badge-primary">tidak aktif</span>
+                                                <?php endif; ?>
+                                            </span>
+                                        </li>
+                                        <li style="list-style: none;line-height: 40px !important;">Provider : <?= $results['provider']; ?></li>
+                                        <li style="list-style: none;line-height: 40px !important;">Travel : <?= $nama_travel['nama_travel_umrah']; ?></li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul>
+                                        <li style="list-style: none;line-height: 40px !important;">Perusahaan : <?= $nama_travel['nama_perusahaan']; ?></li>
+                                        <li style="list-style: none;line-height: 40px !important;">Provinsi : <?= $nama_travel['provinsi']; ?></li>
+                                        <li style="list-style: none;line-height: 40px !important;">Tahun : <?= date("Y", strtotime($results['tahun'])); ?></li>
+                                        <li style="list-style: none;line-height: 40px !important;">Asuransi : <?= $results['asuransi']; ?></li>
+                                        <li style="list-style: none;line-height: 40px !important;">Biaya : Rp. <?= number_format($results['biaya'], 0); ?></li>
+                                    </ul>
+                                </div>
+                            </div>
+
                     </div>
+                </div>
+                <div class="card">
                     <?php if(session()->get("success")) : ?>
                     <div class="m-3 alert alert-success">
                         <span><?=  session()->get("success");  ?></span>
@@ -20,20 +56,6 @@
                     </div>
                     <?php endif; ?>
                     <div class="card-body">
-                        <b>
-
-                            <span>Nama Paket : <?= $paket['nama'] ?></span>
-                            <br>
-                            <span>Periode :
-                                <?=  date("d F Y",strtotime($paket['tgl_berangkat'])) . ' - ' . date("d, F Y",strtotime($paket['tgl_pulang']));  ?></span>
-                            <br>
-                            <span>Kode Paket : <?=  $paket['kode_paket'];  ?></span>
-                            <br>
-                            <span>Kloter : <span class="badge badge-pill badge-success"><?=  $kloter['nama'];  ?></span>
-                            </span>
-                        </b>
-                        <br>
-                        <br>
                         <a title="Kembali" href="<?=  base_url("detail_history_kloter/" . $id . '/' . $judul);  ?>" class="btn btn-warning"><i
                                 class="fas fa-arrow-left"></i></a>
                         <?php if($count) : ?>
@@ -54,7 +76,6 @@
                                         <th>Identitas</th>
                                         <th>No Pasti Umrah</th>
                                         <th>Status Pembayaran</th>
-                                        <th>Status Vaksin</th>
                                         <th>Info</th>
                                         <th>Action</th>
                                     </tr>
@@ -86,23 +107,6 @@
                                             <br>
                                             <span>ASURANSI : <?=  $row['asuransi'];  ?></span>
                                         </td>
-                                        <td>
-                                                <span>
-                                                    <?php if($row['status_vaksin'] == "sudah") : ?>
-                                                        STATUS VAKSIN : <span class="badge badge-success">Sudah</span>
-                                                        <?php else: ?>
-                                                            STATUS VAKSIN : <span class="badge badge-danger">Belum</span>
-                                                        <?php endif; ?>
-                                                </span>
-                                                <br>
-                                                <span>
-                                                    TANGGAL VAKSIN : <?=  date("d-m-Y",strtotime($row['tgl_vaksin']));  ?>
-                                                </span>
-                                                <br>
-                                                <span>
-                                                    JENIS VAKSIN : <?=  $row['jenis_vaksin'];  ?>
-                                                </span>
-                                            </td>
                                         <td>
                                             <span>POLIS : <?=  $row['nomor_polis'];  ?></span>
                                             <br>

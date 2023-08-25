@@ -39,10 +39,9 @@ class UserManagementControllerBaru extends BaseController
         $count = count($st);
         $biodata = new BioDataModel();
         $id_jamaah = session()->get('id');
-        $check_biodata = $biodata->where('user_id',$id_jamaah)->first();
+        $check_biodata = $biodata->where('user_id', $id_jamaah)->first();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
-        $result_jamaah = $jamaah->where('user_id',session()->get('id'))->where('kloter_id','!=',null)->get()->getResult();
-
+        $result_jamaah = $jamaah->where('user_id', session()->get('id'))->where('kloter_id', null)->get()->getResult();
         if ($tes) {
             $check_paket = $pakets->where("id", $tes['paket_id'])->first();
             $check_travel = $travel->where("id", $check_paket['travel_id'])->first();
@@ -72,7 +71,7 @@ class UserManagementControllerBaru extends BaseController
             $r = session()->get('id');
             $check_paket = $pakets->first();
             $check_travel = $travel->first();
-            
+
             $profile = new ProfileModel();
             $kloter = new KloterModel();
             $pem =  $db->query("SELECT SUM(biaya) FROM paket INNER JOIN jamaah ON paket.id = jamaah.paket_id WHERE jamaah.user_id = '$r' AND jamaah.kloter_id IS NOT NULL ")->getRowArray();
@@ -82,7 +81,7 @@ class UserManagementControllerBaru extends BaseController
             foreach ($pem as $t) {
                 $rf = $t;
             }
-            
+
 
             $daf = new DaftarJamaahModel();
 
@@ -91,9 +90,9 @@ class UserManagementControllerBaru extends BaseController
             }
             $biodatas = new BioDataModel();
             $id_users = session()->get('id');
-            $first_biodata = $biodatas->where('user_id',$id_users)->countAllResults();
-            $vaksin = $biodatas->where('user_id',$id_users)->first();
-            
+            $first_biodata = $biodatas->where('user_id', $id_users)->countAllResults();
+            $vaksin = $biodatas->where('user_id', $id_users)->first();
+
             $biodatas = new BioDataModel();
             $data = [
                 'paket_dua' =>  $paket_dua,
@@ -119,7 +118,7 @@ class UserManagementControllerBaru extends BaseController
                 'aktif' => $vaksin,
                 'result_jamaah' =>  $result_jamaah,
             ];
-            
+
 
             return view("user/dashboard", $data);
         }
@@ -145,8 +144,8 @@ class UserManagementControllerBaru extends BaseController
         $biodata = new BioDataModel();
         $tes =  $jamaah->where("id", session()->get("jamaah_id"))->first();
         $biodatas = new BioDataModel();
-        $cheks = $biodata->where('user_id',session()->get('id'))->first();
-        if(!$cheks) {
+        $cheks = $biodata->where('user_id', session()->get('id'))->first();
+        if (!$cheks) {
             return redirect()->to('profile_jamaah');
         }
         $data = [
@@ -213,8 +212,8 @@ class UserManagementControllerBaru extends BaseController
             // 'jamaah'    =>  $jamaah->where("id",session()->get("id"))->first(),
             'count' =>  $db->query("SELECT * FROM profile")->getResult(),
         ];
-        
-           return view("user/pindah_paket", $data);
+
+        return view("user/pindah_paket", $data);
     }
 
     public function asuransi_jamaah()
@@ -391,7 +390,7 @@ class UserManagementControllerBaru extends BaseController
         $jamaah = new JamaahModel();
         $checks = $jamaah->where("user_id", session()->get('id'))->where("kloter_id IS NOT NULL")->countAllResults();
         if ($checks) {
-            $check = $jamaah->where("user_id", session()->get('id'))->where("kloter_id IS NOT NULL")->orderby('id','desc')->findAll();
+            $check = $jamaah->where("user_id", session()->get('id'))->where("kloter_id IS NOT NULL")->orderby('id', 'desc')->findAll();
             $int_paket = [];
             foreach ($check as $row) {
                 $int_paket[] =  $row['paket_id'];
@@ -400,7 +399,7 @@ class UserManagementControllerBaru extends BaseController
                 $satu = array_unique($int_paket);
                 $result = [];
                 foreach ($satu as $main) {
-                    $result[] = $paket->where('id', $main)->where('status','aktif')->orderby('id','desc')->first();
+                    $result[] = $paket->where('id', $main)->where('status', 'aktif')->orderby('id', 'desc')->first();
                 }
             } else {
                 $result = [];
@@ -419,9 +418,9 @@ class UserManagementControllerBaru extends BaseController
     {
         $paket = new PaketModel();
         $jamaah = new JamaahModel();
-        $checks = $jamaah->where("user_id", session()->get('id'))->where('status_approve', "sudah")->where('status_approve_bayar','sudah')->where('selesai_pembayaran','sudah')->where('no_kursi IS NOT NULL')->countAllResults();
+        $checks = $jamaah->where("user_id", session()->get('id'))->where('status_approve', "sudah")->where('status_approve_bayar', 'sudah')->where('selesai_pembayaran', 'sudah')->where('no_kursi IS NOT NULL')->countAllResults();
         if ($checks) {
-            $check = $jamaah->where("user_id", session()->get('id'))->where('status_approve', "sudah")->where('status_approve_bayar','sudah')->where('selesai_pembayaran','sudah')->where('no_kursi IS NOT NULL')->findAll();
+            $check = $jamaah->where("user_id", session()->get('id'))->where('status_approve', "sudah")->where('status_approve_bayar', 'sudah')->where('selesai_pembayaran', 'sudah')->where('no_kursi IS NOT NULL')->findAll();
             $int_paket = [];
             foreach ($check as $row) {
                 $int_paket[] =  $row['paket_id'];
@@ -429,7 +428,7 @@ class UserManagementControllerBaru extends BaseController
             if ($int_paket) {
                 $satu = array_unique($int_paket);
                 foreach ($satu as $main) {
-                    $result = $paket->where('id', $main)->orderby('id','desc')->findAll();
+                    $result = $paket->where('id', $main)->orderby('id', 'desc')->findAll();
                 }
             } else {
                 $result = [];
@@ -465,12 +464,12 @@ class UserManagementControllerBaru extends BaseController
     {
         $paket = new PaketModel();
         $pakets = $paket->where("id", $id)->first();
-        if(!$pakets) {
+        if (!$pakets) {
             return redirect()->to('paket_user');
         }
 
         $kloter = new KloterModel();
-        $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", null)->orderby('id','desc')->findAll();
+        $kloters = $kloter->where("paket_id", $id)->where("status", "aktif")->where("keberangkatan", null)->orderby('id', 'desc')->findAll();
         $data = [
             'title' =>  'Paket',
             'result'    =>  $kloters,
@@ -487,7 +486,7 @@ class UserManagementControllerBaru extends BaseController
         $kloter = new KloterModel();
         $pakets = $paket->where('id', $id_paket)->first();
         $kloters = $kloter->where("id", $id_kloter)->first();
-        if(!$kloters || !$pakets) {
+        if (!$kloters || !$pakets) {
             return redirect()->to('paket_user');
         }
         $jamaah = new JamaahModel();
@@ -537,9 +536,9 @@ class UserManagementControllerBaru extends BaseController
         $profile = new ProfileModel();
         $data_profile = $profile->where("id", $pakets['travel_id'])->first();
         $jamaah = new JamaahModel();
-        $checks = $jamaah->where('id',$id_jamaah)->first();
+        $checks = $jamaah->where('id', $id_jamaah)->first();
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
-        if(!$kloters || !$pakets || !$checks) {
+        if (!$kloters || !$pakets || !$checks) {
             return redirect()->to('paket_user');
         }
         $data = [
@@ -592,8 +591,8 @@ class UserManagementControllerBaru extends BaseController
         $jamaah = new JamaahModel();
         $bank = new BankModel();
         $bukti = new BuktiModel();
-        $check_jamaah = $jamaah->where('id',$id_jamaah)->first();
-        if(!$pakets || !$kloters || !$check_jamaah) {
+        $check_jamaah = $jamaah->where('id', $id_jamaah)->first();
+        if (!$pakets || !$kloters || !$check_jamaah) {
             return redirect()->to('paket_user');
         }
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", null)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
@@ -657,7 +656,7 @@ class UserManagementControllerBaru extends BaseController
         $bank = new BankModel();
         $bukti = new BuktiModel();
 
-        if(session()->get('level_id') == "jamaah" || session()->get('level_id') == "cabang") {
+        if (session()->get('level_id') == "jamaah" || session()->get('level_id') == "cabang") {
             $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("id", $id_jamaah)->first();
         } else {
             $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("user_id", session()->get('id'))->where("id", $id_jamaah)->first();
@@ -1011,7 +1010,7 @@ class UserManagementControllerBaru extends BaseController
 
             $dua = $this->request->getFile('file_visa');
             $check_satu = $dua->getError();
-            if($check_satu != 4) {
+            if ($check_satu != 4) {
                 $visa = $dua->getRandomName();
                 $data_visa = $visa;
                 $dua->move('assets/upload/', $visa);
@@ -1021,7 +1020,7 @@ class UserManagementControllerBaru extends BaseController
 
             $tiga = $this->request->getFile('file_provider');
             $check_dua = $tiga->getError();
-            if($check_dua != 4) {
+            if ($check_dua != 4) {
                 $provider = $tiga->getRandomName();
                 $data_provider = $provider;
                 $tiga->move('assets/upload/', $provider);
@@ -1031,7 +1030,7 @@ class UserManagementControllerBaru extends BaseController
 
             $lima = $this->request->getFile('file_asuransi');
             $check_enam = $lima->getError();
-            if($check_enam != 4) {
+            if ($check_enam != 4) {
                 $asuransi = $lima->getRandomName();
                 $data_asuransi = $asuransi;
                 $lima->move('assets/upload/', $asuransi);
@@ -1041,7 +1040,7 @@ class UserManagementControllerBaru extends BaseController
 
             $enam = $this->request->getFile('file_paspor');
             $check_tuju = $enam->getError();
-            if($check_tuju != 4) {
+            if ($check_tuju != 4) {
                 $paspor = $enam->getRandomName();
                 $file_paspor = $paspor;
                 $enam->move('assets/upload/', $paspor);
@@ -1058,27 +1057,27 @@ class UserManagementControllerBaru extends BaseController
             $kelurahan_explode = explode('-', $this->request->getVar("kelurahan"));
             $kelurahan_hasil = $kelurahan_explode[1];
             $biodata = new BioDataModel();
-            if($this->request->getVar('tgl_input')) {
+            if ($this->request->getVar('tgl_input')) {
                 $satus = $this->request->getVar('tgl_input');
             } else {
                 $satus = null;
             }
-            if($this->request->getVar('awal')) {
+            if ($this->request->getVar('awal')) {
                 $duas = $this->request->getVar('awal');
             } else {
                 $duas = null;
             }
-            if($this->request->getVar('akhir')) {
+            if ($this->request->getVar('akhir')) {
                 $tigas = $this->request->getVar('akhir');
             } else {
                 $tigas = null;
             }
-            if($this->request->getVar('tgl_awal_visa')) {
+            if ($this->request->getVar('tgl_awal_visa')) {
                 $empats = $this->request->getVar('tgl_awal_visa');
             } else {
                 $empats = null;
             }
-            if($this->request->getVar('tgl_akhir_visa')) {
+            if ($this->request->getVar('tgl_akhir_visa')) {
                 $limas = $this->request->getVar('tgl_akhir_visa');
             } else {
                 $limas = null;

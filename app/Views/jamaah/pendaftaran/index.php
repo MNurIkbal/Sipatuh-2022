@@ -33,7 +33,7 @@
                                         <th>Paket</th>
                                         <th>Tour Leader</th>
                                         <th>Status Pembayaran</th>
-                                        <th>Kelengkapan Paket</th>
+                                        <th>Kelengkapan</th>
                                         <th>Status Berangkat</th>
                                         <th>Action</th>
                                     </tr>
@@ -49,7 +49,7 @@
                                         $check_kloter = $kloter->where('paket_id', $row['id'])->where('keberangkatan', 'sudah')->where('status_realisasi', 'sudah')->where('status', 'Aktif')->first();
                                         if ($check_kloter) {
                                             $id_kloters = $check_kloter['id'];
-                                            $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND status_bayar = 'belum' AND kloter_id = '$id_kloters'")->getResult();
+                                            $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND status_bayar = NULL AND kloter_id = '$id_kloters'")->getResult();
                                             $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id = '$id_kloters'")->getResult();
                                             $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id = '$id_kloters'")->getResult();
                                             $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id = '$id_kloters'")->getResult();
@@ -58,7 +58,7 @@
                                             $kk = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND  kloter_id = '$id_kloters'")->getResult();
                                             $ktp = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id = '$id_kloters'")->getResult();
                                         } else {
-                                            $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND status_bayar = 'belum' AND kloter_id IS NOT NULL")->getResult();
+                                            $belum_bayar = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id'  AND status_bayar = NULL AND kloter_id IS NOT NULL")->getResult();
                                             $pendaftaran = $db->query("SELECT * FROM jamaah WHERE paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                             $setor_awal = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'cicil' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();
                                             $lunas = $db->query("SELECT * FROM jamaah WHERE status_bayar = 'lunas' AND paket_id = '$paket_id' AND kloter_id IS NOT NULL")->getResult();

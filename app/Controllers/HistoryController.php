@@ -127,6 +127,12 @@ class HistoryController extends BaseController
         $db      = \Config\Database::connect();
         $data_kloter = new KloterModel();
         $muasah = new MuassahModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        if(!$check_paket || !$check_kloter || !$judul) {
+            return redirect()->to('paket_selesai');
+        }
+        $profile = new ProfileModel();
         $finish = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' 
             AND tgl_bayar IS NOT NULL
             AND rekening_penampung IS NOT NULL 
@@ -148,7 +154,7 @@ class HistoryController extends BaseController
             ")->getResult();
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id_paket' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
-            'title' =>  "Pendaftaran",
+            'title' =>  "History",
             'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
                 'paket_id'  =>  $id_paket,
@@ -173,7 +179,9 @@ class HistoryController extends BaseController
             'finish'    =>  count($finish),
             'muasah'    =>  $muasah->where("status", 1)->findAll(),
             'provider'  =>  $provider->findAll(),
-            'asuransi'  =>  $asuransi->findAll()
+            'asuransi'  =>  $asuransi->findAll(),
+            'results'   =>  $check_paket,
+            'nama_travel'   =>  $profile->where('id',$check_paket['travel_id'])->first(),
         ];
 
 
@@ -256,6 +264,10 @@ class HistoryController extends BaseController
         }
         $paket = new PaketModel();
         $kloter = new KloterModel();
+        $check_paket = $paket->where('id',$id)->first();
+        if(!$check_paket || !$judul) {
+            return redirect()->to('paket_selesai');
+        }
         if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
@@ -301,6 +313,11 @@ class HistoryController extends BaseController
         $bandara = new BandaraModel();
         $muasah = new MuassahModel();
         $data_hotel = new DataHotelModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id)->first();
+        if(!$check_paket || !$check_kloter || !$judul) {
+            return redirect()->to('paket_selesai');
+        }
         if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
@@ -319,6 +336,7 @@ class HistoryController extends BaseController
                 'tiket' =>  'sudah'
             ])->findAll();
         }
+        $profile = new ProfileModel();
         $data = [
             'title' =>  "History",
             // 'result'    =>  $datapaket,
@@ -344,7 +362,9 @@ class HistoryController extends BaseController
             'result'    =>  $paket->where('id', $id_paket)->first(),
             'id_paket'  =>  $id_paket,
             'judul' =>  $judul,
+            'results'    =>  $check_paket,
             'kloter'    =>  $kloter->where("paket_id", $id_paket)->where("done", 'sudah')->findAll(),
+            'nama_travel'   =>  $profile->where('id',$check_paket['travel_id'])->first(),
         ];
         return view("jamaah/history/detail_perencanaan", $data);
     }
@@ -368,6 +388,11 @@ class HistoryController extends BaseController
         $travel_id = session()->get("travel_id");
         $data_hotel = new DataHotelModel();
         $kloter = new KloterModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id)->first();
+        if(!$check_paket || !$judul || !$check_kloter) {
+            return redirect()->to('paket_selesai');
+        }
         if (session()->get("level_id") == "jamaah") {
             $datapaket = $paket->where([
                 'travel_id' =>  session()->get("travel_id"),
@@ -413,10 +438,12 @@ class HistoryController extends BaseController
         //     'judul' =>  $judul,
         //     'kloter'    =>  $kloter->where("paket_id",$id_paket)->findAll(),
         // ];
+        $profile = new ProfileModel();
         $data = [
             'bandara'   =>  $bandara->findAll(),
             'maskapai'  =>  $maskapai->where("status", 1)->findAll(),
             'title' =>  "History",
+            'results'    =>  $check_paket,
             'data_hotel'    =>  $data_hotel->findAll(),
             // 'result'    =>  $paket->where([
             //     'id'    =>  $id
@@ -463,7 +490,8 @@ class HistoryController extends BaseController
             'kasus' =>  $kasus->where("paket_id", $id_paket)->where("kloter_id", $id)->findAll(),
             'id_kloter' =>  $id,
             'judul' =>  $judul,
-            'kloter'    =>  $kloter->where("id", $id)->first()
+            'kloter'    =>  $kloter->where("id", $id)->first(),
+            'nama_travel'   =>  $profile->where('id',$check_paket['travel_id'])->first()
         ];
         return view("jamaah/history/detail_realisasi", $data);
     }
@@ -476,14 +504,21 @@ class HistoryController extends BaseController
         }
         $paket = new PaketModel();
         $kasus = new KasusModel();
+        $kloter= new KloterModel();
         $laporan_harian = new LaporanHarianModel();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_kasus = $kasus->where('id',$id_kasus)->first();
+        if(!$check_paket || !$check_kloter || !$check_kasus) {
+            return redirect()->to('paket_selesai');
+        }
 
 
         $data = [
             'paket' =>  $paket->first(),
             'kasus' =>  $kasus->where("id", $id_kasus)->first(),
             'result'    =>  $laporan_harian->where("kasus_id", $id_kasus)->findAll(),
-            'title' =>  "Laporan Harian",
+            'title' =>  "History",
             'id_kasus'  =>  $id_kasus,
             'id_paket'  =>  $id_paket,
             'judul' =>  $judul,
