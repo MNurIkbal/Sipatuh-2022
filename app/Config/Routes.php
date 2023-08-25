@@ -73,6 +73,7 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('/tambah_pakets', 'PaketController::tambah_pakets',['filter' => 'DpFilter']);
     $routes->get('/tambah_pakets_cabang', 'PaketController::tambah_pakets_cabang',['filter' => 'DpFilter']);
     $routes->get('/detail_paket/(:any)', 'PaketController::detail_paket/$1',['filter' => 'DpFilter']);
+    $routes->get('/verif/(:any)', 'PaketController::verif/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_petugas_rencana/(:any)', 'PaketController::tambah_petugas_rencana/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_hotel_paket/(:any)', 'PaketController::tambah_hotel_paket/$1',['filter' => 'DpFilter']);
     $routes->get('add_hotel/(:any)/(:any)', 'PaketController::add_hotel/$1/$2',['filter' => 'DpFilter']);
@@ -84,8 +85,10 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     $routes->get('edit_hotel_paket/(:any)/(:any)', 'PaketController::edit_hotel_paket/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_hotels/(:any)/(:any)', 'PaketController::edit_hotels/$1/$2',['filter' => 'DpFilter']);
     $routes->get('edit_kepulangan_pakets/(:any)/(:any)', 'PaketController::edit_kepulangan_pakets/$1/$2',['filter' => 'DpFilter']);
+    $routes->get('edit_pulang_satu/(:any)/(:any)/(:any)', 'PaketController::edit_pulang_satu/$1/$2/$3',['filter' => 'DpFilter']);
     $routes->get('show_update/(:any)', 'PaketController::show_update/$1',['filter' => 'DpFilter']);
     $routes->get('tambah_pulang/(:any)', 'PaketController::tambah_pulang/$1',['filter' => 'DpFilter']);
+    $routes->get('add_pulang/(:any)/(:any)', 'PaketController::add_pulang/$1/$2',['filter' => 'DpFilter']);
     $routes->get('tambah_keberangkatan_paket/(:any)', 'PaketController::tambah_keberangkatan_paket/$1',['filter' => 'DpFilter']);
     $routes->get('add_berangkat/(:any)/(:any)', 'PaketController::add_berangkat/$1/$2',['filter' => 'DpFilter']);
     $routes->post('/tambah_paket', 'PaketController::tambah_paket',['filter' => 'DpFilter']);
@@ -113,7 +116,9 @@ $routes->post('kirim_pesan',"CompanyController::kirim_pesan");
     
     // kepulangan
     $routes->post('/tambah_kepulangan', 'KepulanganController::tambah_kepulangan',['filter' => 'DpFilter']);
+    $routes->post('/tambah_kepulangan_satu', 'KepulanganController::tambah_kepulangan_satu',['filter' => 'DpFilter']);
     $routes->post('/edit_kepulangan', 'KepulanganController::edit_kepulangan',['filter' => 'DpFilter']);
+    $routes->post('/edit_kepulangan_satu', 'KepulanganController::edit_kepulangan_satu',['filter' => 'DpFilter']);
     $routes->post('/hapus_kepulangan', 'KepulanganController::hapus_kepulangan',['filter' => 'DpFilter']);
     
     // history

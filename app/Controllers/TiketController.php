@@ -29,6 +29,7 @@ class TiketController extends BaseController
                 'cabang'    =>  NULL,
                 'kelengkapan' =>    'sudah',
                 'status'    =>  "aktif",
+                'verifikasi'    =>  'sudah'
             ])->findAll();
         } elseif(session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
@@ -37,6 +38,7 @@ class TiketController extends BaseController
                 'cabang'    =>  "cabang",
                 'status'    =>  "aktif",
                 'kelengkapan' =>    'sudah',
+                'verifikasi'    =>  'sudah'
             ])->findAll();
         }
         $data = [

@@ -34,7 +34,6 @@ use App\Models\JamaahModel;
                                         <th>Nama Paket</th>
                                         <th>Periode</th>
                                         <th>Biaya</th>
-                                        <th>Info Jamaah</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,19 +55,6 @@ use App\Models\JamaahModel;
                                             </td>
                                             <td>
                                                 <?=  "Rp." . number_format($row['biaya']);  ?>
-                                            </td>
-                                            <td>
-                                                <span>
-                                                PENDAFTARAN : <?=  count($pendaftaran);  ?> ORANG
-                                                </span>
-                                                <br>
-                                                <span>
-                                                    SETOR AWAL : <?=  count($setor_awal);  ?> ORANG
-                                                </span>
-                                                <br>
-                                                <span>
-                                                    LUNAS : <?=  count($lunas);  ?> ORANG
-                                                </span>
                                             </td>
                                             <td>
                                                 <a title="Detail" href="<?=  base_url("kloter_detail_tiket/$row[id]");  ?>"   class="btn btn-primary"><i class="fa fa-eye"></i></a>

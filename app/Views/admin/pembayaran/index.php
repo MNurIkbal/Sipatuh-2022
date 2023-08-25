@@ -33,7 +33,6 @@
                                         <th>Nama Paket</th>
                                         <th>Periode</th>
                                         <th>Biaya</th>
-                                        <th>Info Jamaah</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,27 +54,6 @@
                                         </td>
                                         <td>
                                             <?=  "Rp." . number_format($row['biaya']);  ?>
-                                        </td>
-                                        <td>
-                                            <span>
-                                                PENDAFTARAN : <?=  count($pendaftaran);  ?> ORANG
-                                            </span>
-                                            <br>
-                                            <span>
-                                                SETOR AWAL : <?=  count($setor_awal);  ?> ORANG
-                                            </span>
-                                            <br>
-                                            <span>
-                                                LUNAS : <?=  count($lunas);  ?> ORANG
-                                            </span>
-                                            <br>
-                                            <span style="text-transform: uppercase">
-                                                Status : <?php if($row['status'] != null) : ?>
-                                                <span class="badge badge-pill badge-primary"><?=  $row['status'];  ?></span>
-                                                <?php else: ?>
-                                                    <span class="badge badge-pill badge-primary">tidak aktif</span>
-                                                <?php endif; ?>
-                                            </span>
                                         </td>
                                         <td>
                                             <a title="Detail" href="<?=  base_url("detail_pembayaran_kloter/$row[id]");  ?>"

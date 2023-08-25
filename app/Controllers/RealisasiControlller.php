@@ -21,10 +21,6 @@ use App\Models\ProfileModel;
 
 class RealisasiControlller extends BaseController
 {
-    function ok()
-    {
-        return "ok";
-    }
     public function index()
     {
         if(!session()->get("login") || session()->get("login") == null) {
@@ -40,7 +36,8 @@ class RealisasiControlller extends BaseController
                 'cabang'    =>  NULL,
                 'kelengkapan' =>    'sudah',
                 'status'    =>  "aktif",
-                'tiket' =>  'sudah'
+                'tiket' =>  'sudah',
+                'verifikasi'    =>  'sudah'
             ])->findAll();
         } elseif(session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
@@ -49,7 +46,8 @@ class RealisasiControlller extends BaseController
                 'cabang'    =>  "cabang",
                 'status'    =>  "aktif",
                 'kelengkapan' =>    'sudah',
-                'tiket' =>  'sudah'
+                'tiket' =>  'sudah',
+                'verifikasi'    =>  'sudah'
             ])->findAll();
         }
         $data = [
@@ -719,6 +717,13 @@ class RealisasiControlller extends BaseController
         $paket = new PaketModel();
         $kasus = new KasusModel();
         $laporan_harian = new LaporanHarianModel();
+        $kloter = new KloterModel();
+        $checks = $laporan_harian->where('id',$id_kasus)->first();
+        $ma = $paket->where('id',$id_paket)->first();
+        $ka = $kloter->where('id',$id_kloter)->first();
+        if(!$checks || !$ma || !$ka) {
+            return redirect()->to('realisasi');
+        }
 
         $data = [
             'paket' =>  $paket->first(),

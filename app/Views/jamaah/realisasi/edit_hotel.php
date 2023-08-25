@@ -24,7 +24,7 @@
             <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_hotel_satu");  ?>" >
                     <input type="text" class="d-none" name="id_paket" value="<?= $result['id'];  ?>">
                     <input type="text" class="d-none" name="id" value="<?= $hotel_satu['id'];  ?>">
-                    <input type="text" class="d-dnone" name="id_kloter" value="<?= $id_klo  ?>">
+                    <input type="text" class="d-none" name="id_kloter" value="<?= $id_klo  ?>">
                     <div >
                         <div class="mb-3">
                             <label for="">Hotel*</label>

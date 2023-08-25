@@ -20,8 +20,9 @@
                 <h4>Tambah Kepulangan</h4>
             </div>
             <div class="card-body">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_kepulangan");  ?>" >
+            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_kepulangan_satu");  ?>" >
                 <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
+                <input type="text" class="d-none" name="id_kloter" value="<?= $id_kloters  ?>">
                 <div >
                     <div class="mb-3">
                         <label for="">Maskapai*</label>
@@ -69,7 +70,7 @@
                             <input type="text" class="form-control" required placeholder="" id="keberangkatan_id" name="tgl_berangkat" readonly>
                         </div>
                 </div>
-                <a href="<?= base_url('detail_paket/' . $result['id']); ?>"  class="btn btn-secondary" >Kembali</a>
+                <a href="<?= base_url('detail_realisasi/' . $id_kloters . '/' . $result['id']); ?>"  class="btn btn-secondary" >Kembali</a>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </form>
             </div>

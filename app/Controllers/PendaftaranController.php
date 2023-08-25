@@ -39,6 +39,7 @@ class PendaftaranController extends BaseController
                 'cabang'    =>  NULL,
                 'kelengkapan' =>    'sudah',
                 'status'    =>  "aktif",
+                'verifikasi'    =>  'sudah'
             ])->orderBy('id', 'desc')->findAll();
         } elseif (session()->get("level_id") == "cabang") {
             $datapaket = $paket->where([
@@ -47,15 +48,11 @@ class PendaftaranController extends BaseController
                 'cabang'    =>  "cabang",
                 'status'    =>  "aktif",
                 'kelengkapan' =>    'sudah',
+                'verifikasi'    =>  'sudah'
             ])->orderBy('id', 'desc')->findAll();
         }
         $data = [
             'title' =>  "Pendaftaran Paket",
-            // 'result'    =>  $paket->where([
-            //     'status'    =>  "aktif",
-            //     'travel_id'   =>  session()->get("travel_id"),
-            //     'kelengkapan'   =>  'sudah',
-            // ])->findAll(),
             'result'    =>  $datapaket,
         ];
         return view("jamaah/pendaftaran/index", $data);

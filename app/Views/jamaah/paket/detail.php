@@ -46,9 +46,6 @@
     </div>
     <section class="sections">
         <div class="card">
-            <!-- <div class="card-header">
-                        
-                    </div> -->
             <?php if (session()->get("success")) : ?>
                 <div class="m-3 alert alert-success">
                     <span><?= session()->get("success");  ?></span>
@@ -62,6 +59,9 @@
                 <div >
                     <div class="mb-4">
                         <a href="<?= base_url("/paket");  ?>" class="btn btn-warning">Kembali</a>
+                        <?php if($num == true && !$result['verifikasi']) : ?>
+                            <a href="<?= base_url("verif/" . $result['id']);  ?>" class="btn btn-success">Verifikasi</a>
+                            <?php endif; ?>
                     </div>
                     <div >
                         <ul class="nav nav-pills d-flex justify-content-center" id="myTab3" role="tablist">
@@ -83,7 +83,7 @@
                         </ul>
                         <div class="tab-content" id="petugas">
                             <div class="tab-pane fade show active" id="home3" role="tabpanel" aria-labelledby="home-tab3">
-                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                <?php if (!$result['verifikasi']) : ?>
                                     <a href="<?= base_url('tambah_petugas_rencana/' . $result['id']); ?>" class="btn btn-primary mb-4">Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
@@ -93,7 +93,7 @@
                                                 <th>Urutan</th>
                                                 <th>Nama Petugas</th>
                                                 <th>Type</th>
-                                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                <?php if (!$result['verifikasi']) : ?>
                                                     <th>Action</th>
                                                 <?php endif; ?>
                                             </tr>
@@ -105,7 +105,7 @@
                                                     <td><?= $nomor++;  ?></td>
                                                     <td><?= $rows['nama'];  ?></td>
                                                     <td><?= $rows['type'];  ?></td>
-                                                    <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                    <?php if (!$result['verifikasi']) : ?>
                                                         <td>
                                                             <a href="<?= base_url('edit_petugas_paket/' . $rows['id'] . '/' . $result['id']); ?>" title="Edit" class="btn btn-success" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#delete<?= $rows['id'] ?>"><i class="fa fa-trash"></i></a>
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="profile3" role="tabpanel" aria-labelledby="profile-tab3">
-                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                <?php if (!$result['verifikasi']) : ?>
                                     <a href="<?= base_url('tambah_keberangkatan_paket/' . $result['id']); ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
@@ -135,7 +135,7 @@
                                                 <th>Bandara Tiba</th>
                                                 <th>Tanggal Tiba</th>
                                                 <th>Jam Tiba</th>
-                                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                <?php if (!$result['verifikasi']) : ?>
                                                     <th>Action</th>
                                                 <?php endif; ?>
                                             </tr>
@@ -155,7 +155,7 @@
                                                     <td><?= date("d, F Y", strtotime($keberangkatans['tgl_bandara_tiba']));  ?>
                                                     </td>
                                                     <td><?= $keberangkatans['jam_tiba'];  ?></td>
-                                                    <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                    <?php if (!$result['verifikasi']) : ?>
                                                         <td>
                                                             <a href="<?= base_url('edit_keberangakatan_paket/' . $keberangkatans['id'] . '/' . $result['id']); ?>" class="btn btn-success" title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_mangkat<?= $keberangkatans['id'] ?>"><i class="fa fa-trash"></i></a>
@@ -169,7 +169,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="contact-tab3">
-                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                <?php if (!$result['verifikasi']) : ?>
                                     <a href="<?= base_url('tambah_hotel_paket/' . $result['id']); ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
@@ -182,7 +182,7 @@
                                                 <th>Tanggal Mulai</th>
                                                 <th>Tanggal Selesai</th>
                                                 <th>Orang Perkamar</th>
-                                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                <?php if (!$result['verifikasi']) : ?>
                                                     <th>Action</th>
                                                 <?php endif; ?>
                                             </tr>
@@ -199,7 +199,7 @@
                                                     <td><?= date("d, F Y", strtotime($hotels['tgl_keluar']));  ?>
                                                     </td>
                                                     <td><?= $hotels['orang_perkamar'];  ?></td>
-                                                    <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                    <?php if (!$result['verifikasi']) : ?>
                                                         <td>
                                                             <a href="<?= base_url('edit_hotel_paket/' . $hotels['id'] . '/'. $result['id']); ?>" class="btn btn-success"  title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_hotel<?= $hotels['id'] ?>"><i class="fa fa-trash"></i></a>
@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
-                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                <?php if (!$result['verifikasi']) : ?>
                                     <a href="<?= base_url('tambah_pulang/'.$result['id']) ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
@@ -229,7 +229,7 @@
                                                 <th>Bandara Tiba</th>
                                                 <th>Tanggal Tiba</th>
                                                 <th>Jam Tiba</th>
-                                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                <?php if (!$result['verifikasi']) : ?>
                                                     <th>Action</th>
                                                 <?php endif; ?>
                                             </tr>
@@ -249,7 +249,7 @@
                                                     <td><?= date("d, F Y", strtotime($kepulangans['tgl_penerbangan_tiba']));  ?>
                                                     </td>
                                                     <td><?= $kepulangans['jam_tiba'];  ?></td>
-                                                    <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                    <?php if (!$result['verifikasi']) : ?>
                                                         <td>
                                                             <a href="<?= base_url('edit_kepulangan_pakets/' . $kepulangans['id'] . '/' . $result['id']); ?>" class="btn btn-success"  title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_kepulangan<?= $kepulangans['id'] ?>"><i class="fa fa-trash"></i></a>
@@ -263,7 +263,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="contact5" role="tabpanel" aria-labelledby="contact-tab4">
-                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                <?php if (!$result['verifikasi']) : ?>
                                     <a href="<?= base_url('tambah_kloter_baru/' . $result['id']); ?>" class="btn btn-primary mb-4" >Tambah</a>
                                 <?php endif; ?>
                                 <div class="table-responsive">
@@ -275,7 +275,7 @@
                                                 <th>Batas Jamaah</th>
                                                 <th>Status</th>
                                                 <th>Dibuat</th>
-                                                <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                <?php if (!$result['verifikasi']) : ?>
                                                     <th>Action</th>
                                                 <?php endif; ?>
                                             </tr>
@@ -289,7 +289,7 @@
                                                     <td><?= $kloters['batas_jamaah'];  ?> Orang</td>
                                                     <td><span class="badge badge-pill badge-primary"><?= $kloters['status'];  ?></span></td>
                                                     <td><?= $kloters['created_at'];  ?></td>
-                                                    <?php if ($result['pemberangkatan'] != "sudah") : ?>
+                                                    <?php if (!$result['verifikasi']) : ?>
                                                         <td>
                                                             <a href="<?= base_url('edit_kloter_baru/' . $kloters['id'] . '/' . $result['id']); ?>" class="btn btn-success"  title="Edit" ><i class="fa fa-pen"></i></a>
                                                             <a href="#" class="btn btn-danger" data-toggle="modal" title="Hapus" data-target="#hapus_kloter<?= $kloters['id'] ?>"><i class="fa fa-trash"></i></a>
@@ -310,7 +310,7 @@
     </section>
 </div>
 
-<?php if ($result['pemberangkatan'] != "sudah") : ?>
+<?php if (!$result['verifikasi']) : ?>
     <?php foreach ($kloter as $kloter_satu) : ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_kloter<?= $kloter_satu['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">

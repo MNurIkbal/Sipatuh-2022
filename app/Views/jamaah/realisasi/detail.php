@@ -209,7 +209,7 @@
                                                             <td><?= $hotels['orang_perkamar'];  ?></td>
                                                             <?php if ($result['selesai'] == null) : ?>
                                                                 <td>
-                                                                    <a href="<?= base_url('edit_hotels/' . $hotels['id'] . '/' . $result['id'] . '/' .  $hotels['id']) ?>" class="btn btn-success"><i class="fa fa-pen"></i></a>
+                                                                    <a href="<?= base_url('edit_hotels/' . $hotels['id'] . '/' . $result['id'] . '/' .  $id_kloter) ?>" class="btn btn-success"><i class="fa fa-pen"></i></a>
                                                                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#hapus_hotel<?= $hotels['id'] ?>"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             <?php endif; ?>
@@ -222,7 +222,7 @@
                                     </div>
                                     <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="contact-tab4">
                                         <?php if ($result['selesai'] == null) : ?>
-                                            <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#add_kepulangan">Tambah</button>
+                                            <a href="<?= base_url('add_pulang/' . $id_kloter . '/' . $result['id'] ); ?>" class="btn btn-primary mb-3" >Tambah</a>
                                         <?php endif; ?>
                                         <div class="table-responsive">
                                             <table class="table table-border table-hover table-striped" id="table-4">
@@ -259,7 +259,7 @@
                                                             <td><?= $kepulangans['jam_berangkat'];  ?></td>
                                                             <?php if ($result['selesai'] == null) : ?>
                                                                 <td>
-                                                                    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#edit_kepulangan<?= $kepulangans['id'] ?>"><i class="fa fa-pen"></i></a>
+                                                                    <a href="<?= base_url('edit_pulang_satu/' . $kepulangans['id'] . '/' . $result['id'] . '/' . $id_kloter); ?>" class="btn btn-success" ><i class="fa fa-pen"></i></a>
                                                                     <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#hapus_kepulangan<?= $kepulangans['id'] ?>"><i class="fa fa-trash"></i></a>
                                                                 </td>
                                                             <?php endif; ?>
@@ -359,94 +359,6 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="edit_kepulangan<?= $kepulangan_row['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_kepulangan_realisasi");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $id_paket  ?>">
-                    <input type="text" class="d-none" name="id_kloter" value="<?= $id_kloter  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $kepulangan_row['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Kepulangan</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Maskapai</label>
-                            <br>
-                            <select style="width: 100% !important;" name="maskapai" class="form-control mas<?= $kepulangan_row['id'] ?>" required id="">
-                                <option value="">Pilih</option>
-                                <?php foreach ($maskapai as $row_one) : ?>
-                                    <option <?= ($row_one['nama_maskapai'] == $kepulangan_row['maskapai']) ? "selected" : "";  ?> value="<?= $row_one['nama_maskapai'];  ?>"><?= $row_one['nama_maskapai'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Nomor Penerbangan</label>
-                            <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor" value="<?= $kepulangan_row['nomor'];  ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Berangkat</label>
-                                    <br>
-                                    <select style="width: 100% !important;" name="bandara_berangkat" class="form-control lam<?= $kepulangan_row['id'] ?>" required id="">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $bandara_satu_tuju) :  ?>
-                                            <option <?= ($bandara_satu_tuju['nama'] == $kepulangan_row['bandara_berangkat']) ? "selected" : ""; ?> value="<?= $bandara_satu_tuju['nama'];  ?>"><?= $bandara_satu_tuju['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_berangkat" value="<?= $kepulangan_row['tgl_berangkat'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_berangkat" value="<?= $kepulangan_row['jam_berangkat'];  ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Bandara Tiba</label>
-                                    <br>
-                                    <select style="width: 100% !important;" name="bandara_tiba" class="form-control baru<?= $kepulangan_row['id'] ?>" required id="">
-                                        <option value="">Pilih</option>
-                                        <?php foreach ($bandara as $bandara_satu_enam) :  ?>
-                                            <option value="<?= $bandara_satu_enam['nama'];  ?>" <?= ($bandara_satu_enam['nama'] == $kepulangan_row['bandara_tiba']) ? "selected" : ""; ?>><?= $bandara_satu_enam['nama'];  ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Tanggal</label>
-                                    <input type="date" class="form-control" required placeholder="" name="tgl_tiba" value="<?= $kepulangan_row['tgl_penerbangan_tiba'];  ?>">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Jam</label>
-                                    <input type="time" class="form-control" required placeholder="" name="jam_tiba" value="<?= $kepulangan_row['jam_tiba'];  ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <script>
-            $(".mas<?= $kepulangan_row['id'] ?>").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            });
-            $(".baru<?= $kepulangan_row['id'] ?>").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            });
-            $(".lam<?= $kepulangan_row['id'] ?>").select2({
-                dropdownParent: $('#edit_kepulangan<?= $kepulangan_row['id'] ?>')
-            });
-        </script>
     <?php endforeach; ?>
     <div class="modal fade" tabindex="-1" role="dialog" id="add_kasus">
         <div class="modal-dialog modal-lg" role="document">
@@ -463,11 +375,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="">Kasus</label>
+                        <label for="">Kasus*</label>
                         <input type="text" class="form-control" required placeholder="Kasus" name="kasus">
                     </div>
                     <div class="mb-3">
-                        <label for="">Keterangan</label>
+                        <label for="">Keterangan*</label>
                         <textarea name="keterangan" class="form-control" required placeholder="Keterangan" id="" cols="30" rows="10"></textarea>
                     </div>
                 </div>
@@ -515,11 +427,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="">Kasus</label>
+                            <label for="">Kasus*</label>
                             <input type="text" class="form-control" required placeholder="Kasus" name="kasus" value="<?= $kasus_dua['kasus'];  ?>">
                         </div>
                         <div class="mb-3">
-                            <label for="">Keterangan</label>
+                            <label for="">Keterangan*</label>
                             <textarea name="keterangan" class="form-control" required placeholder="Keterangan" id="" cols="30" rows="10"><?= $kasus_dua['keterangan'];  ?></textarea>
                         </div>
                     </div>
@@ -531,133 +443,6 @@
             </div>
         </div>
     <?php endforeach; ?>
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_kepulangan">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_kepulangan_realisasi");  ?>" class="modal-content">
-                <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
-                <input type="text" class="d-none" name="id_paket" value="<?= $id_paket  ?>">
-                <input type="text" class="d-none" name="id_kloter" value="<?= $id_kloter  ?>">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Kepulangan</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Maskapai</label>
-                        <br>
-                        <select style="width: 100% !important;" name="maskapai" class="form-control ad_pulang" required id="">
-                            <option value="">Pilih</option>
-                            <?php foreach ($maskapai as $row_one) : ?>
-                                <option value="<?= $row_one['nama_maskapai'];  ?>"><?= $row_one['nama_maskapai'];  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Nomor Penerbangan</label>
-                        <input type="text" class="form-control" required placeholder="Nomor Penerbangan" name="nomor">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Berangkat</label>
-                                <br>
-                                <select style="width: 100% !important;" name="bandara_berangkat" class="form-control ad_pulang" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $bandara_satu_tuju) :  ?>
-                                        <option value="<?= $bandara_satu_tuju['nama'];  ?>"><?= $bandara_satu_tuju['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" name="tgl_berangkat">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_berangkat">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Bandara Tiba</label>
-                                <br>
-                                <select style="width: 100% !important;" name="bandara_tiba" class="form-control ad_pulang" required id="">
-                                    <option value="">Pilih</option>
-                                    <?php foreach ($bandara as $bandara_satu_enam) :  ?>
-                                        <option value="<?= $bandara_satu_enam['nama'];  ?>"><?= $bandara_satu_enam['nama'];  ?></option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Tanggal</label>
-                                <input type="date" class="form-control" required placeholder="" name="tgl_tiba">
-                            </div>
-                            <div class="mb-3">
-                                <label for="">Jam</label>
-                                <input type="time" class="form-control" required placeholder="" name="jam_tiba">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="add_hotel">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" enctype="multipart/form-data" action="<?= base_url("tambah_hotel_realisasi");  ?>" class="modal-content">
-                <input type="text" class="d-none" name="id" value="<?= $result['id'];  ?>">
-                <input type="text" class="d-none" name="id_paket" value="<?= $id_paket;  ?>">
-                <input type="text" class="d-none" name="id_kloter" value="<?= $id_kloter;  ?>">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Hotel</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="">Nama Hotel</label>
-                        <br>
-                        <select style="width: 100% !important;" name="nama_hotel" class="form-control hotel_satu" required id="">
-                            <option value="">Pilih</option>
-                            <?php foreach ($data_hotel as $main_hotel) :  ?>
-                                <option value="<?= $main_hotel['nama'];  ?>"><?= $main_hotel['nama'];  ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="">Orang Perkamar</label>
-                        <input type="text" class="form-control" required placeholder="Orang Perkamar" name="orang">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Tanggal Masuk</label>
-                                <input type="date" class="form-control" required placeholder="" name="masuk">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="">Tanggal Keluar</label>
-                                <input type="date" class="form-control" required placeholder="" name="keluar">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
     <?php foreach ($hotel as $hotel_satu) : ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_hotel<?= $hotel_satu['id'] ?>">
             <div class="modal-dialog modal-lg" role="document">
@@ -681,60 +466,6 @@
                 </form>
             </div>
         </div>
-        <div class="modal fade" tabindex="-1" role="dialog" id="edit_hotel<?= $hotel_satu['id'] ?>">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_hotel_realisasi");  ?>" class="modal-content">
-                    <input type="text" class="d-none" name="id_paket" value="<?= $id_paket;  ?>">
-                    <input type="text" class="d-none" name="id_kloter" value="<?= $id_kloter;  ?>">
-                    <input type="text" class="d-none" name="id" value="<?= $hotel_satu['id'];  ?>">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Edit Hotel</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="">Nama Hotel</label>
-                            <br>
-                            <select style="width: 100% !important;" name="nama_hotel" class="form-control edit_hotel_satu<?= $hotel_satu['id'] ?>" required id="">
-                                <option value="">Pilih</option>
-                                <?php foreach ($data_hotel as $main_hotel) :  ?>
-                                    <option value="<?= $main_hotel['nama'];  ?>" <?= ($main_hotel['nama'] == $hotel_satu['hotel']) ? "selected" : ""; ?>><?= $main_hotel['nama'];  ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="">Orang Perkamar</label>
-                            <input type="text" class="form-control" required placeholder="Orang Perkamar" name="orang" value="<?= $hotel_satu['orang_perkamar'];  ?>">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Tanggal Masuk</label>
-                                    <input type="date" class="form-control" required placeholder="" name="masuk" value="<?= $hotel_satu["tgl_masuk"];  ?>">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="">Tanggal Keluar</label>
-                                    <input type="date" class="form-control" required placeholder="" name="keluar" value="<?= $hotel_satu["tgl_keluar"];  ?>">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <script>
-            $(".edit_hotel_satu<?= $hotel_satu['id'] ?>").select2({
-                dropdownParent: $("#edit_hotel<?= $hotel_satu['id'] ?>")
-            });
-        </script>
     <?php endforeach; ?>
     <?php foreach ($keberangkatan as $main_dua) :  ?>
         <div class="modal fade" tabindex="-1" role="dialog" id="hapus_mangkat<?= $main_dua['id'] ?>">
@@ -789,21 +520,6 @@
 <script>
     $(".select50").select2({
         dropdownParent: $('#exampleModal')
-    });
-    $(".maskapai1").select2({
-        dropdownParent: $('#add_keberangkatan')
-    });
-    $(".maskapai2").select2({
-        dropdownParent: $('#add_keberangkatan')
-    });
-    $(".maskapai3").select2({
-        dropdownParent: $('#add_keberangkatan')
-    });
-    $(".hotel_satu").select2({
-        dropdownParent: $('#add_hotel')
-    });
-    $(".ad_pulang").select2({
-        dropdownParent: $('#add_kepulangan')
     });
     $(document).ready(function() {
         $('#table-2').DataTable();

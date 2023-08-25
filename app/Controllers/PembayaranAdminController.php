@@ -30,7 +30,7 @@ class PembayaranAdminController extends BaseController
         $data_paket_travel = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang',null)->orderBy('id','desc')->findAll(); 
         $data_paket_cabang = $paket->where("travel_id",$travel)->where("status","aktif")->where('cabang','cabang')->orderby('id','desc')->findAll();
         $data_paket = array_merge($data_paket_travel,$data_paket_cabang);
-        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('status_approve','sudah')->where('status_paket_cabang','sudah')->orderby('id','desc')->findAll();
+        $paket_result = $paket->where('status','aktif')->where('pemberangkatan',null)->where('status_approve','sudah')->where('status_paket_cabang','sudah')->where('verifikasi','sudah')->orderby('id','desc')->findAll();
         $data = [
             'bukti' =>  $bukti,
             'title' =>  "Pembayaran",
