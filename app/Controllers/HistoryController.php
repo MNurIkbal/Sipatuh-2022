@@ -198,6 +198,12 @@ class HistoryController extends BaseController
         $profile = new ProfileModel();
         $data_profile = $profile->where("id", $pakets['travel_id'])->first();
         $jamaah = new JamaahModel();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_jamaah = $jamaah->where('id',$id_jamaah)->first();
+        $check_paket = $paket->where('id',$id_paket)->first();
+        if(!$check_paket || !$check_jamaah || !$check_kloter) {
+            return redirect()->to('paket_selesai');
+        }
         $jamaahs = $jamaah->where("paket_id", $id_paket)->where('kloter_id', $id_kloter)->where("status_approve", "sudah")
             ->where("id", $id_jamaah)->first();
 
@@ -231,15 +237,23 @@ class HistoryController extends BaseController
         $rekening = new BankModel();
         $data_bank = new DataBank();
         $jamaah = new JamaahModel();
+        
         $kloter = new KloterModel();
         $bank = new BankModel();
         $bukti = new BuktiModel();
         $result_paket = $paket->where("id", $id_paket)->first();
+        $check_kloter = $kloter->where('id',$id_kloter)->first();
+        $check_jamaah = $jamaah->where('id',$id)->first();
+        if(!$result_paket || !$check_jamaah || !$check_kloter) {
+            return redirect()->to('paket_selesai');
+        }
         $data = [
             'result'    =>  $paket->where("travel_id", session()->get("travel_id"))->where("pemberangkatan", "sudah")->where("status", "aktif")->findAll(),
             'title' =>  "Pembayaran",
             'id_jamaah'    =>  $id,
             'judul' =>  $judul,
+            'jamaah'    =>  $check_jamaah,
+            'rekening_penampung'    =>  $bank->where('id',$result_paket['rekening_penampung_id'])->first(),
             'kloter'  =>  $kloter->where('id', $id_kloter)->first(),
             'id_kloter' =>  $id_kloter,
             'main'    =>  $jamaah->where("id", $id)->first(),
