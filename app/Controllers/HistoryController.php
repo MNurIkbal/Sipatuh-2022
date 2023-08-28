@@ -249,7 +249,7 @@ class HistoryController extends BaseController
         }
         $data = [
             'result'    =>  $paket->where("travel_id", session()->get("travel_id"))->where("pemberangkatan", "sudah")->where("status", "aktif")->findAll(),
-            'title' =>  "Pembayaran",
+            'title' =>  "History",
             'id_jamaah'    =>  $id,
             'judul' =>  $judul,
             'jamaah'    =>  $check_jamaah,

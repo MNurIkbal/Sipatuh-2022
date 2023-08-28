@@ -41,7 +41,7 @@ class LoginController extends BaseController
 
             $hash = password_hash($password, PASSWORD_DEFAULT);
             $db = \Config\Database::connect();
-            $db->query("UPDATE users SET password = '$hash' WHERE email = '$email'");
+            $db->query("UPDATE users SET password = '$hash', token = null WHERE email = '$email'");
 
             return redirect()->to('/masuk')->with('success', 'Password Berhasil Diupdate');
         } catch (\Throwable $th) {
@@ -92,6 +92,7 @@ class LoginController extends BaseController
             $result->setFrom("manasikita.com", "Manasikita");
             $result->setSubject($subjek);
             $result->setMessage($pesan);
+
 
 
             if ($result->send()) {
