@@ -24,7 +24,7 @@ $validation = \Config\Services::validation();
                     <?php endif; ?>
 
                     <div class="card-body">
-                        <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_travel");  ?>" >
+                        <form method="POST" enctype="multipart/form-data" action="<?= base_url("edit_travel");  ?>">
                             <input type="text" class="d-none" value="<?= $users['id'];  ?>" name="id">
                             <div class="modal-bodys">
                                 <div class="row">
@@ -37,7 +37,7 @@ $validation = \Config\Services::validation();
                                                 <div class="mb-3">
                                                     <label for="">Nama Perushaan*</label>
                                                     <br>
-                                                    <select style="width: 100% !important;" name="nama_perusahaan" class="form-control select1000" required id="" >
+                                                    <select style="width: 100% !important;" name="nama_perusahaan" class="form-control select1000" required id="">
                                                         <option value="">Pilih</option>
                                                         <?php foreach ($perusahaan as $main_duat) : ?>
                                                             <option <?= ($main_duat['nama_travel'] == $users['nama_perusahaan']) ? "selected" : "";  ?> value="<?= $main_duat['nama_travel'];  ?>"><?= $main_duat['nama_travel'];  ?></option>
@@ -50,15 +50,15 @@ $validation = \Config\Services::validation();
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">NPWP</label>
-                                                    <input type="text" name="npwp" value="<?= $users['npwp'];  ?>"  class="form-control" placeholder="NPWP">
+                                                    <input type="text" name="npwp" value="<?= $users['npwp'];  ?>" class="form-control" placeholder="NPWP">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">No Sk</label>
-                                                    <input type="text" name="no_sk" value="<?= $users['no_sk'];  ?>"  class="form-control" placeholder="No Sk">
+                                                    <input type="text" name="no_sk" value="<?= $users['no_sk'];  ?>" class="form-control" placeholder="No Sk">
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="">Tanggal Sk</label>
-                                                    <input type="date" name="tgl_sk" value="<?= $users['tgl_sk'];  ?>"  class="form-control" placeholder="Tanggal Sk">
+                                                    <input type="date" name="tgl_sk" value="<?= $users['tgl_sk'];  ?>" class="form-control" placeholder="Tanggal Sk">
                                                 </div>
                                             </div>
                                         </div>
@@ -81,6 +81,34 @@ $validation = \Config\Services::validation();
                                                     <label for="">Email*</label>
                                                     <input type="email" name="email" value="<?= $users['email'];  ?>" required class="form-control" placeholder="Email">
                                                 </div>
+
+                                                <div class="mb-3">
+                                                    <label for="">Provinsi*</label>
+                                                    <select name="provinsi" id="provinsi" class="form-control select1001" required>
+                                                        <option value="">Pilih</option>
+                                                        <?php foreach ($provinsi as $satu) : ?>
+                                                            <option value="<?= $satu->id; ?>" <?= ($satu->name == $users['provinsi']) ? "selected" : ""; ?>> <?= $satu->name; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Kabupaten*</label>
+                                                    <br>
+                                                    <select style="width: 100% !important;" name="kabupaten" id="kabupaten" onchange="daerah_kabupaten()" class="form-control select1001" required>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Kecamatan*</label>
+                                                    <br>
+                                                    <select style="width: 100% !important;" name="kecamatan" id="kecamatan" class="form-control select1001" required>
+
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Alamat*</label>
+                                                    <textarea name="alamat" class="form-control" required placeholder="Alamat" id="" cols="30" rows="10"><?= $users['alamat']; ?></textarea>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -146,7 +174,7 @@ $validation = \Config\Services::validation();
                                 </div>
                             </div>
                             <div class="modal-footers bg-whitesmokes br">
-                                <a href="<?= base_url("users"); ?>" class="btn btn-secondary" >Kembali</a>
+                                <a href="<?= base_url("users"); ?>" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </div>
                         </form>
@@ -166,5 +194,67 @@ $validation = \Config\Services::validation();
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $(".select1000").select2()
+    $(".select1001").select2()
+    const id_kabupaten = "<?= $kab['id'] ?>";
+    const id_kecamatan = "<?= $kec['id'] ?>";
+    console.log(id_kecamatan)
+    $.ajax({
+        url: "<?= base_url('ambil_provinsi') ?>/" + "<?= $id_provinsi['id']  ?>",
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                const selected = (id_kabupaten == kabupaten.id) ? "selected" : "";
+                options += "<option " + selected + " data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+
+            });
+            $("#kabupaten").html(options);
+        }
+    });
+    $("#provinsi").change(function() {
+        let val = $("#provinsi").val()
+        $.ajax({
+            url: "<?= base_url('ambil_provinsi') ?>/" + val,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kabupaten").html(options);
+            }
+        });
+
+    })
+
+    $.ajax({
+        url: "<?= base_url('ambil_kabupaten') ?>/" + "<?= $kab['id']  ?>",
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                const selected = (id_kecamatan == kabupaten.id) ? "selected" : "";
+                options += "<option " + selected + " data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+
+            });
+            $("#kecamatan").html(options);
+        }
+    });
+
+    function daerah_kabupaten() {
+
+        let kab = $("#kabupaten").val()
+        $.ajax({
+            url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kecamatan").html(options);
+            }
+        });
+    }
 </script>
 <?= $this->endSection(); ?>

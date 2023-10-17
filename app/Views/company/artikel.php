@@ -43,7 +43,7 @@
                     <img src="<?= base_url('company/img/' . $rom['img']); ?>" alt="" class="img-fluid">
                 </div>
                 <div class="col-md-6 os">
-                    <h4>Judul</h4>
+                    <h4><?= $rom['title']; ?></h4>
                     <div class="d-flex mb-3 mt-3">
                         <span>
                             <i class="fa-solid fa-location-dot"></i>

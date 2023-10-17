@@ -49,8 +49,10 @@ $routes->get("ambil_kabupaten/(:any)","Home::ambil_kabupaten/$1");
 $routes->get("ambil_kabupaten_edits/(:any)/(:any)","Home::ambil_kabupaten_edits/$1/$2");
 $routes->get("ambil_kecamatan/(:any)","Home::ambil_kecamatan/$1");
 $routes->post('/tambah_jamaah_user', 'Home::tambah_jamaah_user');
-$routes->get('/masuk', 'Home::login');
-$routes->get('/regis', 'Home::regis');
+
+$routes->get('masuk', 'Home::login');
+$routes->get('regis', 'Home::regis');
+
 $routes->post('/daftar', 'Home::daftar');
 $routes->get('/keluar', 'Home::keluar');
 $routes->post('login', 'LoginController::index');

@@ -124,7 +124,7 @@
                                 <h5><?= $video['title']; ?></h5>
                                 <span><?= $video['sub_title']; ?></span>
                                 <br>
-                                <a href="<?= $video['yt']; ?>">Link Youtube</a>
+                                <a href="https://www.youtube.com/embed/<?= $video['yt']; ?>">Link Youtube</a>
                                 <p>
                                     <?= $video['text']; ?>
                                 </p>

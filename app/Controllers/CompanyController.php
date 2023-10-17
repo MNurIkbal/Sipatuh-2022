@@ -290,6 +290,16 @@ class CompanyController extends BaseController
         }
 
         $artikel = $berita->where('travel_id',$result['id'])->orderby('id','desc')->limit(10)->get()->getResult();
+
+        if($newst['lihat'] == 0) {
+            $berita->update($id,[
+                'lihat' =>1
+            ]);
+        } else {
+            $berita->update($id,[
+                'lihat' =>  $newst['lihat'] + 1
+            ]);
+        }
         $data = [
             'title' =>  $result['nama_travel_umrah'],
             'profile'   =>  $result,

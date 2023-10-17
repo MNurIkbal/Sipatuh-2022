@@ -444,14 +444,8 @@ class Home extends BaseController
 
     public function login()
     {
-        $sesi = session()->get('login');
-        if (isset($sesi)) {
-            if (session()->get("level_id") == "user") {
-                return redirect()->to("dashboard_user");
-            } else {
-                return redirect()->to("dashboard");
-            }
-        }
+        
+        
         return view("auth");
     }
 

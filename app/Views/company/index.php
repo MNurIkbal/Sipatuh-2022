@@ -5,24 +5,27 @@
 <!-- Carousel Start -->
 <?php if ($slider) : ?>
     <div class="container-fluid p-0 mb-5">
-        <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <?php foreach ($slider as $slid) : ?>
-                    <div class="carousel-item  <?= ($slid->status == 1) ? 'active' : ''; ?>">
-                        <img class="w-100" src="<?= base_url("assets/upload/$slid->img"); ?>" alt="Image">
-                    </div>
-                <?php endforeach; ?>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+    <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <?php $firstSlide = true; ?>
+            <?php foreach ($slider as $slid) : ?>
+                <div class="carousel-item <?= $firstSlide ? 'active' : ''; ?>">
+                    <img class="w-100" src="<?= base_url("assets/upload/$slid->img"); ?>" alt="Image">
+                </div>
+                <?php $firstSlide = false; ?>
+            <?php endforeach; ?>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
+</div>
+
 <?php endif; ?>
 <div class="container-xxl py-5">
     <div class="container">
@@ -161,7 +164,7 @@
             <div class="modal-body">
                 <!-- 16:9 aspect ratio -->
                 <div class="ratio ratio-16x9">
-                    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/<?= $vidio['yt'] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube.com/embed/<?= $vidio['yt'] ?>" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

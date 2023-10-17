@@ -195,6 +195,7 @@ class BaseCompanyController extends BaseController
             $slider = new SliderCompany();
             $slider->insert([
                 'img'   =>  $img_about_1,
+                'status'   => 1,
                 'created_at'    =>  date("Y-m-d"),
                 'travel_id' =>  session()->get('travel_id')
             ]);

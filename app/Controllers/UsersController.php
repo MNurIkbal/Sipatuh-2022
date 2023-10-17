@@ -67,6 +67,13 @@ class UsersController extends BaseController
         if(!$check) {
             return redirect('users');
         }
+        $id_provinsi = $check['provinsi'];
+        $kabs = $check['kabupaten'];
+        $kab = $db->query("SELECT * FROM regencies WHERE name = '$kabs'")->getRowArray();
+        $kecs = $check['kecamatan'];
+        
+        $kec = $db->query("SELECT * FROM districts WHERE name = '$kecs'")->getRowArray();
+        
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Travel",
@@ -74,8 +81,10 @@ class UsersController extends BaseController
             'petugas'   =>  $petugas_man->findAll(),
             'users'  =>  $travel->where('id',$id)->first(),
             'travel'    =>  $travel->findAll(),
-            // 'validation'    =>  $validation
-            'provinsi'  =>      $db->query("SELECT * FROM provinces")->getResultArray(),
+            'kab'    =>  $kab,
+            'kec'    =>  $kec,
+            'provinsi'  =>      $db->query("SELECT * FROM provinces ORDER BY name ASC")->getResult(),
+            'id_provinsi'   =>  $db->query("SELECT * FROM provinces WHERE name = '$id_provinsi'")->getRowArray(),
         ];
         return view("admin/users/edit",$data);
     }
@@ -526,6 +535,19 @@ class UsersController extends BaseController
         } else {
             $tgl_baru = null;
         }
+        $db      = \Config\Database::connect();
+        $provinsi = $this->request->getVar('provinsi');
+        $kab = $this->request->getVar('kabupaten');
+        $kec = $this->request->getVar('kecamatan');
+        $pisah_kab  = explode("-",$kab);
+        $pisah_kec = explode("-",$kec);
+        $hasil_kab = $pisah_kab[1];
+        $hasil_kec=$pisah_kec[1];
+
+        $db_provinsi = $db->query("SELECT * FROM    provinces WHERE id = '$provinsi'")->getRowArray();
+        
+        $alamat = $this->request->getVar('alamat');
+        
 
         $profile->update($id,[
             'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
@@ -536,6 +558,10 @@ class UsersController extends BaseController
             'no_telp' => $this->request->getVar("no_telp"),
             'no_hp' => $this->request->getVar("no_hp"),
             'email' => $this->request->getVar("email"),
+            'provinsi'  =>  $db_provinsi['name'],
+            'kabupaten' =>  $hasil_kab,
+            'kecamatan' =>  $hasil_kec,
+            'alamat'    =>  $alamat,
             'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
             'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
             'alamat_madinah' => $this->request->getVar("alamat_madinah"),

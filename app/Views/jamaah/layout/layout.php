@@ -120,7 +120,7 @@
               </ul>
             </li>
             <li class="dropdown ">
-              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Profile Perusahaan" || $title == "Update Profile") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-book"></i> <span>Profile Travel</span></a>
+              <a href="#" class="nav-link has-dropdown <?= (isset($title) && $title == "Profile Perusahaan" || $title == "Update Profile") ? "bg-success" : ""; ?> text-white sy"><i class="fa  fa-book"></i> <span>Info Travel</span></a>
               <ul class="dropdown-menu">
                 <li class="<?= (isset($title) && $title == "Profile Perusahaan") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/profile_perusaahaan");  ?>">Profile</a></li>
                 <li class="<?= (isset($title) && $title == "Update Profile") ? "bg-success" : ""; ?>"><a class="nav-link  text-white " href="<?=  base_url("/profil");  ?>">Update Profile</a></li>

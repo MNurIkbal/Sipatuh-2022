@@ -28,7 +28,7 @@ class DpFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         
-        $login = session()->get('login');
+        $login = session('login');
         $id = session()->get('id');
         $level_id = session()->get('level_id');
         $nama = session()->get('nama');
@@ -56,22 +56,7 @@ class DpFilter implements FilterInterface
             $jamaah_id = 1;
         }
         
-        if (
-            !isset($login) ||
-            !isset($id) ||
-            !isset($level_id) ||
-            !isset($nama) || 
-            !isset($nama) ||
-            !isset($username) ||
-            !isset($created_at) ||
-            !isset($updated_at) ||
-            !isset($email)  ||
-            !isset($password) ||
-            !isset($no_hp)  || 
-            !isset($travel_id) || 
-            !isset($cabang_id) || 
-            !isset($jamaah_id)
-        )
+        if (!isset($login) )
 	    {
 	        return redirect()->to("/masuk")->with('error', "Invalid Credential");
 	    }
