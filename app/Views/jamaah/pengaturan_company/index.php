@@ -164,6 +164,9 @@
                 <div class="mb-3">
                     <label for="">Link Youtube</label>
                     <input type="text" class="form-control" name="link" required placeholder="Link Youtube" value="<?= $video['yt']; ?>">
+                    <small>https://www.youtube.com/watch?v= <b><span class="text-danger">tGSf7ZcokYQ</span></b> &ab_channel=UstadzahHalimahAlaydrus</small>
+                    <br>
+                    <small>contoh Copy text yang berwarna merah</small>
                 </div>
                 <div class="mb-3">
                     <label for="">Pesan</label>

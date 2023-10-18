@@ -396,6 +396,8 @@ class UsersController extends BaseController
             'foto_kantor' => $gambar,
             'created_at'    =>  date("Y-m-d"),
             'logo_travel'   =>  $gambar_dua,
+            'longtitude'    =>  $this->request->getvar('long'),
+            'latitude'  =>  $this->request->getVar('lat')
         ]);
 
         $akhir = $profile->orderby('id','desc')->first();
@@ -568,6 +570,8 @@ class UsersController extends BaseController
             'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
             'foto_kantor' => $gambar,
             'logo_travel'   =>  $gambar_dua,
+            'longtitude'    =>  $this->request->getVar('long'),
+            'latitude'    =>  $this->request->getVar('lat')
         ]);
         return redirect()->to("users/" )->with("success","Data Berhasil update");
     }

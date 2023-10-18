@@ -79,6 +79,41 @@
                                                 <label for="">Email*</label>
                                                 <input type="email" name="email" value="<?= $profil['email'];  ?>" required class="form-control" placeholder="Email">
                                             </div>
+                                            <div class="mb-3">
+                                                    <label for="">Longtitude*</label>
+                                                    <input type="text" name="long" required class="form-control" placeholder="Longtitude" value="<?= $profil['longtitude']; ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Latitude*</label>
+                                                    <input type="text" name="lat" required class="form-control" placeholder="Latitude" value="<?= $profil['latitude']; ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Provinsi*</label>
+                                                    <select name="provinsi" id="provinsi" class="form-control select1001" required>
+                                                        <option value="">Pilih</option>
+                                                        <?php foreach ($provinsi as $satu) : ?>
+                                                            <option value="<?= $satu['id']; ?>" <?= ($satu['name'] == $profil['provinsi']) ? "selected" : ""; ?>> <?= $satu['name']; ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Kabupaten*</label>
+                                                    <br>
+                                                    <select style="width: 100% !important;" name="kabupaten" id="kabupaten" onchange="daerah_kabupaten()" class="form-control select1001" required>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Kecamatan*</label>
+                                                    <br>
+                                                    <select style="width: 100% !important;" name="kecamatan" id="kecamatan" class="form-control select1001" required>
+
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Alamat*</label>
+                                                    <textarea name="alamat" class="form-control" required placeholder="Alamat" id="" cols="30" rows="10"><?= $profil['alamat']; ?></textarea>
+                                                </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -169,5 +204,67 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
     $('.select223').select2();
+    $(".select1001").select2()
+    const id_kabupaten = "<?= $kab['id'] ?>";
+    const id_kecamatan = "<?= $kec['id'] ?>";
+    console.log(id_kecamatan)
+    $.ajax({
+        url: "<?= base_url('ambil_provinsi') ?>/" + "<?= $id_provinsi['id']  ?>",
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                const selected = (id_kabupaten == kabupaten.id) ? "selected" : "";
+                options += "<option " + selected + " data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+
+            });
+            $("#kabupaten").html(options);
+        }
+    });
+    $("#provinsi").change(function() {
+        let val = $("#provinsi").val()
+        $.ajax({
+            url: "<?= base_url('ambil_provinsi') ?>/" + val,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kabupaten").html(options);
+            }
+        });
+
+    })
+
+    $.ajax({
+        url: "<?= base_url('ambil_kabupaten') ?>/" + "<?= $kab['id']  ?>",
+        dataType: "json",
+        success: function(data_dua) {
+            var options = "";
+            $.each(data_dua, function(index, kabupaten) {
+                const selected = (id_kecamatan == kabupaten.id) ? "selected" : "";
+                options += "<option " + selected + " data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+
+            });
+            $("#kecamatan").html(options);
+        }
+    });
+
+    function daerah_kabupaten() {
+
+        let kab = $("#kabupaten").val()
+        $.ajax({
+            url: "<?= base_url('ambil_kabupaten') ?>/" + kab,
+            dataType: "json",
+            success: function(data_dua) {
+                var options = "";
+                $.each(data_dua, function(index, kabupaten) {
+                    options += "<option data-kabupaten-id='" + kabupaten.id + "' value='" + kabupaten.id + "-" + kabupaten.nama + "'>" + kabupaten.nama + "</option>";
+                });
+                $("#kecamatan").html(options);
+            }
+        });
+    }
 </script>
 <?= $this->endSection(); ?>

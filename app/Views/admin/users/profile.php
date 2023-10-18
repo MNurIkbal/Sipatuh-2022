@@ -85,6 +85,14 @@ $validation = \Config\Services::validation();
                                                 <input type="text" name="website" required class="form-control" placeholder="Website">
                                             </div>
                                             <div class="mb-3">
+                                                <label for="">Longtitude*</label>
+                                                <input type="text" name="long" required class="form-control" placeholder="Longtitude">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="">Latitude*</label>
+                                                <input type="text" name="lat" required class="form-control" placeholder="Latitude">
+                                            </div>
+                                            <div class="mb-3">
                                                 <label for="">Provinsi*</label>
                                                 <br>
                                                 <select name="provinsi" id="daerah_provinsi" class="form-control select802" style="width: 100% !important;" required>

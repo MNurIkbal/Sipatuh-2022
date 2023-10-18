@@ -81,6 +81,14 @@ $validation = \Config\Services::validation();
                                                     <label for="">Email*</label>
                                                     <input type="email" name="email" value="<?= $users['email'];  ?>" required class="form-control" placeholder="Email">
                                                 </div>
+                                                <div class="mb-3">
+                                                    <label for="">Longtitude*</label>
+                                                    <input type="text" name="long" required class="form-control" placeholder="Longtitude" value="<?= $users['longtitude']; ?>">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="">Latitude*</label>
+                                                    <input type="text" name="lat" required class="form-control" placeholder="Latitude" value="<?= $users['latitude']; ?>">
+                                                </div>
 
                                                 <div class="mb-3">
                                                     <label for="">Provinsi*</label>

@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\CabangModel;
 use App\Models\JamaahModel;
+use App\Models\ProfileModel;
 use App\Models\Users;
 use CodeIgniter\Email\Email;
 
@@ -133,6 +134,11 @@ class LoginController extends BaseController
                     ]);
                     return redirect()->to("/users");
                 } elseif ($data['level_id'] == "jamaah" || $data['level_id'] == "cabang") {
+                    $travel = new ProfileModel();
+                $checks = $travel->where('id',$data['travel_id'])->first();
+                if(!$checks) {
+                    return redirect()->to('masuk')->with('error','Travel Tidak Aktif');
+                }
                     if ($data['level_id'] == "cabang") {
                         $cabang = $data['cabang_id'];
                         $baru = new CabangModel();

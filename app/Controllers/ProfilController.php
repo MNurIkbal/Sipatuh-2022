@@ -22,11 +22,21 @@ class ProfilController extends BaseController
         $db = Database::connect();
         $profil = new ProfileModel();
         $perusahaan = new TravelModel();
+        $rt =  $profil->where("id",session()->get("travel_id"))->first();
+        $id_provinsi = $rt['provinsi'];
+        $kabs = $rt['kabupaten'];
+        $kab = $db->query("SELECT * FROM regencies WHERE name = '$kabs'")->getRowArray();
+        $kecs = $rt['kecamatan'];
+        
+        $kec = $db->query("SELECT * FROM districts WHERE name = '$kecs'")->getRowArray();
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Update Profile",
             'petugas'   =>  $petugas_man->findAll(),
             'db'    =>  $db,
+            'kab'   =>  $kab,
+            'kec'   =>  $kec,
+            'id_provinsi'   =>  $db->query("SELECT * FROM provinces WHERE name = '$id_provinsi'")->getRowArray(),
             'perusahaan'    =>  $perusahaan->orderby('nama_travel','asc')->findAll(),
             'provinsi'  =>  $db->query("SELECT * FROM provinces")->getResultArray(),
             'profil'    =>  $profil->where("id",session()->get("travel_id"))->first(),
@@ -72,50 +82,45 @@ class ProfilController extends BaseController
             } else {
                 $y = null;
             }
-        $profile->update(session()->get("travel_id"),[
-            'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
-            'nama_travel_umrah' => $this->request->getVar("nama_travel"),
-            'npwp' => $this->request->getVar("npwp"),
-            'no_sk' => $this->request->getVar("no_sk"),
-            'tgl_sk' => $y,
-            'tgl_berakhir_sk' => $t,
-            'no_telp' => $this->request->getVar("no_telp"),
-            'no_hp' => $this->request->getVar("no_hp"),
-            'email' => $this->request->getVar("email"),
-            'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
-            'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
-            'alamat_madinah' => $this->request->getVar("alamat_madinah"),
-            'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
-            'foto_kantor' => $gambar,
-            'logo_travel'   =>  $gambar_dua,
-            // 'banner'    =>  $gambar_duaBanner
-        ]);
-        // if($result) {
-        // } else {
-        //     $profile->insert([
-        //         'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
-        //         'nama_travel_umrah' => $this->request->getVar("nama_travel"),
-        //         'npwp' => $this->request->getVar("npwp"),
-        //         'no_sk' => $this->request->getVar("no_sk"),
-        //         'tgl_sk' => $this->request->getVar("tgl_sk"),
-        //         'tgl_berakhir_sk' => $this->request->getVar("akhir_sk"),
-        //         'no_telp' => $this->request->getVar("no_telp"),
-        //         'no_hp' => $this->request->getVar("no_hp"),
-        //         'email' => $this->request->getVar("email"),
-        //         'website' => $this->request->getVar("website"),
-        //         'provinsi' => $this->request->getVar("provinsi"),
-        //         'kabupaten' => $this->request->getVar("kabupaten"),
-        //         'kecamatan' => $this->request->getVar("kecamatan"),
-        //         'alamat' => $this->request->getVar("alamat"),
-        //         'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
-        //         'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
-        //         'alamat_madinah' => $this->request->getVar("alamat_madinah"),
-        //         'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
-        //         'foto_kantor' => $gambar,
-        //         'logo_travel'   =>  $gambar_dua,
-        //         // 'banner'    =>  $gambar_duaBanner
-        //     ]);
-        // }
-        return redirect()->to("profil")->with("success","Data Berhasil update");
+
+            try {
+                $db = \Config\Database::connect();
+                $provinsi = $this->request->getVar('provinsi');
+                $results = $db->query("SELECT * FROM provinces WHERE id = '$provinsi' ORDER BY name ASC")->getRowArray();
+                $kabupaten = $this->request->getVar("kabupaten");
+                $kecamatan = $this->request->getVar('kecamatan');
+                $hasil_kab = explode("-",$kabupaten);
+                $hasil_kec = explode('-',$kecamatan);
+                $result_kab = $hasil_kab[1];
+                $result_kec = $hasil_kec[1];
+                
+            $profile->update(session()->get("travel_id"),[
+                'nama_perusahaan' => $this->request->getVar("nama_perusahaan"),
+                'nama_travel_umrah' => $this->request->getVar("nama_travel"),
+                'npwp' => $this->request->getVar("npwp"),
+                'no_sk' => $this->request->getVar("no_sk"),
+                'tgl_sk' => $y,
+                'tgl_berakhir_sk' => $t,
+                'no_telp' => $this->request->getVar("no_telp"),
+                'no_hp' => $this->request->getVar("no_hp"),
+                'email' => $this->request->getVar("email"),
+                'provinsi'  =>  $results['name'],
+                'kabupaten' =>  $result_kab,
+                'kecamatan' =>  $result_kec,
+                'alamat_mekkah' => $this->request->getVar("alamat_mekkah"),
+                'no_telp_mekkah' => $this->request->getVar("no_telp_mekkah"),
+                'alamat_madinah' => $this->request->getVar("alamat_madinah"),
+                'no_telp_madinah' => $this->request->getVar("no_telp_madinah"),
+                'foto_kantor' => $gambar,
+                'logo_travel'   =>  $gambar_dua,
+                'longtitude'    =>  $this->request->getVar('long'),
+                'latitude'    =>  $this->request->getVar('lat')
+            ]);
+            
+            return redirect()->to("profil")->with("success","Data Berhasil update");
+        } catch (\Throwable $th) {
+                return redirect()->to("profil")->with("error","Data Gagal update");
+                //throw $th;
+            }
     }
 }

@@ -39,7 +39,13 @@ class ProfileModel extends Model
         'updated_at',
         'logo_travel',
         'banner',
-        'aktif_status'
+        'aktif_status',
+        'deskrip',
+        'img_about_1',
+        'img_about_2',
+        'img_about_3',
+        'longtitude',
+        'latitude'
     ];
 
     // Dates

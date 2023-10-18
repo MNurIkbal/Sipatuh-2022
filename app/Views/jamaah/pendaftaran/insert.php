@@ -32,6 +32,7 @@
                                             <select name="title" class="form-control select2" required id="">
                                                 <option value="">Pilih</option>
                                                 <option value="Tuan">Tuan</option>
+                                                <option value="Nona">Nona</option>
                                                 <option value="Nyonya">Nyoya</option>
                                             </select>
                                         </div>
@@ -46,10 +47,19 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
+                                            <label for="">Jenis Identitas*</label>
+                                            <select name="jenis_identitas" class="form-control select2" required  id="">
+                                                <option value="">Pilih</option>
+                                                <option value="NIK">NIK</option>
+                                                <option value="KITAS">KITAS</option>
+                                                <option value="KITAP">KITAP</option>
+                                                <option value="PASSPORT">PASSPORT</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
                                             <label for="">Nama Ayah*</label>
                                             <input type="text" class="form-control" required placeholder="Nama Ayah" name="ayah">
                                         </div>
-                                        <input type="hidden" name="jenis_identitas" value="nik" required>
                                         <div class="mb-3">
                                             <label for="">No Identitas*</label>
                                             <input type="text" class="form-control " name="no_identitas" required placeholder="No Identitas">
@@ -122,8 +132,9 @@
                                             <label for="">Status Pernikahan*</label>
                                             <select name="nikah" class="form-control select2" required id="">
                                                 <option value="">Pilih</option>
-                                                <option value="sudah nikah">sudah nikah</option>
-                                                <option value="belum nikah">belum nikah</option>
+                                                <option value="sudah nikah">Sudah Nikah</option>
+                                                <option value="belum nikah">Belum Nikah</option>
+                                                <option value="duda/janda">Duda / Janda</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
@@ -131,11 +142,16 @@
                                             <select name="jenis_pendidikan" class="form-control select2" required id="">
                                                 <option value="">Pilih</option>
                                                 <option value="tidak sekolah">Tidak Sekolah</option>
-                                                <option value="SD">SD</option>
-                                                <option value="SMP">SMP</option>
-                                                <option value="SMA/SMK">SMA/SMK</option>
-                                                <option value="PERGURUAN TINGGI">PERGURUAN TINGGI</option>
-                                                <option value="lainnya">lainnya</option>
+                                                <option value="SD">SD/MI</option>
+                                                <option value="SMP">SMP/MTS</option>
+                                                <option value="SMA/SMK">SMA/SMK/MA</option>
+                                                <option value="D1">D1</option>
+                                                <option value="D2">D2</option>
+                                                <option value="D3">D3</option>
+                                                <option value="D4/S1">D4/S1</option>
+                                                <option value="S2">S2</option>
+                                                <option value="S3">S3</option>
+                                                
                                             </select>
                                         </div>
                                         <div class="mb-3">
@@ -150,12 +166,26 @@
                                                 <option value="polisi">Polisi</option>
                                                 <option value="pns">PNS</option>
                                                 <option value="pengusaha">Pengusahan</option>
+                                                <option value="pegawai_swasta">Pegawai Swasta</option>
+                                                <option value="tni">TNI</option>
                                                 <option value="lainnya">lainnya</option>
                                             </select>
                                         </div>
                                         <div class="mb-3">
                                             <label for="">No Paspor</label>
                                             <input type="text" class="form-control" placeholder="No Paspor" name="no_paspor">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Tanggal Terbit Passport</label>
+                                            <input type="date" class="form-control" placeholder="Tanggal Terbit Passport" name="tgl_passport">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Kota Paspor</label>
+                                            <input type="text" class="form-control" placeholder="Kota Passport" name="kota_passport">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="">Nomor BPJS</label>
+                                            <input type="text" class="form-control" placeholder="Nomor BPJS" name="bpjs">
                                         </div>
                                     </div>
                                 </div>

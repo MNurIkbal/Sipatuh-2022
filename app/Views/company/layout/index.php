@@ -117,7 +117,9 @@
                     </div>
                     <div class="col-md-6 col-lg-3">
                         <h6 class="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?= $profile['alamat'] . ',' . $profile['kabupaten'] ?></p>
+                        <a target="_blank" href="https://www.google.com/maps?q=<?= $profile['longtitude'] . ',' . $profile['latitude'] ?>" class="text-white">
+                            <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i><?= $profile['alamat'] . ',' . $profile['kabupaten'] ?></p>
+                        </a>
                         <p class="mb-2"><i class="fa fa-phone-alt me-3"></i><?= $profile['no_telp']; ?></p>
                         <p class="mb-2"><i class="fa fa-envelope me-3"></i><?= $profile['email']; ?></p>
                         <div class="d-flex pt-2">

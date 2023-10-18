@@ -109,7 +109,7 @@
                                                 <?= $row['nama'];  ?>
                                             </td>
                                             <td>
-                                                <span>NIK : <?= $row['no_identitas'];  ?></span>
+                                                <span><?= $row['jenis_identitas']; ?> : <?= $row['no_identitas'];  ?></span>
                                                 <br>
                                                 <span>No Hp : <?= $row['no_hp'];  ?></span>
                                             </td>

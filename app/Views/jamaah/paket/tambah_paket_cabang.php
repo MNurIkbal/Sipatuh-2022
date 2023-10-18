@@ -101,7 +101,7 @@
                                             </select>
                                         </div>
                                         <div class="mb-3">
-                                            <label for="">Tour Leader*</label>
+                                            <label for="">Pegutas*</label>
 
                                             <select name="leader" class="form-control select23" style="width: 100% !important;" required id="">
                                                 <option value="">Pilih</option>

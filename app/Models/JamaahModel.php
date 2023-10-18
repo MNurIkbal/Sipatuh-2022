@@ -75,7 +75,10 @@ class JamaahModel extends Model
         'user_id',
         'expired_bayar_dp',
         'no_kursi',
-        'tgl_lunas'
+        'tgl_lunas',
+        'tgl_terbit_passport',
+        'kota_passport',
+        'nomor_bpjs'
     ];
 
     // Dates

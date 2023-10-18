@@ -548,7 +548,7 @@ class PendaftaranController extends BaseController
             ")->getResult();
         $counts = $db->query("SELECT * FROM jamaah WHERE paket_id = '$id' AND kloter_id = '$id_kloter'")->getResult();
         $data = [
-            'title' =>  "Pendaftaran",
+            'title' =>  "Pendaftaran Paket",
             'main'  =>  $jamaah->where('id', $ids)->first(),
             'kloter'   =>   $kloter->where("id", $id_kloter)->first(),
             'result'    => $jamaah->where([
@@ -670,6 +670,9 @@ class PendaftaranController extends BaseController
             'no_pasti_umrah'    =>  "URM"  . date("Y") . date("m") . rand(1111, 999999999999),
             'no_registrasi' => date("Y") . date("m") .  $kode_paket . rand(1111, 99999999999),
             'kloter_id' =>  $this->request->getVar("id_kloter"),
+            'tgl_terbit_passport'   =>  $this->request->getvar('tgl_passport'),
+            'kota_passport'   =>  $this->request->getvar('kota_passport'),
+            'nomor_bpjs'   =>  $this->request->getvar('bpjs'),
         ]);
         $dataBerkas->move('assets/upload/', $fileName);
         $kloter = new KloterModel();
@@ -867,6 +870,9 @@ class PendaftaranController extends BaseController
                 'jenis_pekerjaan' =>  $this->request->getVar("jenis_pekerjaan"),
                 'no_paspor' =>  $this->request->getVar("no_paspor"),
                 'no_identitas' =>  $this->request->getVar("no_identitas"),
+                'tgl_terbit_passport'   =>  $this->request->getVar('tgl_passport'),
+                'kota_passport'   =>  $this->request->getVar('tgl_passport'),
+                'nomor_bpjs'   =>  $this->request->getVar('bpjs')
             ]);
     
     

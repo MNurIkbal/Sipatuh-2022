@@ -70,6 +70,9 @@
                                 <li class="list-group-item">Tanggal Akhir Visa : <?= $main['tgl_akhir_visa'];  ?></li>
                                 <li class="list-group-item">Muassasah : <?= $main['muassasah'];  ?></li>
                                 <li class="list-group-item">No Registrasi : <?= $main['no_registrasi'];  ?></li>
+                                <li class="list-group-item">Tanggal Terbit Passport : <?= $main['tgl_terbit_passport'];  ?></li>
+                                <li class="list-group-item">Kota Passport : <?= $main['kota_passport'];  ?></li>
+                                <li class="list-group-item">Nomor BPJS : <?= $main['nomor_bpjs'];  ?></li>
                                 <?php
                                 $biodata = new App\Models\BioDataModel();
                                 $result_bio = $biodata->where("user_id", $main['user_id'])->first();
