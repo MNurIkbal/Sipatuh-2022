@@ -83,6 +83,9 @@
                     <li class="list-group-item">Asuransi : <?=  $jamaah['asuransi'];  ?></li>
                     <li class="list-group-item">No Paspor : <?=  $jamaah['no_paspor'];  ?></li>
                     <li class="list-group-item">No Identitas : <?=  $jamaah['no_identitas'];  ?></li>
+                    <li class="list-group-item">Tanggal Terbit Passport : <?=  $jamaah['tgl_terbit_passport'];  ?></li>
+                    <li class="list-group-item">Kota Passport : <?=  $jamaah['kota_passport'];  ?></li>
+                    <li class="list-group-item">Nomor BPJS : <?=  $jamaah['nomor_bpjs'];  ?></li>
                   </ul>
                   <?php else: ?>
                     <ul class="list-group">

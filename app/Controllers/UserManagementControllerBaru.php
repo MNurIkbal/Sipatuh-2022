@@ -1119,7 +1119,10 @@ class UserManagementControllerBaru extends BaseController
                 'file_kk'   =>  $data_kk,
                 'file_visa' =>  $data_visa,
                 'file_asuransi' =>  $data_asuransi,
-                'file_provider' =>  $data_provider
+                'file_provider' =>  $data_provider,
+                'tgl_terbit_passport'   =>  $this->request->getvar('tgl_passport'),
+                'kota_passport' =>  $this->request->getvar('kota_passport'),
+                'nomor_bpjs'    =>  $this->request->getvar('bpjs')
             ]);
             return redirect()->to("dashboard_user")->with('success', "Data Berhasil Ditambahkan");
         } catch (\Throwable $th) {

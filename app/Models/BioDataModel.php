@@ -56,7 +56,10 @@ class BioDataModel extends Model
         'file_sertifikat_vaksin',
         'file_visa',
         'file_asuransi',
-        'file_provider'
+        'file_provider',
+        'tgl_terbit_passport',
+        'kota_passport',
+        'nomor_bpjs'
     ];
 
 

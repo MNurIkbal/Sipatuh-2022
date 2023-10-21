@@ -155,6 +155,7 @@
                         <select name="title" class="form-control select2" required id="">
                           <option value="">Pilih</option>
                           <option value="Tuan" <?= ($biodata['title'] == "Tuan") ? "selected" : ""; ?>>Tuan</option>
+                          <option value="Nona" <?= ($biodata['title'] == "Nona") ? "selected" : ""; ?>>Nona</option>
                           <option value="Nyonya" <?= ($biodata['title'] == "Nyonya") ? "selected" : ""; ?>>Nyoya</option>
                         </select>
                       </div>
@@ -214,6 +215,7 @@
                         <option value="">Pilih</option>
                         <option value="sudah nikah" <?= ($biodata['status_pernikahan'] == "sudah nikah") ? "selected" : ""; ?>>sudah nikah</option>
                         <option value="belum nikah" <?= ($biodata['status_pernikahan'] == "belum nikah") ? "selected" : ""; ?>>belum nikah</option>
+                        <option value="duda/janda" <?= ($biodata['status_pernikahan'] == "duda/janda") ? "selected" : ""; ?>>duda/janda</option>
                       </select>
                     </div>
                     <div class="mb-3">
@@ -221,18 +223,22 @@
                       <select name="jenis_pendidikan" class="form-control select2" required id="">
                         <option value="">Pilih</option>
                         <option value="tidak sekolah" <?= ($biodata['jenis_pendidikan'] == "tidak sekolah") ? "selected" : ""; ?>>Tidak Sekolah</option>
-                        <option value="SD"  <?= ($biodata['jenis_pendidikan'] == "SD") ? "selected" : ""; ?>>SD</option>
-                        <option value="SMP"  <?= ($biodata['jenis_pendidikan'] == "SMP") ? "selected" : ""; ?>>SMP</option>
-                        <option value="SMA/SMK"  <?= ($biodata['jenis_pendidikan'] == "SMA/SMK") ? "selected" : ""; ?>>SMA/SMK</option>
-                        <option value="PERGURUAN TINGGI"  <?= ($biodata['jenis_pendidikan'] == "PERGURUAN TINGGI") ? "selected" : ""; ?>>PERGURUAN TINGGI</option>
-                        <option value="lainnya"  <?= ($biodata['jenis_pendidikan'] == "lainnya") ? "selected" : ""; ?>>lainnya</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "SD") ? "selected" : ""; ?> value="SD">SD/MI</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "SMP") ? "selected" : ""; ?> value="SMP">SMP/MTS</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "SMA/SMK") ? "selected" : ""; ?> value="SMA/SMK">SMA/SMK/MA</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "D1") ? "selected" : ""; ?> value="D1">D1</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "D2") ? "selected" : ""; ?> value="D2">D2</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "D3") ? "selected" : ""; ?> value="D3">D3</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "D4/S1") ? "selected" : ""; ?> value="D4/S1">D4/S1</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "S2") ? "selected" : ""; ?> value="S2">S2</option>
+                                                <option <?= ($biodata['jenis_pendidikan'] == "S3") ? "selected" : ""; ?> value="S3">S3</option>
                       </select>
                     </div>
                     <div class="mb-3">
                       <label for="">Jenis Pekerjaan*</label>
                       <select name="jenis_pekerjaan" class="form-control select2" required id="">
                         <option value="">Pilih</option>
-                        <option value="tidak bekerja" <?= ($biodata['jenis_pekerjaan'] == "tidak bekerja") ? "selected" : ""; ?>>Tidak Bekerja</option>
+                        <!-- <option value="tidak bekerja" <?= ($biodata['jenis_pekerjaan'] == "tidak bekerja") ? "selected" : ""; ?>>Tidak Bekerja</option>
                         <option value="guru" <?= ($biodata['jenis_pekerjaan'] == "guru") ? "selected" : ""; ?>>Guru</option>
                         <option value="nelayan"  <?= ($biodata['jenis_pekerjaan'] == "nelayan") ? "selected" : ""; ?>>Nelayan</option>
                         <option value="petani"  <?= ($biodata['jenis_pekerjaan'] == "petani") ? "selected" : ""; ?>>Petani</option>
@@ -240,7 +246,18 @@
                         <option value="polisi"  <?= ($biodata['jenis_pekerjaan'] == "polisi") ? "selected" : ""; ?>>Polisi</option>
                         <option value="pns"  <?= ($biodata['jenis_pekerjaan'] == "pns") ? "selected" : ""; ?>>PNS</option>
                         <option value="pengusaha"  <?= ($biodata['jenis_pekerjaan'] == "pengusaha") ? "selected" : ""; ?>>Pengusahan</option>
-                        <option value="lainnya"  <?= ($biodata['jenis_pekerjaan'] == "lainnya") ? "selected" : ""; ?>>lainnya</option>
+                        <option value="lainnya"  <?= ($biodata['jenis_pekerjaan'] == "lainnya") ? "selected" : ""; ?>>lainnya</option> -->
+                        <option value="tidak bekerja" <?= ($biodata['jenis_pekerjaan'] == "tidak bekerja") ? "selected" : ""; ?>>Tidak Bekerja</option>
+                        <option value="guru"  <?= ($biodata['jenis_pekerjaan'] == "guru") ? "selected" : ""; ?>>Guru</option>
+                        <option value="nelayan"  <?= ($biodata['jenis_pekerjaan'] == "nelayan ") ? "selected" : ""; ?>>Nelayan</option>
+                        <option value="petani">Petani</option>
+                        <option value="buruh">Buruh</option>
+                        <option value="polisi">Polisi</option>
+                        <option value="pns">PNS</option>
+                        <option value="pengusaha">Pengusahan</option>
+                        <option value="pegawai_swasta">Pegawai Swasta</option>
+                        <option value="tni">TNI</option>
+                        <option value="lainnya">lainnya</option>
                       </select>
                     </div>
                     <div class="mb-3">

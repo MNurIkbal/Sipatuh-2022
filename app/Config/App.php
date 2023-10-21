@@ -27,7 +27,6 @@ class App extends BaseConfig
     public $baseURL = 'http://localhost:8080/';
     public $paginate = true;
 
-
     /**
      * --------------------------------------------------------------------------
      * Index File
@@ -72,6 +71,7 @@ class App extends BaseConfig
      *
      * @var string
      */
+
     public $defaultLocale = 'id';
 
     /**
@@ -238,6 +238,7 @@ class App extends BaseConfig
      * @var bool
      */
     public $sessionRegenerateDestroy = false;
+    public array $allowedHostnames = [];
 
     /**
      * --------------------------------------------------------------------------

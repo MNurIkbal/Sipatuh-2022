@@ -12,6 +12,10 @@ use App\Models\PaketModel;
 use App\Models\PetugasManModel;
 use App\Models\ProfileModel;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
+
+
 class RekeningPenampungController extends BaseController
 {
     public function index()
@@ -101,6 +105,15 @@ class RekeningPenampungController extends BaseController
             return redirect()->to('pendaftaran');
         }
         $result_paket = $paket->where("id",$id_paket)->first();
+
+        
+
+        // Set data untuk QR code
+        $nominals = $check_jamaah['nominal_pembayaran'];
+        $data = 'Halo, CodeIgniter 4!';
+
+        // Hasilkan QR code dan tampilkan
+        return QrCode::size(300)->generate($data);
         $data = [
             'result'    =>  $paket->where("travel_id",session()->get("travel_id"))->where("pemberangkatan","sudah")->where("status","aktif")->findAll(),
             'title' =>  "Pembayaran",
@@ -118,9 +131,10 @@ class RekeningPenampungController extends BaseController
             'jamaah'    =>  $jamaah->where('id',$id)->first(),
             'rekening_penampung'    =>  $bank->where('id',$check_paket['rekening_penampung_id'])->first(),
             'profile'   =>  $profil->where('id',$check_paket['travel_id'])->first(),
+            // 'qr'    =>  $re_hasil,
         ];
         
-        return view("jamaah/pendaftaran/cetak_history",$data);
+        // return view("jamaah/pendaftaran/cetak_history",$data);
     }
 
     public function cetak_prints($id,$id_paket,$id_kloter,$id_bayar)

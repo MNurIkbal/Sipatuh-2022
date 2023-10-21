@@ -133,6 +133,7 @@
                         </tr>
             </tbody>
         </table>
+        <!-- <img src="" alt="" srcset=""> -->
     </div>
     <script>
         window.print();
